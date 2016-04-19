@@ -1,15 +1,16 @@
-#ifndef APPLICATION_MANAGER_H
-#define APPLICATION_MANAGER_H
-
+//#ifndef APPLICATION_MANAGER_H
+//#define APPLICATION_MANAGER_H
+#pragma once
 #include "Defs.h"
 #include "GUI\Output.h"
 #include "GUI\Input.h"
 #include "Actions\Action.h"
 #include "Components\Component.h"
+class Component;
 
 //Main class that manages everything in the application.
 class ApplicationManager
-{
+{				 //Component  
 
 	enum { MaxCompCount = 200 };	//Max no of Components	
 
@@ -46,4 +47,4 @@ public:
 	~ApplicationManager();
 };
 
-#endif
+//#endif
