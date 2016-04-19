@@ -11,7 +11,8 @@ int main()
 	ActionType ActType;
 	//Create an object of ApplicationManager
 	ApplicationManager AppManager;
-	//coment
+	//
+	//awa7ed tany
 	do
 	{		
 		//Read user action
