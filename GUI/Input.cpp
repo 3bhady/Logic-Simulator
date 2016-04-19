@@ -22,6 +22,11 @@ string Input::GetSrting(Output *pOut)
 	return NULL;
 }
 
+void Input::GetMouseCoord( int & x , int & y )
+{
+	pWind->GetMouseCoord( x , y );
+}
+
 //This function reads the position where the user clicks to determine the desired action
 ActionType Input::GetUserAction() const
 {	
@@ -64,6 +69,7 @@ ActionType Input::GetUserAction() const
 	}
 
 }
+
 
 
 Input::~Input()

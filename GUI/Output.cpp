@@ -109,6 +109,39 @@ void Output::CreateDesignToolBar() const
 	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	
 
 }
+void Output::MouseHovering( )const
+{
+	if ( UI.ToolBarHidden ) return;
+	string z1 = "images\\AA\\";
+	string z2 = ".jpg";
+	image i;
+	//pWind->StoreImage( i , 0 , 0 , UI.width , UI.height );
+
+	int x , y;
+	pWind->GetMouseCoord( x , y );
+	if ( y >= 0 && y < UI.ToolBarHeight&&x <= UI.ToolItemWidth * 17 )
+	{
+		string num = "" , s = "";
+		stringstream ss;
+		int ClickedItemOrder = (x / UI.ToolItemWidth);
+		ss << ClickedItemOrder;
+		ss >> num;
+		s = z1 + num + num + z2;
+		if ( ClickedItemOrder < 17 )
+		{
+			pWind->DrawImage( s , 0 , 0 );
+			PrintMsg( "add " + ss.str( ) );
+		}
+
+	}
+	else {
+		pWind->DrawImage( "images\\Menu\\Toolbar1.jpg" , 0 , 0 );
+		pWind->DrawImage( "images\\Menu\\Toolbar2.jpg" , 0 , 66 );
+		PrintMsg( "" );
+	}
+
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the simulation mode
 void Output::CreateSimulationToolBar() const

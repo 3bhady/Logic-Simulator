@@ -1,6 +1,8 @@
 #pragma once
 #include "..\Defs.h"
 #include "Input.h"
+#include "..\ApplicationManager.h"
+#include <sstream>
 
 class Output	//The application manager should have a pointer to this class
 {
@@ -14,6 +16,8 @@ public:
 	void CreateDesignToolBar() const;	//Tool bar of the design mode
 	void CreateSimulationToolBar() const;//Tool bar of the simulation mode
 	void CreateStatusBar() const;	//Create Status bar
+
+	void MouseHovering( )const;
 
 	void ClearStatusBar() const;		//Clears the status bar
 	void ClearDrawingArea() const;	//Clears the drawing area
