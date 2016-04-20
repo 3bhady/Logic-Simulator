@@ -25,7 +25,7 @@ int main()
 	{
 		//Read user act.
 		ActType = AppManager.GetUserAction();
-		// bagaraaaab
+		// bagaraaaab int x=5;
 
 		//Exexute the action
 		AppManager.ExecuteAction(ActType);
