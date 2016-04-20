@@ -22,19 +22,20 @@ int main()
 		}
 	}
 	do
-	{		
-		//Read user action
+	{
+		//Read user act.
 		ActType = AppManager.GetUserAction();
+		// bagaraaaab
 
 		//Exexute the action
 		AppManager.ExecuteAction(ActType);
 
 		//Update the drawing window
 		AppManager.UpdateInterface();
-	
+
 
 	}while(ActType != EXIT);
-		
+
 	return 0;
 }
 
