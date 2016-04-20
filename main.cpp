@@ -35,6 +35,10 @@ int main()
 		//Update the drawing window
 		AppManager.UpdateInterface();
 
+		//commentat kteer el fatra el gaya 
+		// 
+		// ana //mesh
+		//3arfny
 
 	}while(ActType != EXIT);
 
