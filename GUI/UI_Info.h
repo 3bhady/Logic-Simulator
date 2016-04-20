@@ -30,8 +30,8 @@ static const int	width = 1360, height = 700,	//Window width and height
 
 	//This should be calculated accurately because it will be used later to create connections between gates
 	//For now, we will assume that rect width = 50 and height = 50
-	static const int	AND2_Width = 50,		//AND2 Gate Image default width
-						AND2_Height = 50;		//AND2 Gate Image default height
+	static const int	AND2_Width = 75,		//AND2 Gate Image default width
+						AND2_Height = 60;		//AND2 Gate Image default height
 	
 }UI;	//create a single global object UI
 

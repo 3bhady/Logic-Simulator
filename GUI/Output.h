@@ -17,6 +17,8 @@ public:
 	void CreateSimulationToolBar() const;//Tool bar of the simulation mode
 	void CreateStatusBar() const;	//Create Status bar
 
+	window* GetPwind()const;
+
 	void MouseHovering( )const;
 
 	void ClearStatusBar() const;		//Clears the status bar
