@@ -9,7 +9,7 @@ int main()
 {
 
 	ActionType ActType;
-
+	//test
 	//Create an object of ApplicationManager
 	ApplicationManager AppManager;
 	window* Pwind = AppManager.GetOutput()->GetPwind();
@@ -22,7 +22,7 @@ int main()
 		}
 	}
 	do
-	{		
+	{
 		//Read user action
 		ActType = AppManager.GetUserAction();
 
@@ -31,10 +31,10 @@ int main()
 
 		//Update the drawing window
 		AppManager.UpdateInterface();
-	
+
 
 	}while(ActType != EXIT);
-		
+
 	return 0;
 }
 
