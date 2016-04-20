@@ -28,6 +28,8 @@ int main()
 
 
 		//Execute the action
+
+
 		AppManager.ExecuteAction(ActType);
 
 		//Update the drawing window
