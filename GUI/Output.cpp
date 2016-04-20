@@ -172,7 +172,6 @@ void Output::DrawAND2(GraphicsInfo r_GfxInfo, bool selected) const
 		//Getting mouse coordiantes
 		int x, y;
 		pWind->GetMouseCoord(x, y);
-		/*
 		//Getting top left corner of the gate
 		double a, b;
 		a = x - (double(UI.AND2_Width) / 2);
@@ -190,11 +189,10 @@ void Output::DrawAND2(GraphicsInfo r_GfxInfo, bool selected) const
 			y = (15 * (int(b) / 15));
 		}
 		else y = (15 * ((int(b) / 15) + 1));
-		*/
-		pWind->DrawImage("Images\\Gates\\afr.jpg", x-30,y-15, 60, 30);
+		//pWind->DrawImage("Images\\Gates\\afr.jpg", x-30,y-15, 60, 30);
 		//pWind->DrawImage("Images\\Gates\\LLL.jpg", x + 22.5, y + 22.5, 45, 45);
-		//pWind->DrawImage("Images\\Gates\\qqq.jpg", 153, 22, UI.AND2_Width, UI.AND2_Height);
-		//pWind->DrawImage("Images\\Gates\\qq2.jpg", 903, 167, UI.AND2_Width, UI.AND2_Height);
+		pWind->DrawImage("Images\\Gates\\NAND3.jpg", x, y, UI.AND2_Width, UI.AND2_Height);
+		pWind->DrawImage("Images\\Gates\\NOR2.jpg", x+90, y+90, UI.AND2_Width, UI.AND2_Height);
 		//pWind->DrawImage("Images\\Gates\\qqq2.jpg", 758, 577, UI.AND2_Width, UI.AND2_Height);
 		//GateImage = "Images\\Gates\\qq.jpg";
 	}
