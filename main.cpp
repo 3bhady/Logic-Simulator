@@ -26,7 +26,6 @@ int main()
 		//Read user action
 		ActType = AppManager.GetUserAction();
 
-//notes after merging
 		//Execute the action
 
 
