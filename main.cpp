@@ -23,11 +23,11 @@ int main()
 	}
 	do
 	{
-		//Read user act.
+		//Read user action
 		ActType = AppManager.GetUserAction();
-		// bagaraaaab int x=5;
 
-		//Exexute the action
+
+		//Execute the action
 		AppManager.ExecuteAction(ActType);
 
 		//Update the drawing window
