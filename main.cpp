@@ -26,7 +26,10 @@ int main()
 		//Read user action
 		ActType = AppManager.GetUserAction();
 
-		//Exexute the action
+//notes after merging
+		//Execute the action
+
+
 		AppManager.ExecuteAction(ActType);
 
 		//Update the drawing window
