@@ -24,9 +24,6 @@ private:
 	Input* InputInterface; //pointer to the Input Clase Interface
 
 
-public:
-	
-
 public:	
 	ApplicationManager(); //constructor
 

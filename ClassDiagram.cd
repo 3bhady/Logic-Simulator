@@ -29,11 +29,11 @@
       <Field Name="pManager" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="AddANDgate2" Collapsed="true">
+  <Class Name="ADD_GATE" Collapsed="true">
     <Position X="6.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AECIAAAAAAAARAQAAAAAAAQBAwAAAACAAQAAAAAAAAA=</HashCode>
-      <FileName>AddANDgate2.h</FileName>
+      <FileName>ADD_GATE.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ApplicationManager" Collapsed="true">

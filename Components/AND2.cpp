@@ -22,7 +22,7 @@ void AND2::Operate()
 void AND2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawAND2(m_GfxInfo);
+	pOut->DrawGate(m_GfxInfo,ITM_AND2);
 }
 
 //returns status of outputpin

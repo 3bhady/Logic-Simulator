@@ -3,6 +3,8 @@
 #include "Input.h"
 #include "..\ApplicationManager.h"
 #include <sstream>
+#include <stdlib.h>
+#include <time.h> 
 
 class Output	//The application manager should have a pointer to this class
 {
@@ -26,9 +28,16 @@ public:
 
 	window* CreateWind(int wd, int h, int x, int y) const; //Creates user interface window
 
+	void Magnetize(int &x,int &y);
 	
 	// Draws 2-input AND gate
 	void DrawAND2(GraphicsInfo r_GfxInfo, bool selected = false) const;
+
+
+	void DrawGate(GraphicsInfo r_GfxInfo, DsgnMenuItem gate,bool selected = false);
+	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected = false);
+	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected = false, MODE mode = DESIGN);
+	void DrawEditMenu(int x, int y,int selectedItem)const;
 
 	///TODO: Make similar functions for drawing all other gates, switch, and LED, .. etc
 
