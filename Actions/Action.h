@@ -2,7 +2,7 @@
 #define _ACTION_H
 
 class ApplicationManager; //forward class declaration
-
+#include "..\ApplicationManager.h"
 
 //Base class for all possible actions (abstract class)
 class Action
@@ -13,10 +13,10 @@ public:
 	Action(ApplicationManager *pApp) { pManager = pApp; }	//constructor
 	
 	//Reads parameters required for action to execute
-	virtual void ReadActionParameters()=0;
+	virtual void ReadActionParameters(string s) = 0;
 	
 	//Execute action (code depends on action type)
-	virtual void Execute()=0;
+	virtual void Execute(ActionType ActType) = 0;
 
 	//To undo this action (code depends on action type)
 	virtual void Undo()=0;

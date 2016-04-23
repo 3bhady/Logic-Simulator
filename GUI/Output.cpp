@@ -121,8 +121,8 @@ void Output::CreateDesignToolBar() const
 	//TODO: Prepare image for each menu item and add it to the list
 
 	//Draw menu item one image at a time
-	for(int i=0; i<ITM_DSN_CNT; i++)
-		pWind->DrawImage(MenuItemImages[i],i*UI.ToolBarItemWidth,0,UI.ToolBarItemWidth, UI.ToolBarHeight);
+//	for(int i=0; i<ITM_DSN_CNT; i++)
+	//	pWind->DrawImage(MenuItemImages[i],i*UI.ToolBarItemWidth,0,UI.ToolBarItemWidth, UI.ToolBarHeight);
 
 
 	//Draw a line under the toolbar
@@ -174,7 +174,6 @@ void Output::CreateSimulationToolBar() const
 	UI.AppMode = SIMULATION;	//Simulation Mode
 
 	//TODO: Write code to draw the simualtion toolbar (similar to that of design toolbar drawing)
-
 
 }
 

@@ -9,8 +9,9 @@ AddANDgate2::~AddANDgate2(void)
 {
 }
 
-void AddANDgate2::ReadActionParameters()
+void AddANDgate2::ReadActionParameters(string s)
 {
+
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
@@ -26,10 +27,10 @@ void AddANDgate2::ReadActionParameters()
 	
 }
 
-void AddANDgate2::Execute()
+void AddANDgate2::Execute(ActionType ActType)
 {
 	//Get Center point of the Gate
-	ReadActionParameters();
+	ReadActionParameters("");
 	
 	//Calculate the rectangle Corners
 	int Len = UI.Gate_Width;

@@ -1,6 +1,6 @@
 #include "ApplicationManager.h"
 #include "Actions\AddANDgate2.h"
-
+#include "Actions\AddGate.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -25,7 +25,7 @@ void ApplicationManager::AddComponent(Component* pComp)
 
 ActionType ApplicationManager::GetUserAction()
 {
-	//Call input to get what action is reuired from the user
+	//Call input to get what action is required from the user
 	return InputInterface->GetUserAction(); 	
 }
 ////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ ActionType ApplicationManager::GetUserAction()
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
 	Action* pAct = NULL;
-	switch (ActType)
+	/*switch (ActType)
 	{
 		case ADD_AND_GATE_2:
 			pAct= new AddANDgate2(this);
@@ -48,9 +48,18 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			///TODO: create ExitAction here
 			break;
 	}
+	*/
+	switch (ActType)
+	{
+	case ADD_AND_GATE_2 || ADD_AND_GATE_3 || ADD_Buff || ADD_INV ||	ADD_OR_GATE_2 ||
+		 ADD_NAND_GATE_2 || ADD_NOR_GATE_2 || ADD_XOR_GATE_2 || ADD_XNOR_GATE_2 || 	
+		ADD_OR_GATE_3 || ADD_NOR_GATE_3 || ADD_NAND_GATE_3 || ADD_XOR_GATE_3 || ADD_XNOR_GATE_3:
+			pAct = new AddGate(this);
+			break;
+	}
 	if(pAct)
 	{
-		pAct->Execute();
+		pAct->Execute(ActType);
 		delete pAct;
 		pAct = NULL;
 	}

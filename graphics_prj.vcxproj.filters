@@ -140,6 +140,7 @@
     <ClCompile Include="Actions\AddANDgate2.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\AddGate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -242,9 +243,11 @@
     <ClInclude Include="Actions\AddANDgate2.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="Actions\AddGate.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actions">
