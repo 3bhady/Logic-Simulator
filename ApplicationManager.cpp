@@ -5,7 +5,6 @@
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
-
 //	memset( Arr , NULL , sizeof( Arr ) );
 	for(int i=0; i<MaxCompCount; i++)
 		CompList[i] = NULL;
