@@ -37,7 +37,7 @@ ActionType Input::GetUserAction() const
 		{	
 			//Check whick Menu item was clicked
 			//==> This assumes that menu items are lined up horizontally <==
-			int ClickedItemOrder = (x / UI.ToolItemWidth);
+			int ClickedItemOrder = (x / UI.ToolBarItemWidth);
 			//Divide x coord of the point clicked by the menu item width (int division)
 			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
@@ -52,10 +52,10 @@ ActionType Input::GetUserAction() const
 		}
 	
 		//[2] User clicks on the drawing area
-		if ( y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
-		{
-			return SELECT;	//user want to select/unselect a statement in the flowchart
-		}
+		//if ( y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
+		//{
+		//	return SELECT;	//user want to select/unselect a statement in the flowchart
+		//}
 		
 		//[3] User clicks on the status bar
 		return STATUS_BAR;
