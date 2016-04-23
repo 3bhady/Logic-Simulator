@@ -10,16 +10,19 @@ class Component;
 
 //Main class that manages everything in the application.
 class ApplicationManager
-{				 //Component  
-
+{			
+	
+	//Component  
+	Component * Arr[750][1400];
 	enum { MaxCompCount = 200 };	//Max no of Components	
 
 private:
 	int CompCount;		//Actual number of Components
 	Component* CompList[MaxCompCount];	//List of all Components (Array of pointers)
-
+	
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
+
 
 public:	
 	ApplicationManager(); //constructor
