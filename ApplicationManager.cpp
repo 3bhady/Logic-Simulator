@@ -6,7 +6,7 @@ ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
 
-	memset( Arr , NULL , sizeof( Arr ) );
+//	memset( Arr , NULL , sizeof( Arr ) );
 	for(int i=0; i<MaxCompCount; i++)
 		CompList[i] = NULL;
 
@@ -17,7 +17,7 @@ ApplicationManager::ApplicationManager()
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
 {
-	pComp->AddComponent( Arr );
+	//pComp->AddComponent( Arr );
 	CompList[CompCount++] = pComp;
 
 }

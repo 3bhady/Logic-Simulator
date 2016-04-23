@@ -1,4 +1,6 @@
 *.suo
 .vs/graphics_prj/v14/.suo
 *.opensdf
+*.sdf
+Debug/
 graphics_prj.sdf
