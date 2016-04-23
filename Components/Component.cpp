@@ -5,7 +5,7 @@ Component::Component(const GraphicsInfo &r_GfxInfo)
 	m_GfxInfo = r_GfxInfo;	
 }
 
-void Component::AddComponent( Component * Arr[][1400] )
+void Component::AddComponent( Component ** Arr[780])
 {
 
 	for ( int i = m_GfxInfo.x1; i < m_GfxInfo.x2; i++ )
