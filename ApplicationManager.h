@@ -13,7 +13,7 @@ class ApplicationManager
 {			
 	
 	//Component  
-	Component ** Arr[780];
+	Component *** Arr;
 	enum { MaxCompCount = 200 };	//Max no of Components	
 
 private:
