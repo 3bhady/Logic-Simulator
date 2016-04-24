@@ -32,6 +32,7 @@ void ApplicationManager::AddComponent(Component* pComp)
 ActionType ApplicationManager::GetUserAction()
 {
 	//Call input to get what action is required from the user
+	OutputInterface->MouseHovering( );
 	return InputInterface->GetUserAction(); 	
 }
 ////////////////////////////////////////////////////////////////////
@@ -54,20 +55,24 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			///TODO: create ExitAction here
 			break;
 	}
-	*/
-	switch (ActType)
-	{
-	case ADD_AND_GATE_2 || ADD_AND_GATE_3 || ADD_Buff || ADD_INV ||	ADD_OR_GATE_2 ||
+	*/	
+	if(ActType<=13)
+			pAct = new AddGate( this , ActType );
+	/*case ADD_AND_GATE_2 || ADD_AND_GATE_3 || ADD_Buff || ADD_INV ||	ADD_OR_GATE_2 ||
 		 ADD_NAND_GATE_2 || ADD_NOR_GATE_2 || ADD_XOR_GATE_2 || ADD_XNOR_GATE_2 || 	
 		ADD_OR_GATE_3 || ADD_NOR_GATE_3 || ADD_NAND_GATE_3 || ADD_XOR_GATE_3 || ADD_XNOR_GATE_3:
-			pAct = new AddGate(this,ActType);
-			break;
-	case ADD_LED:
+						pAct = new AddGate(this,ActType); break;
+*/	  
+		
+
+	if(ActType== ADD_LED)
 		pAct = new AddLED(this);
-		break;
-	case ADD_Switch:
+		
+	if(ActType== ADD_Switch)
 		pAct = new AddSwitch(this);
-	}
+	if(ActType==  EXIT)
+		terminate( );
+	
 	if(pAct)
 	{
 		pAct->Execute();

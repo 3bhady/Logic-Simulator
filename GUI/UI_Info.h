@@ -15,9 +15,9 @@ struct UI_Info	//User Interface Info.
 	MODE AppMode;		//Application Mode (design or simulation)
 	bool ToolBarHidden = false;
 	
-	static const int	width = 1360, height = 700,	//Window width and height
+	 const int	width = 1360, height = 700,	//Window width and height
 						wx = 15, wy = 15,			//Window starting coordinates
-						StatusBarHeight = 40,		//Status bar height
+						StatusBarHeight = 50,		//Status bar height
 						StatusBarWidth = 1360,		//Status bar Width
 						ToolBarHeight = 67,			//Tool bar height
 						ToolBarWidth = 1300,		//Tool bar width

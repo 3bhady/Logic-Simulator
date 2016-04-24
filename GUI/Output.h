@@ -16,6 +16,9 @@ public:
 	void ChangeTitle(string Title) const;
 
 	void CreateDesignToolBar() const;	//Tool bar of the design mode
+	void CreateFileToolBar( )const;
+	void CreateEditToolBar( )const;
+	void CreateGrid( )const;
 	void CreateSimulationToolBar() const;//Tool bar of the simulation mode
 	void CreateStatusBar() const;	//Create Status bar
 

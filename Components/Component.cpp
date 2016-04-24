@@ -17,9 +17,9 @@ GraphicsInfo Component::get_GraphicInfo()
 void Component::AddComponent(Component ** Arr[780])
 {
 
-	for (int i = m_GfxInfo.x1; i < m_GfxInfo.x2; i++)
+	/*for (int i = m_GfxInfo.x1; i < m_GfxInfo.x2; i++)
 		for (int j = m_GfxInfo.y1; j < m_GfxInfo.y2; j++)
-			Arr[i][j] = this;
+			Arr[i][j] = this;	 */
 }
 
 Component::Component()

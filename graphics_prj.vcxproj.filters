@@ -5,9 +5,6 @@
     <ClCompile Include="Components\AND2.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="ApplicationManager.cpp">
-      <Filter>Application Manager</Filter>
-    </ClCompile>
     <ClCompile Include="CMUgraphicsLib\auxil.cpp">
       <Filter>CMUgraphics Library</Filter>
     </ClCompile>
@@ -143,6 +140,9 @@
     <ClCompile Include="Actions\AddGate.cpp" />
     <ClCompile Include="Actions\AddLED.cpp" />
     <ClCompile Include="Actions\AddSwitch.cpp" />
+    <ClCompile Include="ApplicationManager.cpp">
+      <Filter>Application Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -151,9 +151,6 @@
     </ClInclude>
     <ClInclude Include="Components\AND2.h">
       <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ApplicationManager.h">
-      <Filter>Application Manager</Filter>
     </ClInclude>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
       <Filter>CMUgraphics Library</Filter>
@@ -248,10 +245,12 @@
     <ClInclude Include="Actions\AddGate.h" />
     <ClInclude Include="Actions\AddLED.h" />
     <ClInclude Include="Actions\AddSwitch.h" />
+    <ClInclude Include="ApplicationManager.h">
+      <Filter>Application Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Actions">

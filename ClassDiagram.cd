@@ -23,33 +23,20 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAQAAAAAACQBAAAAAAAAAAAAAAAAAAQ=</HashCode>
-      <FileName>Action.h</FileName>
+      <FileName>Actions\Action.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="pManager" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ADD_GATE" Collapsed="true">
-    <Position X="6.75" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AECIAAAAAAAARAQAAAAAAAQBAwAAAACAAQAAAAAAAAA=</HashCode>
-      <FileName>ADD_GATE.h</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="ApplicationManager" Collapsed="true">
     <Position X="7" Y="1" Width="1.75" />
-    <NestedTypes>
-      <Enum Name="ApplicationManager::__unnamed_enum_0009_1" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>ApplicationManager.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
-    <AssociationLine Name="InputInterface" Type="Input" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="CompList" Type="Component" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="8.531" Y="1" />
-        <Point X="8.531" Y="0.719" />
-        <Point X="9" Y="0.719" />
+        <Point X="7.292" Y="1" />
+        <Point X="7.292" Y="0.26" />
+        <Point X="4.375" Y="0.26" />
+        <Point X="4.375" Y="0.5" />
       </Path>
     </AssociationLine>
     <AssociationLine Name="OutputInterface" Type="Output" FixedFromPoint="true" FixedToPoint="true">
@@ -62,21 +49,20 @@
         <Position X="0.12" Y="0.195" Height="0.182" Width="1.277" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="CompList" Type="Component" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="InputInterface" Type="Input" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="7.292" Y="1" />
-        <Point X="7.292" Y="0.26" />
-        <Point X="4.375" Y="0.26" />
-        <Point X="4.375" Y="0.5" />
+        <Point X="8.531" Y="1" />
+        <Point X="8.531" Y="0.719" />
+        <Point X="9" Y="0.719" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AQAAIAIAAIQIQAQEgAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <HashCode>AQAAIAIAAIQIQAQEgAAAAAAAAAAAAIAAAAAAABAAAAA=</HashCode>
       <FileName>ApplicationManager.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="InputInterface" />
       <Field Name="OutputInterface" />
+      <Field Name="InputInterface" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Field Name="CompList" />
@@ -86,14 +72,14 @@
     <Position X="4.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ADAAAAAAAAAAAgAAAAAAAAAAAAAACAAAAQAAgAAAAAA=</HashCode>
-      <FileName>AND2.h</FileName>
+      <FileName>Components\AND2.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Component" Collapsed="true">
     <Position X="3.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAgAAAAAAAAAgAgAAAAAAAAAAAACAAAAQBAgAAAAAA=</HashCode>
-      <FileName>Component.h</FileName>
+      <HashCode>ABAgAAAAAAAIAgAgAAAgAAAAEAAACQAAAQBAgAAAAAA=</HashCode>
+      <FileName>Components\Component.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Connection" Collapsed="true">
@@ -112,11 +98,11 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>ABAAAAAQAAAAAgEAAIAAEAAAAAABCAAAAQAAiAAQAAA=</HashCode>
-      <FileName>Connection.h</FileName>
+      <FileName>Components\Connection.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="DstPin" />
       <Field Name="SrcPin" />
+      <Field Name="DstPin" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Gate" Collapsed="true">
@@ -144,7 +130,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAAAIAAAAAAAAAAAAgAAAIAAAAAAAAAAAA=</HashCode>
-      <FileName>Gate.h</FileName>
+      <FileName>Components\Gate.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="m_InputPins" />
@@ -161,7 +147,7 @@
     </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEAAAABAAAAAAAAAAIQAAAAAAAAAA=</HashCode>
-      <FileName>InputPin.h</FileName>
+      <FileName>Components\InputPin.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OutputPin" Collapsed="true">
@@ -174,14 +160,14 @@
     </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAABAAIAAAAAAAAAAAAAAAACAAAAEAAAAABAAAAAA=</HashCode>
-      <FileName>OutputPin.h</FileName>
+      <FileName>Components\OutputPin.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Pin" Collapsed="true">
     <Position X="0.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAACAAAAAAAABEAAAAAAAAAAAAA=</HashCode>
-      <FileName>Pin.h</FileName>
+      <FileName>Components\Pin.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Input" Collapsed="true">
@@ -194,8 +180,8 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AQAAAAABAAQAAAAAAAAAEAAAEAAAAAAAAAAAAAAAgAA=</HashCode>
-      <FileName>Input.h</FileName>
+      <HashCode>AAAAAAABAAQAAAAAAEAABAAAEAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>GUI\Input.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="pWind" />
@@ -211,8 +197,8 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAADAAAUAAAAAAAAYAEAAAAAAAAQUAAAEIAAAgBA=</HashCode>
-      <FileName>Output.h</FileName>
+      <HashCode>AAgAAADAAgUgAAACAAAYAMAEAEAAAAQUAAAEIAAAgBA=</HashCode>
+      <FileName>GUI\Output.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="pWind" />

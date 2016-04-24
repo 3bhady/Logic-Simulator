@@ -1,5 +1,5 @@
 #pragma once
-#include "C:\Users\dell\Desktop\PROJECT\Logic-Simulator\Actions\Action.h"
+#include "..\Actions\Action.h"
 
 class AddLED :
 	public Action
