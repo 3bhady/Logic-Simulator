@@ -25,29 +25,34 @@ void AddGate::ReadActionParameters(string s)
 	pIn->GetPointClicked(Cx, Cy);
 
 	//Clear Status Bar
+	
 	pOut->ClearStatusBar();
+
+	//Calculate the rectangle Corners
+	int Len = UI.Gate_Width;
+	int Wdth = UI.Gate_Height;
+
+	//Get Center point of the Gate
+	GInfo.x1 = Cx - Len / 2;
+	GInfo.x2 = Cx + Len / 2;
+	GInfo.y1 = Cy - Wdth / 2;
+	GInfo.y2 = Cy + Wdth / 2;
+	
 
 }
 
 void AddGate::Execute()
 {
-	//Calculate the rectangle Corners
-	int Len = UI.Gate_Width;
-	int Wdth = UI.Gate_Height;
+	
+	
 
-	GraphicsInfo GInfo; //Gfx info to be used to construct the AND2 gate
-
-	GInfo.x1 = Cx - Len / 2;
-	GInfo.x2 = Cx + Len / 2;
-	GInfo.y1 = Cy - Wdth / 2;
-	GInfo.y2 = Cy + Wdth / 2;
-
+	AND2 *pG=NULL;
 	switch (ActType)
 	{
 	case ADD_AND_GATE_2:
-		ReadActionParameters("2-Input AND Gate: Click to add the gate");
-		//AND2 *pG = new AND2(GInfo, AND2_FANOUT);
-		break;
+	{ReadActionParameters( "2-Input AND Gate: Click to add the gate" );
+	pG = new AND2( GInfo , AND2_FANOUT );
+	break; }
 	case ADD_OR_GATE_2:
 		ReadActionParameters("2-Input OR Gate: Click to add the gate");
 		//OR2 *pG = new OR2(GInfo, AND2_FANOUT);
@@ -101,11 +106,14 @@ void AddGate::Execute()
 		//XNOR3 *pG = new XNOR3(GInfo, AND2_FANOUT);
 		break;
 	}
-	//Get Center point of the Gate
+
+
+	
 	//ReadActionParameters();
 
 	//AND2 *pA = new AND2(GInfo, AND2_FANOUT);
-	//pManager->AddComponent(pG);
+	if(pG )
+	pManager->AddComponent(pG);
 }
 
 void AddGate::Undo()

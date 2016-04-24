@@ -12,25 +12,18 @@ int main()
 	//test
 	//Create an object of ApplicationManager
 	ApplicationManager AppManager;
-	window* Pwind = AppManager.GetOutput()->GetPwind();
-	for (int j = 90; j < 650; j += 15)
-	{
-		for (int i = 15; i < 1360; i += 15)
-		{
-			Pwind->SetPen(SKYBLUE, 1);
-			Pwind->DrawCircle(i, j, 1);
-		}
-	}
+	window* pWind = AppManager.GetOutput()->GetPwind();
+
 	do
 	{
 		//Read user action
 		ActType = AppManager.GetUserAction();
 
 		//Execute the action
-
-
 		AppManager.ExecuteAction(ActType);
-
+		int x, y;
+		pWind->GetMouseCoord(x, y);
+		cout << x << " " << y << endl;
 		//Update the drawing window
 		AppManager.UpdateInterface();
 

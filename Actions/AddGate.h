@@ -1,12 +1,14 @@
 #pragma once
 #include "Action.h"
+#include "..\Components\AND2.h"
+
 
 class AddGate : public Action
 {
 private:
 
 	//Parameters for rectangular area to be occupied by the gate
-
+	GraphicsInfo GInfo; //Gfx info to be used to construct the AND2 gate
 	int Cx, Cy;				//Center point of the gate
 	int x1, y1, x2, y2;		//Two corners of the rectangluar area
 	ActionType ActType;		//Which gate to add

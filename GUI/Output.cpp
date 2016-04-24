@@ -18,8 +18,12 @@ Output::Output()
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);	
 	ChangeTitle("Programming Techniques Project");
 
+	CreateGrid( );
 	CreateDesignToolBar();	//Create the desgin toolbar
+	CreateFileToolBar( );
+	CreateEditToolBar( );
 	CreateStatusBar();		//Create Status bar
+	
 
 }
 
@@ -67,42 +71,44 @@ void Output::ChangeTitle(string Title) const
 //////////////////////////////////////////////////////////////////////////////////
 void Output::CreateStatusBar() const
 {
-	pWind->SetPen(RED,3);
+	//pWind->SetPen(RED,3);
 	//pWind->DrawLine(0, UI.height-UI.StatusBarHeight, UI.width, UI.height-UI.StatusBarHeight);
+	pWind->DrawImage("Images\\Images\\ToolBars\\Statusbar\\SB1.jpg", 0, UI.height - UI.StatusBarHeight - UI.wy);
 }
 //////////////////////////////////////////////////////////////////////////////////
 void Output::PrintMsg(string msg) const
 {
 	ClearStatusBar();	//Clear Status bar to print message on it
 	// Set the Message offset from the Status Bar
-	int MsgX = 25;
-//	int MsgY = UI.StatusBarHeight - 10;
+	int MsgX = 270;
+	int MsgY = UI.StatusBarHeight ;
 
 	// Print the Message
-    pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial"); 
-	pWind->SetPen(UI.MsgColor); 
-	//pWind->DrawString(MsgX, UI.height - MsgY, msg);
+    pWind->SetFont(25, BOLD , SWISS);
+	pWind->SetPen(DARKSLATEGRAY);
+	pWind->DrawString(MsgX, UI.height - MsgY, msg);
 }
 //////////////////////////////////////////////////////////////////////////////////
 void Output::ClearStatusBar()const
 {
 	// Set the Message offset from the Status Bar
-	int MsgX = 25;
-//	int MsgY = UI.StatusBarHeight - 10;
+	//int MsgX = 25;
+	//int MsgY = UI.StatusBarHeight - 10;
 
 	//Overwrite using bachground color to erase the message
-	pWind->SetPen(UI.BkGrndColor);
-	pWind->SetBrush(UI.BkGrndColor);
+	pWind->DrawImage("Images\\Images\\ToolBars\\Statusbar\\SB1.jpg", 0, UI.height - UI.StatusBarHeight - UI.wy);
+	//pWind->SetPen(UI.BkGrndColor);
+	//pWind->SetBrush(UI.BkGrndColor);
 	//pWind->DrawRectangle(MsgX, UI.height - MsgY, UI.width, UI.height);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-//Clears the drawing (degin) area
+//Clears the drawing (design) area
 void Output::ClearDrawingArea() const
 {
-	pWind->SetPen(RED, 1);
-	pWind->SetBrush(WHITE);
-	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height  );// UI.StatusBarHeight);
-	
+	//pWind->SetPen(RED, 1);
+	//pWind->SetBrush(WHITE);
+	//pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height  );// UI.StatusBarHeight);
+	CreateGrid();
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the Design mode
@@ -110,7 +116,9 @@ void Output::CreateDesignToolBar() const
 {
 	UI.AppMode = DESIGN;	//Design Mode
 
-	//You can draw the tool bar icons in any way you want.
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Toolbar\\TB1.jpg" , 0 , 0 );
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Toolbar\\TB2.jpg" ,0 , UI.ToolBarHeight );
+	/*//You can draw the tool bar icons in any way you want.
 
 	//First prepare List of images for each menu item
 	string MenuItemImages[ITM_DSN_CNT];
@@ -119,7 +127,9 @@ void Output::CreateDesignToolBar() const
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	//TODO: Prepare image for each menu item and add it to the list
-
+	pWind->DrawImage( MenuItemImages[0] , 0*UI.ToolBarItemWidth , 0 , UI.ToolBarItemWidth , UI.ToolBarHeight );
+	pWind->DrawImage( MenuItemImages[1] , 1*UI.ToolBarItemWidth , 0 , UI.ToolBarItemWidth , UI.ToolBarHeight );
+	pWind->DrawImage( MenuItemImages[ITM_EXIT] , 2*UI.ToolBarItemWidth , 0 , UI.ToolBarItemWidth , UI.ToolBarHeight );
 	//Draw menu item one image at a time
 //	for(int i=0; i<ITM_DSN_CNT; i++)
 	//	pWind->DrawImage(MenuItemImages[i],i*UI.ToolBarItemWidth,0,UI.ToolBarItemWidth, UI.ToolBarHeight);
@@ -127,8 +137,31 @@ void Output::CreateDesignToolBar() const
 
 	//Draw a line under the toolbar
 	pWind->SetPen(RED,3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	  */
 
+}
+void Output::CreateFileToolBar( ) const
+{   
+	
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Filebar\\FB1.jpg" , 0 , 220 );
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Filebar\\FB2.jpg" , UI.FileBarWidth ,220 + UI.FileBarHeight-UI.FileBarTitleHeight );
+	
+}
+void Output::CreateEditToolBar( ) const
+{
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Editbar\\EB2.jpg" , UI.width-UI.EditBarWidth-15 , 220 );
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Editbar\\EB3.jpg" , UI.width-UI.EditBarWidth-UI.EditBarTitleWidth-15 ,220 );
+}
+void Output::CreateGrid( ) const
+{
+	for ( int j = 0; j < 700; j += 15 )
+	{
+		for ( int i = 0; i < 1360; i += 15 )
+		{
+			pWind->SetPen( SKYBLUE , 1 );
+			pWind->DrawCircle( i , j , 1 );
+		}
+	}
 }
 window * Output::GetPwind() const
 {
@@ -137,31 +170,30 @@ window * Output::GetPwind() const
 void Output::MouseHovering( )const
 {
 	if ( UI.ToolBarHidden ) return;
-	string z1 = "images\\AA\\";
+	string z1 = "Images\\Images\\ToolBars\\Toolbar\\toolbar";
 	string z2 = ".jpg";
 	image i;
 	//pWind->StoreImage( i , 0 , 0 , UI.width , UI.height );
 
 	int x , y;
 	pWind->GetMouseCoord( x , y );
-	if ( y >= 0 && y < UI.ToolBarHeight&&x <= UI.ToolBarItemWidth * 17 )
+	if ( y >= 0 && y < UI.ToolBarHeight && x <= UI.ToolBarItemWidth * 17 )
 	{
 		string num = "" , s = "";
 		stringstream ss;
 		int ClickedItemOrder = (x / UI.ToolBarItemWidth);
 		ss << ClickedItemOrder;
 		ss >> num;
-		s = z1 + num + num + z2;
+		s = z1 + num + z2;
 		if ( ClickedItemOrder < 17 )
 		{
 			pWind->DrawImage( s , 0 , 0 );
-			PrintMsg( "add " + ss.str( ) );
+			PrintMsg("Add " + ss.str());
 		}
 
 	}
 	else {
-		pWind->DrawImage( "images\\Menu\\Toolbar1.jpg" , 0 , 0 );
-		pWind->DrawImage( "images\\Menu\\Toolbar2.jpg" , 0 , 66 );
+		CreateDesignToolBar( );
 		PrintMsg( "" );
 	}
 

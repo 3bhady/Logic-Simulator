@@ -28,7 +28,8 @@ string Input::GetString(Output *pOut)
 ActionType Input::GetUserAction() const
 {	
 	int x,y;
-	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
+	
+	pWind->GetMouseClick(x, y);	//Get the coordinates of the user click
 
 	if (UI.AppMode == DESIGN)	//application is in design mode
 	{
@@ -93,6 +94,8 @@ ActionType Input::GetUserAction() const
 			return SIM_MODE;	//This should be changed after creating the compelete simulation bar 
 		}
 	}
+	//TO DO : return when sim mode
+	return SIM_MODE;
 }
 
 
