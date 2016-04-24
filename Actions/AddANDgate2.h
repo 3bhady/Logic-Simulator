@@ -22,7 +22,7 @@ public:
 	virtual void ReadActionParameters(string s);
 
 	//Execute action (code depends on action type)
-	virtual void Execute(ActionType ActType);
+	virtual void Execute();
 
 	virtual void Undo();
 	virtual void Redo();

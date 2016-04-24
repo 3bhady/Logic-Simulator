@@ -141,6 +141,8 @@
       <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="Actions\AddGate.cpp" />
+    <ClCompile Include="Actions\AddLED.cpp" />
+    <ClCompile Include="Actions\AddSwitch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
@@ -244,6 +246,8 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="Actions\AddGate.h" />
+    <ClInclude Include="Actions\AddLED.h" />
+    <ClInclude Include="Actions\AddSwitch.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

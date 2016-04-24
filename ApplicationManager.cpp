@@ -1,6 +1,8 @@
 #include "ApplicationManager.h"
 #include "Actions\AddANDgate2.h"
 #include "Actions\AddGate.h"
+#include "Actions\AddLED.h"
+#include "Actions\AddSwitch.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -58,12 +60,17 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case ADD_AND_GATE_2 || ADD_AND_GATE_3 || ADD_Buff || ADD_INV ||	ADD_OR_GATE_2 ||
 		 ADD_NAND_GATE_2 || ADD_NOR_GATE_2 || ADD_XOR_GATE_2 || ADD_XNOR_GATE_2 || 	
 		ADD_OR_GATE_3 || ADD_NOR_GATE_3 || ADD_NAND_GATE_3 || ADD_XOR_GATE_3 || ADD_XNOR_GATE_3:
-			pAct = new AddGate(this);
+			pAct = new AddGate(this,ActType);
 			break;
+	case ADD_LED:
+		pAct = new AddLED(this);
+		break;
+	case ADD_Switch:
+		pAct = new AddSwitch(this);
 	}
 	if(pAct)
 	{
-		pAct->Execute(ActType);
+		pAct->Execute();
 		delete pAct;
 		pAct = NULL;
 	}

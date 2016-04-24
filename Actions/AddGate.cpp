@@ -1,10 +1,10 @@
 #pragma once
 
 #include "AddGate.h"
-#include "..\ApplicationManager.h"
 
-AddGate::AddGate(ApplicationManager *pApp) :Action(pApp)
+AddGate::AddGate(ApplicationManager *pApp,ActionType Action) :Action(pApp)
 {
+	ActType = Action;
 }
 
 AddGate::~AddGate(void)
@@ -29,7 +29,7 @@ void AddGate::ReadActionParameters(string s)
 
 }
 
-void AddGate::Execute(ActionType ActType)
+void AddGate::Execute()
 {
 	//Calculate the rectangle Corners
 	int Len = UI.Gate_Width;

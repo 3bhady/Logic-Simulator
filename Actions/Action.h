@@ -16,7 +16,7 @@ public:
 	virtual void ReadActionParameters(string s) = 0;
 	
 	//Execute action (code depends on action type)
-	virtual void Execute(ActionType ActType) = 0;
+	virtual void Execute() = 0;
 
 	//To undo this action (code depends on action type)
 	virtual void Undo()=0;

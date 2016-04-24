@@ -27,7 +27,7 @@ void AddANDgate2::ReadActionParameters(string s)
 	
 }
 
-void AddANDgate2::Execute(ActionType ActType)
+void AddANDgate2::Execute()
 {
 	//Get Center point of the Gate
 	ReadActionParameters("");
