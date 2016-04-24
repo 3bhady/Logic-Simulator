@@ -73,7 +73,7 @@ void Output::CreateStatusBar() const
 {
 	//pWind->SetPen(RED,3);
 	//pWind->DrawLine(0, UI.height-UI.StatusBarHeight, UI.width, UI.height-UI.StatusBarHeight);
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Statusbar\\SB1.jpg" , 0 , UI.height - UI.StatusBarHeight-15 );
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Statusbar\\SB1.jpg" , 0 , UI.height - UI.StatusBarHeight-15);
 }
 //////////////////////////////////////////////////////////////////////////////////
 void Output::PrintMsg(string msg) const
@@ -81,24 +81,25 @@ void Output::PrintMsg(string msg) const
 	ClearStatusBar();	//Clear Status bar to print message on it
 	// Set the Message offset from the Status Bar
 	int MsgX = 25;
-//	int MsgY = UI.StatusBarHeight - 10;
+	int MsgY = UI.StatusBarHeight - 10;
 
 	// Print the Message
     pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial"); 
 	pWind->SetPen(UI.MsgColor); 
-	//pWind->DrawString(MsgX, UI.height - MsgY, msg);
+	pWind->DrawString(MsgX, UI.height - MsgY, msg);
 }
 //////////////////////////////////////////////////////////////////////////////////
 void Output::ClearStatusBar()const
 {
-	// Set the Message offset from the Status Bar
+	CreateStatusBar( );
+/*	// Set the Message offset from the Status Bar
 	int MsgX = 25;
-//	int MsgY = UI.StatusBarHeight - 10;
+	int MsgY = UI.StatusBarHeight - 10;
 
 	//Overwrite using bachground color to erase the message
 	pWind->SetPen(UI.BkGrndColor);
 	pWind->SetBrush(UI.BkGrndColor);
-	//pWind->DrawRectangle(MsgX, UI.height - MsgY, UI.width, UI.height);
+	//pWind->DrawRectangle(MsgX, UI.height - MsgY, UI.width, UI.height);		 */
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //Clears the drawing (degin) area
@@ -148,8 +149,8 @@ void Output::CreateFileToolBar( ) const
 }
 void Output::CreateEditToolBar( ) const
 {
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Editbar\\EB2.jpg" , UI.width-UI.EditBarWidth-15 , 120 );
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Editbar\\EB3.jpg" , UI.width-UI.EditBarWidth-UI.EditBarTitleWidth-15 ,120 );
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Editbar\\EB2.jpg" , UI.width-UI.EditBarWidth-14 , 120 );
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Editbar\\EB3.jpg" , UI.width-UI.EditBarWidth-UI.EditBarTitleWidth-14 ,120 );
 }
 void Output::CreateGrid( ) const
 {
@@ -176,6 +177,7 @@ void Output::MouseHovering( )const
 
 	int x , y;
 	pWind->GetMouseCoord( x , y );
+	cout << "x: " << x << " y: " << y << endl;
 	if ( y >= 0 && y < UI.ToolBarHeight && x <= UI.ToolBarItemWidth * 17 )
 	{
 		string num = "" , s = "";

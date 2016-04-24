@@ -16,7 +16,7 @@ struct UI_Info	//User Interface Info.
 	bool ToolBarHidden = false;
 	
 	 const int	width = 1360, height = 700,	//Window width and height
-						wx = 15, wy = 15,			//Window starting coordinates
+						wx = 0, wy = 0,			//Window starting coordinates
 						StatusBarHeight = 50,		//Status bar height
 						StatusBarWidth = 1360,		//Status bar Width
 						ToolBarHeight = 67,			//Tool bar height
