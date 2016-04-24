@@ -46,6 +46,7 @@ void AddGate::Execute()
 	
 	
 
+	
 	AND2 *pG=NULL;
 	switch (ActType)
 	{

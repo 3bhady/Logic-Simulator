@@ -7,13 +7,17 @@
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
-	Arr = new Component**[700];
+	Arr = new Component**[780];
 	for ( int i = 0; i < 780; i++ )
 	{
 		Arr[i] = new Component*[1400];
+	for ( int j = 0; j < 1400; j++ )
+			Arr[i][j] = NULL;
 	}
 	
-	memset( Arr , NULL , sizeof( Arr ) );
+	
+	//memset( Arr , NULL , sizeof( Arr ) );
+	//Arr[0][0] = NULL;
 	for(int i=0; i<MaxCompCount; i++)
 		CompList[i] = NULL;
 
@@ -33,7 +37,7 @@ void ApplicationManager::AddComponent(Component* pComp)
 ActionType ApplicationManager::GetUserAction()
 {
 	//Call input to get what action is required from the user
-	OutputInterface->MouseHovering( );
+	OutputInterface->MouseHovering(  );
 	return InputInterface->GetUserAction(); 	
 }
 ////////////////////////////////////////////////////////////////////

@@ -73,7 +73,7 @@ void Output::CreateStatusBar() const
 {
 	//pWind->SetPen(RED,3);
 	//pWind->DrawLine(0, UI.height-UI.StatusBarHeight, UI.width, UI.height-UI.StatusBarHeight);
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Statusbar\\SB1.jpg" , 0 , UI.height - UI.StatusBarHeight-15);
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Statusbar\\SB1.jpg" , UI.StatusBarStartX , UI.StatusBarStartY);
 }
 //////////////////////////////////////////////////////////////////////////////////
 void Output::PrintMsg(string msg) const
@@ -86,7 +86,7 @@ void Output::PrintMsg(string msg) const
 	// Print the Message
     pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial"); 
 	pWind->SetPen(UI.MsgColor); 
-	pWind->DrawString(MsgX, UI.height - MsgY, msg);
+	pWind->DrawString(MsgX+50, UI.height - MsgY, msg);
 }
 //////////////////////////////////////////////////////////////////////////////////
 void Output::ClearStatusBar()const
@@ -116,8 +116,8 @@ void Output::CreateDesignToolBar() const
 {
 	UI.AppMode = DESIGN;	//Design Mode
 
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Toolbar\\TB1.jpg" , 0 , 0 );
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Toolbar\\TB2.jpg" ,0 , UI.ToolBarHeight );
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Toolbar\\TB1.jpg" ,UI.ToolBarStartX , UI.ToolBarStartY );
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Toolbar\\TB2.jpg" ,UI.ToolBarTitleStartX , UI.ToolBarTitleStartY );
 	/*//You can draw the tool bar icons in any way you want.
 
 	//First prepare List of images for each menu item
@@ -143,14 +143,14 @@ void Output::CreateDesignToolBar() const
 void Output::CreateFileToolBar( ) const
 {   
 	
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Filebar\\FB1.jpg" , 0 , 120 );
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Filebar\\FB2.jpg" , UI.FileBarWidth , 120 + UI.FileBarHeight-UI.FileBarTitleHeight );
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Filebar\\FB1.jpg" , UI.FileBarStartX , UI.FileBarStartY );
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Filebar\\FB2.jpg" , UI.FileBarTitleStartX ,UI.FileBarTitleStartY );
 	
 }
 void Output::CreateEditToolBar( ) const
 {
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Editbar\\EB2.jpg" , UI.width-UI.EditBarWidth-14 , 120 );
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Editbar\\EB3.jpg" , UI.width-UI.EditBarWidth-UI.EditBarTitleWidth-14 ,120 );
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Editbar\\EB2.jpg" , UI.EditBarStartX , UI.EditBarStartY );
+	pWind->DrawImage( "Images\\Images\\ToolBars\\Editbar\\EB3.jpg" , UI.EditBarTitleStartX ,UI.EditBarTitleStartY );
 }
 void Output::CreateGrid( ) const
 {
@@ -169,7 +169,7 @@ window * Output::GetPwind() const
 }
 void Output::MouseHovering( )const
 {
-	if ( UI.ToolBarHidden ) return;
+	if ( UI.HiddenToolBar ) return; //TODO m7taga tt3adl w yb2a feha hovering
 	string z1 = "Images\\Images\\ToolBars\\Toolbar\\toolbar";
 	string z2 = ".jpg";
 	image i;
@@ -177,7 +177,8 @@ void Output::MouseHovering( )const
 
 	int x , y;
 	pWind->GetMouseCoord( x , y );
-	cout << "x: " << x << " y: " << y << endl;
+//	cout << "x: " << x << " y: " << y << endl;
+	
 	if ( y >= 0 && y < UI.ToolBarHeight && x <= UI.ToolBarItemWidth * 17 )
 	{
 		string num = "" , s = "";
@@ -189,7 +190,28 @@ void Output::MouseHovering( )const
 		if ( ClickedItemOrder < 17 )
 		{
 			pWind->DrawImage( s , 0 , 0 );
-			PrintMsg( "add " + ss.str( ) );
+			switch ( ClickedItemOrder ) {
+			case ITM_AND2: {PrintMsg( "Add AND2 Gate" ); break; }
+			case ITM_OR2: {PrintMsg( "Add OR2 Gate" ); break; }
+			case ITM_EXIT: {PrintMsg( "EXIT" ); break; }
+			case ITM_Buff: {PrintMsg( "Add Buffer" ); break; }
+			case ITM_INV: {PrintMsg( "ADD Inverter" ); break; }
+			case ITM_NAND2: {PrintMsg( "Add NAND2 Gate" ); break; }
+			case ITM_NOR2: {PrintMsg( "Add NOR2 Gate " ); break; }
+			case ITM_XOR2: {PrintMsg( "Add XOR2 Gate" ); break; }
+			case ITM_XNOR2: {PrintMsg( "Add XNOR2 Gate" ); break; }
+			case ITM_AND3: {PrintMsg( "Add AND3 Gate" ); break; }
+			case ITM_OR3: {PrintMsg( "Add OR3 Gate" ); break; }
+			case ITM_NOR3: {PrintMsg( "Add NOR3 Gate" ); break; }
+			case ITM_XOR3: {PrintMsg( "Add XOR3 Gate" ); break; }
+			case ITM_XNOR3: {PrintMsg( "Add XNOR3 Gate" ); break; }
+			case ITM_Switch: {PrintMsg( "Add Switch" ); break; }
+			case ITM_LED: {PrintMsg( "Add Led" ); break; }
+			case ITM_CONNECTION: {PrintMsg( "Add Connection" ); break; }
+		
+
+			default:PrintMsg( "" );
+			}
 		}
 
 	}
@@ -198,6 +220,48 @@ void Output::MouseHovering( )const
 		PrintMsg( "" );
 	}
 
+}
+
+void Output::FollowMouseAndDraw( GraphicsInfo  r_GfxInfo , DsgnMenuItem gType , bool selected=false )
+{
+	
+		image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height ); // screenshot of the current image and store it to draw over it
+	
+
+
+																			  
+		pWind->SetBuffering( true );
+		do {
+
+			pWind->DrawImage( initImage , 0 , 0 );
+			pWind->GetMouseCoord( r_GfxInfo.x1 , r_GfxInfo.y1 );
+
+			//if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight )
+			//{
+			DrawGate( r_GfxInfo , gType , selected );
+			
+if ( !UI.HiddenToolBar )CreateDesignToolBar( );
+if ( !UI.HiddenFileBar )CreateFileToolBar( );
+if ( !UI.HiddenEditBar )CreateEditToolBar( );
+			//}
+			//else
+			//	DrawGate( r_GfxInfo , gType , selected );
+
+if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight + 1 || r_GfxInfo.y1 + UI.Gate_Height / 2 > UI.height - UI.StatusBarHeight + 3 )
+{		 
+	PrintMsg( "You can't draw here!" );
+}
+			else PrintMsg( "" );
+			pWind->UpdateBuffer( );
+			//Sleep( 32 );
+
+		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK );
+		pWind->SetBuffering( false );
+
+	
+
+
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////

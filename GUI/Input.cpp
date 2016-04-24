@@ -29,6 +29,7 @@ ActionType Input::GetUserAction() const
 {	
 	int x,y;
 	
+	//pWind->WaitMouseClick(x,y); //for testing only
 	pWind->GetMouseClick(x, y);	//Get the coordinates of the user click
 
 	if (UI.AppMode == DESIGN)	//application is in design mode

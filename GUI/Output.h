@@ -25,6 +25,7 @@ public:
 	window* GetPwind()const;
 
 	void MouseHovering( )const;
+	void FollowMouseAndDraw( GraphicsInfo  r_GfxInfo , DsgnMenuItem gType , bool selected );
 
 	void ClearStatusBar() const;		//Clears the status bar
 	void ClearDrawingArea() const;	//Clears the drawing area
