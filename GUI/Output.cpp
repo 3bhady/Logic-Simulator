@@ -334,7 +334,6 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
 			//if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight )
 			//{
-
 			 flag = false;
 			for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
 			{
@@ -391,7 +390,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK||flag );
 		
 
-	r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
+		r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
 		r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
 		r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
 		r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
