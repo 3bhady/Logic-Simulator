@@ -17,9 +17,9 @@ void AddGate::ReadActionParameters(string s)
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	//pOut->FollowMouseAndDraw( GInfo , ( DsgnMenuItem )( int )ActType , Arr , false );
+	pOut->FollowMouseAndDraw( GInfo , ( DsgnMenuItem )( int )ActType , pManager->GetArr() , false );
 	//Print Action Message
-	pOut->PrintMsg(s);
+	/*pOut->PrintMsg(s);
 
 	//Wait for User Input
 	pIn->GetPointClicked(Cx, Cy);
@@ -38,7 +38,7 @@ void AddGate::ReadActionParameters(string s)
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
 	
-
+			   */
 }
 
 void AddGate::Execute()
