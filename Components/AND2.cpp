@@ -11,7 +11,7 @@ AND2::AND2(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(2, r_FanOut)
 
 void AND2::Operate()
 {
-	if (m_InputPins[0].getStatus() == HIGH && m_InputPins[1].getStatus() == HIGH)
+	if (m_InputPins[0].getStatus() == HIGH&&m_InputPins[1].getStatus() == HIGH)
 		m_OutputPin.setStatus(HIGH);
 	else
 		m_OutputPin.setStatus(LOW);
@@ -23,7 +23,7 @@ void AND2::Operate()
 void AND2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, ITM_AND2);
+	pOut->DrawGate(m_GfxInfo,ITM_AND2);
 }
 
 //returns status of outputpin
@@ -40,7 +40,7 @@ int AND2::GetInputPinStatus(int n)
 }
 
 //Set status of an input pin ot HIGH or LOW
-void AND2::setInputPinStatus(int n, STATUS s)
+void AND2::setInputPinStatus(STATUS s, int n)
 {
 	m_InputPins[n-1].setStatus(s);
 }

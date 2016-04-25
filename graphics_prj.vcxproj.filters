@@ -2,32 +2,17 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Components\AND2.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="CMUgraphicsLib\auxil.cpp">
       <Filter>CMUgraphics Library</Filter>
     </ClCompile>
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp">
       <Filter>CMUgraphics Library</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Component.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Connection.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Gate.cpp">
-      <Filter>Components</Filter>
-    </ClCompile>
     <ClCompile Include="CMUgraphicsLib\image.cpp">
       <Filter>CMUgraphics Library</Filter>
     </ClCompile>
     <ClCompile Include="GUI\Input.cpp">
       <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\InputPin.cpp">
-      <Filter>Pins</Filter>
     </ClCompile>
     <ClCompile Include="CMUgraphicsLib\jpeg\jcomapi.c">
       <Filter>CMUgraphics Library</Filter>
@@ -122,20 +107,11 @@
     <ClCompile Include="GUI\Output.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Components\OutputPin.cpp">
-      <Filter>Pins</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Pin.cpp">
-      <Filter>Pins</Filter>
-    </ClCompile>
     <ClCompile Include="CMUgraphicsLib\mousequeue.cpp">
       <Filter>CMUgraphics Library</Filter>
     </ClCompile>
     <ClCompile Include="CMUgraphicsLib\windowinput.cpp">
       <Filter>CMUgraphics Library</Filter>
-    </ClCompile>
-    <ClCompile Include="Actions\AddANDgate2.cpp">
-      <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="Actions\AddGate.cpp" />
     <ClCompile Include="Actions\AddLED.cpp" />
@@ -143,14 +119,33 @@
     <ClCompile Include="ApplicationManager.cpp">
       <Filter>Application Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Components\AND2.cpp" />
+    <ClCompile Include="Components\AND3.cpp" />
+    <ClCompile Include="Components\BUFFER.cpp" />
+    <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="Components\Connection.cpp" />
+    <ClCompile Include="Components\Gate.cpp" />
+    <ClCompile Include="Components\LED.cpp" />
+    <ClCompile Include="Components\NAND2.cpp" />
+    <ClCompile Include="Components\NAND3.cpp" />
+    <ClCompile Include="Components\NOR2.cpp" />
+    <ClCompile Include="Components\NOR3.cpp" />
+    <ClCompile Include="Components\NOT.cpp" />
+    <ClCompile Include="Components\OR2.cpp" />
+    <ClCompile Include="Components\OR3.cpp" />
+    <ClCompile Include="Components\Switch.cpp" />
+    <ClCompile Include="Components\XNOR.cpp" />
+    <ClCompile Include="Components\XOR2.cpp" />
+    <ClCompile Include="Components\XOR3.cpp" />
+    <ClCompile Include="Components\Pins\InputPin.cpp" />
+    <ClCompile Include="Components\Pins\OutputPin.cpp" />
+    <ClCompile Include="Components\Pins\Pin.cpp" />
+    <ClCompile Include="Components\XNOR3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defs.H" />
     <ClInclude Include="Actions\Action.h">
       <Filter>Actions</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\AND2.h">
-      <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
       <Filter>CMUgraphics Library</Filter>
@@ -161,15 +156,6 @@
     <ClInclude Include="CMUgraphicsLib\colors.h">
       <Filter>CMUgraphics Library</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Component.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Connection.h">
-      <Filter>Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Gate.h">
-      <Filter>Components</Filter>
-    </ClInclude>
     <ClInclude Include="CMUgraphicsLib\error.h">
       <Filter>CMUgraphics Library</Filter>
     </ClInclude>
@@ -178,9 +164,6 @@
     </ClInclude>
     <ClInclude Include="GUI\Input.h">
       <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\InputPin.h">
-      <Filter>Pins</Filter>
     </ClInclude>
     <ClInclude Include="CMUgraphicsLib\jpeg\jconfig.h">
       <Filter>CMUgraphics Library</Filter>
@@ -221,12 +204,6 @@
     <ClInclude Include="GUI\Output.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Components\OutputPin.h">
-      <Filter>Pins</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Pin.h">
-      <Filter>Pins</Filter>
-    </ClInclude>
     <ClInclude Include="GUI\UI_Info.h">
       <Filter>GUI</Filter>
     </ClInclude>
@@ -239,15 +216,34 @@
     <ClInclude Include="CMUgraphicsLib\windowinput.h">
       <Filter>CMUgraphics Library</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\AddANDgate2.h">
-      <Filter>Actions</Filter>
-    </ClInclude>
     <ClInclude Include="Actions\AddGate.h" />
     <ClInclude Include="Actions\AddLED.h" />
     <ClInclude Include="Actions\AddSwitch.h" />
     <ClInclude Include="ApplicationManager.h">
       <Filter>Application Manager</Filter>
     </ClInclude>
+    <ClInclude Include="Components\AND2.h" />
+    <ClInclude Include="Components\AND3.h" />
+    <ClInclude Include="Components\BUFFER.h" />
+    <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Components\Connection.h" />
+    <ClInclude Include="Components\Gate.h" />
+    <ClInclude Include="Components\LED.h" />
+    <ClInclude Include="Components\NAND2.h" />
+    <ClInclude Include="Components\NAND3.h" />
+    <ClInclude Include="Components\NOR2.h" />
+    <ClInclude Include="Components\NOR3.h" />
+    <ClInclude Include="Components\NOT.h" />
+    <ClInclude Include="Components\OR2.h" />
+    <ClInclude Include="Components\OR3.h" />
+    <ClInclude Include="Components\Switch.h" />
+    <ClInclude Include="Components\XNOR2.h" />
+    <ClInclude Include="Components\XOR2.h" />
+    <ClInclude Include="Components\XOR3.h" />
+    <ClInclude Include="Components\Pins\InputPin.h" />
+    <ClInclude Include="Components\Pins\OutputPin.h" />
+    <ClInclude Include="Components\Pins\Pin.h" />
+    <ClInclude Include="Components\XNOR3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

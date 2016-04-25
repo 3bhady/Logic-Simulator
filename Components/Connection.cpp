@@ -42,7 +42,7 @@ int Connection::GetInputPinStatus(int n)	//returns status of Inputpin # n if SWI
 	return SrcPin->getStatus();	//n is ignored as connection has only one input pin (src pin)	
 }
 
-void Connection::setInputPinStatus(int n, STATUS s)
+void Connection::setInputPinStatus(STATUS s, int n)
 {
 	SrcPin->setStatus(s);
 }

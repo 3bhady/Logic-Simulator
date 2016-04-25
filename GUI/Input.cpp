@@ -25,10 +25,11 @@ string Input::GetString(Output *pOut)
 
 
 //This function reads the position where the user clicks to determine the desired action
-ActionType Input::GetUserAction() const
+ActionType Input::GetUserAction( GraphicsInfo & r_GfxInfo , Component ** Arr[780] , bool selected )const
 {	
 	int x,y;
 	
+	//pWind->WaitMouseClick(x,y); //for testing only
 	pWind->GetMouseClick(x, y);	//Get the coordinates of the user click
 
 	if (UI.AppMode == DESIGN)	//application is in design mode
@@ -45,6 +46,12 @@ ActionType Input::GetUserAction() const
 				//Divide x coord of the point clicked by the menu item width (int division)
 				//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
+				if ( ClickedItemOrder <= 13 )
+				{
+					
+//					pApp->GetOutput()->FollowMouseAndDraw( r_GfxInfo , (DsgnMenuItem)ClickedItemOrder , Arr );
+					return (ActionType)((int)ClickedItemOrder);
+				}
 				switch (ClickedItemOrder)
 				{
 				case ITM_AND2: return ADD_AND_GATE_2;
@@ -61,7 +68,6 @@ ActionType Input::GetUserAction() const
 				case ITM_NAND3: return ADD_AND_GATE_3;
 				case ITM_NOR3: return ADD_NOR_GATE_3;
 				case ITM_XOR3: return ADD_XOR_GATE_3;
-				case ITM_XNOR3: return ADD_XNOR_GATE_3;
 				case ITM_Switch: return ADD_Switch;
 				case ITM_LED: return ADD_LED;
 				case ITM_CONNECTION: return ADD_CONNECTION;

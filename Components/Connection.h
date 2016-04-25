@@ -1,7 +1,7 @@
 #pragma once
 #include "component.h"
-#include "InputPin.h"
-#include "OutputPin.h"
+#include "Pins\InputPin.h"
+#include "Pins\OutputPin.h"
 
 class Connection :	public Component
 {
@@ -27,7 +27,7 @@ public:
 	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1
 
-	virtual void setInputPinStatus(int n, STATUS s);	//set status of Inputpin # n, to be used by connection class.
+	virtual void setInputPinStatus(STATUS s, int n);	//set status of Inputpin # n, to be used by connection class.
 
 
 };

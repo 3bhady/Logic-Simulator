@@ -1,6 +1,6 @@
 #pragma once
 #include "Action.h"
-
+#include"..\Components\Switch.h"
 
 class AddSwitch :
 	public Action

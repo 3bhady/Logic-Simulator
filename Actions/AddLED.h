@@ -1,6 +1,6 @@
 #pragma once
 #include "Action.h"
-
+#include"..\Components\LED.h"
 
 class AddLED :
 	public Action

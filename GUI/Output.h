@@ -5,6 +5,9 @@
 #include <sstream>
 #include <stdlib.h>
 #include <time.h> 
+#include "..\Components\Component.h"
+
+//class Component;
 
 class Output	//The application manager should have a pointer to this class
 {
@@ -25,6 +28,7 @@ public:
 	window* GetPwind()const;
 
 	void MouseHovering( )const;
+	bool FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType , Component ** Arr[780] , bool selected=false );
 
 	void ClearStatusBar() const;		//Clears the status bar
 	void ClearDrawingArea() const;	//Clears the drawing area
@@ -37,7 +41,7 @@ public:
 	void DrawAND2(GraphicsInfo r_GfxInfo, bool selected = false) const;
 
 
-	void DrawGate(GraphicsInfo r_GfxInfo, DsgnMenuItem gate,bool selected = false);
+	void DrawGate(GraphicsInfo  r_GfxInfo, DsgnMenuItem gate,bool selected = false);
 	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected = false);
 	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected = false, MODE mode = DESIGN);
 	void DrawEditMenu(int x, int y,int selectedItem)const;
