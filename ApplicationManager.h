@@ -39,6 +39,7 @@ public:
 	Output* GetOutput();
 	Input* GetInput();
 
+	Component *** GetArr( );
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
 

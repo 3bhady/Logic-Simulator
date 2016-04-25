@@ -47,12 +47,12 @@ ActionType Input::GetUserAction( ApplicationManager * pApp , GraphicsInfo & r_Gf
 				if ( ClickedItemOrder <= 13 )
 				{
 
-					pApp->GetOutput()->FollowMouseAndDraw( r_GfxInfo , (DsgnMenuItem)ClickedItemOrder , Arr );
+				//	pApp->GetOutput()->FollowMouseAndDraw( r_GfxInfo , (DsgnMenuItem)ClickedItemOrder , Arr );
 					return (ActionType)((int)ClickedItemOrder);
 				}
 				switch (ClickedItemOrder)
 				{ case ITM_EXIT: return EXIT;
-				/*case ITM_AND2: return ADD_AND_GATE_2;
+				case ITM_AND2: return ADD_AND_GATE_2;
 				case ITM_OR2: return ADD_OR_GATE_2;
 				
 				case ITM_Buff: return ADD_Buff;
@@ -65,7 +65,7 @@ ActionType Input::GetUserAction( ApplicationManager * pApp , GraphicsInfo & r_Gf
 				case ITM_OR3: return ADD_OR_GATE_3;
 				case ITM_NAND3: return ADD_AND_GATE_3;
 				case ITM_NOR3: return ADD_NOR_GATE_3;
-				case ITM_XOR3: return ADD_XOR_GATE_3;  */
+				case ITM_XOR3: return ADD_XOR_GATE_3;  
 				case ITM_Switch: return ADD_Switch;
 				case ITM_LED: return ADD_LED;
 				case ITM_CONNECTION: return ADD_CONNECTION;

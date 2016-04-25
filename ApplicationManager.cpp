@@ -102,6 +102,11 @@ Input* ApplicationManager::GetInput()
 	return InputInterface;
 }
 
+Component *** ApplicationManager::GetArr( )
+{
+	return Arr;
+}
+
 ////////////////////////////////////////////////////////////////////
 Output* ApplicationManager::GetOutput()
 {
