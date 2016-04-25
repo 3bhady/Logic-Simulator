@@ -76,8 +76,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 	if(ActType== ADD_Switch)
 		pAct = new AddSwitch(this);
-	if(ActType==  EXIT)
-		terminate( );
+	if ( ActType == EXIT )
+		return;
 
 	if(pAct)
 	{
