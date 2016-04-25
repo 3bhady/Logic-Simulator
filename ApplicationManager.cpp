@@ -7,6 +7,7 @@
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
+	Arr = new Component**[780];
 	for ( int i = 0; i < 780; i++ )
 	{
 		Arr[i] = new Component*[1400];
