@@ -327,9 +327,9 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 
 			pWind->DrawImage( initImage , 0 , 0 );
 			pWind->GetMouseCoord( r_GfxInfo.x1 , r_GfxInfo.y1 );
-
 			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
 			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
+			
 			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
 			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
 			//if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight )
@@ -374,10 +374,12 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			PrintMsg( "You can't draw here!" );
 			}	*/
 
-
+				 
 			if (UI.isForbidden(r_GfxInfo.x2,r_GfxInfo.y2 )
 				|| UI.isForbidden( r_GfxInfo.x1 , r_GfxInfo.y1 ) 
-				||	flag )
+				||UI.isForbidden(r_GfxInfo.x1, r_GfxInfo.y2 )
+				||UI.isForbidden(r_GfxInfo.x2,r_GfxInfo.y1 )
+				||flag )
 			{
 				PrintMsg( "You can't draw here!" );	flag = true;
 			}
