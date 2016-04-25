@@ -14,9 +14,9 @@ public:
 	Input(window*);
 	void GetPointClicked(int &, int &);	//Get coordinate where user clicks
 	string GetString(Output*);		//Returns a string entered by the user
-	
+
 
 	ActionType GetUserAction( GraphicsInfo & r_GfxInfo  , Component ** Arr[780] , bool selected = false )const; //Reads the user click and maps it to an action
-	
+
 	~Input();
 };

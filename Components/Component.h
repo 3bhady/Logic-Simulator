@@ -22,11 +22,10 @@ public:
 	virtual void setInputPinStatus(int n, STATUS s)=0;	//set status of Inputpin # n, to be used by connection class.
 	GraphicsInfo get_GraphicInfo();
 	virtual void AddComponent(Component ** Arr[780]);
-	
-	Component();	
-	
+
+	Component();
+
 	//Destructor must be virtual
 	virtual ~Component();
 };
-
 

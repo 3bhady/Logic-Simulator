@@ -1,5 +1,6 @@
+
 #include "AddANDgate2.h"
-//#include "..\ApplicationManager.h"
+#include "..\ApplicationManager.h"
 
 AddANDgate2::AddANDgate2(ApplicationManager *pApp):Action(pApp)
 {

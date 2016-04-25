@@ -14,8 +14,8 @@ ApplicationManager::ApplicationManager()
 	for ( int j = 0; j < 1400; j++ )
 			Arr[i][j] = NULL;
 	}
-	
-	
+
+
 	//memset( Arr , NULL , sizeof( Arr ) );
 	//Arr[0][0] = NULL;
 	for(int i=0; i<MaxCompCount; i++)
@@ -39,7 +39,7 @@ ActionType ApplicationManager::GetUserAction()
 	//Call input to get what action is required from the user
 	OutputInterface->MouseHovering(  );
 	GraphicsInfo GfInfo;
-	return InputInterface->GetUserAction(GfInfo,Arr,false); 	
+	return InputInterface->GetUserAction(GfInfo,Arr,false);
 }
 ////////////////////////////////////////////////////////////////////
 
@@ -55,30 +55,30 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here
 			break;
-	
+
 
 		case EXIT:
 			///TODO: create ExitAction here
 			break;
 	}
-	*/	
+	*/
 	if(ActType<=13)
 			pAct = new AddGate( this , ActType );
 	/*case ADD_AND_GATE_2 || ADD_AND_GATE_3 || ADD_Buff || ADD_INV ||	ADD_OR_GATE_2 ||
-		 ADD_NAND_GATE_2 || ADD_NOR_GATE_2 || ADD_XOR_GATE_2 || ADD_XNOR_GATE_2 || 	
+		 ADD_NAND_GATE_2 || ADD_NOR_GATE_2 || ADD_XOR_GATE_2 || ADD_XNOR_GATE_2 ||
 		ADD_OR_GATE_3 || ADD_NOR_GATE_3 || ADD_NAND_GATE_3 || ADD_XOR_GATE_3 || ADD_XNOR_GATE_3:
 						pAct = new AddGate(this,ActType); break;
-*/	  
-		
+*/
+
 
 	if(ActType== ADD_LED)
 		pAct = new AddLED(this);
-		
+
 	if(ActType== ADD_Switch)
 		pAct = new AddSwitch(this);
 	if(ActType==  EXIT)
 		terminate( );
-	
+
 	if(pAct)
 	{
 		pAct->Execute();
@@ -115,5 +115,6 @@ ApplicationManager::~ApplicationManager()
 		delete CompList[i];
 	delete OutputInterface;
 	delete InputInterface;
-	
+
+
 }

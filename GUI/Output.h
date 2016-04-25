@@ -4,7 +4,7 @@
 #include "..\ApplicationManager.h"
 #include <sstream>
 #include <stdlib.h>
-#include <time.h> 
+#include <time.h>
 #include "..\Components\Component.h"
 
 //class Component;
@@ -36,7 +36,7 @@ public:
 	window* CreateWind(int wd, int h, int x, int y) const; //Creates user interface window
 
 	void Magnetize(int &x,int &y);
-	
+
 	// Draws 2-input AND gate
 	void DrawAND2(GraphicsInfo r_GfxInfo, bool selected = false) const;
 
@@ -50,7 +50,7 @@ public:
 
 	// Draws Connection
 	void DrawConnection(GraphicsInfo r_GfxInfo, bool selected = false) const;
-	
+
 	void PrintMsg(string msg) const;	//Print a message on Status bar
 
 

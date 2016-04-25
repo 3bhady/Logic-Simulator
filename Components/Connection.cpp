@@ -1,7 +1,7 @@
 #include "Connection.h"
 
-Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPin *pDstPin):Component(r_GfxInfo)	
-	
+Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPin *pDstPin):Component(r_GfxInfo)
+
 {
 	SrcPin = pSrcPin;
 	DstPin = pDstPin;
@@ -39,7 +39,7 @@ int Connection::GetOutPinStatus()	//returns status of outputpin if LED, return -
 
 int Connection::GetInputPinStatus(int n)	//returns status of Inputpin # n if SWITCH, return -1
 {
-	return SrcPin->getStatus();	//n is ignored as connection has only one input pin (src pin)	
+	return SrcPin->getStatus();	//n is ignored as connection has only one input pin (src pin)
 }
 
 void Connection::setInputPinStatus(int n, STATUS s)

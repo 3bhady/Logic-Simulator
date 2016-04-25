@@ -41,7 +41,7 @@ struct UI_Info	//User Interface Info.
 		EditBarWidth = 66 ,			//Edit bar width
 		EditBarTitleHeight = 100 ,	//Edit bar title height
 		EditBarTitleWidth = 34 ,		//Edit bar title width
-		EditBarItemHeight = 80 ,		//Height of each item in editbar 
+		EditBarItemHeight = 80 ,		//Height of each item in editbar
 		EditBarStartX = width - EditBarWidth - 14 ,
 		EditBarStartY = 120 ,
 		EditBarTitleStartX = width - EditBarWidth - EditBarTitleWidth - 14 ,
@@ -57,7 +57,7 @@ struct UI_Info	//User Interface Info.
 		FileBarTitleStartX = FileBarWidth ,
 		FileBarTitleStartY = 120 + FileBarHeight - FileBarTitleHeight ,
 
-		EditmenuItemHeight = 26;	//Height of each item in editmenu 
+		EditmenuItemHeight = 26;	//Height of each item in editmenu
 
 
 	color DrawColor;		//Drawing color
@@ -77,7 +77,7 @@ struct UI_Info	//User Interface Info.
 		LED_Height = 45 ,		// LED Image default height
 		EditMenu_Width = 102 ,	// EditMenu Image default width
 		EditMenu_Height = 161;	// EditMenu Image default height
-	bool isInToolBar( int x , int y )
+bool isInToolBar( int x , int y )
 	{
 		if ( y < ToolBarHeight )
 		{
@@ -88,46 +88,47 @@ struct UI_Info	//User Interface Info.
 	}
 	bool  isInToolBarTitle( int x , int y )
 	{
-		if ( y < ToolBarHeight + ToolBarTitleHeight &&y>ToolBarHeight )
+		if ( y < ToolBarHeight + ToolBarTitleHeight &&y>ToolBarHeight)
 			if ( x < UI.ToolBarTitleWidth )
 				return true;
 		return false;
 	}
-
-	bool isInStatusBar( int x , int y )
+	bool isInStatusBar(int x, int y)
 	{
 		return (y > height - StatusBarHeight - 20);
 
 	}
-
-	bool isInFileBar( int x , int y )
+	bool isInFileBar(int x, int y)
 	{
-		if ( x<FileBarWidth )
-			if ( y>FileBarStartY&&y < FileBarHeight + FileBarStartX )
+		if (x>FileBarStartX&&x<ToolBarItemWidth)
+			if (y>FileBarStartY&&y <= FileBarItemHeight*4 + FileBarStartY)
 				return true;
 
 		return false;
 	}
-	bool isInFileBarTitle( int x , int y )
+	bool isInFileBarTitle(int x, int y)
 	{
-		if ( x > FileBarWidth&&x < FileBarTitleStartX + FileBarTitleWidth )
-			if ( y<FileBarTitleStartY + FileBarTitleHeight&&y>UI.FileBarTitleStartY )
+		if (x > FileBarWidth&&x < FileBarTitleStartX + FileBarTitleWidth)
+			if (y<FileBarTitleStartY + FileBarTitleHeight&&y>UI.FileBarTitleStartY)
+				return true;
+	}
+	bool isInEditBar(int x, int y)
+	{
+		if (x > EditBarStartX&&x<UI.width-15)
+			if (y<EditBarHeight + EditBarStartY && y >EditBarStartY)
 				return true;
 		return false;
 	}
-	bool isInEditBar( int x , int y )
+	bool isInEditBarTitle(int x, int y)
 	{
-		if ( x > EditBarStartX )
-			if ( y<EditBarHeight + EditBarStartY && y >EditBarStartY )
+		if (x > EditBarTitleStartX&&x<EditBarStartX)
+			if (y>EditBarTitleStartY&&y < EditBarTitleHeight + EditBarTitleStartY)
 				return true;
 		return false;
 	}
-	bool isInEditBarTitle( int x , int y )
+	bool isInBar( int x , int y )
 	{
-		if ( x > EditBarTitleStartX&&x<EditBarStartX )
-			if ( y>EditBarTitleStartY&&y < EditBarTitleHeight + EditBarTitleStartY )
-				return true;
-		return false;
+		return isInStatusBar( x , y ) || isInEditBar( x , y ) || isInFileBar( x , y );
 	}
 	bool isForbidden(int x,int y)
 	{
@@ -136,6 +137,5 @@ struct UI_Info	//User Interface Info.
 			isInToolBar( x , y ) || isInToolBarTitle( x , y ) ||
 			isInStatusBar( x , y );
 	}
-	
-}UI;	//create a single global object UI
 
+}UI;	//create a single global object UI

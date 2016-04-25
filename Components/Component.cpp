@@ -1,9 +1,10 @@
+
 #include "Component.h"
 #include <iostream>
 using namespace std;
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
-	m_GfxInfo = r_GfxInfo;	
+	m_GfxInfo = r_GfxInfo;
 }
 
 void Component::set_label(string x)

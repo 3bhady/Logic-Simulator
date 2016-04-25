@@ -1,3 +1,4 @@
+
 #pragma once
 /*
   Class Gate
@@ -20,7 +21,7 @@ protected:
 public:
 	Gate(int r_Inputs, int r_FanOut);
 
-	
+
 
 };
 

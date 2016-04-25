@@ -1,6 +1,4 @@
-#ifndef CONST_H
-#define CONST_H
-
+#pragma once
 //This header file contains some defenitions to be used all over the application
 
 //All possible actions
@@ -144,6 +142,4 @@ struct GraphicsInfo
 
 #ifndef NULL
 #define NULL 0
-#endif
-
 #endif

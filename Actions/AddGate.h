@@ -1,5 +1,5 @@
 #pragma once
-#include "..\Actions\Action.h"
+#include "..\Actions\Action.h"												AD
 #include "..\Components\AND2.h"
 
 class AddGate : public Action
