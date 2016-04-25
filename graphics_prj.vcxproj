@@ -126,7 +126,6 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Actions\AddANDgate2.cpp" />
     <ClCompile Include="Actions\AddGate.cpp" />
     <ClCompile Include="Actions\AddLED.cpp" />
     <ClCompile Include="Actions\AddSwitch.cpp" />
@@ -165,21 +164,35 @@
     <ClCompile Include="CMUgraphicsLib\jpeg\jquant1.c" />
     <ClCompile Include="CMUgraphicsLib\jpeg\jquant2.c" />
     <ClCompile Include="CMUgraphicsLib\jpeg\jutils.c" />
+    <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="Components\AND2.cpp" />
+    <ClCompile Include="Components\AND3.cpp" />
+    <ClCompile Include="Components\BUFFER.cpp" />
     <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Components\Connection.cpp" />
     <ClCompile Include="Components\Gate.cpp" />
-    <ClCompile Include="Components\InputPin.cpp" />
-    <ClCompile Include="Components\OutputPin.cpp" />
-    <ClCompile Include="Components\Pin.cpp" />
-    <ClCompile Include="ApplicationManager.cpp" />
+    <ClCompile Include="Components\LED.cpp" />
+    <ClCompile Include="Components\NAND2.cpp" />
+    <ClCompile Include="Components\NAND3.cpp" />
+    <ClCompile Include="Components\NOR2.cpp" />
+    <ClCompile Include="Components\NOR3.cpp" />
+    <ClCompile Include="Components\NOT.cpp" />
+    <ClCompile Include="Components\OR2.cpp" />
+    <ClCompile Include="Components\OR3.cpp" />
+    <ClCompile Include="Components\Pins\InputPin.cpp" />
+    <ClCompile Include="Components\Pins\OutputPin.cpp" />
+    <ClCompile Include="Components\Pins\Pin.cpp" />
+    <ClCompile Include="Components\Switch.cpp" />
+    <ClCompile Include="Components\XNOR.cpp" />
+    <ClCompile Include="Components\XNOR3.cpp" />
+    <ClCompile Include="Components\XOR2.cpp" />
+    <ClCompile Include="Components\XOR3.cpp" />
     <ClCompile Include="GUI\Input.cpp" />
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
-    <ClInclude Include="Actions\AddANDgate2.h" />
     <ClInclude Include="Actions\AddGate.h" />
     <ClInclude Include="Actions\AddLED.h" />
     <ClInclude Include="Actions\AddSwitch.h" />
@@ -203,14 +216,29 @@
     <ClInclude Include="CMUgraphicsLib\jpeg\jpegint.h" />
     <ClInclude Include="CMUgraphicsLib\jpeg\jpeglib.h" />
     <ClInclude Include="CMUgraphicsLib\jpeg\jversion.h" />
+    <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="Components\AND2.h" />
+    <ClInclude Include="Components\AND3.h" />
+    <ClInclude Include="Components\BUFFER.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Components\Connection.h" />
     <ClInclude Include="Components\Gate.h" />
-    <ClInclude Include="Components\InputPin.h" />
-    <ClInclude Include="Components\OutputPin.h" />
-    <ClInclude Include="Components\Pin.h" />
-    <ClInclude Include="ApplicationManager.h" />
+    <ClInclude Include="Components\LED.h" />
+    <ClInclude Include="Components\NAND2.h" />
+    <ClInclude Include="Components\NAND3.h" />
+    <ClInclude Include="Components\NOR2.h" />
+    <ClInclude Include="Components\NOR3.h" />
+    <ClInclude Include="Components\NOT.h" />
+    <ClInclude Include="Components\OR2.h" />
+    <ClInclude Include="Components\OR3.h" />
+    <ClInclude Include="Components\Pins\InputPin.h" />
+    <ClInclude Include="Components\Pins\OutputPin.h" />
+    <ClInclude Include="Components\Pins\Pin.h" />
+    <ClInclude Include="Components\Switch.h" />
+    <ClInclude Include="Components\XNOR2.h" />
+    <ClInclude Include="Components\XNOR3.h" />
+    <ClInclude Include="Components\XOR2.h" />
+    <ClInclude Include="Components\XOR3.h" />
     <ClInclude Include="Defs.H" />
     <ClInclude Include="GUI\Input.h" />
     <ClInclude Include="GUI\Output.h" />

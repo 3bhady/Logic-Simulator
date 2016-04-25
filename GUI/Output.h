@@ -8,7 +8,6 @@
 #include "..\Components\Component.h"
 
 //class Component;
-
 class Output	//The application manager should have a pointer to this class
 {
 private:
@@ -42,7 +41,7 @@ public:
 
 
 	void DrawGate(GraphicsInfo  r_GfxInfo, DsgnMenuItem gate,bool selected = false);
-	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected = false);
+	void DrawLED(GraphicsInfo r_GfxInfo, bool state=false, bool selected = false);
 	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected = false, MODE mode = DESIGN);
 	void DrawEditMenu(int x, int y,int selectedItem)const;
 

@@ -74,6 +74,7 @@ void Output::CreateStatusBar() const
 {
 	//pWind->SetPen(RED,3);
 	//pWind->DrawLine(0, UI.height-UI.StatusBarHeight, UI.width, UI.height-UI.StatusBarHeight);
+
 	pWind->DrawImage( "Images\\Images\\ToolBars\\Statusbar\\SB1.jpg" , UI.StatusBarStartX , UI.StatusBarStartY);
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -92,6 +93,7 @@ void Output::PrintMsg(string msg) const
 //////////////////////////////////////////////////////////////////////////////////
 void Output::ClearStatusBar()const
 {
+
 	CreateStatusBar( );
 /*	// Set the Message offset from the Status Bar
 	int MsgX = 25;
@@ -103,13 +105,13 @@ void Output::ClearStatusBar()const
 	//pWind->DrawRectangle(MsgX, UI.height - MsgY, UI.width, UI.height);		 */
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-//Clears the drawing (degin) area
+//Clears the drawing (design) area
 void Output::ClearDrawingArea() const
 {
-	pWind->SetPen(RED, 1);
-	pWind->SetBrush(WHITE);
-	pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height  );// UI.StatusBarHeight);
-
+	//pWind->SetPen(RED, 1);
+	//pWind->SetBrush(WHITE);
+	//pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height  );// UI.StatusBarHeight);
+	CreateGrid();
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the Design mode
@@ -168,6 +170,7 @@ window * Output::GetPwind() const
 {
 	return pWind;
 }
+
 void Output::MouseHovering( )const
 {
 	if ( UI.HiddenToolBar ) return; //TODO m7taga tt3adl w yb2a feha hovering
@@ -314,15 +317,12 @@ void Output::MouseHovering( )const
 }
 
 bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType , Component ** Arr[780] , bool selected )
-{
-	while ( true )
-	{
-		image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height ); // screenshot of the current image and store it to draw over it
-
-
-
-
-		pWind->SetBuffering( true );
+{	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
+	  pWind->SetBuffering( true );
+//while ( true )
+	//{
+		 // screenshot of the current image and store it to draw over it
+	  bool flag = false;
 		do {
 
 			pWind->DrawImage( initImage , 0 , 0 );
@@ -333,11 +333,12 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			//if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight )
 			//{
 
-			bool flag = false;
+			 flag = false;
 			for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
 			{
 				for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
 				{
+					if(i>0&&j>0&&i<700&&j<1390 )
 					if ( Arr[j][i] )
 						if ( dynamic_cast< Gate* > (Arr[j][i]) )
 						{
@@ -370,17 +371,18 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			}	*/
 
 
-			if ( UI.isForbidden( r_GfxInfo.x1 , r_GfxInfo.y1 ) )
+			if ( UI.isForbidden( r_GfxInfo.x1 , r_GfxInfo.y1 ) ||flag)
 				PrintMsg( "You can't draw here!" );
 			else PrintMsg( "" );
 			pWind->UpdateBuffer( );
 
 
-		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK );
-		pWind->SetBuffering( false );
-		r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
+		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK||flag );
+		
+
+	r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
 		r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
-		bool flag = false;
+	/*	bool flag = false;
 		for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
 		{
 			for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
@@ -399,10 +401,11 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			return true;
 		}
 
-
-
-	}
-
+									  */
+	  pWind->SetBuffering( false );
+	//}
+return true;
+		
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -448,7 +451,7 @@ void Output::DrawAND2(GraphicsInfo r_GfxInfo, bool selected) const
 		}
 		else y = (15 * ((int(b) / 15) + 1));
 		*/
-		pWind->DrawImage("Images\\Gates\\EDIT MENU.jpg", x, y, 102, 161);
+		//pWind->DrawImage("Images\\Gates\\EDIT MENU.jpg", x, y, 102, 161);
 		//pWind->DrawImage("Images\\Gates\\afr.jpg", x-30,y-15, 60, 30);
 		//pWind->DrawImage("Images\\Gates\\LLL.jpg", x + 22.5, y + 22.5, 45, 45);
 		//pWind->DrawImage("Images\\Gates\\NAND3.jpg", x, y, UI.Gate_Width, UI.Gate_Height);
@@ -505,7 +508,7 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo,  bool state, bool selected)
 {
 	//Getting the switch image
 
-	string LEDImage = "Images\\Images\\LED";
+	string LEDImage = "Images\\Images\\LED\\";
 	if (state)			  // ON or OFF
 	{
 		string LEDcolor;

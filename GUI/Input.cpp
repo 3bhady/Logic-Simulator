@@ -1,5 +1,4 @@
 #include "Output.h"
-
 Input::Input(window* pW)
 {
 	pWind = pW; //point to the passed window
@@ -24,7 +23,7 @@ string Input::GetString(Output *pOut)
 
 
 //This function reads the position where the user clicks to determine the desired action
-ActionType Input::GetUserAction( GraphicsInfo & r_GfxInfo , Component ** Arr[780] , bool selected )const
+ActionType Input::GetUserAction( ApplicationManager * pApp , GraphicsInfo & r_GfxInfo , Component ** Arr[780] , bool selected )const
 {
 	int x,y;
 
@@ -48,14 +47,14 @@ ActionType Input::GetUserAction( GraphicsInfo & r_GfxInfo , Component ** Arr[780
 				if ( ClickedItemOrder <= 13 )
 				{
 
-//					pApp->GetOutput()->FollowMouseAndDraw( r_GfxInfo , (DsgnMenuItem)ClickedItemOrder , Arr );
+					pApp->GetOutput()->FollowMouseAndDraw( r_GfxInfo , (DsgnMenuItem)ClickedItemOrder , Arr );
 					return (ActionType)((int)ClickedItemOrder);
 				}
 				switch (ClickedItemOrder)
-				{
-				case ITM_AND2: return ADD_AND_GATE_2;
+				{ case ITM_EXIT: return EXIT;
+				/*case ITM_AND2: return ADD_AND_GATE_2;
 				case ITM_OR2: return ADD_OR_GATE_2;
-				case ITM_EXIT: return EXIT;
+				
 				case ITM_Buff: return ADD_Buff;
 				case ITM_INV: return ADD_INV;
 				case ITM_NAND2: return ADD_NAND_GATE_2;
@@ -66,8 +65,7 @@ ActionType Input::GetUserAction( GraphicsInfo & r_GfxInfo , Component ** Arr[780
 				case ITM_OR3: return ADD_OR_GATE_3;
 				case ITM_NAND3: return ADD_AND_GATE_3;
 				case ITM_NOR3: return ADD_NOR_GATE_3;
-				case ITM_XOR3: return ADD_XOR_GATE_3;
-				case ITM_XNOR3: return ADD_XNOR_GATE_3;
+				case ITM_XOR3: return ADD_XOR_GATE_3;  */
 				case ITM_Switch: return ADD_Switch;
 				case ITM_LED: return ADD_LED;
 				case ITM_CONNECTION: return ADD_CONNECTION;

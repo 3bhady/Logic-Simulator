@@ -18,9 +18,6 @@ struct UI_Info	//User Interface Info.
 
 	const int	width = 1360 , height = 700 ,	//Window width and height
 		wx = 0 , wy = 0 ,			//Window starting coordinates
-
-
-
 		ToolBarHeight = 67 ,			//Tool bar height
 		ToolBarWidth = 1300 ,		//Tool bar width
 		ToolBarTitleHeight = 33 ,	//Tool bar title height
@@ -43,9 +40,9 @@ struct UI_Info	//User Interface Info.
 		EditBarTitleWidth = 34 ,		//Edit bar title width
 		EditBarItemHeight = 80 ,		//Height of each item in editbar
 		EditBarStartX = width - EditBarWidth - 14 ,
-		EditBarStartY = 120 ,
+		EditBarStartY = ToolBarHeight ,
 		EditBarTitleStartX = width - EditBarWidth - EditBarTitleWidth - 14 ,
-		EditBarTitleStartY = 120 ,
+		EditBarTitleStartY = EditBarStartY ,
 
 		FileBarHeight = 320 ,		//File bar height
 		FileBarTitleHeight = 100 ,	//File bar title height
@@ -53,17 +50,17 @@ struct UI_Info	//User Interface Info.
 		FileBarWidth = 66 ,			//File bar Width
 		FileBarItemHeight = 80 ,		//Height of each item in filebar
 		FileBarStartX = 0 ,
-		FileBarStartY = 120 ,
+		FileBarStartY = height-15-StatusBarHeight-FileBarHeight ,
 		FileBarTitleStartX = FileBarWidth ,
-		FileBarTitleStartY = 120 + FileBarHeight - FileBarTitleHeight ,
-
+		//FileBarTitleStartY = 280 + FileBarHeight - FileBarTitleHeight ,
+		FileBarTitleStartY=FileBarStartY+FileBarHeight-FileBarTitleHeight,
 		EditmenuItemHeight = 26;	//Height of each item in editmenu
 
 
 	color DrawColor;		//Drawing color
 	color SelectColor;		//Highlighting color
 	color ConnColor;		//Connector color
-	color MsgColor;			//Messages color
+	color MsgColor = GREY;			//Messages color
 	color BkGrndColor;		//Back ground color
 
 

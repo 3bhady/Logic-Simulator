@@ -1,5 +1,4 @@
 #include "ApplicationManager.h"
-#include "Actions\AddANDgate2.h"
 #include "Actions\AddGate.h"
 #include "Actions\AddLED.h"
 #include "Actions\AddSwitch.h"
@@ -39,7 +38,7 @@ ActionType ApplicationManager::GetUserAction()
 	//Call input to get what action is required from the user
 	OutputInterface->MouseHovering(  );
 	GraphicsInfo GfInfo;
-	return InputInterface->GetUserAction(GfInfo,Arr,false);
+	return InputInterface->GetUserAction(this,GfInfo,Arr,false);
 }
 ////////////////////////////////////////////////////////////////////
 
@@ -76,7 +75,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 	if(ActType== ADD_Switch)
 		pAct = new AddSwitch(this);
+
 	if ( ActType == EXIT )
+
 		return;
 
 	if(pAct)

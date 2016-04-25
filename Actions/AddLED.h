@@ -1,5 +1,6 @@
 #pragma once
-#include "..\Actions\Action.h"
+#include "Action.h"
+#include"..\Components\LED.h"
 
 class AddLED :
 	public Action
@@ -7,9 +8,9 @@ class AddLED :
 private:
 
 	//Parameters for rectangular area to be occupied by the gate
-
+	GraphicsInfo GInfo; //Gfx info to be used to construct the LED
 	int Cx, Cy;				//Center point of the gate
-	int x1, y1, x2, y2;		//Two corners of the rectangluar area
+	//int x1, y1, x2, y2;		//Two corners of the rectangluar area
 
 public:
 
