@@ -134,9 +134,6 @@
     <ClCompile Include="CMUgraphicsLib\windowinput.cpp">
       <Filter>CMUgraphics Library</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\AddANDgate2.cpp">
-      <Filter>Actions</Filter>
-    </ClCompile>
     <ClCompile Include="Actions\AddGate.cpp" />
     <ClCompile Include="Actions\AddLED.cpp" />
     <ClCompile Include="Actions\AddSwitch.cpp" />
@@ -238,9 +235,6 @@
     </ClInclude>
     <ClInclude Include="CMUgraphicsLib\windowinput.h">
       <Filter>CMUgraphics Library</Filter>
-    </ClInclude>
-    <ClInclude Include="Actions\AddANDgate2.h">
-      <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="Actions\AddGate.h" />
     <ClInclude Include="Actions\AddLED.h" />

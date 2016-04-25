@@ -1,6 +1,4 @@
-#ifndef _GATE_H
-#define _GATE_H
-
+#pragma once
 /*
   Class Gate
   -----------
@@ -12,7 +10,7 @@
 #include "InputPin.h"
 #include "OutputPin.h"
 #include "Component.h"
-
+//class Component;
 class Gate:public Component
 {
 protected:
@@ -21,8 +19,8 @@ protected:
 	int m_Inputs;		//No. of input pins of that Gate.
 public:
 	Gate(int r_Inputs, int r_FanOut);
+
 	
 
 };
 
-#endif

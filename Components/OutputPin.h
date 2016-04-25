@@ -1,5 +1,4 @@
-#ifndef _OUTPUTPIN_H
-#define _OUTPUTPIN_H
+#pragma once
 
 /*class OutputPin 
   ---------------
@@ -24,4 +23,3 @@ public:
 	bool ConnectTo(Connection *r_Conn);	//connect to a new connection
 };
 
-#endif

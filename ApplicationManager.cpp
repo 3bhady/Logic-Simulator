@@ -38,7 +38,8 @@ ActionType ApplicationManager::GetUserAction()
 {
 	//Call input to get what action is required from the user
 	OutputInterface->MouseHovering(  );
-	return InputInterface->GetUserAction(); 	
+	GraphicsInfo GfInfo;
+	return InputInterface->GetUserAction(GfInfo,Arr,false); 	
 }
 ////////////////////////////////////////////////////////////////////
 

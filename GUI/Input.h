@@ -4,6 +4,7 @@
 #include "UI_Info.h"
 
 class Output;
+class Component;
 class Input		//The application manager should have a pointer to this class
 {
 private:
@@ -15,7 +16,7 @@ public:
 	string GetString(Output*);		//Returns a string entered by the user
 	
 
-	ActionType GetUserAction() const; //Reads the user click and maps it to an action
-
+	ActionType GetUserAction( GraphicsInfo & r_GfxInfo  , Component ** Arr[780] , bool selected = false )const; //Reads the user click and maps it to an action
+	
 	~Input();
 };

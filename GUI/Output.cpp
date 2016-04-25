@@ -1,6 +1,7 @@
 #include "Output.h"
 using namespace std;
 #include<iostream>
+class Gate { };
 Output::Output()
 {
 	//Initialize user interface parameters
@@ -222,45 +223,95 @@ void Output::MouseHovering( )const
 
 }
 
-void Output::FollowMouseAndDraw( GraphicsInfo  r_GfxInfo , DsgnMenuItem gType , bool selected=false )
+bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType , Component ** Arr[780] , bool selected )
 {
-	
+	while ( true )
+	{
 		image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height ); // screenshot of the current image and store it to draw over it
-	
 
 
-																			  
+
+
 		pWind->SetBuffering( true );
 		do {
 
 			pWind->DrawImage( initImage , 0 , 0 );
 			pWind->GetMouseCoord( r_GfxInfo.x1 , r_GfxInfo.y1 );
 
+			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
+			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
 			//if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight )
 			//{
-			DrawGate( r_GfxInfo , gType , selected );
-			
-if ( !UI.HiddenToolBar )CreateDesignToolBar( );
-if ( !UI.HiddenFileBar )CreateFileToolBar( );
-if ( !UI.HiddenEditBar )CreateEditToolBar( );
+
+			bool flag = false;
+			for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
+			{
+				for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
+				{
+					if ( Arr[j][i] )
+						if ( dynamic_cast< Gate* > (Arr[j][i]) )
+						{
+							flag = true; break;
+						}
+				}
+				if ( flag )break;
+			}
+			if ( flag )
+			{
+				PrintMsg( "You can't draw here!" );
+				selected = 1;
+				DrawGate( r_GfxInfo , gType , selected );
+				selected = 0;
+			}
+			else
+			{
+				DrawGate( r_GfxInfo , gType , selected ) , PrintMsg( "" );
+			}
+
+			if ( !UI.HiddenToolBar )CreateDesignToolBar( );
+			if ( !UI.HiddenFileBar )CreateFileToolBar( );
+			if ( !UI.HiddenEditBar )CreateEditToolBar( );
 			//}
 			//else
 			//	DrawGate( r_GfxInfo , gType , selected );
+			/*if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight + 1 || r_GfxInfo.y1 + UI.Gate_Height / 2 > UI.height - UI.StatusBarHeight + 3 )
+			{
+			PrintMsg( "You can't draw here!" );
+			}	*/
 
-if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight + 1 || r_GfxInfo.y1 + UI.Gate_Height / 2 > UI.height - UI.StatusBarHeight + 3 )
-{		 
-	PrintMsg( "You can't draw here!" );
-}
+
+			if ( UI.isForbidden( r_GfxInfo.x1 , r_GfxInfo.y1 ) )
+				PrintMsg( "You can't draw here!" );
 			else PrintMsg( "" );
 			pWind->UpdateBuffer( );
-			//Sleep( 32 );
+
 
 		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK );
 		pWind->SetBuffering( false );
+		r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
+		r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
+		bool flag = false;
+		for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
+		{
+			for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
+			{
+				if ( Arr[j][i] )
+					if ( dynamic_cast< Gate* > (Arr[j][i]) )
+					{
+						flag = true; break;
+					}
+			}
+			if ( flag )break;
+		}
+		if ( !flag )
+		{
+			DrawGate( r_GfxInfo , gType , selected ) , PrintMsg( "" );
+			return true;
+		}
+		
 
-	
 
-
+	}
 	
 }
 
@@ -320,7 +371,7 @@ void Output::DrawAND2(GraphicsInfo r_GfxInfo, bool selected) const
 	//pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 
-void Output::DrawGate(GraphicsInfo r_GfxInfo, DsgnMenuItem gate,bool selected)
+void Output::DrawGate(GraphicsInfo  r_GfxInfo, DsgnMenuItem gate,bool selected)
 {
 	//Getting the image of the gate
 

@@ -25,7 +25,7 @@ string Input::GetString(Output *pOut)
 
 
 //This function reads the position where the user clicks to determine the desired action
-ActionType Input::GetUserAction() const
+ActionType Input::GetUserAction( GraphicsInfo & r_GfxInfo , Component ** Arr[780] , bool selected )const
 {	
 	int x,y;
 	
@@ -46,6 +46,12 @@ ActionType Input::GetUserAction() const
 				//Divide x coord of the point clicked by the menu item width (int division)
 				//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
+				if ( ClickedItemOrder <= 13 )
+				{
+					
+//					pApp->GetOutput()->FollowMouseAndDraw( r_GfxInfo , (DsgnMenuItem)ClickedItemOrder , Arr );
+					return (ActionType)((int)ClickedItemOrder);
+				}
 				switch (ClickedItemOrder)
 				{
 				case ITM_AND2: return ADD_AND_GATE_2;

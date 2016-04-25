@@ -1,6 +1,4 @@
-#ifndef _ADD_AND_GATE_H
-#define _ADD_AND_GATE_H
-
+#pragma once
 #include "Action.h"
 #include "..\Components\AND2.h"
 
@@ -28,5 +26,3 @@ public:
 	virtual void Redo();
 
 };
-
-#endif
