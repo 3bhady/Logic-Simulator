@@ -311,7 +311,7 @@ void Output::MouseHovering( )const
 			//PrintMsg("");
 		}
 	}
-	if ( !UI.isInEditBar(x,y)&&!UI.isInFileBar(x,y)&&!UI.isInToolBar(x,y) )
+	if ( !UI.isInEditBar( x , y ) && !UI.isInFileBar( x , y ) && !UI.isInToolBar( x , y ) )
 		PrintMsg( "" );
 	pWind->UpdateBuffer( );
 }
@@ -356,7 +356,9 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			}
 			else
 			{
-				DrawGate( r_GfxInfo , gType , selected ) , PrintMsg( "" );
+				DrawGate( r_GfxInfo , gType , selected );
+				flag = false;
+				//, PrintMsg( "" );
 			}
 
 			if ( !UI.HiddenToolBar )CreateDesignToolBar( );
@@ -371,9 +373,14 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			}	*/
 
 
-			if ( UI.isForbidden( r_GfxInfo.x1 , r_GfxInfo.y1 ) ||flag)
-				PrintMsg( "You can't draw here!" );
-			else PrintMsg( "" );
+			if ( UI.isForbidden( r_GfxInfo.x1 , r_GfxInfo.y1 ) || flag )
+			{
+				PrintMsg( "You can't draw here!" ) , flag = true;
+			}
+			else
+			{
+				PrintMsg( "" ) , flag = false;
+			}
 			pWind->UpdateBuffer( );
 
 
@@ -382,6 +389,9 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 
 	r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
 		r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
+		r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
+		r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+		PrintMsg( "" );
 	/*	bool flag = false;
 		for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
 		{
