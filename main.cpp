@@ -12,7 +12,6 @@ int main()
 	//Create an object of ApplicationManager
 	ApplicationManager AppManager;
 	window* pWind = AppManager.GetOutput()->GetPwind();
-
 	do
 	{
 		//Read user action
@@ -31,7 +30,7 @@ int main()
 		// ana //mesh
 		//3arfny
 
-	}while(ActType != EXIT);
+	}while(ActType != EXIT);   
 
 	return 0;
 }

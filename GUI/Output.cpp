@@ -330,6 +330,8 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 
 			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
 			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
+			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
+			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
 			//if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight )
 			//{
 
@@ -364,22 +366,24 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			if ( !UI.HiddenToolBar )CreateDesignToolBar( );
 			if ( !UI.HiddenFileBar )CreateFileToolBar( );
 			if ( !UI.HiddenEditBar )CreateEditToolBar( );
-			//}
+			/*//}
 			//else
 			//	DrawGate( r_GfxInfo , gType , selected );
-			/*if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight + 1 || r_GfxInfo.y1 + UI.Gate_Height / 2 > UI.height - UI.StatusBarHeight + 3 )
+			if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight + 1 || r_GfxInfo.y1 + UI.Gate_Height / 2 > UI.height - UI.StatusBarHeight + 3 )
 			{
 			PrintMsg( "You can't draw here!" );
 			}	*/
 
 
-			if ( UI.isForbidden( r_GfxInfo.x1 , r_GfxInfo.y1 ) || flag )
+			if (UI.isForbidden(r_GfxInfo.x2,r_GfxInfo.y2 )
+				|| UI.isForbidden( r_GfxInfo.x1 , r_GfxInfo.y1 ) 
+				||	flag )
 			{
-				PrintMsg( "You can't draw here!" ) , flag = true;
+				PrintMsg( "You can't draw here!" );	flag = true;
 			}
 			else
 			{
-				PrintMsg( "" ) , flag = false;
+				PrintMsg( "" );  flag = false;
 			}
 			pWind->UpdateBuffer( );
 
