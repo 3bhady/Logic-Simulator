@@ -130,10 +130,10 @@ bool isInToolBar( int x , int y )
 	}
 	bool isForbidden(int x,int y)
 	{
-		return isInEditBar( x , y ) || isInEditBarTitle( x , y ) ||
+		return (isInEditBar( x , y ) || isInEditBarTitle( x , y ) ||
 			isInFileBar( x , y ) || isInFileBarTitle( x , y ) ||
 			isInToolBar( x , y ) || isInToolBarTitle( x , y ) ||
-			isInStatusBar( x , y );
+			isInStatusBar( x , y ));
 	}
 
 }UI;	//create a single global object UI
