@@ -108,6 +108,7 @@ bool isInToolBar( int x , int y )
 		if (x > FileBarWidth&&x < FileBarTitleStartX + FileBarTitleWidth)
 			if (y<FileBarTitleStartY + FileBarTitleHeight&&y>UI.FileBarTitleStartY)
 				return true;
+		return false;
 	}
 	bool isInEditBar(int x, int y)
 	{
