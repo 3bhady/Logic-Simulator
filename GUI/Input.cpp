@@ -1,4 +1,3 @@
-//#include "Input.h"
 #include "Output.h"
 
 Input::Input(window* pW)
@@ -26,9 +25,9 @@ string Input::GetString(Output *pOut)
 
 //This function reads the position where the user clicks to determine the desired action
 ActionType Input::GetUserAction( GraphicsInfo & r_GfxInfo , Component ** Arr[780] , bool selected )const
-{	
+{
 	int x,y;
-	
+
 	//pWind->WaitMouseClick(x,y); //for testing only
 	pWind->GetMouseClick(x, y);	//Get the coordinates of the user click
 
@@ -48,7 +47,7 @@ ActionType Input::GetUserAction( GraphicsInfo & r_GfxInfo , Component ** Arr[780
 
 				if ( ClickedItemOrder <= 13 )
 				{
-					
+
 //					pApp->GetOutput()->FollowMouseAndDraw( r_GfxInfo , (DsgnMenuItem)ClickedItemOrder , Arr );
 					return (ActionType)((int)ClickedItemOrder);
 				}
@@ -85,7 +84,32 @@ ActionType Input::GetUserAction( GraphicsInfo & r_GfxInfo , Component ** Arr[780
 				default: return DSN_TOOL;	//A click on empty place in design toolbar
 				}
 			}
-
+if (UI.isInFileBar(x, y))
+			{
+				int ClickedItemOrder = ((y - UI.FileBarStartY) / UI.FileBarItemHeight);
+				switch (ClickedItemOrder)
+				{
+				case 0: {break; }
+				case 1: {return LOAD; break; }
+				case 2: {return SAVE; break; }
+				case 3: {return EXIT; break; }
+				default:
+					break;
+				}
+			}
+			if (UI.isInEditBar(x, y))
+			{
+				int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
+				switch (ClickedItemOrder)
+				{
+				case 0: {return UNDO; break; }
+				case 1: {return REDO; break; }
+				case 2: {return Create_TruthTable; break; }
+				case 3: {return SIM_MODE; break; }
+				default:
+					break;
+				}
+			}
 			//[2] User clicks on the drawing area
 			if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
 			{
@@ -97,7 +121,7 @@ ActionType Input::GetUserAction( GraphicsInfo & r_GfxInfo , Component ** Arr[780
 		}
 		else	//Application is in Simulation mode
 		{
-			return SIM_MODE;	//This should be changed after creating the compelete simulation bar 
+			return SIM_MODE;	//This should be changed after creating the compelete simulation bar
 		}
 	}
 	//TO DO : return when sim mode

@@ -1,5 +1,4 @@
-#ifndef _PIN_H
-#define _PIN_H
+#pragma once
 
 #include "..\..\Defs.h"
 
@@ -12,5 +11,3 @@ public:
 	void setStatus(STATUS r_Status);
 	STATUS getStatus();
 };
-
-#endif

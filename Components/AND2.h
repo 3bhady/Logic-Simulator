@@ -1,5 +1,5 @@
-#ifndef _AND2_H
-#define _AND2_H
+#pragma once
+
 
 /*
   Class AND2
@@ -9,7 +9,7 @@
 
 #include "Gate.h"
 
-class AND2:public Gate
+class AND2:	  public Gate
 {
 public:
 	AND2(const GraphicsInfo &r_GfxInfo, int r_FanOut);
@@ -23,5 +23,3 @@ public:
 
 
 };
-
-#endif

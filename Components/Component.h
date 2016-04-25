@@ -29,4 +29,3 @@ public:
 	virtual ~Component();
 };
 
-

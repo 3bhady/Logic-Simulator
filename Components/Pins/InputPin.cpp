@@ -11,4 +11,5 @@ void InputPin::setComponent(Component *pCmp)
 Component* InputPin::getComponent()
 {
 	return pComp;
+
 }

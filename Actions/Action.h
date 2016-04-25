@@ -24,4 +24,3 @@ public:
 	virtual void Redo()=0;
 
 };
-

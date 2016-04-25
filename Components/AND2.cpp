@@ -27,14 +27,14 @@ void AND2::Draw(Output* pOut)
 }
 
 //returns status of outputpin
-int AND2::GetOutPinStatus()	
+int AND2::GetOutPinStatus()
 {
 	return m_OutputPin.getStatus();
 }
 
 
 //returns status of Inputpin #n
-int AND2::GetInputPinStatus(int n)	
+int AND2::GetInputPinStatus(int n)
 {
 	return m_InputPins[n-1].getStatus();	//n starts from 1 but array index starts from 0.
 }

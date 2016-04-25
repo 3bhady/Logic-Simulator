@@ -14,9 +14,9 @@ Output::Output()
 	UI.ConnColor = RED;
 	UI.MsgColor = BLUE;
 	UI.BkGrndColor = WHITE;
-	
+
 	//Create the drawing window
-	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);	
+	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
 	ChangeTitle("Programming Techniques Project");
 
 	CreateGrid( );
@@ -24,7 +24,7 @@ Output::Output()
 	CreateFileToolBar( );
 	CreateEditToolBar( );
 	CreateStatusBar();		//Create Status bar
-	
+
 
 }
 
@@ -86,8 +86,8 @@ void Output::PrintMsg(string msg) const
 	int MsgY = UI.StatusBarHeight - 10;
 
 	// Print the Message
-    pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial"); 
-	pWind->SetPen(UI.MsgColor); 
+    pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
+	pWind->SetPen(UI.MsgColor);
 	pWind->DrawString(MsgX+50, UI.height - MsgY, msg);
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -144,11 +144,11 @@ void Output::CreateDesignToolBar() const
 
 }
 void Output::CreateFileToolBar( ) const
-{   
-	
+{
+
 	pWind->DrawImage( "Images\\Images\\ToolBars\\Filebar\\FB1.jpg" , UI.FileBarStartX , UI.FileBarStartY );
 	pWind->DrawImage( "Images\\Images\\ToolBars\\Filebar\\FB2.jpg" , UI.FileBarTitleStartX ,UI.FileBarTitleStartY );
-	
+
 }
 void Output::CreateEditToolBar( ) const
 {
@@ -170,19 +170,24 @@ window * Output::GetPwind() const
 {
 	return pWind;
 }
+
 void Output::MouseHovering( )const
 {
 	if ( UI.HiddenToolBar ) return; //TODO m7taga tt3adl w yb2a feha hovering
 	string z1 = "Images\\Images\\ToolBars\\Toolbar\\toolbar";
 	string z2 = ".jpg";
+	string z3 = "Images\\Images\\ToolBars\\Filebar\\filebar";
+	string z4 = "Images\\Images\\ToolBars\\Editbar\\editbarDSN";
+	string z5 = "Images\\Images\\ToolBars\\Editbar\\editbarSIM";
 	image i;
 	//pWind->StoreImage( i , 0 , 0 , UI.width , UI.height );
 
 	int x , y;
 	pWind->GetMouseCoord( x , y );
 //	cout << "x: " << x << " y: " << y << endl;
-	
-	if ( y >= 0 && y < UI.ToolBarHeight && x <= UI.ToolBarItemWidth * 17 )
+
+	//if ( y >= 0 && y < UI.ToolBarHeight && x <= UI.ToolBarItemWidth * 17 )
+	if(UI.isInToolBar(x,y ) )
 	{
 		string num = "" , s = "";
 		stringstream ss;
@@ -207,22 +212,108 @@ void Output::MouseHovering( )const
 			case ITM_OR3: {PrintMsg( "Add OR3 Gate" ); break; }
 			case ITM_NOR3: {PrintMsg( "Add NOR3 Gate" ); break; }
 			case ITM_XOR3: {PrintMsg( "Add XOR3 Gate" ); break; }
-			case ITM_XNOR3: {PrintMsg("Add XNOR3 Gate"); break; }
+			case ITM_XNOR3: {PrintMsg( "Add XNOR3 Gate" ); break; }
 			case ITM_Switch: {PrintMsg( "Add Switch" ); break; }
 			case ITM_LED: {PrintMsg( "Add Led" ); break; }
 			case ITM_CONNECTION: {PrintMsg( "Add Connection" ); break; }
-		
 
-			default:PrintMsg( "" );
+
+			//default:PrintMsg( "" );
 			}
 		}
 
 	}
 	else {
 		CreateDesignToolBar( );
-		PrintMsg( "" );
+		//PrintMsg( "" );
 	}
+	if (UI.isInFileBar(x,y))
+	{
+		string num = "", s = "";
+		stringstream ss;
+		int ClickedItemOrder = ((y-UI.FileBarStartY) / UI.FileBarItemHeight);
+		ss << ClickedItemOrder;
+		ss >> num;
+		s = z3 + num + z2;
+		if (ClickedItemOrder < 4)
+		{
+			pWind->DrawImage(s, UI.FileBarStartX, UI.FileBarStartY);
+			switch (ClickedItemOrder) {
+			case 0: {PrintMsg("New project"); break; }
+			case 1: {PrintMsg("Load project"); break; }
+			case 2: {PrintMsg("Save project"); break; }
+			case 3: {PrintMsg("Exit"); break; }
+			//default:PrintMsg("");
+			}
+		}
 
+	}
+	else
+	{
+		CreateFileToolBar();
+		//PrintMsg("");
+	}
+	if (UI.AppMode == DESIGN)
+	{
+		if (UI.isInEditBar(x, y))
+		{
+			string num = "", s = "";
+			stringstream ss;
+			int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
+			ss << ClickedItemOrder;
+			ss >> num;
+			s = z4 + num + z2;
+			if (ClickedItemOrder < 4)
+			{
+				pWind->DrawImage(s, UI.EditBarStartX - 34, UI.EditBarStartY);
+				switch (ClickedItemOrder) {
+				case 0: {PrintMsg("undo"); break; }
+				case 1: {PrintMsg("redo"); break; }
+				case 2: {PrintMsg("truth table"); break; }
+				case 3: {PrintMsg("Run"); break; }
+				//default:PrintMsg("");
+				}
+			}
+
+		}
+		else
+		{
+			CreateEditToolBar();
+			//PrintMsg("");
+		}
+	}
+	else {
+		if (UI.isInEditBar(x, y))
+		{
+			string num = "", s = "";
+			stringstream ss;
+			int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
+			ss << ClickedItemOrder;
+			ss >> num;
+			s = z5 + num + z2;
+			if (ClickedItemOrder < 4)
+			{
+				pWind->DrawImage(s, UI.EditBarStartX - 34, UI.EditBarStartY);
+				switch (ClickedItemOrder) {
+				case 0: {PrintMsg("undo"); break; }
+				case 1: {PrintMsg("redo"); break; }
+				case 2: {PrintMsg("truth table"); break; }
+				case 3: {PrintMsg("Design mode"); break; }
+				//default:PrintMsg("");
+				}
+
+			}
+
+		}
+		else
+		{
+			CreateEditToolBar();
+			//PrintMsg("");
+		}
+	}
+	if ( !UI.isInEditBar(x,y)&&!UI.isInFileBar(x,y)&&!UI.isInToolBar(x,y) )
+		PrintMsg( "" );
+	pWind->UpdateBuffer( );
 }
 
 bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType , Component ** Arr[780] , bool selected )
@@ -310,11 +401,11 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			DrawGate( r_GfxInfo , gType , selected ) , PrintMsg( "" );
 			return true;
 		}
-		
+
 
 
 	}
-	
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -347,7 +438,7 @@ void Output::DrawAND2(GraphicsInfo r_GfxInfo, bool selected) const
 		a = x - (double(UI.Gate_Width) / 2);
 		b = y - (double(UI.Gate_Height) / 2);
 
-		//Magnet effect :D 
+		//Magnet effect :D
 		if (a - (15 * (a / 15)) < a - (15 * ((a / 15) + 1)))
 		{
 			x = (15 * (int(a) / 15));
@@ -417,11 +508,11 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo,  bool state, bool selected)
 {
 	//Getting the switch image
 
-	string LEDImage = "Images\\Images\\LED";
+	string LEDImage = "Images\\Images\\LED\\";
 	if (state)			  // ON or OFF
 	{
 		string LEDcolor;
-		// generate random number between 0 and 5 
+		// generate random number between 0 and 5
 		// choosing a LED color
 
 		srand(time(NULL));
@@ -495,3 +586,5 @@ Output::~Output()
 {
 	delete pWind;
 }
+
+

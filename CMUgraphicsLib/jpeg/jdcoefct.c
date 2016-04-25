@@ -327,7 +327,8 @@ decompress_data (j_decompress_ptr cinfo, JSAMPIMAGE output_buf)
   jpeg_component_info *compptr;
   inverse_DCT_method_ptr inverse_DCT;
 
-  /* Force some input to be done if we are getting ahead of the input. */
+  /* Force some input to be done if we are getting a
+  of the input. */
   while (cinfo->input_scan_number < cinfo->output_scan_number ||
 	 (cinfo->input_scan_number == cinfo->output_scan_number &&
 	  cinfo->input_iMCU_row <= cinfo->output_iMCU_row)) {
