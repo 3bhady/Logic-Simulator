@@ -9,7 +9,7 @@ AddLED::~AddLED(void)
 {
 }
 
-void AddLED::ReadActionParameters(string s)
+bool AddLED::ReadActionParameters(string s)
 {
 
 	//Get a Pointer to the Input / Output Interfaces
@@ -35,6 +35,7 @@ void AddLED::ReadActionParameters(string s)
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
+	return true;
 }
 
 void AddLED::Execute()
