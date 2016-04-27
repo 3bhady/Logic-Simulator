@@ -608,6 +608,7 @@ void Output::DrawEditMenu(int x, int y, int selectedItem = 6) const
 void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	//TODO: Add code to draw connection
+	
 }
 
 
