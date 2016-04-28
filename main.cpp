@@ -13,7 +13,7 @@ int main()
 	
 	
 	ApplicationManager AppManager;
-
+	//bahiiiiiiii
 	window* pWind = AppManager.GetOutput()->GetPwind();
 	do
 	{
