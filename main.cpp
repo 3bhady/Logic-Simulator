@@ -14,7 +14,8 @@ int main()
 	
 	
 	ApplicationManager AppManager;
-	//bahiiiiiiii
+	//
+	//tessssssssst
 	window* pWind = AppManager.GetOutput()->GetPwind();
 	//DrawPNG( pWind , "io.png" , 0 , 400 );
 	//system( "PAUSE" );
