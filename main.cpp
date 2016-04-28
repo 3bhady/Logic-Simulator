@@ -1,9 +1,5 @@
 #include <iostream>
-#include <sstream>
-#include <cmath>
-
 #include "ApplicationManager.h"
-#include "Utility\Utility.h"
 
 int main()
 {
@@ -16,9 +12,8 @@ int main()
 	ApplicationManager AppManager;
 
 	window* pWind = AppManager.GetOutput()->GetPwind();
-	DrawPNG( pWind , "io.png" , 0 , 400 );
-	system( "PAUSE" );
-/*	do
+
+	do
 	{
 		//Read user action
 		ActType = AppManager.GetUserAction();
@@ -37,7 +32,7 @@ int main()
 		//3arfny
 
 	}while(ActType != EXIT);   	
-					 */
+					 
 	return 0;
 }
 /*

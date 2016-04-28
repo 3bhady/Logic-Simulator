@@ -1,4 +1,5 @@
 #include "Output.h"
+#include "..\Utility\Utility.h"
 using namespace std;
 #include<iostream>
 class Gate { };
