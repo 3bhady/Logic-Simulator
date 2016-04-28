@@ -9,7 +9,7 @@ AddSwitch::~AddSwitch(void)
 {
 }
 
-void AddSwitch::ReadActionParameters(string s)
+bool AddSwitch::ReadActionParameters(string s)
 {
 
 	//Get a Pointer to the Input / Output Interfaces
@@ -36,6 +36,7 @@ void AddSwitch::ReadActionParameters(string s)
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
+	return true;
 }
 
 void AddSwitch::Execute()

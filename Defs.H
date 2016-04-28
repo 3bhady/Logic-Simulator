@@ -59,7 +59,11 @@ enum STATUS
 enum  MODE	//Modes of operation
 {
 	DESIGN,
-	SIMULATION
+	SIMULATION ,
+	MULTISELECT,	   //TODO:: when multiple components are selected individually
+//	SELECT,		  //TODO::
+	SELECTAREA	// TODO::
+	
 };
 
 
@@ -121,7 +125,7 @@ enum SimMenuItem //The items of the simulation menu (you should add more items)
 	ITM_DSN_MODE,	//Switch to Design mode
 	ITM_SIM_CNT		//no. of simulation menu items ==> This should be the last line in this enum
 
-};
+};						
 
 //Maximum number of input pins that can be connected to any output pin
 #define MAX_CONNS 20

@@ -322,9 +322,12 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 //while ( true )
 	//{
 		 // screenshot of the current image and store it to draw over it
-	  bool flag = false;
+	  pWind->FlushKeyQueue( );
+	  char cEscape;	//the character pressed to cancle the addition of the gate
+	  bool flag = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
 		do {
-
+			
+			
 			pWind->DrawImage( initImage , 0 , 0 );
 			pWind->GetMouseCoord( r_GfxInfo.x1 , r_GfxInfo.y1 );
 			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
@@ -332,14 +335,30 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			
 			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
 			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+			if ( pWind->GetKeyPress( cEscape ) == ESCAPE )
+			{
+				pWind->DrawImage( initImage , 0 , 0 );
+				pWind->UpdateBuffer( );
+				pWind->SetBuffering( false );
+				return false;
+			}
 			//if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight )
 			//{
+<<<<<<< HEAD
 			 flag = false;
 			for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
+=======
+
+			flag = false;
+
+			//for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
+			for ( int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i++ )
+>>>>>>> origin/master
 			{
-				for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
+				//for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
+				for ( int j = r_GfxInfo.y1; j < r_GfxInfo.y2; j++ )
 				{
-					if(i>0&&j>0&&i<700&&j<1390 )
+					if(i>0&&j>0&&j<700&&i<1390 )
 					if ( Arr[j][i] )
 						if ( dynamic_cast< Gate* > (Arr[j][i]) )
 						{
@@ -594,6 +613,7 @@ void Output::DrawEditMenu(int x, int y, int selectedItem = 6) const
 void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	//TODO: Add code to draw connection
+	
 }
 
 
