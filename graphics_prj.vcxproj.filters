@@ -66,6 +66,7 @@
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utility\Utility.cpp" />
+    <ClCompile Include="lodepng.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -120,6 +121,7 @@
     <ClInclude Include="GUI\Output.h" />
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="Utility\Utility.h" />
+    <ClInclude Include="lodepng.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
