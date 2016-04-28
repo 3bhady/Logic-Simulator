@@ -1,7 +1,7 @@
 #include "LED.h"
 
 LED::LED(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOut) {
-	S = LOW;
+	State = LOW;
 	m_InputPin.setComponent(this);
 
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -14,8 +14,8 @@ LED::LED(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOut) {
 void LED::Operate()
 {
 	m_OutputPin.setStatus(m_InputPin.getStatus());
-	if (m_InputPin.getStatus() == HIGH)S = HIGH;
-	else S = LOW;
+	if (m_InputPin.getStatus() == HIGH)State = HIGH;
+	else State = LOW;
 }
 
 
@@ -24,7 +24,7 @@ void LED::Operate()
 void LED::Draw(Output* pOut)
 {
 	//Call output class and pass led drawing info to it.
-	pOut->DrawLED(m_GfxInfo, LOW);
+	pOut->DrawLED(m_GfxInfo, State, highlighted);
 }
 
 //returns status of outputpin
@@ -43,7 +43,7 @@ int LED::GetInputPinStatus(int n = 1)
 //return the switch status
 STATUS LED::get_state()
 {
-	return S;
+	return State;
 }
 
 //Set status of an input pin ot HIGH or LOW

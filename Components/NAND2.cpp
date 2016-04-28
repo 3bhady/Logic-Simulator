@@ -25,7 +25,7 @@ void NAND2::Operate()
 void NAND2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, ITM_NAND2);
+	pOut->DrawGate(m_GfxInfo, ITM_NAND2, highlighted);
 }
 
 //returns status of outputpin

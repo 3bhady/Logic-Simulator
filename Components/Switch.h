@@ -6,7 +6,7 @@ class Switch :	public Component
 {
 	InputPin m_InputPin;	//The input pins of the Switch
 	OutputPin m_OutputPin;	//The Switch output pin
-	STATUS S;		//The Switch State .
+	STATUS State;		//The Switch State .
 public:
 	Switch(const GraphicsInfo &r_GfxInfo, int);
 	virtual void Operate();	//Calculates the output of switch

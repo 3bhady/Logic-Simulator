@@ -4,7 +4,7 @@
 
 Switch::Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOut)
 {
-S = LOW;
+State = LOW;
 m_InputPin.setComponent(this);
 
 m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -16,7 +16,7 @@ m_GfxInfo.y2 = r_GfxInfo.y2;
 
 void Switch::Operate()
 {
-	if (S==HIGH)
+	if (State==HIGH)
 		m_OutputPin.setStatus(m_InputPin.getStatus());
 	else
 		m_OutputPin.setStatus(LOW);
@@ -28,7 +28,7 @@ void Switch::Operate()
 void Switch::Draw(Output* pOut)
 {
 	//Call output class and pass switch drawing info to it.
-	pOut->DrawSwitch(m_GfxInfo, LOW);
+	pOut->DrawSwitch(m_GfxInfo, State, highlighted);
 }
 
 //returns status of outputpin
@@ -46,12 +46,12 @@ int Switch::GetInputPinStatus(int n=1)
 //Set status of the switch on or off
 void Switch::set_state(STATUS x)
 {
-	S = x;
+	State = x;
 }
 //return the switch status
 STATUS Switch::get_state()
 {
-	return S;
+	return State;
 }
 
 //Set status of an input pin ot HIGH or LOW

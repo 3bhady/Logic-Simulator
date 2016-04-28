@@ -7,7 +7,7 @@ class LED : public Component
 {
 	InputPin m_InputPin;	//The input pins of the led
 	OutputPin m_OutputPin;	//The led output pin
-	STATUS S;		//The Switch State .
+	STATUS State;		//The Switch State .
 public:
 	LED(const GraphicsInfo &r_GfxInfo, int);
 	virtual void Operate();	//Calculates the output of led

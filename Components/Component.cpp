@@ -42,6 +42,21 @@ void Component::AddComponent(Component ** Arr[780])
 
 }
 
+void Component::Highlight()
+{
+	highlighted = true;
+}
+
+void Component::Unhighlight()
+{
+	highlighted = false;
+}
+
+void Component::ChangeState()
+{
+	highlighted = !highlighted;
+}
+
 Component::Component()
 {}
 

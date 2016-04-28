@@ -25,7 +25,7 @@ void AND3::Operate()
 void AND3::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, ITM_AND3);
+	pOut->DrawGate(m_GfxInfo, ITM_AND3, highlighted);
 }
 
 //returns status of outputpin

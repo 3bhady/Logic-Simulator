@@ -23,13 +23,14 @@ string Input::GetString(Output *pOut)
 
 
 //This function reads the position where the user clicks to determine the desired action
-ActionType Input::GetUserAction( ApplicationManager * pApp , GraphicsInfo & r_GfxInfo , Component ** Arr[780] , bool selected )const
+ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 {
 	int x,y;
-
+	Component*** Arr = pApp->GetArr();
 	//pWind->WaitMouseClick(x,y); //for testing only
 	pWind->GetMouseClick(x, y);	//Get the coordinates of the user click
-
+	UI.u_GfxInfo.x1 = x;
+	UI.u_GfxInfo.y1 = y;
 	if (UI.AppMode == DESIGN)	//application is in design mode
 	{
 		//[1] If user clicks on the Toolbar
@@ -71,7 +72,7 @@ ActionType Input::GetUserAction( ApplicationManager * pApp , GraphicsInfo & r_Gf
 				case ITM_CONNECTION: return ADD_CONNECTION;
 				//case ITM_ADD_Label: return ADD_Label;
 				case ITM_EDIT_Label: return EDIT_Label;
-				case ITM_SELECT: return SELECT;
+				//case ITM_SELECT: return SELECT;
 				case ITM_DEL: return DEL;
 				case ITM_MOVE: return MOVE;
 				case ITM_SAVE: return SAVE;
@@ -110,13 +111,17 @@ if (UI.isInFileBar(x, y))
 				}
 			}
 			//[2] User clicks on the drawing area
-			if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
-			{
-				return SELECT;	//user want to select/unselect a statement in the flowchart
-			}
+			//if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
+			//{
+				//return SELECT;	//user want to select/unselect a statement in the flowchart
+			//}
+			if (!UI.isForbidden(x, y))
+				return SELECT;
 
 			//[3] User clicks on the status bar
-			return STATUS_BAR;
+
+			if(UI.isInStatusBar(x,y))
+				return STATUS_BAR;
 		}
 		else	//Application is in Simulation mode
 		{

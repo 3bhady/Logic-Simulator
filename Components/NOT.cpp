@@ -23,7 +23,7 @@ void NOT::Operate()
 void NOT::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo,ITM_INV);
+	pOut->DrawGate(m_GfxInfo,ITM_INV, highlighted);
 }
 
 //returns status of outputpin

@@ -25,7 +25,7 @@ void NAND3::Operate()
 void NAND3::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, ITM_NAND3);
+	pOut->DrawGate(m_GfxInfo, ITM_NAND3, highlighted);
 }
 
 //returns status of outputpin

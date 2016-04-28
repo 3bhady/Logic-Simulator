@@ -17,7 +17,7 @@ public:
 	string GetString(Output*);		//Returns a string entered by the user
 
 
-	ActionType GetUserAction( ApplicationManager * pApp,GraphicsInfo & r_GfxInfo  , Component ** Arr[780] , bool selected = false )const; //Reads the user click and maps it to an action
+	ActionType GetUserAction( ApplicationManager * pApp, bool selected = false )const; //Reads the user click and maps it to an action
 
 	~Input();
 };

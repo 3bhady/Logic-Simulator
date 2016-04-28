@@ -8,8 +8,10 @@ class Component
 {
 private:
 	string m_Label;
+	
 protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
+	bool highlighted = false;
 public:
 	Component(const GraphicsInfo &r_GfxInfo);
 	virtual void Operate() = 0;					//Calculates the output according to the inputs
@@ -22,7 +24,9 @@ public:
 	virtual void setInputPinStatus(STATUS s,int n) = 0;	//set status of Inputpin # n, to be used by connection class.
 	GraphicsInfo get_GraphicInfo();
 	virtual void AddComponent(Component ** Arr[780]);
-
+	void Highlight();			//Make the component highlighted
+	void Unhighlight();			//Make the component unhighlighted
+	void ChangeState();			//Change the component highlight state
 	Component();
 
 	//Destructor must be virtual

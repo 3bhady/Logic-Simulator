@@ -26,7 +26,7 @@ void XNOR3::Operate()
 void XNOR3::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, ITM_XNOR3);
+	pOut->DrawGate(m_GfxInfo, ITM_XNOR3, highlighted);
 }
 
 //returns status of outputpin

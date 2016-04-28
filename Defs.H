@@ -61,7 +61,7 @@ enum  MODE	//Modes of operation
 	DESIGN,
 	SIMULATION ,
 	MULTISELECT,	   //TODO:: when multiple components are selected individually
-//	SELECT,		  //TODO::
+	SELECTION,		  //TODO::
 	SELECTAREA	// TODO::
 	
 };

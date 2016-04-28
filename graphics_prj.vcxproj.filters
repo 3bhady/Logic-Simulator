@@ -67,6 +67,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utility\Utility.cpp" />
     <ClCompile Include="lodepng.cpp" />
+    <ClCompile Include="Actions\Select.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -122,6 +123,7 @@
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="Utility\Utility.h" />
     <ClInclude Include="lodepng.h" />
+    <ClInclude Include="Actions\Select.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

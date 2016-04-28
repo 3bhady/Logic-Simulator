@@ -452,48 +452,6 @@ void Output::CreateSimulationToolBar() const
 //								Components Drawing Functions							//
 //======================================================================================//
 
-void Output::DrawAND2(GraphicsInfo r_GfxInfo, bool selected) const
-{
-	string GateImage;
-	if(selected)	//use image in the highlighted case
-		GateImage="Images\\Gates\\Gate_AND2_Hi.jpg";
-	else
-	{
-		//Getting mouse coordiantes
-		int x, y;
-		pWind->GetMouseCoord(x, y);
-		//Getting top left corner of the gate
-		/*
-		double a, b;
-		a = x - (double(UI.Gate_Width) / 2);
-		b = y - (double(UI.Gate_Height) / 2);
-
-		//Magnet effect :D
-		if (a - (15 * (a / 15)) < a - (15 * ((a / 15) + 1)))
-		{
-			x = (15 * (int(a) / 15));
-		}
-		else x = (15 * ((int(a) / 15) + 1));
-
-		if (b - (15 * (b / 15)) < b - (15 * ((b / 15) + 1)))
-		{
-			y = (15 * (int(b) / 15));
-		}
-		else y = (15 * ((int(b) / 15) + 1));
-		*/
-		//pWind->DrawImage("Images\\Gates\\EDIT MENU.jpg", x, y, 102, 161);
-		//pWind->DrawImage("Images\\Gates\\afr.jpg", x-30,y-15, 60, 30);
-		//pWind->DrawImage("Images\\Gates\\LLL.jpg", x + 22.5, y + 22.5, 45, 45);
-		//pWind->DrawImage("Images\\Gates\\NAND3.jpg", x, y, UI.Gate_Width, UI.Gate_Height);
-		//pWind->DrawImage("Images\\Gates\\NOR2.jpg", x+90, y+90, UI.Gate_Width, UI.Gate_Height);
-		//pWind->DrawImage("Images\\Gates\\qqq2.jpg", 758, 577, UI.Gate_Width, UI.Gate_Height);
-		//GateImage = "Images\\Gates\\qq.jpg";
-	}
-	//Draw AND2 Gate at Gfx_Info (1st corner)
-	//Set the Image Width & Height by AND2 Image Parameter in UI_Info
-	//pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
-}
-
 void Output::DrawGate(GraphicsInfo  r_GfxInfo, DsgnMenuItem gate,bool selected)
 {
 	//Getting the image of the gate

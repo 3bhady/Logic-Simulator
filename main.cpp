@@ -12,7 +12,6 @@ int main()
 	ApplicationManager AppManager;
 
 	window* pWind = AppManager.GetOutput()->GetPwind();
-
 	do
 	{
 		//Read user action
@@ -20,16 +19,13 @@ int main()
 
 		//Execute the action
 		AppManager.ExecuteAction(ActType);
+
 		int x, y;
 		pWind->GetMouseCoord(x, y);
 		cout << x << " " << y << endl;
+
 		//Update the drawing window
 		AppManager.UpdateInterface();
-
-		//commentat kteer el fatra el gaya
-		//
-		// ana //mesh
-		//3arfny
 
 	}while(ActType != EXIT);   	
 					 

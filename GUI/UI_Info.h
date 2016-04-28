@@ -16,6 +16,8 @@ struct UI_Info	//User Interface Info.
 	bool HiddenFileBar = false;
 	bool HiddenEditBar = false;
 
+	GraphicsInfo u_GfxInfo;
+
 	const int	width = 1360 , height = 700 ,	//Window width and height
 		wx = 0 , wy = 0 ,			//Window starting coordinates
 		ToolBarHeight = 67 ,			//Tool bar height
@@ -66,6 +68,7 @@ struct UI_Info	//User Interface Info.
 
 	//This should be calculated accurately because it will be used later to create connections between gates
 	//For now, we will assume that rect width = 50 and height = 50
+
 	static const int	Gate_Width = 75 ,		// Gate Image default width
 		Gate_Height = 60 ,		// Gate Image default height
 		Switch_Width = 60 ,		// Switch Image default width
@@ -76,16 +79,15 @@ struct UI_Info	//User Interface Info.
 		EditMenu_Height = 161;	// EditMenu Image default height
 bool isInToolBar( int x , int y )
 	{
-		if ( y < ToolBarHeight )
+		if ( y <= ToolBarHeight )
 		{
 			return true;
 		}
-
 		return false;
 	}
 	bool  isInToolBarTitle( int x , int y )
 	{
-		if ( y < ToolBarHeight + ToolBarTitleHeight &&y>ToolBarHeight)
+		if ( y < ToolBarHeight + ToolBarTitleHeight &&y>=ToolBarHeight)
 			if ( x < UI.ToolBarTitleWidth )
 				return true;
 		return false;
