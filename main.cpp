@@ -16,9 +16,9 @@ int main()
 	ApplicationManager AppManager;
 
 	window* pWind = AppManager.GetOutput()->GetPwind();
-	DrawPNG( pWind , "io.png" , 0 , 400 );
-	system( "PAUSE" );
-/*	do
+	//DrawPNG( pWind , "io.png" , 0 , 400 );
+	//system( "PAUSE" );
+	do
 	{
 		//Read user action
 		ActType = AppManager.GetUserAction();
@@ -37,7 +37,7 @@ int main()
 		//3arfny
 
 	}while(ActType != EXIT);   	
-					 */
+					 
 	return 0;
 }
 /*
