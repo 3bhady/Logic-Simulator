@@ -1,7 +1,9 @@
 #pragma once
+#include "..\lodepng.h"
+#include "..\ApplicationManager.h"
 #include <queue>
 using namespace std;
-
+  /*
 int arr1[100][100];
 pair<int , int> arr[100][100];
 bool vis[100][100];
@@ -72,4 +74,7 @@ void bfs( int x1 , int y1 , int x2 , int y2 )
 
 	}
 
-}
+}	  */
+void ReadPNG( vector<unsigned char> &Image,unsigned int &width,unsigned int& height , const char * filename );
+void WritePNG( window * pWind , image &screen , int x , int y , vector<unsigned char>& Image , unsigned int width , unsigned int height );
+void DrawPNG( window * pWind , string r_filename , int x , int y );
