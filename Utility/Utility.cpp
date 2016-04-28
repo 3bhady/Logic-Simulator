@@ -10,25 +10,31 @@ void WritePNG(window * pWind, image &screen ,int x,int y,vector<unsigned char>& 
 
 	pWind->StoreImage( screen , x , y , width , height );
 	unsigned char * Arr = screen.GetArr( );
+
+	int r , g , b;
 	for ( long long i = 0; i < Image.size( ); i++ )
 	{
+
 		if ( i % 4 == 3 )
 		{
 			if ( Image[i] == 0 )
 			{
-				Arr[i - 1] = screen.GetArr( )[i - 1];
-				Arr[i - 2] = screen.GetArr( )[i - 2];
-				Arr[i - 3] = screen.GetArr( )[i - 3];
+				Arr[i - 1] =r;
+				Arr[i - 2] = g;
+				Arr[i - 3] = b;
+			/*	Arr[i - 1] = 255;
+				Arr[i - 2] =255;
+				Arr[i - 3] = 255; */
 				Arr[i] = 0;
 			}
 
-		}
+		}	  
 		if ( i % 4 == 0 )
-			Arr[i] = Image[i + 2];
+			b=Arr[i],Arr[i] = Image[i + 2];
 		else if ( i % 4 == 2 )
-			Arr[i] = Image[i - 2];
+			r=Arr[i],Arr[i] = Image[i - 2];
 		else
-			Arr[i] = Image[i];
+			g=Arr[i],Arr[i] = Image[i];
 	}
 	screen.SetArr( Arr );
 }

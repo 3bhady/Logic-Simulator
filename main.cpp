@@ -15,8 +15,9 @@ int main()
 	
 	ApplicationManager AppManager;
 
+	
 	window* pWind = AppManager.GetOutput()->GetPwind();
-	DrawPNG( pWind , "io.png" , 0 , 400 );
+	DrawPNG(pWind , "io.png" , 0 , 200 );
 	system( "PAUSE" );
 /*	do
 	{
