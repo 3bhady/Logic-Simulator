@@ -2,12 +2,15 @@
 #include "Component.h"
 #include "Pins\OutputPin.h"
 #include "Pins\InputPin.h"
+#include <stdlib.h>
+#include <time.h>
 
 class LED : public Component
 {
-	InputPin m_InputPin;	//The input pins of the led
-	OutputPin m_OutputPin;	//The led output pin
-	STATUS State;		//The Switch State .
+	InputPin m_InputPin;	//The input pins of the LED
+	OutputPin m_OutputPin;	//The LED output pin
+	STATUS State;			//The LED State .
+	string colour;			//colour of the LED
 public:
 	LED(const GraphicsInfo &r_GfxInfo, int);
 	virtual void Operate();	//Calculates the output of led

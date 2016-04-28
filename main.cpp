@@ -10,7 +10,8 @@ int main()
 	
 	
 	ApplicationManager AppManager;
-
+	//
+	//tessssssssst
 	window* pWind = AppManager.GetOutput()->GetPwind();
 	do
 	{

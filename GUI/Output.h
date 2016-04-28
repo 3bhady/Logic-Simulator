@@ -3,8 +3,6 @@
 #include "Input.h"
 #include "..\ApplicationManager.h"
 #include <sstream>
-#include <stdlib.h>
-#include <time.h>
 #include "..\Components\Component.h"
 
 //class Component;
@@ -36,12 +34,8 @@ public:
 
 	void Magnetize(int &x,int &y);
 
-	// Draws 2-input AND gate
-	void DrawAND2(GraphicsInfo r_GfxInfo, bool selected = false) const;
-
-
 	void DrawGate(GraphicsInfo  r_GfxInfo, DsgnMenuItem gate,bool selected = false);
-	void DrawLED(GraphicsInfo r_GfxInfo, bool state=false, bool selected = false);
+	void DrawLED(GraphicsInfo r_GfxInfo, bool state , bool selected,string colour);
 	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected = false, MODE mode = DESIGN);
 	void DrawEditMenu(int x, int y,int selectedItem)const;
 

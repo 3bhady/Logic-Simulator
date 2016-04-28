@@ -25,7 +25,7 @@ bool AddGate::ReadActionParameters(string s)
 	/*pOut->PrintMsg(s);
 
 	//Wait for User Input
-	pIn->GetPointClicked(Cx, Cy);
+	//pIn->GetPointClicked(Cx, Cy);
 
 	//Clear Status Bar
 	

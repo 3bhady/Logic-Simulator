@@ -346,6 +346,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			//if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight )
 			//{
 
+
 			flag = false;
 
 			//for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
@@ -407,7 +408,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK||flag );
 		
 
-	r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
+		r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
 		r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
 		r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
 		r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
@@ -492,24 +493,13 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, DsgnMenuItem gate,bool selected)
 	//pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 }
 
-void Output::DrawLED(GraphicsInfo r_GfxInfo,  bool state, bool selected)
+void Output::DrawLED(GraphicsInfo r_GfxInfo,  bool state, bool selected , string colour)
 {
 	//Getting the switch image
 
 	string LEDImage = "Images\\Images\\LED\\";
 	if (state)			  // ON or OFF
-	{
-		string LEDcolor;
-		// generate random number between 0 and 5
-		// choosing a LED color
-
-		srand(time(NULL));
-		int randNum = rand() % 6;
-		stringstream sstream;
-		sstream << randNum;
-		sstream >> LEDcolor;
-		LEDImage += "ON" + LEDcolor;
-	}
+		LEDImage += "ON" + colour;
 	else LEDImage += "OFF";
 	if (selected)		 // Highlighted
 		LEDImage += "H";
