@@ -11,32 +11,32 @@ bool Select::ReadActionParameters(string s)
 
 void Select::Execute()
 {
-	Component * selected = pManager->GetArr( )[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1];
+	Component * selectedItem = pManager->GetArr( )[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1];	//the selected item
 	
 	
-	if (selected)
+	if ( selectedItem )					   //if the clicked area doesn't point to NULL
 	{	
 		
-	if ( !selected->isSelected( ) )
+	if ( !selectedItem->isSelected( ) )
 	{
-		selected->Highlight( );
+		selectedItem->Highlight( );
 		return;
 	}
-		GraphicsInfo &GfxInfo = selected->get_GraphicInfo();
-		selected->ChangeState();
+		GraphicsInfo &GfxInfo = selectedItem->get_GraphicInfo();
+		selectedItem->ChangeState();
 		
 
 	//todo put parameters to indecate the type of the gate to send it to follow mouse and draw 
 		if ( pManager->GetInput( )->DetectChange( ) )
 
 		{
-			selected->DeleteComponent( pManager );
+			selectedItem->DeleteComponent( pManager );
 			pManager->GetOutput( )->FollowMouseAndDraw( GfxInfo , ITM_AND2 , pManager->GetArr( ) , true );
 			
-				selected->get_GraphicInfo( ) = GfxInfo;
-				selected->AddComponent( pManager );
+			selectedItem->get_GraphicInfo( ) = GfxInfo;
+			selectedItem->AddComponent( pManager );
 				
-				selected->Highlight( );
+				selectedItem->Highlight( );
 
 			
 		}
