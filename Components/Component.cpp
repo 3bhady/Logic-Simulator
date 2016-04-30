@@ -67,6 +67,11 @@ void Component::ChangeState()
 	highlighted = !highlighted;
 }
 
+bool Component::isSelected( )
+{
+	return highlighted;
+}
+
 Component::Component()
 {}
 

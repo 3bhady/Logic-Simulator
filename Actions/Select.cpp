@@ -13,8 +13,15 @@ void Select::Execute()
 {
 	Component * selected = pManager->GetArr( )[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1];
 	
+	
 	if (selected)
+	{	
+		
+	if ( !selected->isSelected( ) )
 	{
+		selected->Highlight( );
+		return;
+	}
 		GraphicsInfo &GfxInfo = selected->get_GraphicInfo();
 		selected->ChangeState();
 		
@@ -24,11 +31,12 @@ void Select::Execute()
 
 		{
 			selected->DeleteComponent( pManager );
-			if ( pManager->GetOutput( )->FollowMouseAndDraw( GfxInfo , ITM_AND2 , pManager->GetArr( ) , true ) )
-			{
+			pManager->GetOutput( )->FollowMouseAndDraw( GfxInfo , ITM_AND2 , pManager->GetArr( ) , true );
+			
 				selected->get_GraphicInfo( ) = GfxInfo;
 				selected->AddComponent( pManager );
-			}
+				
+				selected->Highlight( );
 
 			
 		}

@@ -36,6 +36,12 @@ int main()
 	return 0;
 }
 /*
+
+DsgnMenuItm el enum dh bnst3mlo kter w el mfrod n3ml enum tany esmo componenttype w yb2a feh kol el types fa m7tag dh yt3'yr
+w yt7at f class component bdl designmenu item dh w kol 7aga feh tb2a m7tot b nfs el trteb bta dsgn menu itm
+3lshan lama n7b n7wl mn enum l el tany el mwdo3 yb2a baset
+
+
 åæ áãÇ íÏæÓ Úáì gate íÎÔ İì move mode
 æ íÚãáåÇ highlighted æ í move ßá Çá gates Çá highlighted
 áæ åæ ããÔåÇÔ İßÏÉ íÈŞì åæ Èí select İÇá gates åÊÊÑÓã ãßÇäåÇ

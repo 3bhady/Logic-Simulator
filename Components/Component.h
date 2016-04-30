@@ -8,9 +8,9 @@ class Component
 {
 private:
 	string m_Label;
-	
 protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
+	
 	bool highlighted = false;
 public:
 	Component(const GraphicsInfo &r_GfxInfo);
@@ -28,6 +28,7 @@ public:
 	void Highlight();			//Make the component highlighted
 	void Unhighlight();			//Make the component unhighlighted
 	void ChangeState();			//Change the component highlight state
+	bool isSelected( );			//an indecation to wheather the component is selected or not
 	Component();
 
 	//Destructor must be virtual
