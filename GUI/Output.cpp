@@ -318,7 +318,9 @@ void Output::MouseHovering( )const
 }
 
 bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType , Component ** Arr[780] , bool selected )
-{	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
+{
+	GraphicsInfo temp = r_GfxInfo;
+	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
 	  pWind->SetBuffering( true );
 //while ( true )
 	//{
@@ -331,14 +333,15 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			
 			pWind->DrawImage( initImage , 0 , 0 );
 			pWind->GetMouseCoord( r_GfxInfo.x1 , r_GfxInfo.y1 );
+			Magnetize( r_GfxInfo.x1 , r_GfxInfo.y1 );
 			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
 			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
-			
 			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
 			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
 			if ( pWind->GetKeyPress( cEscape ) == ESCAPE )
 			{
 				pWind->DrawImage( initImage , 0 , 0 );
+				r_GfxInfo =	temp ;
 				pWind->UpdateBuffer( );
 				pWind->SetBuffering( false );
 				return false;
@@ -407,7 +410,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 
 		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK||flag );
 		
-
+		Magnetize( r_GfxInfo.x1 , r_GfxInfo.y1 );
 		r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
 		r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
 		r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
@@ -471,7 +474,7 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, DsgnMenuItem gate,bool selected)
 	//int x, y;
 	//pWind->GetMouseCoord(r_GfxInfo.x1, r_GfxInfo.y1);
 	*/
-	Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+	//Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
 
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 	//if (selected)	//use image in the highlighted case
