@@ -38,6 +38,7 @@ public:
 	void DrawLED(GraphicsInfo r_GfxInfo, bool state , bool selected,string colour);
 	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected = false, MODE mode = DESIGN);
 	void DrawEditMenu(int x, int y,int selectedItem)const;
+	void DeleteGate( GraphicsInfo GfxInfo );
 
 	///TODO: Make similar functions for drawing all other gates, switch, and LED, .. etc
 

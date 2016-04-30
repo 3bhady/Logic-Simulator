@@ -2,6 +2,7 @@
 
 #include "..\CMUgraphicsLib\CMUgraphics.h"
 #include "UI_Info.h"
+#include <ctime>
 
 class Output;
 class Component;
@@ -15,6 +16,7 @@ public:
 	Input(window*);
 	void GetPointClicked(int &, int &);	//Get coordinate where user clicks
 	string GetString(Output*);		//Returns a string entered by the user
+	bool DetectChange( );
 
 
 	ActionType GetUserAction( ApplicationManager * pApp, bool selected = false )const; //Reads the user click and maps it to an action

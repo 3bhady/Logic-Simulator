@@ -51,9 +51,10 @@ void Output::Magnetize(int &x, int &y)
 	double a, b;
 	a = double(x);
 	b = double(y);
-
+	x = round( a / 15 ) * 15;
+	y = round( b / 15 ) * 15;
 	//Magnetizing
-	if (a - (15 * (a / 15)) < a - (15 * ((a / 15) + 1)))
+	/*if (a - (15 * (a / 15)) < a - (15 * ((a / 15) + 1)))
 	{
 	x = (15 * (int(a) / 15));
 	}
@@ -63,7 +64,7 @@ void Output::Magnetize(int &x, int &y)
 	{
 	y = (15 * (int(b) / 15));
 	}
-	else y = (15 * ((int(b) / 15) + 1));
+	else y = (15 * ((int(b) / 15) + 1));	*/
 }
 //////////////////////////////////////////////////////////////////////////////////
 void Output::ChangeTitle(string Title) const
@@ -266,7 +267,7 @@ void Output::MouseHovering( )const
 			s = z4 + num + z2;
 			if (ClickedItemOrder < 4)
 			{
-				pWind->DrawImage(s, UI.EditBarStartX - 34, UI.EditBarStartY);
+				pWind->DrawImage(s, UI.EditBarStartX , UI.EditBarStartY);
 				switch (ClickedItemOrder) {
 				case 0: {PrintMsg("undo"); break; }
 				case 1: {PrintMsg("redo"); break; }
@@ -332,12 +333,15 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			
 			
 			pWind->DrawImage( initImage , 0 , 0 );
+			
 			pWind->GetMouseCoord( r_GfxInfo.x1 , r_GfxInfo.y1 );
-			Magnetize( r_GfxInfo.x1 , r_GfxInfo.y1 );
 			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
 			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
+			Magnetize( r_GfxInfo.x1 , r_GfxInfo.y1 );
 			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
 			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+
+			
 			if ( pWind->GetKeyPress( cEscape ) == ESCAPE )
 			{
 				pWind->DrawImage( initImage , 0 , 0 );
@@ -410,11 +414,13 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 
 		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK||flag );
 		
-		Magnetize( r_GfxInfo.x1 , r_GfxInfo.y1 );
+		
 		r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
 		r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
+		Magnetize( r_GfxInfo.x1 , r_GfxInfo.y1 );
 		r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
 		r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+		
 		PrintMsg( "" );
 	/*	bool flag = false;
 		for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
@@ -552,6 +558,11 @@ void Output::DrawEditMenu(int x, int y, int selectedItem = 6) const
 	MenuImage += ".jpg";
 
 	pWind->DrawImage(MenuImage, x, y, UI.EditMenu_Width, UI.EditMenu_Height);
+}
+
+void Output::DeleteGate( GraphicsInfo GfxInfo )
+{
+	pWind->DrawImage( "Images\\Gates\\empty.jpg" , GfxInfo.x1 , GfxInfo.y1 );
 }
 
 //TODO: Add similar functions to draw all components

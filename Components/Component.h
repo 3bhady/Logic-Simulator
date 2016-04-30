@@ -22,8 +22,9 @@ public:
 	virtual int GetInputPinStatus(int n) = 0;		//returns status of Inputpin # n if SWITCH, return -1
 
 	virtual void setInputPinStatus(STATUS s,int n) = 0;	//set status of Inputpin # n, to be used by connection class.
-	GraphicsInfo get_GraphicInfo();
-	virtual void AddComponent(Component ** Arr[780]);
+	GraphicsInfo& get_GraphicInfo();
+	virtual void AddComponent(ApplicationManager * pApp);
+	virtual void DeleteComponent( ApplicationManager * pApp );
 	void Highlight();			//Make the component highlighted
 	void Unhighlight();			//Make the component unhighlighted
 	void ChangeState();			//Change the component highlight state

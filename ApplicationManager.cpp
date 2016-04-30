@@ -28,7 +28,7 @@ ApplicationManager::ApplicationManager()
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
 {
-	pComp->AddComponent( Arr );
+	pComp->AddComponent( this );
 	CompList[CompCount++] = pComp;
 
 }

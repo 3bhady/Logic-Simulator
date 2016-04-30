@@ -20,6 +20,26 @@ string Input::GetString(Output *pOut)
 	return NULL;
 }
 
+bool Input::DetectChange( )
+{
+	int x , y;
+	pWind->GetMouseCoord( x , y );
+	int a , b ;
+	clock_t t = clock( );
+	//while ( pWind->GetMouseClick( a , b ) == NO_CLICK )
+	while(true )
+	{
+		pWind->GetMouseCoord( a , b );
+		if ( abs( a - x ) > 30 || abs( b - y ) > 30 )
+		{
+			return true;
+		}
+		if ( clock( )-t >= 150 )
+			return false;
+	}	
+	return false;
+}
+
 
 
 //This function reads the position where the user clicks to determine the desired action

@@ -17,14 +17,14 @@ string Component::get_label()
 	return m_Label;
 }
 
-GraphicsInfo Component::get_GraphicInfo()
+GraphicsInfo & Component::get_GraphicInfo()
 {
 	return m_GfxInfo;
 }
 
-void Component::AddComponent(Component ** Arr[780])
+void Component::AddComponent( ApplicationManager * pApp )
 {
-
+	Component *** Arr = pApp->GetArr( );
 	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2 - 1; j++)
 		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
 			Arr[i][j] = this;
@@ -39,6 +39,16 @@ void Component::AddComponent(Component ** Arr[780])
 		}
 		cout << endl;
 	}
+
+}
+
+void Component::DeleteComponent( ApplicationManager * pApp )
+{
+	Component *** Arr = pApp->GetArr( );
+	for ( int j = m_GfxInfo.x1; j < m_GfxInfo.x2 - 1; j++ )
+		for ( int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++ )
+			Arr[i][j] = NULL;
+	pApp->GetOutput( )->DeleteGate( m_GfxInfo );
 
 }
 
