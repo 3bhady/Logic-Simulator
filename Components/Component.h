@@ -28,7 +28,7 @@ public:
 	void Highlight();			//Make the component highlighted
 	void Unhighlight();			//Make the component unhighlighted
 	void ChangeState();			//Change the component highlight state
-	bool isSelected( );			//an indecation to wheather the component is selected or not
+	bool isSelected( );			//an indication to whether the component is selected or not
 	Component();
 
 	//Destructor must be virtual

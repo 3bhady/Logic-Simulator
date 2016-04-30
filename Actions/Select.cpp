@@ -17,7 +17,7 @@ void Select::Execute()
 	if ( selectedItem )					   //if the clicked area doesn't point to NULL
 	{	
 		
-	if ( !selectedItem->isSelected( ) )
+	if ( !selectedItem->isSelected( ) )			//if the item is not highlighted , it is highlighted
 	{
 		selectedItem->Highlight( );
 		return;
@@ -26,7 +26,7 @@ void Select::Execute()
 		selectedItem->ChangeState();
 		
 
-	//todo put parameters to indecate the type of the gate to send it to follow mouse and draw 
+	//todo put parameters to indicate the type of the gate to send it to follow mouse and draw 
 		if ( pManager->GetInput( )->DetectChange( ) )
 
 		{

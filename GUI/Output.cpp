@@ -13,7 +13,7 @@ Output::Output()
 	UI.DrawColor = BLACK;
 	UI.SelectColor = BLUE;
 	UI.ConnColor = RED;
-	UI.MsgColor = BLUE;
+	UI.MsgColor = GREY;
 	UI.BkGrndColor = WHITE;
 
 	//Create the drawing window
@@ -84,8 +84,8 @@ void Output::PrintMsg(string msg) const
 {
 	ClearStatusBar();	//Clear Status bar to print message on it
 	// Set the Message offset from the Status Bar
-	int MsgX = 25;
-	int MsgY = UI.StatusBarHeight - 10;
+	int MsgX = 200;
+	int MsgY = UI.StatusBarHeight - 5;
 
 	// Print the Message
     pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
@@ -212,6 +212,7 @@ void Output::MouseHovering( )const
 			case ITM_XNOR2: {PrintMsg( "Add XNOR2 Gate" ); break; }
 			case ITM_AND3: {PrintMsg( "Add AND3 Gate" ); break; }
 			case ITM_OR3: {PrintMsg( "Add OR3 Gate" ); break; }
+			case ITM_NAND3: {PrintMsg("Add NAND3 Gate"); break; }
 			case ITM_NOR3: {PrintMsg( "Add NOR3 Gate" ); break; }
 			case ITM_XOR3: {PrintMsg( "Add XOR3 Gate" ); break; }
 			case ITM_XNOR3: {PrintMsg( "Add XNOR3 Gate" ); break; }
