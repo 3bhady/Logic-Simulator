@@ -76,7 +76,7 @@ void Output::CreateStatusBar() const
 	//pWind->SetPen(RED,3);
 	//pWind->DrawLine(0, UI.height-UI.StatusBarHeight, UI.width, UI.height-UI.StatusBarHeight);
 
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Statusbar\\SB1.jpg" , UI.StatusBarStartX , UI.StatusBarStartY);
+	pWind->DrawImage( "Images\\ToolBars\\Statusbar\\SB1.jpg" , UI.StatusBarStartX , UI.StatusBarStartY);
 }
 //////////////////////////////////////////////////////////////////////////////////
 void Output::PrintMsg(string msg) const
@@ -120,8 +120,8 @@ void Output::CreateDesignToolBar() const
 {
 	UI.AppMode = DESIGN;	//Design Mode
 
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Toolbar\\TB1.jpg" ,UI.ToolBarStartX , UI.ToolBarStartY );
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Toolbar\\TB2.jpg" ,UI.ToolBarTitleStartX , UI.ToolBarTitleStartY );
+	pWind->DrawImage( "Images\\ToolBars\\Toolbar\\TB1.jpg" ,UI.ToolBarStartX , UI.ToolBarStartY );
+	pWind->DrawImage( "Images\\ToolBars\\Toolbar\\TB2.jpg" ,UI.ToolBarTitleStartX , UI.ToolBarTitleStartY );
 	/*//You can draw the tool bar icons in any way you want.
 
 	//First prepare List of images for each menu item
@@ -147,14 +147,14 @@ void Output::CreateDesignToolBar() const
 void Output::CreateFileToolBar( ) const
 {
 
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Filebar\\FB1.jpg" , UI.FileBarStartX , UI.FileBarStartY );
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Filebar\\FB2.jpg" , UI.FileBarTitleStartX ,UI.FileBarTitleStartY );
+	pWind->DrawImage( "Images\\ToolBars\\Filebar\\FB1.jpg" , UI.FileBarStartX , UI.FileBarStartY );
+	pWind->DrawImage( "Images\\ToolBars\\Filebar\\FB2.jpg" , UI.FileBarTitleStartX ,UI.FileBarTitleStartY );
 
 }
 void Output::CreateEditToolBar( ) const
 {
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Editbar\\EB2.jpg" , UI.EditBarStartX , UI.EditBarStartY );
-	pWind->DrawImage( "Images\\Images\\ToolBars\\Editbar\\EB3.jpg" , UI.EditBarTitleStartX ,UI.EditBarTitleStartY );
+	pWind->DrawImage( "Images\\ToolBars\\Editbar\\EB2.jpg" , UI.EditBarStartX , UI.EditBarStartY );
+	pWind->DrawImage( "Images\\ToolBars\\Editbar\\EB3.jpg" , UI.EditBarTitleStartX ,UI.EditBarTitleStartY );
 }
 void Output::CreateGrid( ) const
 {
@@ -175,11 +175,11 @@ window * Output::GetPwind() const
 void Output::MouseHovering( )const
 {
 	if ( UI.HiddenToolBar ) return; //TODO m7taga tt3adl w yb2a feha hovering
-	string z1 = "Images\\Images\\ToolBars\\Toolbar\\toolbar";
+	string z1 = "Images\\ToolBars\\Toolbar\\toolbar";
 	string z2 = ".jpg";
-	string z3 = "Images\\Images\\ToolBars\\Filebar\\filebar";
-	string z4 = "Images\\Images\\ToolBars\\Editbar\\editbarDSN";
-	string z5 = "Images\\Images\\ToolBars\\Editbar\\editbarSIM";
+	string z3 = "Images\\ToolBars\\Filebar\\filebar";
+	string z4 = "Images\\ToolBars\\Editbar\\editbarDSN";
+	string z5 = "Images\\ToolBars\\Editbar\\editbarSIM";
 	image i;
 	//pWind->StoreImage( i , 0 , 0 , UI.width , UI.height );
 
@@ -461,7 +461,7 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, DsgnMenuItem gate,bool selected)
 	string GateNum;
 	sstream << int(gate);
 	sstream >> GateNum;
-	string GateImage = "Images\\Images\\Gates\\" + GateNum ;
+	string GateImage = "Images\\Gates\\" + GateNum ;
 	if (selected)
 		GateImage += "H";
 	GateImage += ".jpg";
@@ -497,7 +497,7 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo,  bool state, bool selected , string
 {
 	//Getting the switch image
 
-	string LEDImage = "Images\\Images\\LED\\";
+	string LEDImage = "Images\\LED\\";
 	if (state)			  // ON or OFF
 		LEDImage += "ON" + colour;
 	else LEDImage += "OFF";
@@ -514,7 +514,7 @@ void Output::DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected, MOD
 {
 	//Getting the switch image
 
-	string SwitchImage = "Images\\Images\\Switch\\";
+	string SwitchImage = "Images\\Switch\\";
 	if (mode == DESIGN)		  // Design or Simulation mode
 		SwitchImage += "DSN";
 	else {
@@ -536,7 +536,7 @@ void Output::DrawEditMenu(int x, int y, int selectedItem = 6) const
 {
 	//Getting the menu image according to the selected item
 
-	string MenuImage="Images\\Images\\EDIT MENU\\";
+	string MenuImage="Images\\EDIT MENU\\";
 	stringstream sstream;
 	if (selectedItem < 6)
 	{
