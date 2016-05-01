@@ -18,8 +18,8 @@ ApplicationManager::ApplicationManager()
 
 	//memset( Arr , NULL , sizeof( Arr ) );
 	//Arr[0][0] = NULL;
-	for(int i=0; i<MaxCompCount; i++)
-		CompList[i] = NULL;
+	//for(int i=0; i<MaxCompCount; i++)
+		//CompList[i] = NULL;
 
 	//Creates the Input / Output Objects & Initialize the GUI
 	OutputInterface = new Output();
@@ -29,8 +29,12 @@ ApplicationManager::ApplicationManager()
 void ApplicationManager::AddComponent(Component* pComp)
 {
 	pComp->AddComponent( this );
-	CompList[CompCount++] = pComp;
-
+	CompList.push_back(pComp);
+	CompCount++;
+}
+vector<Component*> ApplicationManager::GetCompList()
+{
+	return CompList;
 }
 ////////////////////////////////////////////////////////////////////
 

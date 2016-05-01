@@ -19,7 +19,7 @@ struct UI_Info	//User Interface Info.
 	GraphicsInfo u_GfxInfo;
 
 	const int	width = 1360 , height = 700 ,	//Window width and height
-		wx = 0 , wy = 0 ,			//Window starting coordinates
+		wx = 15 , wy = 15 ,			//Window starting coordinates
 		ToolBarHeight = 67 ,			//Tool bar height
 		ToolBarWidth = 1300 ,		//Tool bar width
 		ToolBarTitleHeight = 33 ,	//Tool bar title height
@@ -132,10 +132,10 @@ bool isInToolBar( int x , int y )
 	}
 	bool isForbidden(int x,int y)
 	{
-		return (isInEditBar( x , y ) || isInEditBarTitle( x , y ) ||
-			isInFileBar( x , y ) || isInFileBarTitle( x , y ) ||
-			isInToolBar( x , y ) || isInToolBarTitle( x , y ) ||
-			isInStatusBar( x , y ));
+		return (isInEditBar(x, y) || isInEditBarTitle(x, y) ||
+			isInFileBar(x, y) || isInFileBarTitle(x, y) ||
+			isInToolBar(x, y) || isInToolBarTitle(x, y) ||
+			isInStatusBar(x, y) || x>UI.width - UI.wx || x < 15 );
 	}
 
 }UI;	//create a single global object UI

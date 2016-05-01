@@ -6,6 +6,8 @@
 #include "GUI\Input.h"
 #include "Actions\Action.h"
 #include "Components\Component.h"
+#include<vector>
+
 class Component;
 
 //Main class that manages everything in the application.
@@ -18,7 +20,7 @@ class ApplicationManager
 
 private:
 	int CompCount;		//Actual number of Components
-	Component* CompList[MaxCompCount];	//List of all Components (Array of pointers)
+	vector<Component*> CompList;	//List of all Components (Array of pointers)
 	
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
@@ -42,6 +44,9 @@ public:
 	Component *** GetArr( );
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
+
+
+	vector<Component*> GetCompList();
 
 	//destructor
 	~ApplicationManager();

@@ -4,6 +4,7 @@
 
 Switch::Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOut)
 {
+	Type = Switch_;
 State = LOW;
 m_InputPin.setComponent(this);
 

@@ -4,6 +4,7 @@
 
 AND3::AND3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut)
 {
+	Type = AND3_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
@@ -25,7 +26,7 @@ void AND3::Operate()
 void AND3::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, ITM_AND3, highlighted);
+	pOut->DrawGate(m_GfxInfo, AND3_, highlighted);
 }
 
 //returns status of outputpin

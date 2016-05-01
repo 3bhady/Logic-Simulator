@@ -17,7 +17,7 @@ bool AddGate::ReadActionParameters(string s)
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	return pOut->FollowMouseAndDraw( GInfo , ( DsgnMenuItem )( int )ActType , pManager->GetArr() , false );
+	return pOut->FollowMouseAndDraw( GInfo , ( ComponentType )( int )ActType , pManager->GetArr() , false );
 	
 	
 	

@@ -28,13 +28,29 @@ void Select::Execute()
 
 		if (pManager->GetInput()->DetectChange())
 		{
-			selectedItem->DeleteComponent( pManager );			 //delete the component from the 2D array and draw an empty block over the gate
-			pManager->GetOutput( )->FollowMouseAndDraw( GfxInfo , ITM_AND2 , pManager->GetArr( ) , true );
+			vector<Component*> HighlightedVec;
+			for (int i = 0; i<pManager->GetCompList().size(); i++)
+			{
+				if (pManager->GetCompList()[i]->isSelected())
+					HighlightedVec.push_back(pManager->GetCompList()[i]);
+			}
+			for (int i = 0; i < HighlightedVec.size(); i++)
+			{
+				HighlightedVec[i]->DeleteComponent(pManager);
+				// selectedItem->DeleteComponent(pManager);			 //delete the component from the 2D array and draw an empty block over the gate
+			}
+			//pManager->GetOutput( )->FollowMouseAndDraw( GfxInfo , AND2_ , pManager->GetArr( ) , true );
+			pManager->GetOutput()->MoveComponents(HighlightedVec, pManager->GetArr());
 			//selectedItem->get_GraphicInfo( ) = GfxInfo;
-			selectedItem->AddComponent( pManager );
-				
-			selectedItem->Highlight( );
+			for (int i = 0; i < HighlightedVec.size(); i++)
+			{
+				//selectedItem->AddComponent(pManager);
+				HighlightedVec[i]->AddComponent(pManager);
+				HighlightedVec[i]->Highlight();
+				//selectedItem->Highlight();
+			}
 		}
+		else selectedItem->Unhighlight();
 	}
 }
 

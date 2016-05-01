@@ -3,6 +3,8 @@
 using namespace std;
 #include<iostream>
 class Gate { };
+class LED { };
+class Switch { };
 Output::Output()
 {
 	//Initialize user interface parameters
@@ -319,7 +321,7 @@ void Output::MouseHovering( )const
 	pWind->UpdateBuffer( );
 }
 
-bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType , Component ** Arr[780] , bool selected , int xOffset , int yOffset)
+bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType , Component ** Arr[780] , bool selected , int xOffset , int yOffset)
 {
 	GraphicsInfo temp = r_GfxInfo;
 	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
@@ -449,6 +451,190 @@ return true;
 		
 }
 
+bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780])
+{
+	vector<GraphicsInfo> initialGFxInfo;			//Initial position of components to restore them if ESCAPE was pressed
+	for (int i = 0; i < ComponentsVec.size(); i++)
+	{
+		initialGFxInfo.push_back(ComponentsVec[i]->get_GraphicInfo());
+		DeleteGate(ComponentsVec[i]->get_GraphicInfo());
+	}
+
+	image initImage; pWind->StoreImage(initImage, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering(true);
+	//while ( true )
+	//{
+	// screenshot of the current image and store it to draw over it
+	pWind->FlushKeyQueue();
+	char cEscape;	//the character pressed to cancle the addition of the gate
+	bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
+	int x, y;  //Mouse coordinates
+	int xOffset, yOffset;	//Mouse offset from initial value
+	do {
+		pWind->DrawImage(initImage, 0, 0);
+		pWind->GetMouseCoord(x, y);
+		xOffset = x - UI.u_GfxInfo.x1;
+		yOffset = y - UI.u_GfxInfo.y1;
+		UI.u_GfxInfo.x1 = x;				//comment for za7alee2 :D :D 
+		UI.u_GfxInfo.y1 = y;				//comment for za7alee2 :D :D 
+		for (int i = 0; i < ComponentsVec.size(); i++)
+		{
+			GraphicsInfo GfxInfo = ComponentsVec[i]->get_GraphicInfo();
+			GfxInfo.x1 += xOffset;
+			GfxInfo.y1 += yOffset;
+			Magnetize(GfxInfo.x1, GfxInfo.y1);
+			GfxInfo.x2 = GfxInfo.x1 + UI.Gate_Width;
+			GfxInfo.y2 = GfxInfo.y1 + UI.Gate_Height;
+			ComponentsVec[i]->set_GraphicInfo(GfxInfo);
+		}
+		//r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2 + xOffset;
+		//r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2 + yOffset;
+		//Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+		//r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
+		//r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+
+
+		if (pWind->GetKeyPress(cEscape) == ESCAPE)
+		{
+			pWind->DrawImage(initImage, 0, 0);
+			for (int i = 0; i < ComponentsVec.size(); i++)
+				ComponentsVec[i]->set_GraphicInfo(initialGFxInfo[i]);
+			pWind->UpdateBuffer();
+			pWind->SetBuffering(false);
+			return false;
+		}
+		//if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight )
+		//{
+
+
+		forbidden = false;
+
+		//for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
+		for (int k = 0; k < ComponentsVec.size(); k++)
+		{
+			GraphicsInfo r_GfxInfo = ComponentsVec[k]->get_GraphicInfo();
+			for (int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i++)
+			{
+				//for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
+				for (int j = r_GfxInfo.y1; j < r_GfxInfo.y2; j++)
+				{
+					if (i > 0 && j > 0 && j < 700 && i < 1390)
+						if (Arr[j][i])
+							if (dynamic_cast<Gate*> (Arr[j][i]))
+							{
+								forbidden = true; break;
+							}
+				}
+				if (forbidden)break;
+			}
+		}
+		if (forbidden)
+		{
+			PrintMsg("You can't draw here!");
+			//selected = 1;
+			for (int k = 0; k < ComponentsVec.size(); k++)
+			{
+				if (dynamic_cast<Gate*>(ComponentsVec[k]))
+					DrawGate(ComponentsVec[k]->get_GraphicInfo(), ComponentsVec[k]->getType(), ComponentsVec[k]->isSelected());
+				else if (dynamic_cast<LED*>(ComponentsVec[k]))
+					DrawLED(ComponentsVec[k]->get_GraphicInfo(), false, ComponentsVec[k]->isSelected());
+				else if (dynamic_cast<Switch*>(ComponentsVec[k]))
+					DrawSwitch(ComponentsVec[k]->get_GraphicInfo(), LOW, ComponentsVec[k]->isSelected());
+			}
+			//selected = 0;
+		}
+		else
+		{
+			for (int k = 0; k < ComponentsVec.size(); k++)
+			{
+				if (dynamic_cast<Gate*>(ComponentsVec[k]))
+					DrawGate(ComponentsVec[k]->get_GraphicInfo(), ComponentsVec[k]->getType() ,ComponentsVec[k]->isSelected());
+				else if (dynamic_cast<LED*>(ComponentsVec[k]))
+					DrawLED(ComponentsVec[k]->get_GraphicInfo(), false, ComponentsVec[k]->isSelected());
+				else if(dynamic_cast<Switch*>(ComponentsVec[k]))
+					DrawSwitch(ComponentsVec[k]->get_GraphicInfo(), LOW, ComponentsVec[k]->isSelected());
+			}
+			//DrawGate(r_GfxInfo, gType, selected);
+			//forbidden = false;
+			//, PrintMsg( "" );
+		}
+
+		if (!UI.HiddenToolBar)CreateDesignToolBar();
+		if (!UI.HiddenFileBar)CreateFileToolBar();
+		if (!UI.HiddenEditBar)CreateEditToolBar();
+		/*//}
+		//else
+		//	DrawGate( r_GfxInfo , gType , selected );
+		if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight + 1 || r_GfxInfo.y1 + UI.Gate_Height / 2 > UI.height - UI.StatusBarHeight + 3 )
+		{
+		PrintMsg( "You can't draw here!" );
+		}	*/
+
+		for (int k = 0; k < ComponentsVec.size(); k++)
+		{
+			GraphicsInfo GInfo=ComponentsVec[k]->get_GraphicInfo();
+			if (UI.isForbidden(GInfo.x2, GInfo.y2)
+				|| UI.isForbidden(GInfo.x1, GInfo.y1)
+				|| UI.isForbidden(GInfo.x1, GInfo.y2)
+				|| UI.isForbidden(GInfo.x2, GInfo.y1)
+				|| forbidden)
+			{
+				PrintMsg("You can't draw here!");	forbidden = true;
+			}
+			else
+			{
+				PrintMsg("");  forbidden = false;
+			}
+		}
+		pWind->UpdateBuffer();
+
+
+	} while (pWind->GetMouseClick(x, y) == NO_CLICK || forbidden);
+
+/*
+	r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2 + xOffset;
+	r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2 + yOffset;
+	Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+	r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
+	r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+	*/
+		for (int i = 0; i < ComponentsVec.size(); i++)
+		{
+			GraphicsInfo GfxInfo = ComponentsVec[i]->get_GraphicInfo();
+			GfxInfo.x1 + xOffset;
+			GfxInfo.y1 + yOffset;
+			Magnetize(GfxInfo.x1, GfxInfo.y1);
+			GfxInfo.x2 = GfxInfo.x1 + UI.Gate_Width;
+			GfxInfo.y2 = GfxInfo.y1 + UI.Gate_Height;
+			ComponentsVec[i]->set_GraphicInfo(GfxInfo);
+		}
+	PrintMsg("");
+	/*	bool forbidden = false;
+	for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
+	{
+	for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
+	{
+	if ( Arr[j][i] )
+	if ( dynamic_cast< Gate* > (Arr[j][i]) )
+	{
+	forbidden = true; break;
+	}
+	}
+	if ( forbidden )break;
+	}
+	if ( !forbidden )
+	{
+	DrawGate( r_GfxInfo , gType , selected ) , PrintMsg( "" );
+	return true;
+	}
+
+	*/
+	pWind->SetBuffering(false);
+	//}
+	return true;
+
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the simulation mode
 void Output::CreateSimulationToolBar() const
@@ -463,7 +649,7 @@ void Output::CreateSimulationToolBar() const
 //								Components Drawing Functions							//
 //======================================================================================//
 
-void Output::DrawGate(GraphicsInfo  r_GfxInfo, DsgnMenuItem gate,bool selected)
+void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected)
 {
 	//Getting the image of the gate
 
