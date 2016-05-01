@@ -25,7 +25,7 @@ public:
 	window* GetPwind()const;
 
 	void MouseHovering( )const;
-	bool FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType , Component ** Arr[780] , bool selected=false );
+	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, DsgnMenuItem gType, Component ** Arr[780], bool selected = false, int xOffset = 0, int yOffset = 0);
 
 	void ClearStatusBar() const;		//Clears the status bar
 	void ClearDrawingArea() const;	//Clears the drawing area

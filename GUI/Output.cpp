@@ -85,7 +85,7 @@ void Output::PrintMsg(string msg) const
 	ClearStatusBar();	//Clear Status bar to print message on it
 	// Set the Message offset from the Status Bar
 	int MsgX = 200;
-	int MsgY = UI.StatusBarHeight - 5;
+	int MsgY = UI.StatusBarHeight-3 ;
 
 	// Print the Message
     pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
@@ -270,9 +270,9 @@ void Output::MouseHovering( )const
 			{
 				pWind->DrawImage(s, UI.EditBarStartX , UI.EditBarStartY);
 				switch (ClickedItemOrder) {
-				case 0: {PrintMsg("undo"); break; }
-				case 1: {PrintMsg("redo"); break; }
-				case 2: {PrintMsg("truth table"); break; }
+				case 0: {PrintMsg("Undo"); break; }
+				case 1: {PrintMsg("Redo"); break; }
+				case 2: {PrintMsg("Truth table"); break; }
 				case 3: {PrintMsg("Run"); break; }
 				//default:PrintMsg("");
 				}
@@ -319,7 +319,7 @@ void Output::MouseHovering( )const
 	pWind->UpdateBuffer( );
 }
 
-bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType , Component ** Arr[780] , bool selected )
+bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType , Component ** Arr[780] , bool selected , int xOffset , int yOffset)
 {
 	GraphicsInfo temp = r_GfxInfo;
 	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
@@ -336,8 +336,8 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			pWind->DrawImage( initImage , 0 , 0 );
 			
 			pWind->GetMouseCoord( r_GfxInfo.x1 , r_GfxInfo.y1 );
-			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
-			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
+			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2 + xOffset;
+			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2+ yOffset;
 			Magnetize( r_GfxInfo.x1 , r_GfxInfo.y1 );
 			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
 			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
@@ -372,12 +372,12 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 				}
 				if ( flag )break;
 			}
-			if ( flag )
+			if (flag)
 			{
-				PrintMsg( "You can't draw here!" );
-				selected = 1;
-				DrawGate( r_GfxInfo , gType , selected );
-				selected = 0;
+				PrintMsg("You can't draw here!");
+				//selected = 1;
+				DrawGate(r_GfxInfo, gType, true);
+				//selected = 0;
 			}
 			else
 			{
@@ -416,8 +416,8 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK||flag );
 		
 		
-		r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
-		r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
+		r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2 + xOffset;
+		r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2 + yOffset;
 		Magnetize( r_GfxInfo.x1 , r_GfxInfo.y1 );
 		r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
 		r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
