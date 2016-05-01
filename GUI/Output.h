@@ -48,7 +48,7 @@ public:
 
 	void PrintMsg(string msg) const;	//Print a message on Status bar
 
-	bool MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780]);
+	bool MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780],Component* selected);
 
 	~Output();
 };

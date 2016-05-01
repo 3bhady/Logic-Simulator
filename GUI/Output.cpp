@@ -451,9 +451,12 @@ return true;
 		
 }
 
-bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780])
+bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780], Component* selected)
 {
+	GraphicsInfo & GfxSelected = selected->get_GraphicInfo();	//Gfxinfo of the selected gate
+
 	vector<GraphicsInfo> initialGFxInfo;			//Initial position of components to restore them if ESCAPE was pressed
+
 	for (int i = 0; i < ComponentsVec.size(); i++)
 	{
 		initialGFxInfo.push_back(ComponentsVec[i]->get_GraphicInfo());
@@ -469,23 +472,34 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 	char cEscape;	//the character pressed to cancle the addition of the gate
 	bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
 	int x, y;  //Mouse coordinates
-	int xOffset, yOffset;	//Mouse offset from initial value
 	do {
 		pWind->DrawImage(initImage, 0, 0);
-		pWind->GetMouseCoord(x, y);
-		xOffset = x - UI.u_GfxInfo.x1;
-		yOffset = y - UI.u_GfxInfo.y1;
-		UI.u_GfxInfo.x1 = x;				//comment for za7alee2 :D :D 
-		UI.u_GfxInfo.y1 = y;				//comment for za7alee2 :D :D 
+
+		int initialX = GfxSelected.x1, initialY = GfxSelected.y1;   // the initial coordinates of the selected gate
+
+		pWind->GetMouseCoord(GfxSelected.x1, GfxSelected.y1);		// Center of the gate = mouse coordinates
+
+		GfxSelected.x1 = GfxSelected.x1 - UI.Gate_Width / 2;		// changing the coordinates of the gate according to the new center
+		GfxSelected.y1 = GfxSelected.y1 - UI.Gate_Height / 2;
+		Magnetize(GfxSelected.x1, GfxSelected.y1);
+		GfxSelected.x2 = GfxSelected.x1 + UI.Gate_Width;
+		GfxSelected.y2 = GfxSelected.y1 + UI.Gate_Height;
+
+		int xChange = GfxSelected.x1 - initialX;	// the change of the move in the X-direction
+		int yChange = GfxSelected.y1 - initialY;	// the change of the move in the Y-direction
+
 		for (int i = 0; i < ComponentsVec.size(); i++)
 		{
-			GraphicsInfo GfxInfo = ComponentsVec[i]->get_GraphicInfo();
-			GfxInfo.x1 += xOffset;
-			GfxInfo.y1 += yOffset;
-			Magnetize(GfxInfo.x1, GfxInfo.y1);
-			GfxInfo.x2 = GfxInfo.x1 + UI.Gate_Width;
-			GfxInfo.y2 = GfxInfo.y1 + UI.Gate_Height;
-			ComponentsVec[i]->set_GraphicInfo(GfxInfo);
+			if (ComponentsVec[i] != selected)		//changing the coordinates of the other gates according to the xChange and yChange
+			{
+				GraphicsInfo &GfxInfo = ComponentsVec[i]->get_GraphicInfo();
+				GfxInfo.x1 += xChange;
+				GfxInfo.y1 += yChange;
+				Magnetize(GfxInfo.x1, GfxInfo.y1);
+				GfxInfo.x2 = GfxInfo.x1 + UI.Gate_Width;
+				GfxInfo.y2 = GfxInfo.y1 + UI.Gate_Height;
+			}
+			//ComponentsVec[i]->set_GraphicInfo(GfxInfo);
 		}
 		//r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2 + xOffset;
 		//r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2 + yOffset;
@@ -513,10 +527,10 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 		for (int k = 0; k < ComponentsVec.size(); k++)
 		{
 			GraphicsInfo r_GfxInfo = ComponentsVec[k]->get_GraphicInfo();
-			for (int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i++)
+			for (int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i+=15)
 			{
 				//for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
-				for (int j = r_GfxInfo.y1; j < r_GfxInfo.y2; j++)
+				for (int j = r_GfxInfo.y1; j < r_GfxInfo.y2; j+=15)
 				{
 					if (i > 0 && j > 0 && j < 700 && i < 1390)
 						if (Arr[j][i])
@@ -534,12 +548,7 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 			//selected = 1;
 			for (int k = 0; k < ComponentsVec.size(); k++)
 			{
-				if (dynamic_cast<Gate*>(ComponentsVec[k]))
-					DrawGate(ComponentsVec[k]->get_GraphicInfo(), ComponentsVec[k]->getType(), ComponentsVec[k]->isSelected());
-				else if (dynamic_cast<LED*>(ComponentsVec[k]))
-					DrawLED(ComponentsVec[k]->get_GraphicInfo(), false, ComponentsVec[k]->isSelected());
-				else if (dynamic_cast<Switch*>(ComponentsVec[k]))
-					DrawSwitch(ComponentsVec[k]->get_GraphicInfo(), LOW, ComponentsVec[k]->isSelected());
+				ComponentsVec[k]->Draw(this);
 			}
 			//selected = 0;
 		}
@@ -547,12 +556,7 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 		{
 			for (int k = 0; k < ComponentsVec.size(); k++)
 			{
-				if (dynamic_cast<Gate*>(ComponentsVec[k]))
-					DrawGate(ComponentsVec[k]->get_GraphicInfo(), ComponentsVec[k]->getType() ,ComponentsVec[k]->isSelected());
-				else if (dynamic_cast<LED*>(ComponentsVec[k]))
-					DrawLED(ComponentsVec[k]->get_GraphicInfo(), false, ComponentsVec[k]->isSelected());
-				else if(dynamic_cast<Switch*>(ComponentsVec[k]))
-					DrawSwitch(ComponentsVec[k]->get_GraphicInfo(), LOW, ComponentsVec[k]->isSelected());
+					ComponentsVec[k]->Draw(this);
 			}
 			//DrawGate(r_GfxInfo, gType, selected);
 			//forbidden = false;
@@ -589,7 +593,7 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 		pWind->UpdateBuffer();
 
 
-	} while (pWind->GetMouseClick(x, y) == NO_CLICK || forbidden);
+	} while (pWind->GetMouseClick(x,y) == NO_CLICK || forbidden);
 
 /*
 	r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2 + xOffset;
@@ -598,16 +602,18 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 	r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
 	r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
 	*/
+	/*
 		for (int i = 0; i < ComponentsVec.size(); i++)
 		{
-			GraphicsInfo GfxInfo = ComponentsVec[i]->get_GraphicInfo();
+			GraphicsInfo &GfxInfo = ComponentsVec[i]->get_GraphicInfo();
 			GfxInfo.x1 + xOffset;
 			GfxInfo.y1 + yOffset;
 			Magnetize(GfxInfo.x1, GfxInfo.y1);
 			GfxInfo.x2 = GfxInfo.x1 + UI.Gate_Width;
 			GfxInfo.y2 = GfxInfo.y1 + UI.Gate_Height;
-			ComponentsVec[i]->set_GraphicInfo(GfxInfo);
+			//ComponentsVec[i]->set_GraphicInfo(GfxInfo);
 		}
+		*/
 	PrintMsg("");
 	/*	bool forbidden = false;
 	for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
