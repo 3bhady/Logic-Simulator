@@ -382,7 +382,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			else
 			{
 				DrawGate( r_GfxInfo , gType , selected );
-				forbidden = false;
+				//forbidden = false;
 				//, PrintMsg( "" );
 			}
 
