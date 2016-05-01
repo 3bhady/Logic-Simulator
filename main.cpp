@@ -37,6 +37,8 @@ int main()
 }
 /*
 
+lazm nfr2 been el highlighted w been el forbidden fe 7agat kter awi m7taga tt3adl f el mwdo3 dh w functions kter
+
 DsgnMenuItm el enum dh bnst3mlo kter w el mfrod n3ml enum tany esmo componenttype w yb2a feh kol el types fa m7tag dh yt3'yr
 w yt7at f class component bdl designmenu item dh w kol 7aga feh tb2a m7tot b nfs el trteb bta dsgn menu itm
 3lshan lama n7b n7wl mn enum l el tany el mwdo3 yb2a baset
