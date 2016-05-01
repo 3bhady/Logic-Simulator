@@ -475,6 +475,8 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 		pWind->GetMouseCoord(x, y);
 		xOffset = x - UI.u_GfxInfo.x1;
 		yOffset = y - UI.u_GfxInfo.y1;
+		UI.u_GfxInfo.x1 = x;				//comment for za7alee2 :D :D 
+		UI.u_GfxInfo.y1 = y;				//comment for za7alee2 :D :D 
 		for (int i = 0; i < ComponentsVec.size(); i++)
 		{
 			GraphicsInfo GfxInfo = ComponentsVec[i]->get_GraphicInfo();
