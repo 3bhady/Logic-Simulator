@@ -2,6 +2,7 @@
 
 LED::LED(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOut) {
 
+	Type = LED_;
 	// generate random number between 0 and 5
 	// choosing a LED color
 

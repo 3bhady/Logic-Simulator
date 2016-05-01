@@ -22,6 +22,11 @@ GraphicsInfo & Component::get_GraphicInfo()
 	return m_GfxInfo;
 }
 
+void Component::set_GraphicInfo(GraphicsInfo GFX)
+{
+	m_GfxInfo = GFX;
+}
+
 void Component::AddComponent( ApplicationManager * pApp )
 {
 	Component *** Arr = pApp->GetArr( );
@@ -70,6 +75,11 @@ void Component::ChangeState()
 bool Component::isSelected( )
 {
 	return highlighted;
+}
+
+ComponentType Component::getType()
+{
+	return Type;
 }
 
 Component::Component()

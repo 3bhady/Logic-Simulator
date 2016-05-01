@@ -66,6 +66,26 @@ enum  MODE	//Modes of operation
 	
 };
 
+enum ComponentType //The items of the design menu (you should add more items)
+{
+	AND2_,		// 2-input AND gate
+	OR2_,		// 2-input OR gate
+	Buff_,		// 1-input Buffer gate
+	INV_,		// 1-input Inverter gate
+	NAND2_,		// 2-input NAND gate
+	NOR2_,		// 2-input NOR gate
+	XOR2_,		// 2-input XOR gate
+	XNOR2_,		// 2-input XNOR gate
+	AND3_,		// 3-input AND gate
+	OR3_,		// 3-input OR gate
+	NAND3_,		// 3-input NAND gate
+	NOR3_,		// 3-input NOR gate
+	XOR3_,		// 3-input XOR gate
+	XNOR3_,		// 3-input XNOR gate
+	Switch_,			// Switch
+	LED_,				// LED
+	CONNECTION_,		// Wire Connection
+};
 
 enum DsgnMenuItem //The items of the design menu (you should add more items)
 {

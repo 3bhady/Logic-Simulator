@@ -4,6 +4,7 @@
 #include "..\ApplicationManager.h"
 #include <sstream>
 #include "..\Components\Component.h"
+#include <vector>
 
 //class Component;
 class Output	//The application manager should have a pointer to this class
@@ -25,7 +26,7 @@ public:
 	window* GetPwind()const;
 
 	void MouseHovering( )const;
-	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, DsgnMenuItem gType, Component ** Arr[780], bool selected = false, int xOffset = 0, int yOffset = 0);
+	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, ComponentType, Component ** Arr[780], bool selected = false, int xOffset = 0, int yOffset = 0);
 
 	void ClearStatusBar() const;		//Clears the status bar
 	void ClearDrawingArea() const;	//Clears the drawing area
@@ -34,8 +35,8 @@ public:
 
 	void Magnetize(int &x,int &y);
 
-	void DrawGate(GraphicsInfo  r_GfxInfo, DsgnMenuItem gate,bool selected = false);
-	void DrawLED(GraphicsInfo r_GfxInfo, bool state , bool selected,string colour);
+	void DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate, bool selected = false);
+	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, string colour = "");
 	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected = false, MODE mode = DESIGN);
 	void DrawEditMenu(int x, int y,int selectedItem)const;
 	void DeleteGate( GraphicsInfo GfxInfo );
@@ -47,6 +48,7 @@ public:
 
 	void PrintMsg(string msg) const;	//Print a message on Status bar
 
+	bool MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780]);
 
 	~Output();
 };

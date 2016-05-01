@@ -2,6 +2,7 @@
 
 AND2::AND2(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(2, r_FanOut)
 {
+	Type = AND2_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
@@ -23,7 +24,7 @@ void AND2::Operate()
 void AND2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, ITM_AND2, highlighted);
+	pOut->DrawGate(m_GfxInfo, AND2_, highlighted);
 }
 
 //returns status of outputpin

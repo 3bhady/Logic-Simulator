@@ -1,8 +1,8 @@
 #include "Connection.h"
 
 Connection::Connection(const GraphicsInfo &r_GfxInfo, OutputPin *pSrcPin,InputPin *pDstPin):Component(r_GfxInfo)
-
 {
+	Type = CONNECTION_;
 	SrcPin = pSrcPin;
 	DstPin = pDstPin;
 }

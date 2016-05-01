@@ -4,6 +4,7 @@
 
 XOR2::XOR2(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(2, r_FanOut)
 {
+	Type = XOR2_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
@@ -24,7 +25,7 @@ void XOR2::Operate()
 void XOR2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, ITM_XOR2, highlighted);
+	pOut->DrawGate(m_GfxInfo, XOR2_, highlighted);
 }
 
 //returns status of outputpin

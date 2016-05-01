@@ -4,6 +4,7 @@
 
 NOT::NOT(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
 {
+	Type = INV_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
@@ -23,7 +24,7 @@ void NOT::Operate()
 void NOT::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo,ITM_INV, highlighted);
+	pOut->DrawGate(m_GfxInfo,INV_, highlighted);
 }
 
 //returns status of outputpin
