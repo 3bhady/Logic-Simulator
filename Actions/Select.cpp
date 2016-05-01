@@ -17,23 +17,22 @@ void Select::Execute()
 	if ( selectedItem )					   //if the clicked area doesn't point to NULL
 	{	
 		
-	if ( !selectedItem->isSelected( ) )			//if the item is not highlighted , it is highlighted
+	if ( !selectedItem->isSelected( ) )			//highlight the item if the item is not already highlighted
 	{
-		selectedItem->Highlight( );
+		selectedItem->Highlight( );				   //highlighting the component
 		return;
 	}
-		GraphicsInfo &GfxInfo = selectedItem->get_GraphicInfo();
-		selectedItem->ChangeState();
+		GraphicsInfo &GfxInfo = selectedItem->get_GraphicInfo();	   //the graphics info of the selected component
+		//selectedItem->ChangeState();
 		
 
 	//todo put parameters to indicate the type of the gate to send it to follow mouse and draw 
 		if ( pManager->GetInput( )->DetectChange( ) )
 
 		{
-			selectedItem->DeleteComponent( pManager );
+			selectedItem->DeleteComponent( pManager );			 //delete the component from the 2D array and draw an empty block over the gate
 			pManager->GetOutput( )->FollowMouseAndDraw( GfxInfo , ITM_AND2 , pManager->GetArr( ) , true );
-			
-			selectedItem->get_GraphicInfo( ) = GfxInfo;
+			//selectedItem->get_GraphicInfo( ) = GfxInfo;
 			selectedItem->AddComponent( pManager );
 				
 				selectedItem->Highlight( );

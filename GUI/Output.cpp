@@ -85,7 +85,7 @@ void Output::PrintMsg(string msg) const
 	ClearStatusBar();	//Clear Status bar to print message on it
 	// Set the Message offset from the Status Bar
 	int MsgX = 200;
-	int MsgY = UI.StatusBarHeight - 5;
+	int MsgY = UI.StatusBarHeight - 3;
 
 	// Print the Message
     pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
@@ -329,7 +329,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 		 // screenshot of the current image and store it to draw over it
 	  pWind->FlushKeyQueue( );
 	  char cEscape;	//the character pressed to cancle the addition of the gate
-	  bool flag = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
+	  bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
 		do {
 			
 			
@@ -355,7 +355,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 			//{
 
 
-			flag = false;
+			forbidden = false;
 
 			//for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
 			for ( int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i++ )
@@ -367,22 +367,22 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 					if ( Arr[j][i] )
 						if ( dynamic_cast< Gate* > (Arr[j][i]) )
 						{
-							flag = true; break;
+							forbidden = true; break;
 						}
 				}
-				if ( flag )break;
+				if ( forbidden )break;
 			}
-			if ( flag )
+			if ( forbidden )
 			{
 				PrintMsg( "You can't draw here!" );
-				selected = 1;
-				DrawGate( r_GfxInfo , gType , selected );
-				selected = 0;
+				//selected = 1;
+				DrawGate( r_GfxInfo , gType ,true);
+				//selected = 0;
 			}
 			else
 			{
 				DrawGate( r_GfxInfo , gType , selected );
-				flag = false;
+				forbidden = false;
 				//, PrintMsg( "" );
 			}
 
@@ -402,18 +402,18 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 				|| UI.isForbidden( r_GfxInfo.x1 , r_GfxInfo.y1 ) 
 				||UI.isForbidden(r_GfxInfo.x1, r_GfxInfo.y2 )
 				||UI.isForbidden(r_GfxInfo.x2,r_GfxInfo.y1 )
-				||flag )
+				||forbidden )
 			{
-				PrintMsg( "You can't draw here!" );	flag = true;
+				PrintMsg( "You can't draw here!" );	forbidden = true;
 			}
 			else
 			{
-				PrintMsg( "" );  flag = false;
+				PrintMsg( "" );  forbidden = false;
 			}
 			pWind->UpdateBuffer( );
 
 
-		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK||flag );
+		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK||forbidden );
 		
 		
 		r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
@@ -423,7 +423,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 		r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
 		
 		PrintMsg( "" );
-	/*	bool flag = false;
+	/*	bool forbidden = false;
 		for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
 		{
 			for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
@@ -431,12 +431,12 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , DsgnMenuItem gType ,
 				if ( Arr[j][i] )
 					if ( dynamic_cast< Gate* > (Arr[j][i]) )
 					{
-						flag = true; break;
+						forbidden = true; break;
 					}
 			}
-			if ( flag )break;
+			if ( forbidden )break;
 		}
-		if ( !flag )
+		if ( !forbidden )
 		{
 			DrawGate( r_GfxInfo , gType , selected ) , PrintMsg( "" );
 			return true;
