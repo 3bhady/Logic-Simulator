@@ -68,6 +68,7 @@
     <ClCompile Include="Utility\Utility.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
+    <ClCompile Include="Actions\AreaSelect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -124,6 +125,7 @@
     <ClInclude Include="Utility\Utility.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="Actions\Select.h" />
+    <ClInclude Include="Actions\AreaSelect.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

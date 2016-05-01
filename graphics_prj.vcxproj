@@ -129,6 +129,7 @@
     <ClCompile Include="Actions\AddGate.cpp" />
     <ClCompile Include="Actions\AddLED.cpp" />
     <ClCompile Include="Actions\AddSwitch.cpp" />
+    <ClCompile Include="Actions\AreaSelect.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Actions\AddGate.h" />
     <ClInclude Include="Actions\AddLED.h" />
     <ClInclude Include="Actions\AddSwitch.h" />
+    <ClInclude Include="Actions\AreaSelect.h" />
     <ClInclude Include="Actions\Select.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />

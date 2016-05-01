@@ -454,6 +454,8 @@ return true;
 bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780])
 {
 	vector<GraphicsInfo> initialGFxInfo;			//Initial position of components to restore them if ESCAPE was pressed
+	image GateImage;
+	pWind->StoreImage( GateImage , 0 , 0 , UI.width , UI.height );
 	for (int i = 0; i < ComponentsVec.size(); i++)
 	{
 		initialGFxInfo.push_back(ComponentsVec[i]->get_GraphicInfo());
@@ -477,98 +479,61 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 		yOffset = y - UI.u_GfxInfo.y1;
 		UI.u_GfxInfo.x1 = x;				//comment for za7alee2 :D :D 
 		UI.u_GfxInfo.y1 = y;				//comment for za7alee2 :D :D 
+		if ( pWind->GetKeyPress( cEscape ) == ESCAPE )
+		{
+			pWind->DrawImage( GateImage , 0 , 0 );
+		/*	for ( int i = 0; i < ComponentsVec.size( ); i++ )
+				ComponentsVec[i]->set_GraphicInfo( initialGFxInfo[i] );	*/
+			pWind->UpdateBuffer( );
+			pWind->SetBuffering( false );
+			return false;
+		}
 		for (int i = 0; i < ComponentsVec.size(); i++)
 		{
-			GraphicsInfo GfxInfo = ComponentsVec[i]->get_GraphicInfo();
+			GraphicsInfo &GfxInfo = ComponentsVec[i]->get_GraphicInfo();
 			GfxInfo.x1 += xOffset;
 			GfxInfo.y1 += yOffset;
 			Magnetize(GfxInfo.x1, GfxInfo.y1);
 			GfxInfo.x2 = GfxInfo.x1 + UI.Gate_Width;
 			GfxInfo.y2 = GfxInfo.y1 + UI.Gate_Height;
-			ComponentsVec[i]->set_GraphicInfo(GfxInfo);
 		}
-		//r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2 + xOffset;
-		//r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2 + yOffset;
-		//Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
-		//r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
-		//r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
-
-
-		if (pWind->GetKeyPress(cEscape) == ESCAPE)
-		{
-			pWind->DrawImage(initImage, 0, 0);
-			for (int i = 0; i < ComponentsVec.size(); i++)
-				ComponentsVec[i]->set_GraphicInfo(initialGFxInfo[i]);
-			pWind->UpdateBuffer();
-			pWind->SetBuffering(false);
-			return false;
-		}
-		//if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight )
-		//{
 
 
 		forbidden = false;
 
-		//for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
 		for (int k = 0; k < ComponentsVec.size(); k++)
 		{
 			GraphicsInfo r_GfxInfo = ComponentsVec[k]->get_GraphicInfo();
-			for (int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i++)
+			for (int i = r_GfxInfo.x1; i <= r_GfxInfo.x2; i+=15)
 			{
-				//for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
-				for (int j = r_GfxInfo.y1; j < r_GfxInfo.y2; j++)
+				for (int j = r_GfxInfo.y1; j <= r_GfxInfo.y2; j+=15)
 				{
-					if (i > 0 && j > 0 && j < 700 && i < 1390)
-						if (Arr[j][i])
-							if (dynamic_cast<Gate*> (Arr[j][i]))
+					if ( i > 0 && j > 0 && j < 700 && i < 1390 )
+					{
+						if ( Arr[j][i] )
+							if ( dynamic_cast< Gate* > (Arr[j][i]) )
 							{
 								forbidden = true; break;
 							}
+					}
+					else
+					{
+						forbidden = true; break;
+					}
 				}
 				if (forbidden)break;
 			}
+			ComponentsVec[k]->Draw( this );
 		}
 		if (forbidden)
-		{
 			PrintMsg("You can't draw here!");
-			//selected = 1;
-			for (int k = 0; k < ComponentsVec.size(); k++)
-			{
-				if (dynamic_cast<Gate*>(ComponentsVec[k]))
-					DrawGate(ComponentsVec[k]->get_GraphicInfo(), ComponentsVec[k]->getType(), ComponentsVec[k]->isSelected());
-				else if (dynamic_cast<LED*>(ComponentsVec[k]))
-					DrawLED(ComponentsVec[k]->get_GraphicInfo(), false, ComponentsVec[k]->isSelected());
-				else if (dynamic_cast<Switch*>(ComponentsVec[k]))
-					DrawSwitch(ComponentsVec[k]->get_GraphicInfo(), LOW, ComponentsVec[k]->isSelected());
-			}
-			//selected = 0;
-		}
-		else
-		{
-			for (int k = 0; k < ComponentsVec.size(); k++)
-			{
-				if (dynamic_cast<Gate*>(ComponentsVec[k]))
-					DrawGate(ComponentsVec[k]->get_GraphicInfo(), ComponentsVec[k]->getType() ,ComponentsVec[k]->isSelected());
-				else if (dynamic_cast<LED*>(ComponentsVec[k]))
-					DrawLED(ComponentsVec[k]->get_GraphicInfo(), false, ComponentsVec[k]->isSelected());
-				else if(dynamic_cast<Switch*>(ComponentsVec[k]))
-					DrawSwitch(ComponentsVec[k]->get_GraphicInfo(), LOW, ComponentsVec[k]->isSelected());
-			}
-			//DrawGate(r_GfxInfo, gType, selected);
-			//forbidden = false;
-			//, PrintMsg( "" );
-		}
 
+		
+		
 		if (!UI.HiddenToolBar)CreateDesignToolBar();
 		if (!UI.HiddenFileBar)CreateFileToolBar();
 		if (!UI.HiddenEditBar)CreateEditToolBar();
-		/*//}
-		//else
-		//	DrawGate( r_GfxInfo , gType , selected );
-		if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight + 1 || r_GfxInfo.y1 + UI.Gate_Height / 2 > UI.height - UI.StatusBarHeight + 3 )
-		{
-		PrintMsg( "You can't draw here!" );
-		}	*/
+		
 
 		for (int k = 0; k < ComponentsVec.size(); k++)
 		{
@@ -591,13 +556,7 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 
 	} while (pWind->GetMouseClick(x, y) == NO_CLICK || forbidden);
 
-/*
-	r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2 + xOffset;
-	r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2 + yOffset;
-	Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
-	r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
-	r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
-	*/
+
 		for (int i = 0; i < ComponentsVec.size(); i++)
 		{
 			GraphicsInfo GfxInfo = ComponentsVec[i]->get_GraphicInfo();
@@ -609,28 +568,8 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 			ComponentsVec[i]->set_GraphicInfo(GfxInfo);
 		}
 	PrintMsg("");
-	/*	bool forbidden = false;
-	for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
-	{
-	for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
-	{
-	if ( Arr[j][i] )
-	if ( dynamic_cast< Gate* > (Arr[j][i]) )
-	{
-	forbidden = true; break;
-	}
-	}
-	if ( forbidden )break;
-	}
-	if ( !forbidden )
-	{
-	DrawGate( r_GfxInfo , gType , selected ) , PrintMsg( "" );
-	return true;
-	}
-
-	*/
 	pWind->SetBuffering(false);
-	//}
+
 	return true;
 
 }
