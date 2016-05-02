@@ -26,6 +26,7 @@ public:
 
 	window* GetPwind()const;
 
+	void DrawDots(int xStart, int yStart, int xFinish, int yFinish);
 	void MouseHovering( )const;
 	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, ComponentType, Component ** Arr[780], bool selected = false, int xOffset = 0, int yOffset = 0);
 

@@ -50,7 +50,6 @@ ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 	Component*** Arr = pApp->GetArr();
 	//pWind->WaitMouseClick(x,y); //for testing only
 	pWind->GetMouseClick(x, y);	//Get the coordinates of the user click
-	pWind->GetKeyPress( z );
 	UI.u_GfxInfo.x1 = x;
 	UI.u_GfxInfo.y1 = y;
 	if (UI.AppMode == DESIGN)	//application is in design mode

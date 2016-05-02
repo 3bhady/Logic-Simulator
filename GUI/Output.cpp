@@ -166,6 +166,8 @@ void Output::CreateEditToolBar( ) const
 	pWind->DrawImage( "Images\\ToolBars\\Editbar\\EB2.jpg" , UI.EditBarStartX , UI.EditBarStartY );
 	pWind->DrawImage( "Images\\ToolBars\\Editbar\\EB3.jpg" , UI.EditBarTitleStartX ,UI.EditBarTitleStartY );
 }
+
+
 void Output::CreateGrid( ) const
 {
 	/*for ( int j = 0; j < 700; j += 15 )
@@ -181,6 +183,19 @@ void Output::CreateGrid( ) const
 window * Output::GetPwind() const
 {
 	return pWind;
+}
+
+void Output::DrawDots(int xStart, int yStart,int xFinish,int yFinish)
+{
+	Magnetize(xStart, yStart);
+	for (int j = yStart+15; j < yFinish; j += 15)
+	{
+		for (int i = xStart+15; i < xFinish; i += 15)
+		{
+			pWind->SetPen(WHITE, 1);
+			pWind->DrawCircle(i, j, 1);
+		}
+	}
 }
 
 void Output::MouseHovering( )const
@@ -708,11 +723,18 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 
 void Output::DrawRect(int& x,int &y)
 {
-	
 	pWind->GetMouseCoord( x , y );
-	pWind->SetBrush( SKYBLUE );
-	pWind->SetPen( SKYBLUE );
+	pWind->SetBrush(SLATEGRAY);
+	pWind->SetPen(GRAY, 2);
 	pWind->DrawRectangle( x , y , UI.u_GfxInfo.x1 , UI.u_GfxInfo.y1 , FILLED );
+	int xstart, ystart, xfinish, yfinish;
+	if (x <= UI.u_GfxInfo.x1)
+		xstart = x, xfinish = UI.u_GfxInfo.x1;
+	else xfinish = x, xstart = UI.u_GfxInfo.x1;
+	if (y <= UI.u_GfxInfo.y1)
+		ystart = y, yfinish = UI.u_GfxInfo.y1;
+	else yfinish = y, ystart = UI.u_GfxInfo.y1;
+	DrawDots(xstart, ystart, xfinish, yfinish);
 }
 
 
