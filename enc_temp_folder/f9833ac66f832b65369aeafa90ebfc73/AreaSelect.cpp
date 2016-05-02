@@ -36,16 +36,15 @@ void AreaSelect::Execute( )
 		return;
 	}
 	int a , b;
-	int x , y;
 	while ( pManager->GetOutput( )->GetPwind( )->GetButtonState( LEFT_BUTTON , a , b ) == NO_CLICK )
 	{
 		pManager->GetOutput( )->GetPwind( )->SetBuffering( true );
-		
+		int x , y;
 		for ( int i = 0; i < pManager->GetCompList( ).size( ); i++ )
 		{
 			pManager->GetCompList( )[i]->Unhighlight( );
 
-		}  	
+		}  
 		pManager->GetOutput( )->CreateGrid( );
 		pManager->GetOutput( )->CreateToolBars( );
 		pManager->GetOutput( )->DrawRect( x , y );
@@ -56,24 +55,17 @@ void AreaSelect::Execute( )
 		
 		for ( j; j <= sj; j += 15 )
 		{
-			for ( i= y < UI.u_GfxInfo.y1 ? y : UI.u_GfxInfo.y1; i <= si; i += 15 )
+			for ( i; i <= si; i += 15 )
 			{
 				if ( pManager->GetArr( )[i][j] )
 					pManager->GetArr( )[i][j]->Highlight( );
 			}
 		}
-
 		pManager->UpdateInterface( );
 		pManager->GetOutput( )->CreateToolBars( );
 		
 		pManager->GetOutput( )->GetPwind( )->UpdateBuffer( );
 	}
-	pManager->GetOutput( )->CreateGrid( );
-	pManager->UpdateInterface( );
-	pManager->GetOutput( )->CreateToolBars( );
-
-	pManager->GetOutput( )->GetPwind( )->UpdateBuffer( );
-	pManager->GetOutput( )->GetPwind( )->FlushMouseQueue( );
 	pManager->GetOutput( )->GetPwind( )->SetBuffering( false );
 }
 void AreaSelect::Undo( )
