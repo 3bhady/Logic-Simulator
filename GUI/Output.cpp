@@ -87,8 +87,6 @@ void Output::CreateToolBars( ) const
 	CreateFileToolBar( );
 	CreateEditToolBar( );
 	CreateStatusBar( );
-	
-
 }
 //////////////////////////////////////////////////////////////////////////////////
 void Output::PrintMsg(string msg) const
@@ -715,7 +713,6 @@ void Output::DrawRect(int& x,int &y)
 	pWind->SetBrush( SKYBLUE );
 	pWind->SetPen( SKYBLUE );
 	pWind->DrawRectangle( x , y , UI.u_GfxInfo.x1 , UI.u_GfxInfo.y1 , FILLED );
-	
 }
 
 
