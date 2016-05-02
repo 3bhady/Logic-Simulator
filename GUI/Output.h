@@ -22,6 +22,7 @@ public:
 	void CreateGrid( )const;
 	void CreateSimulationToolBar() const;//Tool bar of the simulation mode
 	void CreateStatusBar() const;	//Create Status bar
+	void CreateToolBars( )const;
 
 	window* GetPwind()const;
 
@@ -46,9 +47,11 @@ public:
 	// Draws Connection
 	void DrawConnection(GraphicsInfo r_GfxInfo, bool selected = false) const;
 
+	void DrawRect( int& x , int &y );
+
 	void PrintMsg(string msg) const;	//Print a message on Status bar
 
-	bool MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780]);
+	bool MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780],Component* selected);
 
 	~Output();
 };

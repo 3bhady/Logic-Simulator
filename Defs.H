@@ -30,6 +30,7 @@ enum ActionType
 	Change_Switch,		//Change Switch Status in Simulation Mode
 
 	SELECT,		//Select a Component, a Connection
+	AREASELECT,
 	DEL,		//Delete a Component, a Connection
 	MOVE,		//Move a Component, a Connection
 

@@ -40,7 +40,7 @@ void Select::Execute()
 				// selectedItem->DeleteComponent(pManager);			 //delete the component from the 2D array and draw an empty block over the gate
 			}
 			//pManager->GetOutput( )->FollowMouseAndDraw( GfxInfo , AND2_ , pManager->GetArr( ) , true );
-			pManager->GetOutput()->MoveComponents(HighlightedVec, pManager->GetArr());
+			pManager->GetOutput()->MoveComponents(HighlightedVec, pManager->GetArr(), selectedItem);
 			//selectedItem->get_GraphicInfo( ) = GfxInfo;
 			for (int i = 0; i < HighlightedVec.size(); i++)
 			{

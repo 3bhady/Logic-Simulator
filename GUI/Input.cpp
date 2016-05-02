@@ -49,6 +49,7 @@ ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 	Component*** Arr = pApp->GetArr();
 	//pWind->WaitMouseClick(x,y); //for testing only
 	pWind->GetMouseClick(x, y);	//Get the coordinates of the user click
+	pWind->GetKeyPress( char x );
 	UI.u_GfxInfo.x1 = x;
 	UI.u_GfxInfo.y1 = y;
 	if (UI.AppMode == DESIGN)	//application is in design mode
@@ -135,8 +136,13 @@ if (UI.isInFileBar(x, y))
 			//{
 				//return SELECT;	//user want to select/unselect a statement in the flowchart
 			//}
-			if (!UI.isForbidden(x, y))
-				return SELECT;
+			if ( !UI.isForbidden( x , y ) )
+			{
+				if ( pApp->GetArr()[y][x] )
+					return SELECT;
+				else
+					return AREASELECT;
+			}
 
 			//[3] User clicks on the status bar
 

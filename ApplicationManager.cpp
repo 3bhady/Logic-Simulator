@@ -3,6 +3,7 @@
 #include "Actions\AddLED.h"
 #include "Actions\AddSwitch.h"
 #include "Actions\Select.h"
+#include "Actions\AreaSelect.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -73,6 +74,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 						pAct = new AddGate(this,ActType); break;
 */
 
+	if ( ActType == AREASELECT )
+		pAct = new AreaSelect( this );
 	if (ActType == SELECT)
 		pAct = new Select(this);
 	if(ActType== ADD_LED)
@@ -97,6 +100,7 @@ void ApplicationManager::UpdateInterface()
 {
 	for (int i = 0; i < CompCount; i++)
 		CompList[i]->Draw(OutputInterface);
+	
 }
 
 ////////////////////////////////////////////////////////////////////
