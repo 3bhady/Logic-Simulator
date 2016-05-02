@@ -14,6 +14,7 @@ void WritePNG(window * pWind, image &screen ,int x,int y,vector<unsigned char>& 
 	for ( i = 0; i < Size; i+=4 )
 	{
 		if (Image[i + 3])
+
 		{
 			Arr[i] = Image[i + 2];
 			Arr[i + 1] = Image[i + 1];
@@ -36,6 +37,7 @@ void WritePNG(window * pWind, image &screen ,int x,int y,vector<unsigned char>& 
 		else
 			g = Arr[i], Arr[i] = Image[i];
 			*/
+
 	}
 	screen.SetArr( Arr );
 }
