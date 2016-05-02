@@ -6,14 +6,11 @@ int main()
 
 	ActionType ActType;
 	//Create an object of ApplicationManager
-	
+
 	
 	ApplicationManager AppManager;
 	
 
-	//window* pWind = AppManager.GetOutput()->GetPwind();
-	int x = 313 , y = 439;
-	
 	do
 	{
 		//Read user action

@@ -137,7 +137,11 @@ void Output::CreateEditToolBar( ) const
 }
 void Output::CreateGrid( ) const
 {
-	/*for ( int j = 0; j < 700; j += 15 )
+/*
+	pWind->SetPen( WHITE );
+	pWind->DrawRectangle( 0 , 0 , UI.width , UI.height , FILLED );
+	for ( int j = 0; j < 700; j += 15 )
+
 	{
 		for ( int i = 0; i < 1360; i += 15 )
 		{
