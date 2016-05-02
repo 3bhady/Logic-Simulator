@@ -24,7 +24,7 @@ public:
 	void CreateStatusBar() const;	//Create Status bar
 	void CreateToolBars( )const;
 
-	window* GetPwind()const;
+	//window* GetPwind()const;
 
 	void MouseHovering( )const;
 	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, ComponentType, Component ** Arr[780], bool selected = false, int xOffset = 0, int yOffset = 0);
@@ -42,8 +42,11 @@ public:
 	void DrawEditMenu(int x, int y,int selectedItem)const;
 	void DeleteGate( GraphicsInfo GfxInfo );
 
-	///TODO: Make similar functions for drawing all other gates, switch, and LED, .. etc
-
+//Window Functions
+	bool SetBuffering( const bool bSetting );
+	void UpdateBuffer( );
+	void FlushMouseQueue( );
+	void FlushKeyQueue( );
 	// Draws Connection
 	void DrawConnection(GraphicsInfo r_GfxInfo, bool selected = false) const;
 

@@ -22,32 +22,27 @@ void Select::Execute()
 		return;
 	}
 		GraphicsInfo &GfxInfo = selectedItem->get_GraphicInfo();	   //the graphics info of the selected component
-		//selectedItem->ChangeState();
 
-		//todo put parameters to indicate the type of the gate to send it to follow mouse and draw 
 
 		if (pManager->GetInput()->DetectChange())
 		{
 			vector<Component*> HighlightedVec;
-			for (int i = 0; i<pManager->GetCompList().size(); i++)
+			for (int i = 0; i< (int)pManager->GetCompList().size(); i++)
 			{
 				if (pManager->GetCompList()[i]->isSelected())
 					HighlightedVec.push_back(pManager->GetCompList()[i]);
 			}
-			for (int i = 0; i < HighlightedVec.size(); i++)
+			for (int i = 0; i <(int) HighlightedVec.size(); i++)
 			{
-				HighlightedVec[i]->DeleteComponent(pManager);
-				// selectedItem->DeleteComponent(pManager);			 //delete the component from the 2D array and draw an empty block over the gate
+				HighlightedVec[i]->DeleteComponent(pManager); //delete the component from the 2D array and draw an empty block over the gate
+							 
 			}
-			//pManager->GetOutput( )->FollowMouseAndDraw( GfxInfo , AND2_ , pManager->GetArr( ) , true );
 			pManager->GetOutput()->MoveComponents(HighlightedVec, pManager->GetArr(), selectedItem);
-			//selectedItem->get_GraphicInfo( ) = GfxInfo;
-			for (int i = 0; i < HighlightedVec.size(); i++)
+			
+			for (int i = 0; i < (int)HighlightedVec.size(); i++)
 			{
-				//selectedItem->AddComponent(pManager);
 				HighlightedVec[i]->AddComponent(pManager);
 				HighlightedVec[i]->Highlight();
-				//selectedItem->Highlight();
 			}
 		}
 		else selectedItem->Unhighlight();

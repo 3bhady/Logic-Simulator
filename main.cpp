@@ -5,15 +5,13 @@ int main()
 {
 
 	ActionType ActType;
-	//test
 	//Create an object of ApplicationManager
 	
 	
 	ApplicationManager AppManager;
-	//
-	//tessssssssst
+	
 
-	window* pWind = AppManager.GetOutput()->GetPwind();
+	//window* pWind = AppManager.GetOutput()->GetPwind();
 	int x = 313 , y = 439;
 	
 	do
@@ -24,9 +22,9 @@ int main()
 		//Execute the action
 		AppManager.ExecuteAction(ActType);
 
-		int x, y;
-		pWind->GetMouseCoord(x, y);
-		cout << x << " " << y << endl;
+	//	int x, y;
+		//pWind->GetMouseCoord(x, y);
+		//cout << x << " " << y << endl;
 
 		//Update the drawing window
 		AppManager.UpdateInterface();

@@ -53,8 +53,8 @@ void Output::Magnetize(int &x, int &y)
 	double a, b;
 	a = double(x);
 	b = double(y);
-	x = round( a / 15 ) * 15;
-	y = round( b / 15 ) * 15;
+	x = (int)(round( a / 15 ) * 15);
+	y = (int)(round( b / 15 ) * 15);
 	//Magnetizing
 	/*if (a - (15 * (a / 15)) < a - (15 * ((a / 15) + 1)))
 	{
@@ -76,8 +76,6 @@ void Output::ChangeTitle(string Title) const
 //////////////////////////////////////////////////////////////////////////////////
 void Output::CreateStatusBar() const
 {
-	//pWind->SetPen(RED,3);
-	//pWind->DrawLine(0, UI.height-UI.StatusBarHeight, UI.width, UI.height-UI.StatusBarHeight);
 
 	pWind->DrawImage( "Images\\ToolBars\\Statusbar\\SB1.jpg" , UI.StatusBarStartX , UI.StatusBarStartY);
 }
@@ -108,22 +106,11 @@ void Output::ClearStatusBar()const
 {
 
 	CreateStatusBar( );
-/*	// Set the Message offset from the Status Bar
-	int MsgX = 25;
-	int MsgY = UI.StatusBarHeight - 10;
-
-	//Overwrite using bachground color to erase the message
-	pWind->SetPen(UI.BkGrndColor);
-	pWind->SetBrush(UI.BkGrndColor);
-	//pWind->DrawRectangle(MsgX, UI.height - MsgY, UI.width, UI.height);		 */
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //Clears the drawing (design) area
 void Output::ClearDrawingArea() const
 {
-	//pWind->SetPen(RED, 1);
-	//pWind->SetBrush(WHITE);
-	//pWind->DrawRectangle(0, UI.ToolBarHeight, UI.width, UI.height  );// UI.StatusBarHeight);
 	CreateGrid();
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -134,26 +121,6 @@ void Output::CreateDesignToolBar() const
 
 	pWind->DrawImage( "Images\\ToolBars\\Toolbar\\TB1.jpg" ,UI.ToolBarStartX , UI.ToolBarStartY );
 	pWind->DrawImage( "Images\\ToolBars\\Toolbar\\TB2.jpg" ,UI.ToolBarTitleStartX , UI.ToolBarTitleStartY );
-	/*//You can draw the tool bar icons in any way you want.
-
-	//First prepare List of images for each menu item
-	string MenuItemImages[ITM_DSN_CNT];
-	MenuItemImages[ITM_AND2] = "images\\Menu\\Menu_AND2.jpg";
-	MenuItemImages[ITM_OR2]  = "images\\Menu\\Menu_OR2.jpg";
-	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
-
-	//TODO: Prepare image for each menu item and add it to the list
-	pWind->DrawImage( MenuItemImages[0] , 0*UI.ToolBarItemWidth , 0 , UI.ToolBarItemWidth , UI.ToolBarHeight );
-	pWind->DrawImage( MenuItemImages[1] , 1*UI.ToolBarItemWidth , 0 , UI.ToolBarItemWidth , UI.ToolBarHeight );
-	pWind->DrawImage( MenuItemImages[ITM_EXIT] , 2*UI.ToolBarItemWidth , 0 , UI.ToolBarItemWidth , UI.ToolBarHeight );
-	//Draw menu item one image at a time
-//	for(int i=0; i<ITM_DSN_CNT; i++)
-	//	pWind->DrawImage(MenuItemImages[i],i*UI.ToolBarItemWidth,0,UI.ToolBarItemWidth, UI.ToolBarHeight);
-
-
-	//Draw a line under the toolbar
-	pWind->SetPen(RED,3);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	  */
 
 }
 void Output::CreateFileToolBar( ) const
@@ -180,29 +147,27 @@ void Output::CreateGrid( ) const
 	}  */
 	pWind->DrawImage( "Images\\Grid.jpg" , 0 , 0 );
 }
-window * Output::GetPwind() const
+/*window * Output::GetPwind() const
 {
 	return pWind;
-}
+}  */
 
 void Output::MouseHovering( )const
 {
-	if ( UI.HiddenToolBar ) return; //TODO m7taga tt3adl w yb2a feha hovering
 	string z1 = "Images\\ToolBars\\Toolbar\\toolbar";
 	string z2 = ".jpg";
 	string z3 = "Images\\ToolBars\\Filebar\\filebar";
 	string z4 = "Images\\ToolBars\\Editbar\\editbarDSN";
 	string z5 = "Images\\ToolBars\\Editbar\\editbarSIM";
 	image i;
-	//pWind->StoreImage( i , 0 , 0 , UI.width , UI.height );
+	
 
 	int x , y;
 	pWind->GetMouseCoord( x , y );
-//	cout << "x: " << x << " y: " << y << endl;
 
-	//if ( y >= 0 && y < UI.ToolBarHeight && x <= UI.ToolBarItemWidth * 17 )
 	if(UI.isInToolBar(x,y ) )
 	{
+		if ( UI.HiddenToolBar ) return;
 		string num = "" , s = "";
 		stringstream ss;
 		int ClickedItemOrder = (x / UI.ToolBarItemWidth);
@@ -233,17 +198,18 @@ void Output::MouseHovering( )const
 			case ITM_CONNECTION: {PrintMsg( "Add Connection" ); break; }
 
 
-			//default:PrintMsg( "" );
+			
 			}
 		}
 
 	}
 	else {
-		CreateDesignToolBar( );
-		//PrintMsg( "" );
+		if(!UI.HiddenToolBar)CreateDesignToolBar( );
+		
 	}
 	if (UI.isInFileBar(x,y))
 	{
+		if ( UI.HiddenFileBar )return;
 		string num = "", s = "";
 		stringstream ss;
 		int ClickedItemOrder = ((y-UI.FileBarStartY) / UI.FileBarItemHeight);
@@ -258,20 +224,21 @@ void Output::MouseHovering( )const
 			case 1: {PrintMsg("Load project"); break; }
 			case 2: {PrintMsg("Save project"); break; }
 			case 3: {PrintMsg("Exit"); break; }
-			//default:PrintMsg("");
+			
 			}
 		}
 
 	}
 	else
 	{
-		CreateFileToolBar();
-		//PrintMsg("");
+		if(!UI.HiddenFileBar)CreateFileToolBar();
+		
 	}
 	if (UI.AppMode == DESIGN)
 	{
 		if (UI.isInEditBar(x, y))
 		{
+			if ( UI.HiddenEditBar )return;
 			string num = "", s = "";
 			stringstream ss;
 			int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
@@ -286,20 +253,21 @@ void Output::MouseHovering( )const
 				case 1: {PrintMsg("Redo"); break; }
 				case 2: {PrintMsg("Truth table"); break; }
 				case 3: {PrintMsg("Run"); break; }
-				//default:PrintMsg("");
+				
 				}
 			}
 
 		}
 		else
 		{
-			CreateEditToolBar();
-			//PrintMsg("");
+			if(!UI.HiddenEditBar)CreateEditToolBar();
+			
 		}
 	}
 	else {
 		if (UI.isInEditBar(x, y))
 		{
+			if ( UI.HiddenEditBar )return;
 			string num = "", s = "";
 			stringstream ss;
 			int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
@@ -314,7 +282,7 @@ void Output::MouseHovering( )const
 				case 1: {PrintMsg("redo"); break; }
 				case 2: {PrintMsg("truth table"); break; }
 				case 3: {PrintMsg("Design mode"); break; }
-				//default:PrintMsg("");
+				
 				}
 
 			}
@@ -322,8 +290,8 @@ void Output::MouseHovering( )const
 		}
 		else
 		{
-			CreateEditToolBar();
-			//PrintMsg("");
+			if ( !UI.HiddenEditBar )CreateEditToolBar( );  //TODO make it draw simulation
+			
 		}
 	}
 	if ( !UI.isInEditBar( x , y ) && !UI.isInFileBar( x , y ) && !UI.isInToolBar( x , y ) )
@@ -336,9 +304,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 	GraphicsInfo temp = r_GfxInfo;
 	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
 	  pWind->SetBuffering( true );
-//while ( true )
-	//{
-		 // screenshot of the current image and store it to draw over it
+
 	  pWind->FlushKeyQueue( );
 	  char cEscape;	//the character pressed to cancle the addition of the gate
 	  bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
@@ -363,16 +329,15 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 				pWind->SetBuffering( false );
 				return false;
 			}
-			//if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight )
-			//{
+		
 
 
 			forbidden = false;
 
-			//for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
+		
 			for ( int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i++ )
 			{
-				//for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
+			
 				for ( int j = r_GfxInfo.y1; j < r_GfxInfo.y2; j++ )
 				{
 					if(i>0&&j>0&&j<700&&i<1390 )
@@ -387,27 +352,17 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 			if ( forbidden )
 			{
 				PrintMsg( "You can't draw here!" );
-				//selected = 1;
 				DrawGate( r_GfxInfo , gType ,true);
-				//selected = 0;
 			}
 			else
 			{
 				DrawGate( r_GfxInfo , gType , selected );
-				//forbidden = false;
-				//, PrintMsg( "" );
 			}
 
 			if ( !UI.HiddenToolBar )CreateDesignToolBar( );
 			if ( !UI.HiddenFileBar )CreateFileToolBar( );
 			if ( !UI.HiddenEditBar )CreateEditToolBar( );
-			/*//}
-			//else
-			//	DrawGate( r_GfxInfo , gType , selected );
-			if ( r_GfxInfo.y1 - UI.Gate_Height / 2 < UI.ToolBarHeight + 1 || r_GfxInfo.y1 + UI.Gate_Height / 2 > UI.height - UI.StatusBarHeight + 3 )
-			{
-			PrintMsg( "You can't draw here!" );
-			}	*/
+			
 
 				 
 			if (UI.isForbidden(r_GfxInfo.x2,r_GfxInfo.y2 )
@@ -435,28 +390,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 		r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
 		
 		PrintMsg( "" );
-	/*	bool forbidden = false;
-		for ( int i = r_GfxInfo.x1; i < UI.Gate_Width + r_GfxInfo.x1; i++ )
-		{
-			for ( int j = r_GfxInfo.y1; j < UI.Gate_Height + r_GfxInfo.y1; j++ )
-			{
-				if ( Arr[j][i] )
-					if ( dynamic_cast< Gate* > (Arr[j][i]) )
-					{
-						forbidden = true; break;
-					}
-			}
-			if ( forbidden )break;
-		}
-		if ( !forbidden )
-		{
-			DrawGate( r_GfxInfo , gType , selected ) , PrintMsg( "" );
-			return true;
-		}
-
-									  */
-	  pWind->SetBuffering( false );
-	//}
+		pWind->SetBuffering( false );
 return true;
 		
 }
@@ -469,7 +403,7 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 
 	image GateImage;
 
-	for (int i = 0; i < ComponentsVec.size(); i++)
+	for (int i = 0; i <int( ComponentsVec.size()); i++)
 	{
 		initialGFxInfo.push_back(ComponentsVec[i]->get_GraphicInfo());
 		DeleteGate(ComponentsVec[i]->get_GraphicInfo());
@@ -477,11 +411,9 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 
 	image initImage; pWind->StoreImage(initImage, 0, 0, UI.width, UI.height);
 	pWind->SetBuffering(true);
-	//while ( true )
-	//{
+	
 	// screenshot of the current image and store it to draw over it
 	pWind->FlushKeyQueue();
-	char cEscape;	//the character pressed to cancle the addition of the gate
 	bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
 	int x, y;  //Mouse coordinates
 	do {
@@ -501,7 +433,7 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 		int xChange = GfxSelected.x1 - initialX;	// the change of the move in the X-direction
 		int yChange = GfxSelected.y1 - initialY;	// the change of the move in the Y-direction
 
-		for (int i = 0; i < ComponentsVec.size(); i++)
+		for (int i = 0; i < (int)ComponentsVec.size(); i++)
 		{
 			if (ComponentsVec[i] != selected)		//changing the coordinates of the other gates according to the xChange and yChange
 			{
@@ -512,13 +444,13 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 				GfxInfo.x2 = GfxInfo.x1 + UI.Gate_Width;
 				GfxInfo.y2 = GfxInfo.y1 + UI.Gate_Height;
 			}
-			//ComponentsVec[i]->set_GraphicInfo(GfxInfo);
+			
 		}
 
 
 		forbidden = false;
 
-		for (int k = 0; k < ComponentsVec.size(); k++)
+		for (int k = 0; k <(int) ComponentsVec.size(); k++)
 		{
 			GraphicsInfo r_GfxInfo = ComponentsVec[k]->get_GraphicInfo();
 
@@ -552,7 +484,7 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 		if (!UI.HiddenEditBar)CreateEditToolBar();
 		
 
-		for (int k = 0; k < ComponentsVec.size(); k++)
+		for (int k = 0; k <(int) ComponentsVec.size(); k++)
 		{
 			GraphicsInfo GInfo=ComponentsVec[k]->get_GraphicInfo();
 			if (UI.isForbidden(GInfo.x2, GInfo.y2)
@@ -608,32 +540,9 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected)
 	if (selected)
 		GateImage += "H";
 	GateImage += ".jpg";
-	/*
-	//Getting mouse coordiantes
-
-	//int x, y;
-	//pWind->GetMouseCoord(r_GfxInfo.x1, r_GfxInfo.y1);
-	*/
-	//Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
 
 	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
-	//if (selected)	//use image in the highlighted case
-	//	GateImage = "Images\\Gates\\Gate_AND2_Hi.jpg";
-	//else
-	//{
-		//Getting mouse coordiantes
-		//int x, y;
-		//pWind->GetMouseCoord(x, y);
-		//Magnetize(x, y);
-		//pWind->DrawImage("Images\\Gates\\afr.jpg", x-30,y-15, 60, 30);
-		//pWind->DrawImage("Images\\Gates\\LLL.jpg", x + 22.5, y + 22.5, 45, 45);
-		//pWind->DrawImage("Images\\Gates\\NAND3.jpg", x, y, UI.Gate_Width, UI.Gate_Height);
-		//pWind->DrawImage("Images\\Gates\\NOR2.jpg", x+90, y+90, UI.Gate_Width, UI.Gate_Height);
-		//pWind->DrawImage("Images\\Gates\\qqq2.jpg", 758, 577, UI.Gate_Width, UI.Gate_Height);
-		//GateImage = "Images\\Gates\\qq.jpg";
-	//Draw AND2 Gate at Gfx_Info (1st corner)
-	//Set the Image Width & Height by AND2 Image Parameter in UI_Info
-	//pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
+	
 }
 
 void Output::DrawLED(GraphicsInfo r_GfxInfo,  bool state, bool selected , string colour)
@@ -702,6 +611,26 @@ void Output::DeleteGate( GraphicsInfo GfxInfo )
 //TODO: Add similar functions to draw all components
 
 
+bool Output::SetBuffering( const bool bSetting )
+{
+	return pWind->SetBuffering(bSetting);
+}
+
+void Output::UpdateBuffer( )
+{
+	pWind->UpdateBuffer( );
+}
+
+void Output::FlushMouseQueue( )
+{
+	pWind->FlushMouseQueue( );
+}
+
+void Output::FlushKeyQueue( )
+{
+	pWind->FlushKeyQueue( );
+}
+
 void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 {
 	//TODO: Add code to draw connection
@@ -711,7 +640,7 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
 void Output::DrawRect(int& x,int &y)
 {
 	
-	pWind->GetMouseCoord( x , y );
+	pWind->GetMouseCoord( x , y );	 
 	pWind->SetBrush( SKYBLUE );
 	pWind->SetPen( SKYBLUE );
 	pWind->DrawRectangle( x , y , UI.u_GfxInfo.x1 , UI.u_GfxInfo.y1 , FILLED );

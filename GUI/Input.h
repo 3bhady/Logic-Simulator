@@ -16,7 +16,8 @@ public:
 	Input(window*);
 	void GetPointClicked(int &, int &);	//Get coordinate where user clicks
 	string GetString(Output*);		//Returns a string entered by the user
-	bool DetectChange( );
+	bool DetectChange( ); //detects change in mouse movement to be used to determine the user action
+	buttonstate GetButtonState( const button btMouse , int &iX , int &iY );
 
 
 	ActionType GetUserAction( ApplicationManager * pApp, bool selected = false )const; //Reads the user click and maps it to an action
