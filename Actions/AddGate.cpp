@@ -17,37 +17,16 @@ bool AddGate::ReadActionParameters(string s)
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
+	//if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
 	return pOut->FollowMouseAndDraw( GInfo , ( ComponentType )( int )ActType , pManager->GetArr() , false );
 	
 	
-	
-	//Print Action Message
-	/*pOut->PrintMsg(s);
-
-	//Wait for User Input
-	//pIn->GetPointClicked(Cx, Cy);
-
-	//Clear Status Bar
-	
-	pOut->ClearStatusBar();
-
-	//Calculate the rectangle Corners
-	int Len = UI.Gate_Width;
-	int Wdth = UI.Gate_Height;
-
-	//Get Center point of the Gate
-	GInfo.x1 = Cx - Len / 2;
-	GInfo.x2 = Cx + Len / 2;
-	GInfo.y1 = Cy - Wdth / 2;
-	GInfo.y2 = Cy + Wdth / 2;
-	
-			   */
 }
 
 void AddGate::Execute()
 {
 	
-	Gate *pG = NULL;
+	Gate *pG = NULL; //a generic gate pointer to hold any type of gate to be added
 	switch (ActType)
 	{
 	case ADD_AND_GATE_2:
@@ -135,9 +114,6 @@ void AddGate::Execute()
 		break;
 	}
 	}
-	//ReadActionParameters();
-
-	//AND2 *pA = new AND2(GInfo, AND2_FANOUT);
 	if(pG )
 	pManager->AddComponent(pG);
 }

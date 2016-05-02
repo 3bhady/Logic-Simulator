@@ -26,17 +26,30 @@ ApplicationManager::ApplicationManager()
 	OutputInterface = new Output();
 	InputInterface = OutputInterface->CreateInput();
 }
+
 ////////////////////////////////////////////////////////////////////
+
 void ApplicationManager::AddComponent(Component* pComp)
 {
 	pComp->AddComponent( this );
 	CompList.push_back(pComp);
 	CompCount++;
 }
+
+////////////////////////////////////////////////////////////////////
+
 vector<Component*> ApplicationManager::GetCompList()
 {
 	return CompList;
 }
+
+////////////////////////////////////////////////////////////////////
+
+vector<Component*>& ApplicationManager::GetHighlightedList()
+{
+	return HighlightedCompList;
+}
+
 ////////////////////////////////////////////////////////////////////
 
 ActionType ApplicationManager::GetUserAction()
@@ -45,6 +58,7 @@ ActionType ApplicationManager::GetUserAction()
 	OutputInterface->MouseHovering(  );
 	return InputInterface->GetUserAction(this,false);
 }
+
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::ExecuteAction(ActionType ActType)
@@ -94,6 +108,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = NULL;
 	}
 }
+
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::UpdateInterface()
@@ -104,10 +119,13 @@ void ApplicationManager::UpdateInterface()
 }
 
 ////////////////////////////////////////////////////////////////////
+
 Input* ApplicationManager::GetInput()
 {
 	return InputInterface;
 }
+
+////////////////////////////////////////////////////////////////////
 
 Component *** ApplicationManager::GetArr( )
 {
@@ -115,6 +133,7 @@ Component *** ApplicationManager::GetArr( )
 }
 
 ////////////////////////////////////////////////////////////////////
+
 Output* ApplicationManager::GetOutput()
 {
 	return OutputInterface;

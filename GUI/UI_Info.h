@@ -16,7 +16,7 @@ struct UI_Info	//User Interface Info.
 	bool HiddenFileBar = false;
 	bool HiddenEditBar = false;
 
-	GraphicsInfo u_GfxInfo;
+	GraphicsInfo u_GfxInfo;		//User interaction
 
 	const int	width = 1360 , height = 700 ,	//Window width and height
 		wx = 15 , wy = 15 ,			//Window starting coordinates
@@ -62,7 +62,7 @@ struct UI_Info	//User Interface Info.
 	color DrawColor;		//Drawing color
 	color SelectColor;		//Highlighting color
 	color ConnColor;		//Connector color
-	color MsgColor = GREY;			//Messages color
+	color MsgColor = GREY;	//Messages color
 	color BkGrndColor;		//Back ground color
 
 
@@ -77,6 +77,12 @@ struct UI_Info	//User Interface Info.
 		LED_Height = 45 ,		// LED Image default height
 		EditMenu_Width = 102 ,	// EditMenu Image default width
 		EditMenu_Height = 161;	// EditMenu Image default height
+
+
+	/////////////////////////////////
+	/////**Checking functions**//////
+	/////////////////////////////////
+
 bool isInToolBar( int x , int y )
 	{
 		if ( y <= ToolBarHeight )
@@ -85,19 +91,22 @@ bool isInToolBar( int x , int y )
 		}
 		return false;
 	}
-	bool  isInToolBarTitle( int x , int y )
+
+bool  isInToolBarTitle( int x , int y )
 	{
 		if ( y < ToolBarHeight + ToolBarTitleHeight &&y>=ToolBarHeight)
 			if ( x < UI.ToolBarTitleWidth )
 				return true;
 		return false;
 	}
-	bool isInStatusBar(int x, int y)
+
+bool isInStatusBar(int x, int y)
 	{
 		return (y > height - StatusBarHeight - 20);
 
 	}
-	bool isInFileBar(int x, int y)
+
+bool isInFileBar(int x, int y)
 	{
 		if (x>FileBarStartX&&x<ToolBarItemWidth)
 			if (y>FileBarStartY&&y <= FileBarItemHeight*4 + FileBarStartY)
@@ -105,32 +114,37 @@ bool isInToolBar( int x , int y )
 
 		return false;
 	}
-	bool isInFileBarTitle(int x, int y)
+
+bool isInFileBarTitle(int x, int y)
 	{
 		if (x > FileBarWidth&&x < FileBarTitleStartX + FileBarTitleWidth)
 			if (y<FileBarTitleStartY + FileBarTitleHeight&&y>UI.FileBarTitleStartY)
 				return true;
 		return false;
 	}
-	bool isInEditBar(int x, int y)
+
+bool isInEditBar(int x, int y)
 	{
 		if (x > EditBarStartX&&x<UI.width-15)
 			if (y<EditBarHeight + EditBarStartY && y >EditBarStartY)
 				return true;
 		return false;
 	}
-	bool isInEditBarTitle(int x, int y)
+
+bool isInEditBarTitle(int x, int y)
 	{
 		if (x > EditBarTitleStartX&&x<EditBarStartX)
 			if (y>EditBarTitleStartY&&y < EditBarTitleHeight + EditBarTitleStartY)
 				return true;
 		return false;
 	}
-	bool isInBar( int x , int y )
+
+bool isInBar( int x , int y )
 	{
 		return isInStatusBar( x , y ) || isInEditBar( x , y ) || isInFileBar( x , y );
 	}
-	bool isForbidden(int x,int y)
+
+bool isForbidden(int x,int y)
 	{
 		return (isInEditBar(x, y) || isInEditBarTitle(x, y) ||
 			isInFileBar(x, y) || isInFileBarTitle(x, y) ||

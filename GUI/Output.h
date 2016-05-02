@@ -6,53 +6,66 @@
 #include "..\Components\Component.h"
 #include <vector>
 
-//class Component;
 class Output	//The application manager should have a pointer to this class
 {
 private:
 	window* pWind;	//Pointer to the Graphics Window
 public:
-	Output(); // Performs the Window Initialization
-	Input* CreateInput() const; //creates a pointer to the Input object
+	Output();	//Performs the Window Initialization
+	~Output();	//destructor
+
+	Input* CreateInput() const;		//creates a pointer to the Input object
+
 	void ChangeTitle(string Title) const;
 
-	void CreateDesignToolBar() const;	//Tool bar of the design mode
-	void CreateFileToolBar( )const;
-	void CreateEditToolBar( )const;
-	void CreateGrid( )const;
-	void CreateSimulationToolBar() const;//Tool bar of the simulation mode
-	void CreateStatusBar() const;	//Create Status bar
+	/////////////////////////////////////////
+	//**Toolbars & Drawing area Functions**//
+	/////////////////////////////////////////
+
+	void CreateDesignToolBar() const;	
+	void CreateFileToolBar( )const;		
+	void CreateEditToolBar( )const;		
+	void CreateGrid( )const;			
+	void CreateSimulationToolBar() const;
+	void CreateStatusBar() const;		
 	void CreateToolBars( )const;
+	void ClearStatusBar() const;		
+	void ClearDrawingArea() const;
 
-	window* GetPwind()const;
+	//window* GetPwind()const;
 
-	void DrawDots(int xStart, int yStart, int xFinish, int yFinish);
-	void MouseHovering( )const;
-	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, ComponentType, Component ** Arr[780], bool selected = false, int xOffset = 0, int yOffset = 0);
+	void MouseHovering( )const;		//Detect the hovering of the mouse and makes changes according to the hover
 
-	void ClearStatusBar() const;		//Clears the status bar
-	void ClearDrawingArea() const;	//Clears the drawing area
+	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, ComponentType, Component ** Arr[780],	bool selected = false,
+		int xOffset = 0, int yOffset = 0);		//Drag & Drop
 
-	window* CreateWind(int wd, int h, int x, int y) const; //Creates user interface window
+	void Magnetize(int &x,int &y);		//Gets the nearest dot in the grid
 
-	void Magnetize(int &x,int &y);
+	/////////////////////////
+	//**Drawing Functions**//
+	/////////////////////////
 
 	void DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate, bool selected = false);
 	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, string colour = "");
 	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected = false, MODE mode = DESIGN);
 	void DrawEditMenu(int x, int y,int selectedItem)const;
-	void DeleteGate( GraphicsInfo GfxInfo );
-
-	///TODO: Make similar functions for drawing all other gates, switch, and LED, .. etc
-
-	// Draws Connection
 	void DrawConnection(GraphicsInfo r_GfxInfo, bool selected = false) const;
+	void DrawRect(int& x, int &y);
+	void DrawDots(int xStart, int yStart, int xFinish, int yFinish);	//Make an area dotted
+	void DeleteGate( GraphicsInfo GfxInfo );		//Draws an empty image on the gate
 
-	void DrawRect( int& x , int &y );
+	/////////////////////////
+	//**Window Functions**///
+	/////////////////////////
+
+	window* CreateWind(int wd, int h, int x, int y) const;		//Creates user interface window
+	bool SetBuffering( const bool bSetting );
+	void UpdateBuffer( );
+	void FlushMouseQueue( );
+	void FlushKeyQueue( );
 
 	void PrintMsg(string msg) const;	//Print a message on Status bar
 
-	bool MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780],Component* selected);
+	bool MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780],Component* selected);	//Move highlighted components with the mouse
 
-	~Output();
 };

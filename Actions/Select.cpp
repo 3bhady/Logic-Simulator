@@ -16,41 +16,54 @@ void Select::Execute()
 	if ( selectedItem )					   //if the clicked area doesn't point to NULL
 	{	
 		
-	if ( !selectedItem->isSelected( ) )			//highlight the item if the item is not already highlighted
-	{
-		selectedItem->Highlight( );
-		return;
-	}
-		GraphicsInfo &GfxInfo = selectedItem->get_GraphicInfo();	   //the graphics info of the selected component
-		//selectedItem->ChangeState();
-
-		//todo put parameters to indicate the type of the gate to send it to follow mouse and draw 
-
-		if (pManager->GetInput()->DetectChange())
+		if ( !selectedItem->isSelected( ) )			//highlight the item if the item is not already highlighted
 		{
-			vector<Component*> HighlightedVec;
-			for (int i = 0; i<pManager->GetCompList().size(); i++)
-			{
-				if (pManager->GetCompList()[i]->isSelected())
-					HighlightedVec.push_back(pManager->GetCompList()[i]);
-			}
-			for (int i = 0; i < HighlightedVec.size(); i++)
-			{
-				HighlightedVec[i]->DeleteComponent(pManager);
-				// selectedItem->DeleteComponent(pManager);			 //delete the component from the 2D array and draw an empty block over the gate
-			}
-			//pManager->GetOutput( )->FollowMouseAndDraw( GfxInfo , AND2_ , pManager->GetArr( ) , true );
-			pManager->GetOutput()->MoveComponents(HighlightedVec, pManager->GetArr(), selectedItem);
-			//selectedItem->get_GraphicInfo( ) = GfxInfo;
-			for (int i = 0; i < HighlightedVec.size(); i++)
-			{
-				//selectedItem->AddComponent(pManager);
-				HighlightedVec[i]->AddComponent(pManager);
-				HighlightedVec[i]->Highlight();
-				//selectedItem->Highlight();
-			}
+			selectedItem->Highlight( );
+			pManager->GetHighlightedList().push_back(selectedItem);		//push it in the highlighted comp list
+			return;
 		}
-		else selectedItem->Unhighlight();
+			GraphicsInfo &GfxInfo = selectedItem->get_GraphicInfo();	   //the graphics info of the selected component
+
+			if (pManager->GetInput()->DetectChange())		//Move 
+			{
+				/*
+				vector<Component*> HighlightedVec;
+				for (int i = 0; i< (int)pManager->GetCompList().size(); i++)
+				{
+					if (pManager->GetCompList()[i]->isSelected())
+						HighlightedVec.push_back(pManager->GetCompList()[i]);
+				}
+				for (int i = 0; i <(int) HighlightedVec.size(); i++)
+				{
+					HighlightedVec[i]->DeleteComponent(pManager); //delete the component from the 2D array and draw an empty block over the gate
+							 
+				}
+				*/
+
+				//delete the components from the 2D array and draw an empty block over the gate
+				for (unsigned int i = 0; i < pManager->GetHighlightedList().size(); i++)
+					pManager->GetHighlightedList()[i]->DeleteComponent(pManager);
+
+				//move the highlighted components
+				pManager->GetOutput()->MoveComponents(pManager->GetHighlightedList(), pManager->GetArr(), selectedItem);
+			
+				//add the components in the grid in their new positions
+				for (unsigned int i = 0; i < pManager->GetHighlightedList().size(); i++)
+				{
+					pManager->GetHighlightedList()[i]->AddComponent(pManager);
+					pManager->GetHighlightedList()[i]->Highlight();
+				}
+			}
+			else
+			{
+				//if not move then unselect the selected item
+				selectedItem->Unhighlight();
+
+				//find the selected item and remove it from the highlighted components vector
+				vector<Component*>::iterator it;
+				it = find(pManager->GetHighlightedList().begin(), pManager->GetHighlightedList().end(), selectedItem);
+				pManager->GetHighlightedList().erase(it);
+			}
 	}
 }
 

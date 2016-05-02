@@ -13,43 +13,42 @@ class Component;
 //Main class that manages everything in the application.
 class ApplicationManager
 {			
-	
-	//Component  
-	Component *** Arr;
+
+	Component *** Arr;		//Grid of pointers to components
+
 	enum { MaxCompCount = 200 };	//Max no of Components	
 
 private:
 	int CompCount;		//Actual number of Components
-	vector<Component*> CompList;	//List of all Components (Array of pointers)
+
+	vector<Component*> CompList;				//List of all Components (Array of pointers)
+	vector<Component*> HighlightedCompList;		//List of highlighted Components (Array of pointers)
 	
 	Output* OutputInterface; //pointer to the Output Clase Interface
 	Input* InputInterface; //pointer to the Input Clase Interface
 
 
 public:	
-	ApplicationManager(); //constructor
 
-	//Reads the required action from the user and returns the corresponding action type
-	ActionType GetUserAction();
+	ApplicationManager();		//constructor
+	~ApplicationManager();		//destructor
+
+	ActionType GetUserAction();		//Reads the required action from the user and returns the corresponding action type
 	
-	//Creates an action and executes it
-	void ExecuteAction(ActionType);
+	void ExecuteAction(ActionType);		//Creates an action and executes it
 	
-	void UpdateInterface();	//Redraws all the drawing window
+	void UpdateInterface();		//Redraws all the drawing window
 
-	//Gets a pointer to Input / Output Object
-	Output* GetOutput();
-	Input* GetInput();
+	Output* GetOutput();	//Gets a pointer to Output Object
+	Input* GetInput();		//Gets a pointer to Input  Object
 
-	Component *** GetArr( );
-	//Adds a new component to the list of components
-	void AddComponent(Component* pComp);
+	Component *** GetArr( );	//returns the grid
 
+	void AddComponent(Component* pComp);	//Adds a new component to the list of components
 
-	vector<Component*> GetCompList();
+	vector<Component*> GetCompList();				//returns the components list
+	vector<Component*>& GetHighlightedList();		//returns the highlighted components list
 
-	//destructor
-	~ApplicationManager();
 };
 
 //#endif

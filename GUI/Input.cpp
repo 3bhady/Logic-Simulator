@@ -40,6 +40,11 @@ bool Input::DetectChange( )
 	return false;
 }
 
+buttonstate Input::GetButtonState( const button btMouse , int & iX , int & iY )
+{
+	return pWind->GetButtonState( btMouse , iX , iY );
+}
+
 
 
 //This function reads the position where the user clicks to determine the desired action
