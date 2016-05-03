@@ -31,6 +31,23 @@ int main()
 	return 0;
 }
 /*
+ns2l mo3ed :
+(move component w follow mouse and draw need to be one function! )
+
+
+el toolbars elmfrod tb2a bttl3 w tnzl w te5tefe y3ni
+w lable bta3 kol gate w component w keda w yt3ml label l kaza 7aga lw selected
+w ngeb getstring mn el project el tany
+n3ml e3lan t7t f el status bar by2oul el hot keys
+w n3ml menu keda bt2oulk eh hya el hot keys
+
+
+dlw2ty 3ndy shwyt gates m3mol 3lehom highlight
+lw dost 3ala C hy2om msh hy7sl 7aga lw geet b3daha dost 3ala V t2om el gates zahra 3al mouse w yt3ml move components keda
+lw dost escape ytl3'e el copy lw dost V yrg3 tany l7d ma ados 3lshan yt7ato 3al grid
+lw dost 3ala X ytshalo mn mkanhom w y7sl nfs elklam bta3 C b2a y3ni X d 3obara 3n delete w Copy m3 b3d
+w nfs elklam byt3ml b el menu
+w delete tt3ml b D
 
 lazm nfr2 been el highlighted w been el forbidden fe 7agat kter awi m7taga tt3adl f el mwdo3 dh w functions kter
 

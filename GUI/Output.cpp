@@ -387,10 +387,9 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 				{
 					if(i>0&&j>0&&j<700&&i<1390 )
 					if ( Arr[j][i] )
-						if ( dynamic_cast< Gate* > (Arr[j][i]) )
-						{
+						
 							forbidden = true; break;
-						}
+					
 				}
 				if ( forbidden )break;
 			}
@@ -520,10 +519,10 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 					if ( i > 0 && j > 0 && j < 700 && i < 1390 )
 					{
 						if ( Arr[j][i] )
-							if ( dynamic_cast< Gate* > (Arr[j][i]) )
-							{
+							//if ( dynamic_cast< Gate* > (Arr[j][i]) )
+							//{
 								forbidden = true; break;
-							}
+							//}
 					}
 					else
 					{
