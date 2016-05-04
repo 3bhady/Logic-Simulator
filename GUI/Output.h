@@ -5,6 +5,7 @@
 #include <sstream>
 #include "..\Components\Component.h"
 #include <vector>
+#include <ctime>
 
 class Output	//The application manager should have a pointer to this class
 {
@@ -45,7 +46,8 @@ public:
 	//**Drawing Functions**//
 	/////////////////////////
 
-	void DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate, bool selected = false);
+	void DrawPNGImage( string r_filename, int x, int y);
+	void DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate, bool selected = false, bool forbidden = false);
 	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, string colour = "");
 	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected = false, MODE mode = DESIGN);
 	void DrawEditMenu(int x, int y,int selectedItem)const;
