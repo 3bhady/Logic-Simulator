@@ -35,6 +35,10 @@ ns2l mo3ed :
 (move component w follow mouse and draw need to be one function! )
 
 
+elmfrod n3ml undo w redo
+w n3ml detect hwa das 3ala pin wala das 3ala eh blzbt
+w save w load 3ayzen ytzbto
+w n3ml block kaml keda
 el toolbars elmfrod tb2a bttl3 w tnzl w te5tefe y3ni
 w lable bta3 kol gate w component w keda w yt3ml label l kaza 7aga lw selected
 w ngeb getstring mn el project el tany
