@@ -70,7 +70,7 @@ struct UI_Info	//User Interface Info.
 	//For now, we will assume that rect width = 50 and height = 50
 
 	static const int	Gate_Width = 75 ,		// Gate Image default width
-		Gate_Height = 60 ,		// Gate Image default height
+		Gate_Height = 50 ,		// Gate Image default height
 		Switch_Width = 60 ,		// Switch Image default width
 		Switch_Height = 30 ,		// Switch Image default height
 		LED_Width = 45 ,			// LED Image default width

@@ -1,4 +1,6 @@
 #include "Output.h"
+#include<iostream>
+using namespace std;
 Input::Input(window* pW)
 {
 	pWind = pW; //point to the passed window
@@ -51,10 +53,14 @@ buttonstate Input::GetButtonState( const button btMouse , int & iX , int & iY )
 ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 {
 	char z;
-	int x,y;
+	int x = 0, y = 0;
 	Component*** Arr = pApp->GetArr();
 	//pWind->WaitMouseClick(x,y); //for testing only
-	pWind->GetMouseClick(x, y);	//Get the coordinates of the user click
+
+	//Get the coordinates of the user click
+	if (pWind->GetMouseClick(x, y) == NO_CLICK)
+		return DSN_TOOL;
+
 	UI.u_GfxInfo.x1 = x;
 	UI.u_GfxInfo.y1 = y;
 	if (UI.AppMode == DESIGN)	//application is in design mode
@@ -141,6 +147,7 @@ if (UI.isInFileBar(x, y))
 			//{
 				//return SELECT;	//user want to select/unselect a statement in the flowchart
 			//}
+
 			if ( !UI.isForbidden( x , y ) )
 			{
 				if ( pApp->GetArr()[y][x] )
@@ -148,6 +155,7 @@ if (UI.isInFileBar(x, y))
 				else
 					return AREASELECT;
 			}
+
 
 			//[3] User clicks on the status bar
 

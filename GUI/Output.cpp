@@ -346,7 +346,7 @@ void Output::MouseHovering( )const
 
 bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType , Component ** Arr[780] , bool selected , int xOffset , int yOffset)
 {
-	GraphicsInfo temp = r_GfxInfo;
+ 	GraphicsInfo temp = r_GfxInfo;
 	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
 	  pWind->SetBuffering( true );
 
@@ -382,26 +382,22 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 		
 			for ( int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i++ )
 			{
-			
 				for ( int j = r_GfxInfo.y1; j < r_GfxInfo.y2; j++ )
 				{
 					if(i>0&&j>0&&j<700&&i<1390 )
 					if ( Arr[j][i] )
-						if ( dynamic_cast< Gate* > (Arr[j][i]) )
-						{
 							forbidden = true; break;
-						}
 				}
 				if ( forbidden )break;
 			}
 			if ( forbidden )
 			{
 				PrintMsg( "You can't draw here!" );
-				DrawGate( r_GfxInfo , gType ,true);
+				DrawGate(r_GfxInfo, gType, false, true);
 			}
 			else
 			{
-				DrawGate( r_GfxInfo , gType , selected );
+				DrawGate( r_GfxInfo , gType );
 			}
 
 			if ( !UI.HiddenToolBar )CreateDesignToolBar( );
@@ -520,10 +516,7 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 					if ( i > 0 && j > 0 && j < 700 && i < 1390 )
 					{
 						if ( Arr[j][i] )
-							if ( dynamic_cast< Gate* > (Arr[j][i]) )
-							{
-								forbidden = true; break;
-							}
+							forbidden = true; break;
 					}
 					else
 					{
@@ -585,7 +578,12 @@ void Output::CreateSimulationToolBar() const
 //								 Drawing Functions							//
 //==========================================================================//
 
-void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected)
+void Output::DrawPNGImage( string r_filename, int x, int y)
+{
+	DrawPNG(pWind, r_filename, x, y);
+}
+
+void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected,bool forbidden)
 {
 	//Getting the image of the gate
 
@@ -593,13 +591,17 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected)
 	string GateNum;
 	sstream << int(gate);
 	sstream >> GateNum;
-	string GateImage = "Images\\Gates\\" + GateNum ;
+	string GateImage = "Images\\PNG Gates\\" + GateNum ;
 	if (selected)			//Highlighted
 		GateImage += "H";
-	GateImage += ".jpg";
+	if (forbidden)			//Forbidden
+		GateImage += "F";
+	GateImage += ".png";
 
-	pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
-	
+	//pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
+	clock_t t = clock();
+	DrawPNG	(pWind, GateImage, r_GfxInfo.x1, r_GfxInfo.y1);
+	cout << clock() - t<<endl;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
