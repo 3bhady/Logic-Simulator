@@ -10,7 +10,7 @@ private:
 	string m_Label;
 protected:
 	GraphicsInfo m_GfxInfo;	//The parameters required to draw a component
-	
+	bool forbidden = false;
 	bool highlighted = false;
 	ComponentType Type;
 public:
@@ -29,6 +29,8 @@ public:
 	virtual void DeleteComponent( ApplicationManager * pApp );
 	void Highlight();			//Make the component highlighted
 	void Unhighlight();			//Make the component unhighlighted
+	void Forbid( );				//Makes the component forbidden and it appears red
+	void Allow( );				//makes the component not forbidden
 	void ChangeState();			//Change the component highlight state
 	bool isSelected( );			//an indication to whether the component is selected or not
 	ComponentType getType();    // returns the type of the component

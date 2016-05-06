@@ -25,7 +25,7 @@ void NOR3::Operate()
 void NOR3::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, NOR3_, highlighted);
+	pOut->DrawGate(m_GfxInfo, NOR3_, highlighted,forbidden);
 }
 
 //returns status of outputpin

@@ -67,6 +67,16 @@ void Component::Unhighlight()
 	highlighted = false;
 }
 
+void Component::Forbid( )
+{
+	forbidden = true;
+}
+
+void Component::Allow( )
+{
+	forbidden = false;
+}
+
 void Component::ChangeState()
 {
 	highlighted = !highlighted;

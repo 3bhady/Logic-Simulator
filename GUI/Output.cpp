@@ -443,7 +443,7 @@ return true;
 bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 {
 
-	vector<Component*> ComponentsVec = pApp->GetHighlightedList();
+	vector<Component*> HighlightedVec = pApp->GetHighlightedList();
 	Component*** Arr = pApp->GetArr( );
 
 	GraphicsInfo & GfxSelected = selected->get_GraphicInfo();	//Gfxinfo of the selected gate
@@ -452,10 +452,10 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 
 	image GateImage;
 
-	for (int i = 0; i <int( ComponentsVec.size()); i++)
+	for (int i = 0; i <int( HighlightedVec.size()); i++)
 	{
-		initialGFxInfo.push_back(ComponentsVec[i]->get_GraphicInfo());
-		//DeleteGate(ComponentsVec[i]->get_GraphicInfo());
+		initialGFxInfo.push_back(HighlightedVec[i]->get_GraphicInfo());
+		//DeleteGate(HighlightedVec[i]->get_GraphicInfo());
 	}
 
 	// screenshot of the current image and store it to draw over it
@@ -485,11 +485,11 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 		int xChange = GfxSelected.x1 - initialX;	// the change of the move in the X-direction
 		int yChange = GfxSelected.y1 - initialY;	// the change of the move in the Y-direction
 
-		for (unsigned int i = 0; i < ComponentsVec.size(); i++)
+		for (unsigned int i = 0; i < HighlightedVec.size(); i++)
 		{
-			if (ComponentsVec[i] != selected)		//changing the coordinates of the other gates according to the xChange and yChange
+			if (HighlightedVec[i] != selected)		//changing the coordinates of the other gates according to the xChange and yChange
 			{
-				GraphicsInfo &GfxInfo = ComponentsVec[i]->get_GraphicInfo();
+				GraphicsInfo &GfxInfo = HighlightedVec[i]->get_GraphicInfo();
 				GfxInfo.x1 += xChange;
 				GfxInfo.y1 += yChange;
 				Magnetize(GfxInfo.x1, GfxInfo.y1);
@@ -503,8 +503,8 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 		if (pWind->GetKeyPress(cEscape) == ESCAPE)		// if user pressed ESCAPE , all the components return to their initial positions
 		{
 			pWind->DrawImage(initImage, 0, 0);
-			for (int i = 0; i < ComponentsVec.size(); i++)
-				ComponentsVec[i]->set_GraphicInfo(initialGFxInfo[i]);
+			for (int i = 0; i < HighlightedVec.size(); i++)
+				HighlightedVec[i]->set_GraphicInfo(initialGFxInfo[i]);
 			pWind->UpdateBuffer();
 			pWind->SetBuffering(false);
 			return false;
@@ -512,9 +512,9 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 
 		forbidden = false;
 
-		for (unsigned int k = 0; k < ComponentsVec.size(); k++)
+		for (unsigned int k = 0; k < HighlightedVec.size(); k++)
 		{
-			GraphicsInfo r_GfxInfo = ComponentsVec[k]->get_GraphicInfo();
+			GraphicsInfo r_GfxInfo = HighlightedVec[k]->get_GraphicInfo();
 
 			for (int i = r_GfxInfo.x1; i <= r_GfxInfo.x2; i+=15)
 			{
@@ -535,7 +535,15 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 				}
 				if (forbidden)break;
 			}
-			ComponentsVec[k]->Draw( this );
+			
+		}
+		for ( unsigned int k = 0; k < HighlightedVec.size( ); k++ )
+		{
+			if ( forbidden )
+				HighlightedVec[k]->Forbid( );
+			else
+				HighlightedVec[k]->Allow( );
+			HighlightedVec[k]->Draw( this );
 		}
 		if (forbidden)
 			PrintMsg("You can't draw here!");
@@ -545,9 +553,9 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 		if (!UI.HiddenEditBar)CreateEditToolBar();
 		
 
-		for (unsigned int k = 0; k < ComponentsVec.size(); k++)
+		for (unsigned int k = 0; k < HighlightedVec.size(); k++)
 		{
-			GraphicsInfo GInfo=ComponentsVec[k]->get_GraphicInfo();
+			GraphicsInfo GInfo=HighlightedVec[k]->get_GraphicInfo();
 			if (UI.isForbidden(GInfo.x2, GInfo.y2)
 				|| UI.isForbidden(GInfo.x1, GInfo.y1)
 				|| UI.isForbidden(GInfo.x1, GInfo.y2)
@@ -621,10 +629,11 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected,
 	sstream << int(gate);
 	sstream >> GateNum;
 	string GateImage = "Images\\PNG Gates\\" + GateNum ;
-	if (selected)			//Highlighted
-		GateImage += "H";
-	if (forbidden)			//Forbidden
+	if ( forbidden )			//Forbidden
 		GateImage += "F";
+	else if (selected)			//Highlighted
+		GateImage += "H";
+	
 	GateImage += ".png";
 
 	//pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);

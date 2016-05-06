@@ -13,35 +13,6 @@ int main()
 
 	do
 	{
-		/*
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\0.png", 150, 150);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\0H.png", 150, 230);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\0F.png", 150, 310);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\1.png", 150, 390);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\1H.png", 150, 470);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\1F.png", 150, 550);
-
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\2.png", 250, 150);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\9H.png", 250, 230);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\2F.png", 250, 310);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\8.png", 250, 390);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\3H.png", 250, 470);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\3F.png", 250, 550);
-
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\4.png", 350, 150);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\4H.png", 350, 230);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\6F.png", 350, 310);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\5.png", 350, 390);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\7H.png", 350, 470);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\5F.png", 350, 550);
-
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\10.png", 450, 150);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\10H.png", 450, 230);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\10F.png", 450, 310);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\11.png", 450, 390);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\12H.png", 450, 470);
-		AppManager.GetOutput()->DrawwPNG("Images\\test\\13F.png", 450, 550);
-		*/
 		//Read user action
 		ActType = AppManager.GetUserAction();
 
@@ -76,6 +47,8 @@ dh 3'er el function ele btms7 el component bs 3lshan nrsmo y3ni n3ml function de
 3lshan hn7tag enena mara nshelo mn el component list asasan w mara nshelo bs mn 3al grid w nshelo mn el 2D array
 w m7taga ttzabat f classes ktera
 
+elmfrod function draw gate w keda tb2a friend f el class 3lshan ta5od meno forbidden w highlighted w keda lw7daha w m7taga tt3dl f kol 7etta
+draw led w draw switch w draw connection m7tagen yt3dlo w yt7at fehom forbidden w keda
 
 m7tag yt3ml delete
 delete tt3ml b D aw edit menu
