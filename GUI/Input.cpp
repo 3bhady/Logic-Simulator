@@ -56,10 +56,15 @@ ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 	int x = 0, y = 0;
 	Component*** Arr = pApp->GetArr();
 	//pWind->WaitMouseClick(x,y); //for testing only
+	char HotKey;
 
+	clicktype cType= pWind->GetMouseClick( x , y );
+	keytype kType =pWind->GetKeyPress( HotKey );
 	//Get the coordinates of the user click
-	if (pWind->GetMouseClick(x, y) == NO_CLICK)
+	if  (cType== NO_CLICK&&kType==NO_KEYPRESS)
 		return DSN_TOOL;
+	
+
 
 	UI.u_GfxInfo.x1 = x;
 	UI.u_GfxInfo.y1 = y;
@@ -68,6 +73,21 @@ ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 		//[1] If user clicks on the Toolbar
 		if (UI.AppMode == DESIGN)	//application is in design mode
 		{
+			if ( kType == ASCII )
+			{
+				switch ( HotKey )
+				{
+				case 'c':
+					return COPY;
+				case 'x':
+					return CUT;
+				case 'v':
+					return PASTE;
+
+				default:
+					break;
+				}
+			}
 			//[1] If user clicks on the Toolbar
 			if (y >= 0 && y < UI.ToolBarHeight)
 			{

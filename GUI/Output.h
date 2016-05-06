@@ -46,7 +46,7 @@ public:
 	//**Drawing Functions**//
 	/////////////////////////
 
-	void DrawPNGImage( string r_filename, int x, int y);
+	void DrawPNGImage( string r_filename, GraphicsInfo GfxInfo );
 	void DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate, bool selected = false, bool forbidden = false);
 	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, string colour = "");
 	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected = false, MODE mode = DESIGN);
@@ -68,6 +68,6 @@ public:
 
 	void PrintMsg(string msg) const;	//Print a message on Status bar
 
-	bool MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780],Component* selected);	//Move highlighted components with the mouse
-
+	bool MoveComponents( ApplicationManager* pApp , Component* selected );	//Move highlighted components with the mouse
+	bool PasteComponents( ApplicationManager* pApp );
 };

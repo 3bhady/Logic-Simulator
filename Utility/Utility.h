@@ -77,4 +77,4 @@ void bfs( int x1 , int y1 , int x2 , int y2 )
 }	  */
 void ReadPNG( vector<unsigned char> &Image,unsigned int &width,unsigned int& height , const char * filename );
 void WritePNG( window * pWind , image &screen , int x , int y , vector<unsigned char>& Image , unsigned int width , unsigned int height );
-void DrawPNG( window * pWind , string r_filename , int x , int y );
+void DrawPNG( window * pWind , string r_filename , GraphicsInfo GfxInfo );

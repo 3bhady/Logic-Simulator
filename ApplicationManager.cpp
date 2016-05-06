@@ -4,6 +4,9 @@
 #include "Actions\AddSwitch.h"
 #include "Actions\Select.h"
 #include "Actions\AreaSelect.h"
+#include "Actions\Copy.h"
+#include "Actions\Cut.h"
+#include "Actions\Paste.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -38,7 +41,7 @@ void ApplicationManager::AddComponent(Component* pComp)
 
 ////////////////////////////////////////////////////////////////////
 
-vector<Component*> ApplicationManager::GetCompList()
+vector<Component*>& ApplicationManager::GetCompList()
 {
 	return CompList;
 }
@@ -88,6 +91,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 						pAct = new AddGate(this,ActType); break;
 */
 
+	if ( ActType == COPY )
+		pAct = new Copy( this );
+	if ( ActType == CUT )
+		pAct = new Cut( this );
+	if ( ActType == PASTE )
+		pAct = new Paste( this );
 	if ( ActType == AREASELECT )
 		pAct = new AreaSelect( this );
 	if (ActType == SELECT)
@@ -113,7 +122,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 void ApplicationManager::UpdateInterface()
 {
-	for (int i = 0; i < CompCount; i++)
+	for (int i = 0; i < CompList.size(); i++)
 		CompList[i]->Draw(OutputInterface);
 	
 }
@@ -132,6 +141,11 @@ Component *** ApplicationManager::GetArr( )
 	return Arr;
 }
 
+vector< pair<GraphicsInfo , ComponentType> >& ApplicationManager::GetClipboard( )
+{
+	return Clipboard;
+}
+
 ////////////////////////////////////////////////////////////////////
 
 Output* ApplicationManager::GetOutput()
@@ -143,7 +157,7 @@ Output* ApplicationManager::GetOutput()
 
 ApplicationManager::~ApplicationManager()
 {
-	for(int i=0; i<CompCount; i++)
+	for(int i=0; i<CompList.size(); i++)
 		delete CompList[i];
 	delete OutputInterface;
 	delete InputInterface;

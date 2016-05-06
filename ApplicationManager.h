@@ -16,7 +16,8 @@ class ApplicationManager
 
 	Component *** Arr;		//Grid of pointers to components
 
-	enum { MaxCompCount = 200 };	//Max no of Components	
+	enum { MaxCompCount = 200 };	//Max no of Components
+	vector< pair<GraphicsInfo,ComponentType> > Clipboard;
 
 private:
 	int CompCount;		//Actual number of Components
@@ -43,10 +44,12 @@ public:
 	Input* GetInput();		//Gets a pointer to Input  Object
 
 	Component *** GetArr( );	//returns the grid
+	vector< pair<GraphicsInfo , ComponentType> >& GetClipboard( );
 
-	void AddComponent(Component* pComp);	//Adds a new component to the list of components
+	void AddComponent(Component* pComp);	//Adds a new component to the list of components	
+	 
 
-	vector<Component*> GetCompList();				//returns the components list
+	vector<Component*>& GetCompList();				//returns the components list
 	vector<Component*>& GetHighlightedList();		//returns the highlighted components list
 
 };

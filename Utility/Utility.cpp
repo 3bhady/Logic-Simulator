@@ -5,11 +5,16 @@ void ReadPNG( vector<unsigned char>& Image,unsigned int &width ,unsigned int& he
 	//vector<unsigned char> Image;
 	unsigned error = lodepng::decode(Image , width , height , filename );
 }
-void WritePNG(window * pWind, image &screen ,int x,int y,vector<unsigned char>& Image ,unsigned int width,unsigned int height)
-{		
+void WritePNG( window * pWind , image &screen , int x , int y , vector<unsigned char>& Image , unsigned int width , unsigned int height )
+{
+	//if ( x + width+15 >= UI.width )
+		//width = UI.width - x -15;
+	//if ( y + height + 15 >= UI.height )
+		//height = UI.height - y - 15;
 	pWind->StoreImage( screen , x , y , width , height );
 	unsigned char * Arr = screen.GetArr( );
 	int Size = Image.size();
+	//int Size = (sizeof( Arr ) / sizeof( *Arr ));
 	long long i;
 	for ( i = 0; i < Size; i+=4 )
 	{
@@ -42,8 +47,13 @@ void WritePNG(window * pWind, image &screen ,int x,int y,vector<unsigned char>& 
 	screen.SetArr( Arr );
 }
 
-void DrawPNG( window * pWind , string r_filename , int x , int y )
+void DrawPNG( window * pWind , string r_filename , GraphicsInfo GfxInfo )
 {
+	int x = GfxInfo.x1;
+	int y = GfxInfo.y1;
+	int x2 =GfxInfo.x2, y2=GfxInfo.y2;
+	if ( x < 0 || y < 0 || x2+15 >= UI.width || y2+15 >= UI.height )
+		return;
 	const char * filename = r_filename.c_str( );
 	vector<unsigned char> Image;
 	unsigned int width , height;

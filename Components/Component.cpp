@@ -33,7 +33,7 @@ void Component::AddComponent( ApplicationManager * pApp )
 	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2 - 1; j++)
 		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
 			Arr[i][j] = this;
-	for (int i = 0; i < UI.height; i += 30)
+	/*for (int i = 0; i < UI.height; i += 30)
 	{
 		for (int j = 0; j < UI.width; j += 30)
 		{
@@ -43,7 +43,7 @@ void Component::AddComponent( ApplicationManager * pApp )
 				cout << " 0 ";
 		}
 		cout << endl;
-	}
+	}	*/
 
 }
 

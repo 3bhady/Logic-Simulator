@@ -385,8 +385,10 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 				for ( int j = r_GfxInfo.y1; j < r_GfxInfo.y2; j++ )
 				{
 					if(i>0&&j>0&&j<700&&i<1390 )
-					if ( Arr[j][i] )
+						if ( Arr[j][i] )
+						{
 							forbidden = true; break;
+						}
 				}
 				if ( forbidden )break;
 			}
@@ -438,8 +440,12 @@ return true;
 
 //////////////////////////////////////////////////////////////////////////////////
 
-bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[780], Component* selected)
+bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 {
+
+	vector<Component*> ComponentsVec = pApp->GetHighlightedList();
+	Component*** Arr = pApp->GetArr( );
+
 	GraphicsInfo & GfxSelected = selected->get_GraphicInfo();	//Gfxinfo of the selected gate
 
 	vector<GraphicsInfo> initialGFxInfo;			//Initial position of components to restore them if ESCAPE was pressed
@@ -449,15 +455,17 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 	for (int i = 0; i <int( ComponentsVec.size()); i++)
 	{
 		initialGFxInfo.push_back(ComponentsVec[i]->get_GraphicInfo());
-		DeleteGate(ComponentsVec[i]->get_GraphicInfo());
+		//DeleteGate(ComponentsVec[i]->get_GraphicInfo());
 	}
 
-	image initImage; pWind->StoreImage(initImage, 0, 0, UI.width, UI.height);
+	// screenshot of the current image and store it to draw over it
+
+	image initImage;
+	pWind->StoreImage(initImage, 0, 0, UI.width, UI.height);
 	pWind->SetBuffering(true);
 	
-	// screenshot of the current image and store it to draw over it
 	pWind->FlushKeyQueue();
-
+	
 	char cEscape;	//the character pressed to cancle the addition of the gate
 	bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
 	int x, y;  //Mouse coordinates
@@ -516,7 +524,9 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 					if ( i > 0 && j > 0 && j < 700 && i < 1390 )
 					{
 						if ( Arr[j][i] )
+						{
 							forbidden = true; break;
+						}
 					}
 					else
 					{
@@ -563,6 +573,25 @@ bool Output::MoveComponents(vector<Component*> ComponentsVec, Component ** Arr[7
 
 }
 
+bool Output::PasteComponents( ApplicationManager * pApp )
+{
+	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
+	pWind->SetBuffering( true );
+	pWind->FlushKeyQueue( );
+	char cEscape;	//the character pressed to cancle the addition of the gate
+	bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
+ //  Component
+
+
+
+
+
+
+
+
+	return false;
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 
 //Draws the menu (toolbar) in the simulation mode
@@ -578,9 +607,9 @@ void Output::CreateSimulationToolBar() const
 //								 Drawing Functions							//
 //==========================================================================//
 
-void Output::DrawPNGImage( string r_filename, int x, int y)
+void Output::DrawPNGImage( string r_filename, GraphicsInfo GfxInfo )
 {
-	DrawPNG(pWind, r_filename, x, y);
+	DrawPNG(pWind, r_filename, GfxInfo);
 }
 
 void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected,bool forbidden)
@@ -600,7 +629,7 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected,
 
 	//pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
 	clock_t t = clock();
-	DrawPNG	(pWind, GateImage, r_GfxInfo.x1, r_GfxInfo.y1);
+	DrawPNG	(pWind, GateImage, r_GfxInfo);
 	cout << clock() - t<<endl;
 }
 

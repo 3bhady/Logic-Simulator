@@ -45,7 +45,7 @@ void Select::Execute()
 					pManager->GetHighlightedList()[i]->DeleteComponent(pManager);
 
 				//move the highlighted components
-				pManager->GetOutput()->MoveComponents(pManager->GetHighlightedList(), pManager->GetArr(), selectedItem);
+				pManager->GetOutput()->MoveComponents(pManager, selectedItem);
 			
 				//add the components in the grid in their new positions
 				for (unsigned int i = 0; i < pManager->GetHighlightedList().size(); i++)

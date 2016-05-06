@@ -33,6 +33,9 @@ enum ActionType
 	AREASELECT,
 	DEL,		//Delete a Component, a Connection
 	MOVE,		//Move a Component, a Connection
+	COPY,
+	CUT,
+	PASTE,
 
 	SAVE,		//Save the whole Circuit to a file
 	LOAD,		//Load a Circuit from a file

@@ -63,6 +63,22 @@ int main()
 ns2l mo3ed :
 (move component w follow mouse and draw need to be one function! )
 
+dlw2ty fe mashakl f edit menu
+msh 3arf a5leha t5tfe emta dlw2ty hwa lama ydos f 7eta bara el edit menu y3ni elmfrod en get user action trg3 7aga trg3 action msln
+fa e7na lw hn3ml action btshel bs el edit menu mashy
+bs lw hwa das b2a 3ala el edit menu w das copy
+elmfrod nshelha ezay? kan fe mashakl lama 3mlna en update interface bt3ml el grid w el toolbars el denya kant 5rbana 5als btbarbsh
+w lama 3mlna set buffering true w keda mb2tsh tbarbsh bs b2a el area select msh bytrsm w 7agat kter b2t 5arbana fa d m7taga tfker shwya
+
+
+3ayzen nshof mwdo3 el delete dh w n3ml function f application manager bt3ml delete l el component
+dh 3'er el function ele btms7 el component bs 3lshan nrsmo y3ni n3ml function delete w function erase
+3lshan hn7tag enena mara nshelo mn el component list asasan w mara nshelo bs mn 3al grid w nshelo mn el 2D array
+w m7taga ttzabat f classes ktera
+
+
+m7tag yt3ml delete
+delete tt3ml b D aw edit menu
 
 elmfrod n3ml undo w redo
 w n3ml detect hwa das 3ala pin wala das 3ala eh blzbt
@@ -75,39 +91,14 @@ n3ml e3lan t7t f el status bar by2oul el hot keys
 w n3ml menu keda bt2oulk eh hya el hot keys
 
 
-dlw2ty 3ndy shwyt gates m3mol 3lehom highlight
-lw dost 3ala C hy2om msh hy7sl 7aga lw geet b3daha dost 3ala V t2om el gates zahra 3al mouse w yt3ml move components keda
-lw dost escape ytl3'e el copy lw dost V yrg3 tany l7d ma ados 3lshan yt7ato 3al grid
-lw dost 3ala X ytshalo mn mkanhom w y7sl nfs elklam bta3 C b2a y3ni X d 3obara 3n delete w Copy m3 b3d
-w nfs elklam byt3ml b el menu
-w delete tt3ml b D
-
-lazm nfr2 been el highlighted w been el forbidden fe 7agat kter awi m7taga tt3adl f el mwdo3 dh w functions kter
-
-DsgnMenuItm el enum dh bnst3mlo kter w el mfrod n3ml enum tany esmo componenttype w yb2a feh kol el types fa m7tag dh yt3'yr
-w yt7at f class component bdl designmenu item dh w kol 7aga feh tb2a m7tot b nfs el trteb bta dsgn menu itm
-3lshan lama n7b n7wl mn enum l el tany el mwdo3 yb2a baset
 
 
-ÂÊ ·„« ÌœÊ” ⁄·Ï gate ÌŒ‘ ›Ï move mode
-Ê Ì⁄„·Â« highlighted Ê Ì move ﬂ· «· gates «· highlighted
-·Ê ÂÊ „„‘Â«‘ ›ﬂœ… Ì»ﬁÏ ÂÊ »Ì select ›«· gates Â  —”„ „ﬂ«‰Â«
-y3ni move w select dol action wa7da
+lazm nfr2 been el highlighted w been el forbidden fe move components
+w lama yo2f b gate t7t toolbar nrsmha a7mr
 
-hwa lw das 3ala 7eta fadya fa enta mt3rfsh hwa asdo ydos dosa w yskot wala asdo eno yrsm mostatel keda y3ml highlight l kaza 7aga grin emoticon
 
-«««Â grin emoticon grin emoticon
-fa e7na n3tbr eno hy3ml highlight l kaza 7aga w nla2eh m7rksh el mouse asasan yb2a n3ml unhighlight l kolo 
-lw das dosa keda tbe3ya htb2a sare3a awi msh hyl72 yshof el dot grin emoticon
-momken n3ml check lw ab3ad el rectangle a2l mn 10 pixels msln myrsmosh 
-el connections d ha3ayat mnha grin emoticon grin emoticon grin emoticon
-w el menu b2a 3ayza ttzabat nshof hyt3ml feha eh grin emoticon
-
-«Â Ê copy Ê cut Ê paste œÊ· grin emoticon
-move asasan lessa m3mltsh 3ayz a3ml el move d w b3daha ttreme f ay 7eta ay action 
 w follow led and draw w el 7agat d 3ayza tt3ml grin emoticon
 w en el led mttrsmsh 3ala tool bar 
-el edit menu nzbt b2a ttrsm emta w fo2 eh w t3ml eh w keda grin emoticon
-w b3d keda n5aly b2a el tool bars ttl3 w tnzl 
+ 
 */
 
