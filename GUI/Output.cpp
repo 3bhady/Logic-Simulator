@@ -1,10 +1,12 @@
 #include "Output.h"
-#include "..\Utility\Utility.h"
-using namespace std;
 #include<iostream>
-class Gate { };
+#include "..\Utility\Utility.h"
+#include "..\Components\Connection.h"
 
-Output::Output()
+using namespace std;
+
+class Gate { };
+Output::Output(ApplicationManager* x)
 {
 	//Initialize user interface parameters
 
@@ -27,7 +29,7 @@ Output::Output()
 	CreateEditToolBar( );
 	CreateStatusBar();		
 
-
+	AppManger = x;
 }
 
 Input* Output::CreateInput() const
@@ -768,12 +770,32 @@ void Output::FlushKeyQueue( )
 	pWind->FlushKeyQueue( );
 }
 
-void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
+void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, bool selected) const
 {
 	//TODO: Add code to draw connection
-	
-}
+	if (selected)
+		pWind->SetPen(ROYALBLUE, 5);
+	else
+		pWind->SetPen(BLACK, 5);
+	int a = r_GfxInfo.x2, b = r_GfxInfo.y2;
+	while (true)
+	{
+		if (a == r_GfxInfo.x1 &&b == r_GfxInfo.y1)break;
+		int c = a;int d = b;
+		a = kol.arr[c][d].first;
+		b = kol.arr[c][d].second;
+		bool test = false;
 
+		if (AppManger->GetArr()[d][c] == con || (c == r_GfxInfo.x2&&d == r_GfxInfo.y2))
+			pWind->DrawLine(c, d - UI.ConnectionOffset, a, b - UI.ConnectionOffset);
+		else {/*
+			int k = a;
+			a = kol.arr[a][b].first;
+			b = kol.arr[k][b].second;*/
+		}
+
+	}
+}
 Output::~Output()
 {
 	delete pWind;

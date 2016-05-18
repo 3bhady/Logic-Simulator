@@ -2,7 +2,7 @@
 
 
 
-NOR2::NOR2(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(2, r_FanOut)
+NOR2::NOR2(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(2, r_FanOut, r_GfxInfo)
 {
 	Type = NOR2_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -25,7 +25,7 @@ void NOR2::Operate()
 void NOR2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, NOR2_, highlighted,forbidden);
+	pOut->DrawGate(m_GfxInfo, NOR2_, highlighted, forbidden);
 }
 
 //returns status of outputpin

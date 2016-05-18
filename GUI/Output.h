@@ -11,8 +11,9 @@ class Output	//The application manager should have a pointer to this class
 {
 private:
 	window* pWind;	//Pointer to the Graphics Window
+	ApplicationManager* AppManger;
 public:
-	Output();	//Performs the Window Initialization
+	Output(ApplicationManager*);	//Performs the Window Initialization
 	~Output();	//destructor
 
 	Input* CreateInput() const;		//creates a pointer to the Input object
@@ -52,7 +53,7 @@ public:
 	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, string colour = "");
 	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected = false, MODE mode = DESIGN);
 	void DrawEditMenu(int x, int y,int selectedItem)const;
-	void DrawConnection(GraphicsInfo r_GfxInfo, bool selected = false) const;
+	void DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, bool selected) const;
 	void DrawRect(int& x, int &y);
 	void DrawDots(int xStart, int yStart, int xFinish, int yFinish);	//Make an area dotted
 	void DeleteGate( GraphicsInfo GfxInfo );		//Draws an empty image on the gate

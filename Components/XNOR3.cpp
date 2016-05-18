@@ -1,7 +1,7 @@
 #include "XNOR3.h"
 
 
-XNOR3::XNOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut)
+XNOR3::XNOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut, r_GfxInfo)
 {
 	Type = XNOR3_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -13,7 +13,7 @@ XNOR3::XNOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut)
 
 void XNOR3::Operate()
 {
-	if ((m_InputPins[0].getStatus() == HIGH&&m_InputPins[1].getStatus() == HIGH)  ||
+	if ((m_InputPins[0].getStatus() == HIGH&&m_InputPins[1].getStatus() == HIGH) ||
 		(m_InputPins[0].getStatus() == HIGH&&m_InputPins[2].getStatus() == HIGH) ||
 		(m_InputPins[1].getStatus() == HIGH&&m_InputPins[2].getStatus() == HIGH))
 		m_OutputPin.setStatus(HIGH);
@@ -27,7 +27,7 @@ void XNOR3::Operate()
 void XNOR3::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, XNOR3_, highlighted,forbidden);
+	pOut->DrawGate(m_GfxInfo, XNOR3_, highlighted, forbidden);
 }
 
 //returns status of outputpin

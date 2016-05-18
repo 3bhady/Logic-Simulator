@@ -74,6 +74,7 @@
     <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="Actions\Undo.cpp" />
     <ClCompile Include="Actions\Redo.cpp" />
+    <ClCompile Include="Actions\AddConnection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -122,7 +123,6 @@
     <ClInclude Include="Components\XNOR2.h" />
     <ClInclude Include="Components\XNOR3.h" />
     <ClInclude Include="Components\XOR2.h" />
-    <ClInclude Include="Components\XOR3.h" />
     <ClInclude Include="Defs.H" />
     <ClInclude Include="GUI\Input.h" />
     <ClInclude Include="GUI\Output.h" />
@@ -136,6 +136,8 @@
     <ClInclude Include="Actions\Paste.h" />
     <ClInclude Include="Actions\Undo.h" />
     <ClInclude Include="Actions\Redo.h" />
+    <ClInclude Include="Actions\AddConnection.h" />
+    <ClInclude Include="Components\XOR3.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -35,6 +35,8 @@ bool AddLED::ReadActionParameters(string s)
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
+	inP = make_pair(GInfo.x1, GInfo.y1 + 15);
+
 	return true;
 }
 
@@ -43,7 +45,7 @@ void AddLED::Execute()
 	//Get Center point of the Gate
 	ReadActionParameters("Adding LED : Click to add the LED");
 
-	LED *pL = new LED(GInfo, AND2_FANOUT);
+	LED *pL = new LED(GInfo, inP);
 	pManager->AddComponent(pL);
 }
 

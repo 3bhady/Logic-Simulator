@@ -1,5 +1,9 @@
 #pragma once
 //This header file contains some defenitions to be used all over the application
+//#include<queue>
+#include<vector>
+//#include<iostream>
+using namespace std;
 
 //All possible actions
 enum ActionType 
@@ -58,6 +62,18 @@ enum STATUS
 {
 	LOW,
 	HIGH
+};
+//Possible types of components that could be connected to the first edge of the connection
+enum FS
+{
+	GA,//gate
+	S//switch
+};
+//Possible types of components that could be connected to the second edge of the connection
+enum RS
+{
+	G,//gate
+	L//Led
 };
 
 enum  MODE	//Modes of operation
@@ -166,6 +182,11 @@ enum FANOUT
 struct GraphicsInfo
 {
 	int x1,y1, x2, y2;
+};
+//the output of the bfs function
+struct BFSOut {
+	pair<int, int> arr[1400][780];
+	bool check;
 };
 
 #ifndef NULL

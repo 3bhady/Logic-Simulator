@@ -1,6 +1,6 @@
 #include "LED.h"
 
-LED::LED(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOut) {
+LED::LED(const GraphicsInfo &r_GfxInfo, pair<int, int> x) {
 
 	Type = LED_;
 	// generate random number between 0 and 5
@@ -11,7 +11,7 @@ LED::LED(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOut) {
 	int randNum = rand() % 6;
 	sstream << randNum;
 	sstream >> colour;
-
+	inP = make_pair(x.first, x.second);
 
 	State = LOW;
 	m_InputPin.setComponent(this);
@@ -24,7 +24,7 @@ LED::LED(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOut) {
 
 void LED::Operate()
 {
-	m_OutputPin.setStatus(m_InputPin.getStatus());
+
 	if (m_InputPin.getStatus() == HIGH)State = HIGH;
 	else State = LOW;
 }
@@ -61,6 +61,16 @@ STATUS LED::get_state()
 void LED::setInputPinStatus(STATUS s, int n = 1)
 {
 	m_InputPin.setStatus(s);
+}
+
+pair<int, int> LED::get_INPC()
+{
+	return inP;
+}
+
+InputPin * LED::get_inputpin()
+{
+	return &m_InputPin;
 }
 
 

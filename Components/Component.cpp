@@ -66,7 +66,7 @@ void Component::DeleteComponent( ApplicationManager * pApp )
 void Component::EraseComponent(ApplicationManager * pApp)
 {
 	Component *** Arr = pApp->GetArr();
-	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2 - 1; j++)
+	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2 ; j++)
 		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
 			Arr[i][j] = NULL;
 	pApp->GetOutput()->DeleteGate(m_GfxInfo);
@@ -102,6 +102,8 @@ bool Component::isSelected( )
 	return highlighted;
 }
 
+
+
 ComponentType Component::getType()
 {
 	return Type;
@@ -112,4 +114,45 @@ Component::Component()
 
 Component::~Component()
 {}
+
+void Component::AddConnection(BFSOut& xx, ApplicationManager * pApp) {
+	Component *** Arr = pApp->GetArr();
+	int a = m_GfxInfo.x2, b = m_GfxInfo.y2;
+	while (true)
+	{
+		if (a == m_GfxInfo.x1 &&b == m_GfxInfo.y1)break;
+		int c = a;int d = b;
+		int x = a;
+		a = xx.arr[a][b].first, b = xx.arr[x][b].second;
+		if (a == c) {
+			if (d > b) {
+				for (int i = b - 5;i <= d - 5;i++)
+					if (Arr[i][a] == NULL) {
+						for (int j = a;j < a + 5;j++)Arr[i][j] = this;
+					}
+			}
+			else
+				for (int i = d - 5;i <= b - 5;i++)
+					if (Arr[i][a] == NULL) {
+
+						for (int j = a;j < a + 5;j++)Arr[i][j] = this;
+					}
+		}
+		if (b == d) {
+			if (a> c)
+				for (int i = c;i <= a;i++) {
+					if (Arr[b][i] == NULL) {
+						for (int j = b - 7;j < b + 1;j++)Arr[j][i] = this;
+					}
+				}
+			else
+				for (int i = a;i <= c;i++)
+					if (Arr[b][i] == NULL) {
+						for (int j = b - 7;j < b + 1;j++)Arr[j][i] = this;
+					}
+
+		}
+	}
+}
+
 

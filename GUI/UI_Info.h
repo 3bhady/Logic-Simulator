@@ -56,8 +56,8 @@ struct UI_Info	//User Interface Info.
 		FileBarTitleStartX = FileBarWidth ,
 		//FileBarTitleStartY = 280 + FileBarHeight - FileBarTitleHeight ,
 		FileBarTitleStartY=FileBarStartY+FileBarHeight-FileBarTitleHeight,
-		EditmenuItemHeight = 26;	//Height of each item in editmenu
-
+		EditmenuItemHeight = 26,	//Height of each item in editmenu
+	     ConnectionOffset = 5;//the thickness of the drawing line
 
 	color DrawColor;		//Drawing color
 	color SelectColor;		//Highlighting color

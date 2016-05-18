@@ -7,9 +7,9 @@
 #include "Actions\Copy.h"
 #include "Actions\Cut.h"
 #include "Actions\Paste.h"
-#include"Actions/Undo.h"
+#include"Actions\Undo.h"
 #include"Actions\Redo.h"
-
+#include "Actions\AddConnection.h"
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
@@ -28,7 +28,7 @@ ApplicationManager::ApplicationManager()
 		//CompList[i] = NULL;
 
 	//Creates the Input / Output Objects & Initialize the GUI
-	OutputInterface = new Output();
+	OutputInterface = new Output(this);
 	InputInterface = OutputInterface->CreateInput();
 }
 
@@ -36,7 +36,11 @@ ApplicationManager::ApplicationManager()
 
 void ApplicationManager::AddComponent(Component* pComp)
 {
-	pComp->AddComponent( this );
+	if (dynamic_cast<Connection*>(pComp))
+		pComp->AddConnection(((Connection*)pComp)->get_path(), this);
+	else
+		pComp->AddComponent(this);
+
 	CompList.push_back(pComp);
 	CompCount++;
 }
@@ -118,6 +122,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 	if(ActType== ADD_Switch)
 		pAct = new AddSwitch(this);
+	if (ActType == ADD_CONNECTION)
+		pAct = new AddConnection(this);
 	if (ActType == UNDO)
 		pAct = new Undo(this);
 	if (ActType == REDO)

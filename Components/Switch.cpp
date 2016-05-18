@@ -2,25 +2,22 @@
 
 
 
-Switch::Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOut)
+Switch::Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut, pair<int, int> x) :m_OutputPin(r_FanOut)
 {
 	Type = Switch_;
-State = LOW;
-m_InputPin.setComponent(this);
+	State = LOW;
 
-m_GfxInfo.x1 = r_GfxInfo.x1;
-m_GfxInfo.y1 = r_GfxInfo.y1;
-m_GfxInfo.x2 = r_GfxInfo.x2;
-m_GfxInfo.y2 = r_GfxInfo.y2;
+	m_GfxInfo.x1 = r_GfxInfo.x1;
+	m_GfxInfo.y1 = r_GfxInfo.y1;
+	m_GfxInfo.x2 = r_GfxInfo.x2;
+	m_GfxInfo.y2 = r_GfxInfo.y2;
+	outP = make_pair(x.first, x.second);
 }
 
 
 void Switch::Operate()
 {
-	if (State==HIGH)
-		m_OutputPin.setStatus(m_InputPin.getStatus());
-	else
-		m_OutputPin.setStatus(LOW);
+
 }
 
 
@@ -40,7 +37,7 @@ int Switch::GetOutPinStatus()
 
 
 //returns status of Inputpin 
-int Switch::GetInputPinStatus(int n=1)
+int Switch::GetInputPinStatus(int n = 1)
 {
 	return	-1;	//n starts from 1 but array index starts from 0.
 }
@@ -55,10 +52,20 @@ STATUS Switch::get_state()
 	return State;
 }
 
-//Set status of an input pin ot HIGH or LOW
-void Switch::setInputPinStatus( STATUS s, int n = 1)
+OutputPin * Switch::get_OPP()
 {
-	m_InputPin.setStatus(s);
+	return &m_OutputPin;
+}
+
+void Switch::setInputPinStatus(STATUS s, int n)
+{
+}
+
+
+
+pair<int, int> Switch::get_OP()
+{
+	return outP;
 }
 
 Switch::~Switch()

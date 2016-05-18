@@ -36,6 +36,7 @@ bool AddSwitch::ReadActionParameters(string s)
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
+	outP = make_pair(GInfo.x2, GInfo.y1 + 15);
 	return true;
 }
 
@@ -45,7 +46,7 @@ void AddSwitch::Execute()
 	//Get Center point of the Gate
 	ReadActionParameters("Adding Switch : Click to add the Switch");
 
-	Switch *pS = new Switch(GInfo, AND2_FANOUT);
+	Switch *pS = new Switch(GInfo, AND2_FANOUT,outP);
 	pManager->AddComponent(pS);
 }
 

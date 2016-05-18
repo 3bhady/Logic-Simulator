@@ -10,6 +10,7 @@ private:
 	//Parameters for rectangular area to be occupied by the gate
 	GraphicsInfo GInfo; //Gfx info to be used to construct the LED
 	int Cx, Cy;				//Center point of the gate
+	pair<int, int> inP;//the cooedeinates of the inputpin
 	//int x1, y1, x2, y2;		//Two corners of the rectangluar area
 	bool REDO=false;				//redo or adding new gate
 public:
