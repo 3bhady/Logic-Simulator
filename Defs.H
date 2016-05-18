@@ -46,7 +46,13 @@ enum ActionType
 
 	UNDO,		//undo the last Action preformed
 	REDO,		//redo the last Action canceled
-
+	HIDE_DESIGN_B,
+	SHOW_DESIGN_B,
+	HIDE_FILE_B,
+	SHOW_FILE_B,
+	HIDE_EDIT_B,
+	SHOW_EDIT_B,
+	EDIT_MENU,
 	DSN_MODE,	//Switch to Design mode
 	SIM_MODE,	//Switch to Simulatiom mode
 
@@ -82,7 +88,8 @@ enum  MODE	//Modes of operation
 	SIMULATION ,
 	MULTISELECT,	   //TODO:: when multiple components are selected individually
 	SELECTION,		  //TODO::
-	SELECTAREA	// TODO::
+	SELECTAREA,	// TODO::
+	EDIT_MODE
 	
 };
 

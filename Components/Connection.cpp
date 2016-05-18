@@ -28,6 +28,14 @@ InputPin* Connection::getDestPin()
 	return DstPin;
 }
 
+void Connection::Save(ofstream & fout)
+{
+}
+
+void Connection::Load(ifstream & fout)
+{
+}
+
 
 void Connection::Operate()
 {

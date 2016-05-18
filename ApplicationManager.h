@@ -51,7 +51,8 @@ public:
 
 	void AddComponent(Component* pComp);	//Add component in 2D array and push it in complist	
 	 
-
+	void save(ofstream &fout);
+	//void load(ifstream &fin);
 	vector<Component*>& GetCompList();				//returns the components list
 	vector<Component*>& GetHighlightedList();		//returns the highlighted components list
 

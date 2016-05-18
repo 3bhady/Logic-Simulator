@@ -10,6 +10,18 @@
 #include"Actions\Undo.h"
 #include"Actions\Redo.h"
 #include "Actions\AddConnection.h"
+#include"Actions\Action.h"
+#include"Actions\HideDesignToolBar.h"
+#include"Actions\ShowDesignToolBar.h"
+#include"Actions\ShowFileToolBar.h"
+#include"Actions\HideFileToolBar.h"
+#include"Actions\ShowEditToolBar.h"
+#include"Actions\HideEditToolBar.h"
+#include"Actions\EditMenu.h"
+#include"Actions\Label.h"
+#include"Actions\Save.h"
+#include"Actions\Load.h"
+#include<fstream>
 ApplicationManager::ApplicationManager()
 {
 	CompCount = 0;
@@ -44,6 +56,16 @@ void ApplicationManager::AddComponent(Component* pComp)
 	CompList.push_back(pComp);
 	CompCount++;
 }
+void ApplicationManager::save(ofstream &fout)
+{
+
+	fout << CompList.size();
+	fout << endl;
+	for (int i = 0; i < CompList.size(); i++)
+	{
+		CompList[i]->Save(fout);
+	}
+}
 
 ////////////////////////////////////////////////////////////////////
 
@@ -74,7 +96,7 @@ stack<Action*>& ApplicationManager::getRedoStack()
 ActionType ApplicationManager::GetUserAction()
 {
 	//Call input to get what action is required from the user
-	OutputInterface->MouseHovering(  );
+	OutputInterface->MouseHovering(this);
 	return InputInterface->GetUserAction(this,false);
 }
 
@@ -130,7 +152,51 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new Redo(this);
 	if ( ActType == EXIT )
 		return;
+	//kero
+	//=========================================
+	if (ActType == EDIT_MENU)
+	{
+		pAct = new EditMenu(this);
+	}
+	if (ActType == HIDE_DESIGN_B)
+	{
+		pAct = new HideDesignToolBar(this);
+	}
+	if (ActType == SHOW_DESIGN_B)
+	{
+		pAct = new ShowDesignToolBar(this);
 
+	}
+
+	if (ActType == SHOW_FILE_B)
+	{
+		pAct = new ShowFileToolBar(this);
+	}
+	if (ActType == HIDE_FILE_B)
+	{
+		pAct = new HideFileToolBar(this);
+	}
+	if (ActType == SHOW_EDIT_B)
+	{
+		pAct = new ShowEditToolBar(this);
+	}
+	if (ActType == HIDE_EDIT_B)
+	{
+		pAct = new HideEditToolBar(this);
+	}
+	if (ActType == EDIT_Label)
+	{
+		pAct = new Label(this);
+	}
+	if (ActType == SAVE)
+	{
+		pAct = new Save(this);
+	}
+	if (ActType == LOAD)
+	{
+		pAct = new Load(this);
+	}
+	//========================================
 	if(pAct)
 	{
 		if (ActType != UNDO && ActType != REDO)
@@ -150,6 +216,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 void ApplicationManager::UpdateInterface()
 {
+	if (UI.AppMode != EDIT_MODE)
 	for (int i = 0; i < CompList.size(); i++)
 		CompList[i]->Draw(OutputInterface);
 	
