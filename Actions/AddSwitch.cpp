@@ -49,9 +49,15 @@ void AddSwitch::Execute()
 	pManager->AddComponent(pS);
 }
 
-void AddSwitch::Undo()
-{}
+void AddSwitch::undo()
+{
+	pManager->GetArr()[GInfo.y1][GInfo.x1]->DeleteComponent(pManager);
+	pManager->GetOutput()->DrawJPEGImage(initImage, 0, 0);				//Draw the stored image before this action
+}
 
-void AddSwitch::Redo()
-{}
+void AddSwitch::redo()
+{
+	REDO = true;
+	Execute();
+}
 

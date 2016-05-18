@@ -11,7 +11,7 @@ private:
 	GraphicsInfo GInfo; //Gfx info to be used to construct the switch
 	int Cx, Cy;				//Center point of the gate
 	//int x1, y1, x2, y2;		//Two corners of the rectangluar area
-
+	bool REDO=false;				//redo or adding new gate
 public:
 
 	AddSwitch(ApplicationManager *pApp);
@@ -23,8 +23,8 @@ public:
 	//Execute action (code depends on action type)
 	virtual void Execute();
 
-	virtual void Undo();
-	virtual void Redo();
+	virtual void undo();
+	virtual void redo();
 
 };
 

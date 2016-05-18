@@ -4,11 +4,12 @@
 #include "Defs.h"
 #include "GUI\Output.h"
 #include "GUI\Input.h"
-#include "Actions\Action.h"
+//#include "Actions\Action.h"
 #include "Components\Component.h"
 #include<vector>
-
+#include<stack>
 class Component;
+class Action;
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -16,8 +17,10 @@ class ApplicationManager
 
 	Component *** Arr;		//Grid of pointers to components
 
-	enum { MaxCompCount = 200 };	//Max no of Components
-	vector< pair<GraphicsInfo,ComponentType> > Clipboard;
+	enum { MaxCompCount = 200,MaxundoActions =10 };	//Max no of Components
+	vector< pair<GraphicsInfo, ComponentType> > Clipboard;
+	stack<Action*> UndoStack;
+	stack<Action*> RedoStack;
 
 private:
 	int CompCount;		//Actual number of Components
@@ -46,12 +49,14 @@ public:
 	Component *** GetArr( );	//returns the grid
 	vector< pair<GraphicsInfo , ComponentType> >& GetClipboard( );
 
-	void AddComponent(Component* pComp);	//Adds a new component to the list of components	
+	void AddComponent(Component* pComp);	//Add component in 2D array and push it in complist	
 	 
 
 	vector<Component*>& GetCompList();				//returns the components list
 	vector<Component*>& GetHighlightedList();		//returns the highlighted components list
 
+	stack<Action*>& getUndoStack();		//returns the undo Stack
+	stack<Action*>& getRedoStack();		//returns the redo Stack
 };
 
 //#endif

@@ -1,7 +1,5 @@
 #include "Copy.h"
 
-
-
 Copy::Copy( ApplicationManager * pApp ):Action(pApp )
 {
 
@@ -35,6 +33,7 @@ void Copy::Execute( )
 		return;
 	//int size = pManager->GetCompList( ).size( );
 	int size = pManager->GetHighlightedList( ).size( );
+	//PreviousClipboard = pManager->GetClipboard();
 	for ( int i = 0; i < size; i++ )
 		//if ( pManager->GetCompList( )[i]->isSelected( ) )
 		//{	
@@ -44,10 +43,11 @@ void Copy::Execute( )
 
 }
 
-void Copy::Undo( )
+void Copy::undo( )
 {
+
 }
 
-void Copy::Redo( )
+void Copy::redo( )
 {
 }

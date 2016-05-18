@@ -7,6 +7,8 @@
 #include "Actions\Copy.h"
 #include "Actions\Cut.h"
 #include "Actions\Paste.h"
+#include"Actions/Undo.h"
+#include"Actions\Redo.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -51,6 +53,16 @@ vector<Component*>& ApplicationManager::GetCompList()
 vector<Component*>& ApplicationManager::GetHighlightedList()
 {
 	return HighlightedCompList;
+}
+
+stack<Action*>& ApplicationManager::getUndoStack()
+{
+	return UndoStack;
+}
+
+stack<Action*>& ApplicationManager::getRedoStack()
+{
+	return RedoStack;
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -106,15 +118,25 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 	if(ActType== ADD_Switch)
 		pAct = new AddSwitch(this);
-
+	if (ActType == UNDO)
+		pAct = new Undo(this);
+	if (ActType == REDO)
+		pAct = new Redo(this);
 	if ( ActType == EXIT )
 		return;
 
 	if(pAct)
 	{
+		if (ActType != UNDO && ActType != REDO)
+		{
+			UndoStack.push(pAct);
+			while (!getRedoStack().empty())			//Empty the stack
+				getRedoStack().pop();
+		}
+		
 		pAct->Execute();
-		delete pAct;
-		pAct = NULL;
+		//delete pAct;
+		//pAct = NULL;
 	}
 }
 

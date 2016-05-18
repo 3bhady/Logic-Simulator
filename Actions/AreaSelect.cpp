@@ -30,38 +30,38 @@ void AreaSelect::Execute()
 	for (unsigned int i = 0; i < pManager->GetHighlightedList().size(); i++)
 	{
 		pManager->GetHighlightedList()[i]->Unhighlight();
+		//HighlightedComponentsGfx.push_back(pManager->GetHighlightedList()[i]->get_GraphicInfo());
+		InitialHighlightedCompGfx.push_back(pManager->GetHighlightedList()[i]->get_GraphicInfo());
 	}
 	pManager->GetHighlightedList().clear();
 	
 	//this loop is to check if the user wanted to draw a rect or just a simple click on an empty area to unselect every component
 
 	if ( !ReadActionParameters( "" ) )
-	{
 		return;
-	}
 
 	int x , y;
-
+	int j, sj, i, si;
 	while ( pManager->GetInput()->GetButtonState( LEFT_BUTTON , x , y ) == NO_CLICK )  //exit if the user clicks anywhere
 	{
 		pManager->GetOutput( )->SetBuffering( true );
-		
+
 		//unselect every component in highlighted component list
 		for ( unsigned int i = 0; i < pManager->GetHighlightedList().size( ); i++ )
 		{
 			pManager->GetHighlightedList()[i]->Unhighlight();
-		}  	
-		pManager->GetHighlightedList().clear();
-		pManager->GetOutput( )->CreateGrid( );	//redraw the grid
+		}  			pManager->GetHighlightedList().clear();
+		HighlightedComponentsGfx.clear();
+		pManager->GetOutput( )->CreateGrid( );		//redraw the grid
 		pManager->GetOutput( )->CreateToolBars( );	//recreate the toolbars
 		pManager->GetOutput( )->DrawRect( x , y );	//draw the rectangle
 		
 
 		//the following conditions are to set the parameters of the rectangle to check for the selected gates
-		int j = x < UI.u_GfxInfo.x1 ? x : UI.u_GfxInfo.x1;
-		int sj = x >= UI.u_GfxInfo.x1 ? x : UI.u_GfxInfo.x1;
-		int i = y < UI.u_GfxInfo.y1 ? y : UI.u_GfxInfo.y1;
-		int si = y >= UI.u_GfxInfo.y1 ? y : UI.u_GfxInfo.y1;
+		j = x < UI.u_GfxInfo.x1 ? x : UI.u_GfxInfo.x1;
+		sj = x >= UI.u_GfxInfo.x1 ? x : UI.u_GfxInfo.x1;
+		i = y < UI.u_GfxInfo.y1 ? y : UI.u_GfxInfo.y1;
+		si = y >= UI.u_GfxInfo.y1 ? y : UI.u_GfxInfo.y1;
 		
 		//this loop is for highlighting the components which lay within the drawn rectangle
 		for ( j; j <= sj; j += 15 )
@@ -72,6 +72,7 @@ void AreaSelect::Execute()
 				{
 					pManager->GetArr()[i][j]->Highlight();		// Highlight the component
 					pManager->GetHighlightedList().push_back(pManager->GetArr()[i][j]);		//push the component in the highlighted comp list
+					HighlightedComponentsGfx.push_back(pManager->GetArr()[i][j]->get_GraphicInfo());
 				}
 			}
 		}
@@ -92,10 +93,42 @@ void AreaSelect::Execute()
 	pManager->GetOutput( )->FlushMouseQueue( );		//to flush the mouse queue so that the application can work right
 	pManager->GetOutput( )->SetBuffering( false );
 }
-void AreaSelect::Undo( )
+void AreaSelect::undo( )
 {
+	for (unsigned int i = 0; i < InitialHighlightedCompGfx.size(); i++)
+		pManager->GetArr()[InitialHighlightedCompGfx[i].y1][InitialHighlightedCompGfx[i].x1]->Highlight();
+	for (unsigned int i = 0; i < HighlightedComponentsGfx.size(); i++)
+		pManager->GetArr()[HighlightedComponentsGfx[i].y1][HighlightedComponentsGfx[i].x1]->Unhighlight();
+	/*
+	if (unselect)
+	{
+		for (unsigned int i = 0; i < HighlightedComponentsGfx.size(); i++)
+			pManager->GetArr()[HighlightedComponentsGfx[i].y1][HighlightedComponentsGfx[i].x1]->Highlight();
+	}
+	else {
+		//pManager->GetOutput()->DrawJPEGImage(initImage, 0, 0);		//Draw the stored image before this action
+
+		for (unsigned int i = 0; i < HighlightedComponentsGfx.size(); i++)		//Unhighlight the highlighted components by this action
+			pManager->GetArr()[HighlightedComponentsGfx[i].y1][HighlightedComponentsGfx[i].x1]->Unhighlight();
+	}
+	*/
 }
 
-void AreaSelect::Redo( )
+void AreaSelect::redo( )
 {
+	for (int i = 0; i < InitialHighlightedCompGfx.size(); i++)
+		pManager->GetArr()[InitialHighlightedCompGfx[i].y1][InitialHighlightedCompGfx[i].x1]->Unhighlight();
+	for (unsigned int i = 0; i < HighlightedComponentsGfx.size(); i++)
+		pManager->GetArr()[HighlightedComponentsGfx[i].y1][HighlightedComponentsGfx[i].x1]->Highlight();
+	/*
+	if (unselect)
+	{
+		for (unsigned int i = 0; i < HighlightedComponentsGfx.size(); i++)
+			pManager->GetArr()[HighlightedComponentsGfx[i].y1][HighlightedComponentsGfx[i].x1]->Unhighlight();
+	}
+	else {
+		for (unsigned int i = 0; i < HighlightedComponentsGfx.size(); i++)		//Highlight the highlighted components by this action
+			pManager->GetArr()[HighlightedComponentsGfx[i].y1][HighlightedComponentsGfx[i].x1]->Highlight();
+	}
+	*/
 }

@@ -53,8 +53,23 @@ void Component::DeleteComponent( ApplicationManager * pApp )
 	for ( int j = m_GfxInfo.x1; j < m_GfxInfo.x2 - 1; j++ )
 		for ( int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++ )
 			Arr[i][j] = NULL;
-	pApp->GetOutput( )->DeleteGate( m_GfxInfo );
+	for (int i = 0; i < pApp->GetCompList().size(); i++)
+		if (pApp->GetCompList()[i] == this)
+		{
+			pApp->GetOutput()->DeleteGate(m_GfxInfo);
+			delete pApp->GetCompList()[i];
+			pApp->GetCompList().erase(pApp->GetCompList().begin() + i);
+			break;
+		}
+}
 
+void Component::EraseComponent(ApplicationManager * pApp)
+{
+	Component *** Arr = pApp->GetArr();
+	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2 - 1; j++)
+		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
+			Arr[i][j] = NULL;
+	pApp->GetOutput()->DeleteGate(m_GfxInfo);
 }
 
 void Component::Highlight()

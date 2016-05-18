@@ -25,8 +25,9 @@ public:
 	virtual void setInputPinStatus(STATUS s,int n) = 0;	//set status of Inputpin # n, to be used by connection class.
 	GraphicsInfo& get_GraphicInfo();
 	void set_GraphicInfo(GraphicsInfo GFX);
-	virtual void AddComponent(ApplicationManager * pApp);
+	virtual void AddComponent(ApplicationManager * pApp);		//Add component in 2D array and don't push it in complist	
 	virtual void DeleteComponent( ApplicationManager * pApp );
+	virtual void EraseComponent(ApplicationManager * pApp);
 	void Highlight();			//Make the component highlighted
 	void Unhighlight();			//Make the component unhighlighted
 	void Forbid( );				//Makes the component forbidden and it appears red

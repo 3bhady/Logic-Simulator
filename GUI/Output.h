@@ -46,6 +46,7 @@ public:
 	//**Drawing Functions**//
 	/////////////////////////
 
+	void DrawJPEGImage(const image &imgThis, const int iX, const int iY, const int iWidth = -1, const int iHeight = -1);
 	void DrawPNGImage( string r_filename, GraphicsInfo GfxInfo );
 	void DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate, bool selected = false, bool forbidden = false);
 	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, string colour = "");
@@ -67,6 +68,7 @@ public:
 	void FlushKeyQueue( );
 
 	void PrintMsg(string msg) const;	//Print a message on Status bar
+	void StoreImage(image &imgThis, const unsigned usX, const unsigned short usY, const unsigned short usWidth, const unsigned short usHeight);
 
 	bool MoveComponents( ApplicationManager* pApp , Component* selected );	//Move highlighted components with the mouse
 	bool PasteComponents( ApplicationManager* pApp );

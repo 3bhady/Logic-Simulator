@@ -30,6 +30,12 @@ int main()
 					 
 	return 0;
 }
+
+
+
+//test
+
+
 /*
 ns2l mo3ed :
 (move component w follow mouse and draw need to be one function! )

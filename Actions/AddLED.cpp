@@ -47,9 +47,15 @@ void AddLED::Execute()
 	pManager->AddComponent(pL);
 }
 
-void AddLED::Undo()
-{}
+void AddLED::undo()
+{
+	pManager->GetArr()[GInfo.y1][GInfo.x1]->DeleteComponent(pManager);
+	pManager->GetOutput()->DrawJPEGImage(initImage, 0, 0);				//Draw the stored image before this action
+}
 
-void AddLED::Redo()
-{}
+void AddLED::redo()
+{
+	REDO = true;
+	Execute();
+}
 

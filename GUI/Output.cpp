@@ -109,6 +109,11 @@ void Output::PrintMsg(string msg) const
 	pWind->DrawString(MsgX+50, UI.height - MsgY, msg);
 }
 
+void Output::StoreImage(image & imgThis, const unsigned usX, const unsigned short usY, const unsigned short usWidth, const unsigned short usHeight)
+{
+	pWind->StoreImage(imgThis, usX, usY, usWidth, usHeight);
+}
+
 //////////////////////////////////////////////////////////////////////////////////
 
 void Output::ClearStatusBar()const
@@ -292,8 +297,8 @@ void Output::MouseHovering( )const
 			{
 				pWind->DrawImage(s, UI.EditBarStartX , UI.EditBarStartY);
 				switch (ClickedItemOrder) {
-				case 0: {PrintMsg("Undo"); break; }
-				case 1: {PrintMsg("Redo"); break; }
+				case 0: {PrintMsg("undo"); break; }
+				case 1: {PrintMsg("redo"); break; }
 				case 2: {PrintMsg("Truth table"); break; }
 				case 3: {PrintMsg("Run"); break; }
 				
@@ -321,8 +326,8 @@ void Output::MouseHovering( )const
 			{
 				pWind->DrawImage(s, UI.EditBarStartX - 34, UI.EditBarStartY);
 				switch (ClickedItemOrder) {
-				case 0: {PrintMsg("Undo"); break; }
-				case 1: {PrintMsg("Redo"); break; }
+				case 0: {PrintMsg("undo"); break; }
+				case 1: {PrintMsg("redo"); break; }
 				case 2: {PrintMsg("Truth Table"); break; }
 				case 3: {PrintMsg("Design mode"); break; }
 				
@@ -614,6 +619,11 @@ void Output::CreateSimulationToolBar() const
 //==========================================================================//
 //								 Drawing Functions							//
 //==========================================================================//
+
+void Output::DrawJPEGImage(const image & imgThis, const int iX, const int iY, const int iWidth, const int iHeight)
+{
+	pWind->DrawImage(imgThis, iX, iY);
+}
 
 void Output::DrawPNGImage( string r_filename, GraphicsInfo GfxInfo )
 {

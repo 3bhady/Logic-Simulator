@@ -40,8 +40,8 @@ enum ActionType
 	SAVE,		//Save the whole Circuit to a file
 	LOAD,		//Load a Circuit from a file
 
-	UNDO,		//Undo the last Action preformed
-	REDO,		//Redo the last Action canceled
+	UNDO,		//undo the last Action preformed
+	REDO,		//redo the last Action canceled
 
 	DSN_MODE,	//Switch to Design mode
 	SIM_MODE,	//Switch to Simulatiom mode
@@ -122,8 +122,8 @@ enum DsgnMenuItem //The items of the design menu (you should add more items)
 	ITM_SAVE,		//Save the whole Circuit to a file
 	ITM_LOAD,		//Load a Circuit from a file
 
-	ITM_UNDO,		//Undo the last Action preformed
-	ITM_REDO,		//Redo the last Action canceled
+	ITM_UNDO,		//undo the last Action preformed
+	ITM_REDO,		//redo the last Action canceled
 
 
 	ITM_SIM_MODE,	//Switch to Simulatiom mode

@@ -1,9 +1,9 @@
 #pragma once
-#include "Action.h"
+//#include "Action.h"
 #include "AddGate.h"
-class Paste :
-	public Action
+class Paste :	public Action
 {
+	vector < pair<GraphicsInfo, ComponentType> > ActionClipBoard;
 public:
 	Paste(ApplicationManager * pApp);
 	~Paste( );
@@ -14,9 +14,9 @@ public:
 	virtual void Execute( );
 
 	//To undo this action (code depends on action type)
-	virtual void Undo( );
+	virtual void undo( );
 
 	//To redo this action (code depends on action type)
-	virtual void Redo( );
+	virtual void redo( );
 };
 

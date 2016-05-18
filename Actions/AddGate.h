@@ -14,6 +14,7 @@
 #include"..\Components\NOT.h"
 #include"..\Components\XOR3.h"
 #include"..\Components\XNOR3.h"
+#include<sstream>
 
 class AddGate : public Action
 {
@@ -21,9 +22,10 @@ private:
 
 	//Parameters for rectangular area to be occupied by the gate
 	GraphicsInfo GInfo; //Gfx info to be used to construct the  gate
-	int Cx , Cy;				//Center point of the gate
+	int Cx, Cy;				//Center point of the gate
 	//int x1, y1, x2, y2;		//Two corners of the rectangluar area
 	ActionType ActType;		//Which gate to add
+	bool REDO=false;				//redo or adding new gate
 public:
 
 	AddGate( ApplicationManager *pApp , ActionType );
@@ -35,9 +37,8 @@ public:
 	//Execute action (code depends on action type)
 	virtual void Execute( );
 
-	virtual void Undo( );
-	virtual void Redo( );
-	
+	virtual void undo( );
+	virtual void redo( );
 
 };
 

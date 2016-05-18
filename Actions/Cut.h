@@ -1,8 +1,9 @@
 #pragma once
 #include "Action.h"
-class Cut :
-	public Action
+#include"AddGate.h"
+class Cut :	public Action
 {
+	vector< pair<GraphicsInfo, ComponentType> > ActionClipboard;
 public:
 	Cut(ApplicationManager* pApp);
 	~Cut( );
@@ -14,9 +15,9 @@ public:
 	virtual void Execute( );
 
 	//To undo this action (code depends on action type)
-	virtual void Undo( );
+	virtual void undo( );
 
 	//To redo this action (code depends on action type)
-	virtual void Redo( );
+	virtual void redo( );
 };
 
