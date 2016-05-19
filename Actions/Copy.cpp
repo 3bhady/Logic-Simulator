@@ -10,7 +10,7 @@ Copy::~Copy( )
 {
 }
 
-bool Copy::ReadActionParameters( string s )
+bool Copy::ReadActionParameters()
 {
 	int size = pManager->GetCompList( ).size( );
 	bool selected = false; //it's true if at least there is one selected item to be copied
@@ -29,7 +29,7 @@ bool Copy::ReadActionParameters( string s )
 
 void Copy::Execute( )
 {	  
-	if ( !ReadActionParameters( "" ) )
+	if ( !ReadActionParameters( ) )
 		return;
 	//int size = pManager->GetCompList( ).size( );
 	int size = pManager->GetHighlightedList( ).size( );

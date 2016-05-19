@@ -10,7 +10,7 @@ Cut::~Cut( )
 {
 }
 
-bool Cut::ReadActionParameters( string s )
+bool Cut::ReadActionParameters()
 {
 	int size = pManager->GetCompList( ).size( );
 	bool selected = false; //it's true if at least there is one selected item to be copied
@@ -24,10 +24,10 @@ bool Cut::ReadActionParameters( string s )
 
 void Cut::Execute( )
 {
-	if ( !ReadActionParameters( "" ) )
+	if ( !ReadActionParameters( ) )
 		return;
 	pManager->GetHighlightedList( ).clear( );
-	for ( int i = 0; i <pManager->GetCompList( ).size( ); i++ )
+	for ( unsigned int i = 0; i <pManager->GetCompList( ).size( ); i++ )
 		if ( pManager->GetCompList( )[i]->isSelected( ) )
 		{
 			

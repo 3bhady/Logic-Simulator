@@ -6,12 +6,13 @@ Switch::Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOu
 {
 	Type = Switch_;
 	State = LOW;
-
+	Width = UI.LED_Width;
+	Height = UI.LED_Height;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
-	outP = make_pair(m_GfxInfo.x1,m_GfxInfo.y1+15);
+	outP = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 15);
 	//kero
 	//========================
 	switchID = ID++;

@@ -11,7 +11,7 @@ EditMenu::~EditMenu()
 {
 }
 
-bool EditMenu::ReadActionParameters(string s)
+bool EditMenu::ReadActionParameters()
 {
 	if(!UI.isForbidden( UI.EditMenuStartX, UI.EditMenuStartY ))
 	item = pManager->GetArr()[UI.EditMenuStartY][UI.EditMenuStartX];
@@ -27,7 +27,7 @@ void EditMenu::Execute()
 	pManager->GetOutput( )->UpdateBuffer( );
 	pManager->GetOutput( )->SetBuffering( false );
 	string s="";
-	if (ReadActionParameters(s))
+	if (ReadActionParameters())
 	{
 		
 		if (!item->isSelected())

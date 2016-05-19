@@ -1,13 +1,12 @@
-//#ifndef APPLICATION_MANAGER_H
-//#define APPLICATION_MANAGER_H
 #pragma once
+
 #include "Defs.h"
 #include "GUI\Output.h"
 #include "GUI\Input.h"
-//#include "Actions\Action.h"
 #include "Components\Component.h"
 #include<vector>
 #include<stack>
+
 class Component;
 class Action;
 
@@ -59,5 +58,3 @@ public:
 	stack<Action*>& getUndoStack();		//returns the undo Stack
 	stack<Action*>& getRedoStack();		//returns the redo Stack
 };
-
-//#endif

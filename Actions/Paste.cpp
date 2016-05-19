@@ -10,7 +10,7 @@ Paste::~Paste( )
 {
 }
 
-bool Paste::ReadActionParameters( string s )
+bool Paste::ReadActionParameters()
 {
 	if ( pManager->GetClipboard( ).empty( ) )
 	{
@@ -23,7 +23,7 @@ bool Paste::ReadActionParameters( string s )
 
 void Paste::Execute( )
 {
-	if ( !ReadActionParameters( "" ) )
+	if ( !ReadActionParameters( ) )
 		return;
 	int size = pManager->GetHighlightedList( ).size( );
 	for ( int i = 0; i < size; i++ )

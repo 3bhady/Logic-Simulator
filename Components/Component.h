@@ -13,6 +13,8 @@ protected:
 	bool forbidden = false;
 	bool highlighted = false;
 	ComponentType Type;
+	int Width;		//Width of the component
+	int Height;		//Height of the component
 	//kero
 	//=================
 	static int ID;

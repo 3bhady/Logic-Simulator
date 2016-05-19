@@ -29,6 +29,8 @@ Gate::Gate(int r_Inputs, int r_FanOut, GraphicsInfo in_Gfxinfo) :m_OutputPin(r_F
 
 	for (int i = 0; i<m_Inputs; i++)
 		m_InputPins[i].setComponent(this);
+	Width = UI.Gate_Width;
+	Height = UI.Gate_Height;
 	m_OutputPin.SetComponent(this);
 	//kero
 	//===========================

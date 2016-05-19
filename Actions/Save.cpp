@@ -10,7 +10,7 @@ Save::~Save()
 {
 }
 
-bool Save::ReadActionParameters(string s)
+bool Save::ReadActionParameters()
 {
 	return true;
 }

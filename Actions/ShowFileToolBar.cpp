@@ -11,7 +11,7 @@ ShowFileToolBar::~ShowFileToolBar()
 {
 }
 
-bool ShowFileToolBar::ReadActionParameters(string s)
+bool ShowFileToolBar::ReadActionParameters()
 {
 	return true;
 }

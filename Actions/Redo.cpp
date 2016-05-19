@@ -10,7 +10,7 @@ Redo::~Redo(void)
 {
 }
 
-bool Redo::ReadActionParameters(string s)
+bool Redo::ReadActionParameters()
 {
 	if (!pManager->getRedoStack().empty())
 		return true;
@@ -20,7 +20,7 @@ bool Redo::ReadActionParameters(string s)
 void Redo::Execute()
 {
 
-	if (ReadActionParameters(""))
+	if (ReadActionParameters())
 	{
 		pManager->getRedoStack().top()->redo();
 		pManager->getUndoStack().push(pManager->getRedoStack().top());

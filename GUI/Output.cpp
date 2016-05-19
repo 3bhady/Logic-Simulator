@@ -524,7 +524,7 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 
 //////////////////////////////////////////////////////////////////////////////////
 
-bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType , Component ** Arr[780] , bool selected , int xOffset , int yOffset)
+bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType CompType , Component ** Arr[780])
 {
  	GraphicsInfo temp = r_GfxInfo;
 	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
@@ -534,17 +534,33 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 	  char cEscape;	//the character pressed to cancle the addition of the gate
 	  bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
 		do {
-			
-			
+
 			pWind->DrawImage( initImage , 0 , 0 );
 			
 			pWind->GetMouseCoord( r_GfxInfo.x1 , r_GfxInfo.y1 );
-			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2 + xOffset;
-			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2+ yOffset;
-			Magnetize( r_GfxInfo.x1 , r_GfxInfo.y1 );
-			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
-			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
-
+			if (CompType == LED_)
+			{
+				r_GfxInfo.x1 = r_GfxInfo.x1 - UI.LED_Width / 2;
+				r_GfxInfo.y1 = r_GfxInfo.y1 - UI.LED_Height / 2;
+				Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+				r_GfxInfo.x2 = r_GfxInfo.x1 + UI.LED_Width;
+				r_GfxInfo.y2 = r_GfxInfo.y1 + UI.LED_Height;
+			}
+			else if (CompType == Switch_)
+			{
+				r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Switch_Width / 2;
+				r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Switch_Height / 2;
+				Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+				r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Switch_Width;
+				r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Switch_Height;
+			}
+			else {
+				r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
+				r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
+				Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+				r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
+				r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+			}
 			
 			if ( pWind->GetKeyPress( cEscape ) == ESCAPE )
 			{
@@ -555,10 +571,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 				return false;
 			}
 		
-
-
 			forbidden = false;
-
 		
 			for ( int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i++ )
 			{
@@ -575,11 +588,19 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 			if ( forbidden )
 			{
 				PrintMsg( "You can't draw here!" );
-				DrawGate(r_GfxInfo, gType, false, true);
+				if (CompType == LED_)
+					DrawLED(r_GfxInfo, LOW, false, true);
+				else if (CompType == Switch_)
+					DrawSwitch(r_GfxInfo, LOW, false, true);
+				else DrawGate(r_GfxInfo, CompType, false, true);
 			}
 			else
 			{
-				DrawGate( r_GfxInfo , gType );
+				if (CompType == LED_)
+					DrawLED(r_GfxInfo, LOW, false);
+				else if (CompType == Switch_)
+					DrawSwitch(r_GfxInfo, LOW);
+				else DrawGate( r_GfxInfo , CompType );
 			}
 
 			if ( !UI.HiddenToolBar )CreateDesignToolBar( );
@@ -605,12 +626,29 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 
 		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK||forbidden );
 		
-		
-		r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2 + xOffset;
-		r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2 + yOffset;
-		Magnetize( r_GfxInfo.x1 , r_GfxInfo.y1 );
-		r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
-		r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+		if (CompType == LED_)
+		{
+			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.LED_Width / 2;
+			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.LED_Height / 2;
+			Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.LED_Width;
+			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.LED_Height;
+		}
+		else if (CompType == Switch_)
+		{
+			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Switch_Width / 2;
+			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Switch_Height / 2;
+			Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Switch_Width;
+			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Switch_Height;
+		}
+		else {
+			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
+			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
+			Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
+			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+		}
 		
 		PrintMsg( "" );
 		pWind->SetBuffering( false );
@@ -683,7 +721,7 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 		if (pWind->GetKeyPress(cEscape) == ESCAPE)		// if user pressed ESCAPE , all the components return to their initial positions
 		{
 			pWind->DrawImage(initImage, 0, 0);
-			for (int i = 0; i < HighlightedVec.size(); i++)
+			for (unsigned int i = 0; i < HighlightedVec.size(); i++)
 				HighlightedVec[i]->set_GraphicInfo(initialGFxInfo[i]);
 			pWind->UpdateBuffer();
 			pWind->SetBuffering(false);
@@ -829,7 +867,7 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected,
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void Output::DrawLED(GraphicsInfo r_GfxInfo,  bool state, bool selected , string colour)
+void Output::DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, bool forbidden, string colour)
 {
 	//Getting the switch image
 
@@ -839,6 +877,8 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo,  bool state, bool selected , string
 	else LEDImage += "OFF";
 	if (selected)		 // Highlighted
 		LEDImage += "H";
+	else if (forbidden)	//Forbidden
+		LEDImage += "F";
 	LEDImage += ".jpg";
 
 	Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
@@ -848,7 +888,7 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo,  bool state, bool selected , string
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void Output::DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected, MODE mode)
+void Output::DrawSwitch(GraphicsInfo r_GfxInfo, STATUS status, bool selected, bool forbidden, MODE mode)
 {
 	//Getting the switch image
 
@@ -862,6 +902,8 @@ void Output::DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected, MOD
 	}
 	if (selected)		 // Highlighted
 		SwitchImage += "H";
+	else if (forbidden)	//Forbidden
+		SwitchImage += "F";
 	SwitchImage += ".jpg";
 
 

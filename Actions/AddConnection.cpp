@@ -9,7 +9,7 @@ AddConnection::~AddConnection(void)
 {
 }
 
-bool AddConnection::ReadActionParameters(string s = "")
+bool AddConnection::ReadActionParameters()
 {
 
 	//Get a Pointer to the Input / Output Interfaces
@@ -17,7 +17,7 @@ bool AddConnection::ReadActionParameters(string s = "")
 	Input* pIn = pManager->GetInput();
 	pOut->ClearStatusBar();
 	//Print Action Message
-	pOut->PrintMsg(s);
+	pOut->PrintMsg("Adding Connection : Click to add the first edge ");
 
 	do {
 
@@ -44,13 +44,12 @@ bool AddConnection::ReadActionParameters(string s = "")
 		pOut->ClearStatusBar();
 		pOut->PrintMsg("Please choose a vaild Gate or Switch  ");
 	} while (true);
-	s = "Adding Connection : Click to add the second edge ";
 	pOut->ClearStatusBar();
 	//Print Action Message
-	pOut->PrintMsg(s);
+	pOut->PrintMsg("Adding Connection : Click to add the second edge ");
 	do {
 
-		if (pIn->close()) { pOut->PrintMsg("Cansel adding Connection");return false; }
+		if (pIn->close()) { pOut->PrintMsg("Cancel adding Connection");return false; }
 		//Wait for User Input
 		pIn->GetPointClicked(Cx, Cy);
 
@@ -94,10 +93,10 @@ void AddConnection::Execute()
 	Connection *pS = NULL;
 	//Get Center point of the Connection
 	if (!
-		ReadActionParameters("Adding Connection : Click to add the first edge ")
+		ReadActionParameters()
 		) {
 		pManager->GetOutput()->ClearStatusBar();
-		pManager->GetOutput()->PrintMsg("there is no valid path");
+		pManager->GetOutput()->PrintMsg("There is no valid path");
 		return;
 	}
 	if (first == GA&&second == G)

@@ -96,7 +96,6 @@ buttonstate Input::GetButtonState( const button btMouse , int & iX , int & iY )
 //This function reads the position where the user clicks to determine the desired action
 ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 {
-	char z;
 	int x = 0, y = 0;
 	Component*** Arr = pApp->GetArr();
 	//clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
