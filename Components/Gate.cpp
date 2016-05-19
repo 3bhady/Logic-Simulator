@@ -42,6 +42,20 @@ pair<int, int>& Gate::get_OP()
 }
 pair<int, int>* Gate::get_INPC()
 {
+	m_Inputs = r_Inputs;	//set no. of inputs of that gate
+	switch ( r_Inputs )
+	{
+	case 1:
+		inP[0] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 30 );
+		break;
+	case 2:
+		inP[0] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 15 ); inP[1] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 45 );
+		break;
+	case 3:
+		inP[0] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 15 ); inP[2] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 45 );
+		inP[1] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 30 );
+		break;
+	}
 	for (int i = 0;i < m_Inputs;i++)if (m_InputPins[i].get_connection() == NULL)return &inP[i];
 	return NULL;
 }

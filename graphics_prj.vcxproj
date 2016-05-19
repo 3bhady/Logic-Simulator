@@ -133,6 +133,7 @@
     <ClCompile Include="Actions\AreaSelect.cpp" />
     <ClCompile Include="Actions\Copy.cpp" />
     <ClCompile Include="Actions\Cut.cpp" />
+    <ClCompile Include="Actions\Delete.cpp" />
     <ClCompile Include="Actions\EditMenu.cpp" />
     <ClCompile Include="Actions\HideDesignToolBar.cpp" />
     <ClCompile Include="Actions\HideEditToolBar.cpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="Actions\AreaSelect.h" />
     <ClInclude Include="Actions\Copy.h" />
     <ClInclude Include="Actions\Cut.h" />
+    <ClInclude Include="Actions\Delete.h" />
     <ClInclude Include="Actions\EditMenu.h" />
     <ClInclude Include="Actions\HideDesignToolBar.h" />
     <ClInclude Include="Actions\HideEditToolBar.h" />

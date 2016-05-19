@@ -85,6 +85,7 @@
     <ClCompile Include="Actions\ShowFileToolBar.cpp" />
     <ClCompile Include="Actions\ShowEditToolBar.cpp" />
     <ClCompile Include="Actions\ShowDesignToolBar.cpp" />
+    <ClCompile Include="Actions\Delete.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -158,6 +159,7 @@
     <ClInclude Include="Actions\ShowFileToolBar.h" />
     <ClInclude Include="Actions\ShowEditToolBar.h" />
     <ClInclude Include="Actions\ShowDesignToolBar.h" />
+    <ClInclude Include="Actions\Delete.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
