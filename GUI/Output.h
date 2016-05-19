@@ -41,7 +41,7 @@ public:
 	void ShowFileToolBar()const;
 	void HideEditToolBar()const;
 	void ShowEditToolBar()const;
-	void CloseEditMenu()const;
+	void CloseEditMenu( ApplicationManager* pManager )const;
 	//=============================================
 	//window* GetPwind()const;
 

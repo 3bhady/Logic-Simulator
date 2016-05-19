@@ -134,9 +134,10 @@ void Output::HideDesignToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering( true );
 	for (int i = 0; i >-UI.ToolBarHeight; i-=7)
 	{
-		pWind->SetBuffering(true);
+		
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridToolbar.jpg", 0, 0);
 		if (!UI.HiddenEditBar) CreateEditToolBar();
@@ -154,9 +155,10 @@ void Output::ShowDesignToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering( true );
 	for (int i = -UI.ToolBarHeight; i <0; i+=7)
 	{
-		pWind->SetBuffering(true);
+		
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridToolbar.jpg", 0, 0);
 		if (!UI.HiddenEditBar) CreateEditToolBar();
@@ -174,9 +176,10 @@ void Output::HideFileToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering( true );
 	for (int i = 0; i >-UI.FileBarWidth; i-=4)
 	{
-		pWind->SetBuffering(true);
+		
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.FileBarStartX, UI.FileBarStartY);
 		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB1.jpg", i, UI.FileBarStartY);
@@ -193,9 +196,9 @@ void Output::ShowFileToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering( true );
 	for (int i = -UI.FileBarWidth; i <0; i+=4)
 	{
-		pWind->SetBuffering(true);
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.FileBarStartX, UI.FileBarStartY);
 		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB1.jpg", i, UI.FileBarStartY);
@@ -212,9 +215,9 @@ void Output::HideEditToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering( true );
 	for (int i = -UI.EditBarWidth; i <0; i+=4)
 	{
-		pWind->SetBuffering(true);
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.EditBarTitleStartX, UI.EditBarStartY);
 		if (UI.AppMode == DESIGN)
@@ -236,9 +239,9 @@ void Output::ShowEditToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering( true );
 	for (int i = 0; i >-UI.EditBarWidth; i-=4)
 	{
-		pWind->SetBuffering(true);
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.EditBarTitleStartX, UI.EditBarStartY);
 		if (UI.AppMode == DESIGN)
@@ -254,14 +257,15 @@ void Output::ShowEditToolBar() const
 	pWind->SetBuffering(false);
 }
 
-void Output::CloseEditMenu() const
+void Output::CloseEditMenu(ApplicationManager* pManager) const
 {
 	pWind->SetBuffering(true);
 	CreateGrid();
 	CreateToolBars();
 	UI.AppMode = DESIGN;
-	pWind->UpdateBuffer();
-	pWind->SetBuffering(false);
+	pManager->UpdateInterface( );
+	pManager->GetOutput( )->UpdateBuffer( );
+	pManager->GetOutput( )->SetBuffering( false );
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -380,8 +384,8 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 			PrintMsg(pApp->GetArr()[y][x]->get_label());
 		else
 			PrintMsg("");
-		return;
-	}
+		//return;
+	}			  
 	//========================================
 	if(UI.isInToolBar(x,y ) )
 	{
@@ -414,15 +418,14 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 			case ITM_Switch: {PrintMsg( "Add Switch" ); break; }
 			case ITM_LED: {PrintMsg( "Add Led" ); break; }
 			case ITM_CONNECTION: {PrintMsg( "Add Connection" ); break; }
-
-
 			
 			}
 		}
 
 	}
 	else {
-		if(!UI.HiddenToolBar)CreateDesignToolBar( );
+		if ( !UI.HiddenToolBar )
+			CreateDesignToolBar( );
 		
 	}
 	if (UI.isInFileBar(x,y))
@@ -512,8 +515,10 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 			
 		}
 	}
-	if ( !UI.isInEditBar( x , y ) && !UI.isInFileBar( x , y ) && !UI.isInToolBar( x , y ) )
-		PrintMsg( "" );
+	//if ( !UI.isInEditBar( x , y ) && !UI.isInFileBar( x , y ) && !UI.isInToolBar( x , y ) )
+	//{	 
+		//PrintMsg( "" );
+	//}
 	pWind->UpdateBuffer( );
 }
 

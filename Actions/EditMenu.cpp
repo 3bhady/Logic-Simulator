@@ -13,8 +13,8 @@ EditMenu::~EditMenu()
 
 bool EditMenu::ReadActionParameters(string s)
 {
-	if(!UI.isForbidden(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1))
-	item = pManager->GetArr()[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1];
+	if(!UI.isForbidden( UI.EditMenuStartX, UI.EditMenuStartY ))
+	item = pManager->GetArr()[UI.EditMenuStartY][UI.EditMenuStartX];
 	if(item)
 	return true;
 	return false;
@@ -22,7 +22,10 @@ bool EditMenu::ReadActionParameters(string s)
 
 void EditMenu::Execute()
 {
-	pManager->GetOutput()->CloseEditMenu();
+	pManager->GetOutput()->CloseEditMenu(pManager);
+	pManager->UpdateInterface( );
+	pManager->GetOutput( )->UpdateBuffer( );
+	pManager->GetOutput( )->SetBuffering( false );
 	string s="";
 	if (ReadActionParameters(s))
 	{

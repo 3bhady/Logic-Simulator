@@ -11,15 +11,59 @@ void Input::GetPointClicked(int &x, int &y)
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-string Input::GetString(Output *pOut)
+string Input::GetString( Output *pOut )
 {
 	///TODO: Implement this Function
 	//Read a complete string from the user until the user presses "ENTER".
 	//If the user presses "ESCAPE". This function should return an empty string.
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
+	pOut->PrintMsg( "please enter the label" );
+	string label = ""; //label
+	char kvInput; //value of input key pressed by user
+	keytype ktInput; // type of input key
+	while ( true )
+	{
+		ktInput = pWind->WaitKeyPress( kvInput );
+		//ktInput = pWind->GetKeyPress( kvInput );
 
-	return NULL;
+		switch ( ktInput )
+		{
+		case ESCAPE:
+		{
+			label = "";
+			pOut->PrintMsg( "" );
+			return label;
+		}
+
+		case ASCII:
+		{
+			if ( kvInput == '\r' )
+			{
+				pOut->PrintMsg( "" );
+				return label;
+
+			}
+			if ( kvInput == '\b' )
+			{
+
+				if ( label.size( ) != 0 )
+					label.erase( label.length( ) - 1 );
+
+
+			}
+			else
+				label += kvInput;
+
+		}
+		///////////////////////////////////////////////////////////////////////////
+		//to be implemented : when the arrow is pressed the cursor change position
+		//case ARROW:
+
+
+		}
+		pOut->PrintMsg( label );
+	}
 }
 
 bool Input::DetectChange( )
@@ -55,10 +99,10 @@ ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 	char z;
 	int x = 0, y = 0;
 	Component*** Arr = pApp->GetArr();
-	clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
+	//clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
 	char HotKey;
 
-	//clicktype cType= pWind->GetMouseClick( x , y );
+	clicktype cType= pWind->GetMouseClick( x , y );
 	keytype kType =pWind->GetKeyPress( HotKey );
 	//Get the coordinates of the user click
 	if  (cType== NO_CLICK&&kType==NO_KEYPRESS)
