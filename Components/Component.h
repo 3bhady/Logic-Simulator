@@ -13,6 +13,8 @@ protected:
 	bool forbidden = false;
 	bool highlighted = false;
 	ComponentType Type;
+	int Width;		//Width of the component
+	int Height;		//Height of the component
 public:
 	Component(const GraphicsInfo &r_GfxInfo);
 	virtual void Operate() = 0;					//Calculates the output according to the inputs

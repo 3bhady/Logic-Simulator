@@ -11,7 +11,7 @@ AddLED::~AddLED(void)
 
 bool AddLED::ReadActionParameters(string s)
 {
-
+	/*
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
@@ -36,6 +36,18 @@ bool AddLED::ReadActionParameters(string s)
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
 	return true;
+	*/
+	if (REDO)
+	{
+		pManager->GetOutput()->DrawLED(GInfo, LOW, false);
+		return true;
+	}
+	//Get a Pointer to the Input / Output Interfaces
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+
+	//if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
+	return pOut->FollowMouseAndDraw(GInfo, LED_, pManager->GetArr(), false);
 }
 
 void AddLED::Execute()

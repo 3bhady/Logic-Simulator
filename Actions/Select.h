@@ -4,7 +4,7 @@
 class Select :	public Action
 {
 	GraphicsInfo GFXInfo;				//gfxinfo of the selected item
-	bool Move;							//1 = Move , 0 = Select
+	bool Move = false;							//1 = Move , 0 = Select
 
 	vector< pair<GraphicsInfo, ComponentType> > InitialPositions;			//Initial positions before move
 	vector< pair<GraphicsInfo, ComponentType> > FinalPositions;				//Final positions after move

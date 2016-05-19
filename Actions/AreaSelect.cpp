@@ -103,40 +103,16 @@ void AreaSelect::undo( )
 		pManager->GetArr()[InitialHighlightedCompGfx[i].y1][InitialHighlightedCompGfx[i].x1]->Highlight();
 		pManager->GetHighlightedList().push_back(pManager->GetArr()[InitialHighlightedCompGfx[i].y1][InitialHighlightedCompGfx[i].x1]);
 	}
-	/*
-	if (unselect)
-	{
-		for (unsigned int i = 0; i < HighlightedComponentsGfx.size(); i++)
-			pManager->GetArr()[HighlightedComponentsGfx[i].y1][HighlightedComponentsGfx[i].x1]->Highlight();
-	}
-	else {
-		//pManager->GetOutput()->DrawJPEGImage(initImage, 0, 0);		//Draw the stored image before this action
-
-		for (unsigned int i = 0; i < HighlightedComponentsGfx.size(); i++)		//Unhighlight the highlighted components by this action
-			pManager->GetArr()[HighlightedComponentsGfx[i].y1][HighlightedComponentsGfx[i].x1]->Unhighlight();
-	}
-	*/
 }
 
 void AreaSelect::redo( )
 {
 	pManager->GetHighlightedList().clear();
-	for (int i = 0; i < InitialHighlightedCompGfx.size(); i++)
+	for (unsigned int i = 0; i < InitialHighlightedCompGfx.size(); i++)
 		pManager->GetArr()[InitialHighlightedCompGfx[i].y1][InitialHighlightedCompGfx[i].x1]->Unhighlight();
 	for (unsigned int i = 0; i < HighlightedComponentsGfx.size(); i++)
 	{
 		pManager->GetArr()[HighlightedComponentsGfx[i].y1][HighlightedComponentsGfx[i].x1]->Highlight();
 		pManager->GetHighlightedList().push_back(pManager->GetArr()[HighlightedComponentsGfx[i].y1][HighlightedComponentsGfx[i].x1]);
 	}
-	/*
-	if (unselect)
-	{
-		for (unsigned int i = 0; i < HighlightedComponentsGfx.size(); i++)
-			pManager->GetArr()[HighlightedComponentsGfx[i].y1][HighlightedComponentsGfx[i].x1]->Unhighlight();
-	}
-	else {
-		for (unsigned int i = 0; i < HighlightedComponentsGfx.size(); i++)		//Highlight the highlighted components by this action
-			pManager->GetArr()[HighlightedComponentsGfx[i].y1][HighlightedComponentsGfx[i].x1]->Highlight();
-	}
-	*/
 }

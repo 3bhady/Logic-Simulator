@@ -19,6 +19,9 @@ LED::LED(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOut) {
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
+
+	Width = UI.LED_Width;
+	Height = UI.LED_Height;
 }
 
 
@@ -35,7 +38,7 @@ void LED::Operate()
 void LED::Draw(Output* pOut)
 {
 	//Call output class and pass led drawing info to it.
-	pOut->DrawLED(m_GfxInfo, HIGH, highlighted, colour);
+	pOut->DrawLED(m_GfxInfo, State, highlighted, forbidden, colour);
 }
 
 //returns status of outputpin

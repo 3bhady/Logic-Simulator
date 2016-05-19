@@ -11,7 +11,7 @@ AddSwitch::~AddSwitch(void)
 
 bool AddSwitch::ReadActionParameters(string s)
 {
-
+	/*
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
@@ -37,6 +37,18 @@ bool AddSwitch::ReadActionParameters(string s)
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
 	return true;
+	*/
+	if (REDO)
+	{
+		pManager->GetOutput()->DrawSwitch(GInfo, LOW, false);
+		return true;
+	}
+	//Get a Pointer to the Input / Output Interfaces
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+
+	//if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
+	return pOut->FollowMouseAndDraw(GInfo, Switch_, pManager->GetArr(), false);
 }
 
 void AddSwitch::Execute()
