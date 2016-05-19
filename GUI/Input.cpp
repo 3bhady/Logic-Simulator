@@ -299,6 +299,17 @@ if (UI.isInFileBar(x, y))
 	return SIM_MODE;
 }
 
+bool Input::close()
+{
+	
+	char HotKey;
+
+	keytype kType = pWind->GetKeyPress(HotKey); 
+	if (kType == ESCAPE)
+		return true;
+	return false;
+}
+
 
 
 Input::~Input()

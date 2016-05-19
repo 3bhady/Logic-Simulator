@@ -216,6 +216,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 void ApplicationManager::UpdateInterface()
 {
+
 	if (UI.AppMode != EDIT_MODE)
 	for (int i = 0; i < CompList.size(); i++)
 		CompList[i]->Draw(OutputInterface);

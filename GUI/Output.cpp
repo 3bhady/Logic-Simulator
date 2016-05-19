@@ -951,6 +951,8 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, 
 	else
 		pWind->SetPen(BLACK, 5);
 	int a = r_GfxInfo.x2, b = r_GfxInfo.y2;
+	//for (int i = 0;i < 780;i++)for (int j = 0;j < 1400;j++)if (AppManger->GetArr()[i][j] == con)pWind->DrawPixel(j, i);
+	
 	while (true)
 	{
 		if (a == r_GfxInfo.x1 &&b == r_GfxInfo.y1)break;
@@ -959,12 +961,26 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, 
 		b = kol.arr[c][d].second;
 		bool test = false;
 
-		if (AppManger->GetArr()[d][c] == con || (c == r_GfxInfo.x2&&d == r_GfxInfo.y2))
+		if ((AppManger->GetArr()[d][c] == con || (c == r_GfxInfo.x2&&d == r_GfxInfo.y2))
+			&& (AppManger->GetArr()[b][a] == con || (a == r_GfxInfo.x1&&b == r_GfxInfo.y1) || dynamic_cast<Connection*>(AppManger->GetArr()[b][a])->getSourcePin() == dynamic_cast<Connection*>(con)->getSourcePin()))
+		{
+			
 			pWind->DrawLine(c, d - UI.ConnectionOffset, a, b - UI.ConnectionOffset);
-		else {/*
-			int k = a;
-			a = kol.arr[a][b].first;
-			b = kol.arr[k][b].second;*/
+		}
+		else if(!(dynamic_cast<Connection*>(AppManger->GetArr()[b][a])->getSourcePin() == dynamic_cast<Connection*>(con)->getSourcePin()))
+		{
+			
+			if (c == a) {
+				if(d>b)
+				pWind->DrawBezier(c, d - 4, a - 15, b, a - 7, b - 7, a, b - 17);
+				else
+				pWind->DrawBezier(a, b +8, c - 15, d, c - 7, d - 7, c, d - 7);
+			}
+			else
+				if(c>a)
+					pWind->DrawBezier(c - 1, d -7, a +3, b-15, a - 6, b - 14, a-16, b-7 );
+				else
+					pWind->DrawBezier(a +15, b - 7, c+19, d - 15, c +16, d - 14, c+2 , d - 7);
 		}
 
 	}
