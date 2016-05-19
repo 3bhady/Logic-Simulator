@@ -55,10 +55,10 @@ ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 	char z;
 	int x = 0, y = 0;
 	Component*** Arr = pApp->GetArr();
-	clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
+	//clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
 	char HotKey;
 
-	//clicktype cType= pWind->GetMouseClick( x , y );
+	clicktype cType= pWind->GetMouseClick( x , y );
 	keytype kType =pWind->GetKeyPress( HotKey );
 	//Get the coordinates of the user click
 	if  (cType== NO_CLICK&&kType==NO_KEYPRESS)
@@ -189,6 +189,17 @@ if (UI.isInFileBar(x, y))
 	}
 	//TO DO : return when sim mode
 	return SIM_MODE;
+}
+
+bool Input::close()
+{
+	
+	char HotKey;
+
+	keytype kType = pWind->GetKeyPress(HotKey); 
+	if (kType == ESCAPE)
+		return true;
+	return false;
 }
 
 

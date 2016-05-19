@@ -50,6 +50,7 @@ bool AddConnection::ReadActionParameters(string s = "")
 	pOut->PrintMsg(s);
 	do {
 
+		if (pIn->close()) { pOut->PrintMsg("Cansel adding Connection");return false; }
 		//Wait for User Input
 		pIn->GetPointClicked(Cx, Cy);
 
@@ -192,7 +193,9 @@ bool AddConnection::isvalid(int x, int y, int** vis, int** ifc, int** oth, int x
 					if (ifc[y0][x0] == 1)
 						return false;
 					else
+						if((ifc[y][x]==ifc[y][x+15]&& ifc[y][x] == ifc[y][x - 15])|| (ifc[y][x] == ifc[y+15][x] && ifc[y][x] == ifc[y-15][x]))
 						return true;
+						else return false;
 		}
 	return false;
 }

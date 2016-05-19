@@ -64,9 +64,9 @@ void AreaSelect::Execute()
 		si = y >= UI.u_GfxInfo.y1 ? y : UI.u_GfxInfo.y1;
 		
 		//this loop is for highlighting the components which lay within the drawn rectangle
-		for ( j; j <= sj; j += 15 )
+		for ( j; j <= sj; j ++ )
 		{
-			for ( i= y < UI.u_GfxInfo.y1 ? y : UI.u_GfxInfo.y1; i <= si; i += 15 )
+			for ( i= y < UI.u_GfxInfo.y1 ? y : UI.u_GfxInfo.y1; i <= si; i ++ )
 			{
 				if (pManager->GetArr()[i][j] && !(pManager->GetArr()[i][j]->isSelected()))
 				{

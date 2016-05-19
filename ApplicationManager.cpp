@@ -150,6 +150,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 void ApplicationManager::UpdateInterface()
 {
+	
 	for (int i = 0; i < CompList.size(); i++)
 		CompList[i]->Draw(OutputInterface);
 	
