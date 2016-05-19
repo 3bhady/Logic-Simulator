@@ -30,7 +30,10 @@ Gate::Gate(int r_Inputs, int r_FanOut, GraphicsInfo in_Gfxinfo) :m_OutputPin(r_F
 	for (int i = 0; i<m_Inputs; i++)
 		m_InputPins[i].setComponent(this);
 	m_OutputPin.SetComponent(this);
-
+	//kero
+	//===========================
+	gateID = ID++;
+	//=======================
 }
 
 pair<int, int>& Gate::get_OP()
@@ -54,5 +57,49 @@ InputPin * Gate::get_INpin(pair<int, int>& x)
 			y55 = i;
 	if (y55 >= m_Inputs)return NULL;
 	return &m_InputPins[y55];
+}
+void Gate::Save(ofstream & fout)
+{
+	string str;
+	switch (Type)
+	{
+	case AND2_: {str = "AND2"; break; }
+	case OR2_: {str = "OR2"; break; }
+	case Buff_: {str = "BUFFER"; break; }
+	case INV_: {str = "INVERTER"; break; }
+	case NAND2_: {str = "NAND2"; break; }
+	case NOR2_: {str = "NOR2"; break; }
+	case XOR2_: {str = "XOR2"; break; }
+	case XNOR2_: {str = "XNOR2"; break; }
+	case AND3_: {str = "AND3"; break; }
+	case OR3_: {str = "OR3"; break; }
+	case NAND3_: {str = "NAND3"; break; }
+	case NOR3_: {str = "NOR3"; break; }
+	case XOR3_: {str = "XOR3"; break; }
+	case XNOR3_: {str = "XNOR3"; break; }
+	default:
+		break;
+	}
+	fout << left << setw(15) << str;
+	fout << setw(15) << gateID;
+	fout << setw(15) << get_label();
+	fout << setw(15) << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2;
+	fout << setw(15) << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2;
+	fout << "\n";
+}
+
+void Gate::Load(ifstream & fin)
+{
+	int x, y;
+	string label;
+	int ahbal;
+	fin >> ahbal;
+	fin >> label;
+	set_label(label);
+	fin >> x >> y;
+	m_GfxInfo.x1 = x - UI.Gate_Width / 2;
+	m_GfxInfo.x2 = x + UI.Gate_Width / 2;
+	m_GfxInfo.y1 = y - UI.Gate_Height / 2;
+	m_GfxInfo.y2 = y + UI.Gate_Height / 2;
 }
 

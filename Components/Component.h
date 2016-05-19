@@ -13,8 +13,14 @@ protected:
 	bool forbidden = false;
 	bool highlighted = false;
 	ComponentType Type;
+	//kero
+	//=================
+	static int ID;
+	//========================
 public:
 	Component(const GraphicsInfo &r_GfxInfo);
+	virtual void Save(ofstream &fout) = 0;
+	virtual void Load(ifstream &fout) = 0;
 	virtual void Operate() = 0;					//Calculates the output according to the inputs
 	virtual void Draw(Output* pOut) = 0;		//for each component to Draw itself
 	void  set_label(string);					//Set label of the component

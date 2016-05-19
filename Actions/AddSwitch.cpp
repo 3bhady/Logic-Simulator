@@ -46,7 +46,7 @@ void AddSwitch::Execute()
 	//Get Center point of the Gate
 	ReadActionParameters("Adding Switch : Click to add the Switch");
 
-	Switch *pS = new Switch(GInfo, AND2_FANOUT,outP);
+	Switch *pS = new Switch(GInfo, AND2_FANOUT);
 	pManager->AddComponent(pS);
 }
 

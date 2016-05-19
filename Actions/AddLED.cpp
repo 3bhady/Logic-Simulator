@@ -45,7 +45,7 @@ void AddLED::Execute()
 	//Get Center point of the Gate
 	ReadActionParameters("Adding LED : Click to add the LED");
 
-	LED *pL = new LED(GInfo, inP);
+	LED *pL = new LED(GInfo);// , inP);
 	pManager->AddComponent(pL);
 }
 

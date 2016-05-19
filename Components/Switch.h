@@ -2,13 +2,17 @@
 #include "Component.h"
 #include "Pins\InputPin.h"
 #include "Pins\OutputPin.h"
+#include<string>
+#include<fstream>
+#include<iomanip>
 class Switch : public Component
 {
 	OutputPin m_OutputPin;	//The Switch output pin
 	pair<int, int>outP;//the coordinates of the output pin
 	STATUS State;		//The Switch State .
+	int switchID;
 public:
-	Switch(const GraphicsInfo &r_GfxInfo, int, pair<int, int>);
+	Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of switch
 	virtual void Draw(Output* pOut);	//Draws switch
 
@@ -19,6 +23,11 @@ public:
 	OutputPin* get_OPP();
 	void setInputPinStatus(STATUS s, int n);
 	virtual pair<int, int> get_OP();//the function that gets the outputpin coordinates
+//kero
+//===============================================
+	void Save(ofstream &fout);
+	void Load(ifstream &fout);
+	//================================================
 	~Switch();
 };
 

@@ -25,6 +25,8 @@ public:
 	void setDestPin(InputPin *pDstPin);
 	OutputPin* getSourcePin();
 	InputPin* getDestPin();
+	void Save(ofstream &fout);
+	void Load(ifstream &fout);
 	/*
 	void bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &outx);//the function the determines the path of the conncetion
 	bool isvalid(int x, int y, bool** vis, bool** ifc, bool** oth, int x0, int y0, int x2, int y2);//the function the determines whether a piont is valied or not

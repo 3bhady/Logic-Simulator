@@ -33,10 +33,19 @@ public:
 	void CreateToolBars( )const;
 	void ClearStatusBar() const;		
 	void ClearDrawingArea() const;
-
+	//kero
+	//========================================
+	void HideDesignToolBar()const;
+	void ShowDesignToolBar()const;
+	void HideFileToolBar()const;
+	void ShowFileToolBar()const;
+	void HideEditToolBar()const;
+	void ShowEditToolBar()const;
+	void CloseEditMenu()const;
+	//=============================================
 	//window* GetPwind()const;
 
-	void MouseHovering( )const;		//Detect the hovering of the mouse and makes changes according to the hover
+	void MouseHovering(ApplicationManager*pApp)const;		//Detect the hovering of the mouse and makes changes according to the hover
 
 	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, ComponentType, Component ** Arr[780],	bool selected = false,
 		int xOffset = 0, int yOffset = 0);		//Drag & Drop
