@@ -9,7 +9,7 @@ AddSwitch::~AddSwitch(void)
 {
 }
 
-bool AddSwitch::ReadActionParameters(string s)
+bool AddSwitch::ReadActionParameters()
 {
 	/*
 	//Get a Pointer to the Input / Output Interfaces
@@ -36,29 +36,29 @@ bool AddSwitch::ReadActionParameters(string s)
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
+	outP = make_pair(GInfo.x2, GInfo.y1 + 15);
 	return true;
 	*/
-	if (REDO)
-	{
-		pManager->GetOutput()->DrawSwitch(GInfo, LOW, false);
-		return true;
-	}
-	//Get a Pointer to the Input / Output Interfaces
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
-	//if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
-	return pOut->FollowMouseAndDraw(GInfo, Switch_, pManager->GetArr(), false);
+	return true;
 }
 
 void AddSwitch::Execute()
 {
 
-	//Get Center point of the Gate
-	ReadActionParameters("Adding Switch : Click to add the Switch");
+	if (REDO)
+		pManager->GetOutput()->DrawSwitch(GInfo, LOW, false);
+
+
+	//Get a Pointer to the Input / Output Interfaces
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
 
 	Switch *pS = new Switch(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pS);
+
+	//if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
+	if (pOut->FollowMouseAndDraw(GInfo, Switch_, pManager->GetArr()))
+		pManager->AddComponent(pS);
+	else delete pS;
 }
 
 void AddSwitch::undo()

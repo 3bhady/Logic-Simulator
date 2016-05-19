@@ -11,15 +11,59 @@ void Input::GetPointClicked(int &x, int &y)
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-string Input::GetString(Output *pOut)
+string Input::GetString( Output *pOut )
 {
 	///TODO: Implement this Function
 	//Read a complete string from the user until the user presses "ENTER".
 	//If the user presses "ESCAPE". This function should return an empty string.
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
+	pOut->PrintMsg( "please enter the label" );
+	string label = ""; //label
+	char kvInput; //value of input key pressed by user
+	keytype ktInput; // type of input key
+	while ( true )
+	{
+		ktInput = pWind->WaitKeyPress( kvInput );
+		//ktInput = pWind->GetKeyPress( kvInput );
 
-	return NULL;
+		switch ( ktInput )
+		{
+		case ESCAPE:
+		{
+			label = "";
+			pOut->PrintMsg( "" );
+			return label;
+		}
+
+		case ASCII:
+		{
+			if ( kvInput == '\r' )
+			{
+				pOut->PrintMsg( "" );
+				return label;
+
+			}
+			if ( kvInput == '\b' )
+			{
+
+				if ( label.size( ) != 0 )
+					label.erase( label.length( ) - 1 );
+
+
+			}
+			else
+				label += kvInput;
+
+		}
+		///////////////////////////////////////////////////////////////////////////
+		//to be implemented : when the arrow is pressed the cursor change position
+		//case ARROW:
+
+
+		}
+		pOut->PrintMsg( label );
+	}
 }
 
 bool Input::DetectChange( )
@@ -52,10 +96,9 @@ buttonstate Input::GetButtonState( const button btMouse , int & iX , int & iY )
 //This function reads the position where the user clicks to determine the desired action
 ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 {
-	char z;
 	int x = 0, y = 0;
 	Component*** Arr = pApp->GetArr();
-	//pWind->WaitMouseClick(x,y); //for testing only
+	//clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
 	char HotKey;
 
 	clicktype cType= pWind->GetMouseClick( x , y );
@@ -64,8 +107,72 @@ ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 	if  (cType== NO_CLICK&&kType==NO_KEYPRESS)
 		return DSN_TOOL;
 	
+	//kero
+	//===========================================================================
+	//Fe 7aga 8ariba hena hanb2a nshofha 
+	if (cType == RIGHT_CLICK)
+	{
+		UI.EditMenuStartY = y;
+		UI.EditMenuStartX = x;
+	}
+
+	if (UI.AppMode == EDIT_MODE)
+	{
+		if (cType == LEFT_CLICK)
+		{
+			//pWind->GetMouseCoord(x, y);
+			if (UI.isInEditMenu(x, y))
+			{
+				int selecteditem = ((y - UI.EditMenuStartY) / UI.EditMenuItemHeight);
+				switch (selecteditem)
+				{
+				case 0: return EDIT_Label;
+				case 1: return COPY;
+				case 2:return CUT;
+				case 3:return PASTE;
+				case 4:return DEL;
+				case 5:return MOVE;
+
+				}
+
+			}
+			return SELECT;
+		}
 
 
+	}
+	if (UI.AppMode != SIMULATION)
+	{
+		if (cType == RIGHT_CLICK)
+		{
+			if (!UI.isForbidden(x, y)
+				|| !UI.isForbidden(x + UI.EditMenuItemWidth, y)
+				|| !UI.isForbidden(x, y + UI.EditMenuItemHeight)
+				|| !UI.isForbidden(x + UI.EditMenuItemWidth, y + UI.EditMenuItemHeight))
+			{
+				//if (pApp->GetArr()[y][x])
+				return EDIT_MENU;
+
+			}
+			return SELECT;
+		}
+	}
+	if (cType == LEFT_CLICK)
+	{
+		if (UI.HiddenToolBar&&y < UI.ToolBarTitleHeight &&y >= 0 && x < UI.ToolBarTitleWidth)//show hidden toolbar
+			return SHOW_DESIGN_B;
+		if (!UI.HiddenToolBar && UI.isInToolBarTitle(x, y))
+			return HIDE_DESIGN_B;
+		if (UI.HiddenFileBar  && x > 0 && x < UI.FileBarTitleStartX &&y<UI.FileBarTitleStartY + UI.FileBarTitleHeight&&y>UI.FileBarTitleStartY)
+			return SHOW_FILE_B;
+		if (!UI.HiddenFileBar && UI.isInFileBarTitle(x, y))
+			return HIDE_FILE_B;
+		if (!UI.HiddenEditBar&&UI.isInEditBarTitle(x, y))
+			return HIDE_EDIT_B;
+		if (UI.HiddenEditBar&& x > UI.EditBarTitleStartX + UI.EditBarWidth&&x<UI.EditBarStartX + UI.EditBarWidth&&y>UI.EditBarTitleStartY&&y < UI.EditBarTitleHeight + UI.EditBarTitleStartY)
+			return SHOW_EDIT_B;
+		//=============================================================
+	}
 	UI.u_GfxInfo.x1 = x;
 	UI.u_GfxInfo.y1 = y;
 	if (UI.AppMode == DESIGN)	//application is in design mode
@@ -189,6 +296,17 @@ if (UI.isInFileBar(x, y))
 	}
 	//TO DO : return when sim mode
 	return SIM_MODE;
+}
+
+bool Input::close()
+{
+	
+	char HotKey;
+
+	keytype kType = pWind->GetKeyPress(HotKey); 
+	if (kType == ESCAPE)
+		return true;
+	return false;
 }
 
 

@@ -1,5 +1,9 @@
 #pragma once
 //This header file contains some defenitions to be used all over the application
+//#include<queue>
+#include<vector>
+//#include<iostream>
+using namespace std;
 
 //All possible actions
 enum ActionType 
@@ -42,7 +46,13 @@ enum ActionType
 
 	UNDO,		//undo the last Action preformed
 	REDO,		//redo the last Action canceled
-
+	HIDE_DESIGN_B,
+	SHOW_DESIGN_B,
+	HIDE_FILE_B,
+	SHOW_FILE_B,
+	HIDE_EDIT_B,
+	SHOW_EDIT_B,
+	EDIT_MENU,
 	DSN_MODE,	//Switch to Design mode
 	SIM_MODE,	//Switch to Simulatiom mode
 
@@ -59,6 +69,18 @@ enum STATUS
 	LOW,
 	HIGH
 };
+//Possible types of components that could be connected to the first edge of the connection
+enum FS
+{
+	GA,//gate
+	S//switch
+};
+//Possible types of components that could be connected to the second edge of the connection
+enum RS
+{
+	G,//gate
+	L//Led
+};
 
 enum  MODE	//Modes of operation
 {
@@ -66,7 +88,8 @@ enum  MODE	//Modes of operation
 	SIMULATION ,
 	MULTISELECT,	   //TODO:: when multiple components are selected individually
 	SELECTION,		  //TODO::
-	SELECTAREA	// TODO::
+	SELECTAREA,	// TODO::
+	EDIT_MODE
 	
 };
 
@@ -166,6 +189,11 @@ enum FANOUT
 struct GraphicsInfo
 {
 	int x1,y1, x2, y2;
+};
+//the output of the bfs function
+struct BFSOut {
+	pair<int, int> arr[1400][780];
+	bool check;
 };
 
 #ifndef NULL

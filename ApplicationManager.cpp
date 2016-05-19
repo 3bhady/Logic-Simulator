@@ -7,12 +7,28 @@
 #include "Actions\Copy.h"
 #include "Actions\Cut.h"
 #include "Actions\Paste.h"
-#include"Actions/Undo.h"
+#include"Actions\Undo.h"
 #include"Actions\Redo.h"
+#include"Actions\AddConnection.h"
+#include"Actions\Action.h"
+#include"Actions\HideDesignToolBar.h"
+#include"Actions\ShowDesignToolBar.h"
+#include"Actions\ShowFileToolBar.h"
+#include"Actions\HideFileToolBar.h"
+#include"Actions\ShowEditToolBar.h"
+#include"Actions\HideEditToolBar.h"
+#include"Actions\EditMenu.h"
+#include"Actions\Label.h"
+#include"Actions\Save.h"
+#include"Actions\Load.h"
+#include<fstream>
 
 ApplicationManager::ApplicationManager()
 {
+	//Initialize Components count
 	CompCount = 0;
+
+	//Create Grid
 	Arr = new Component**[780];
 	for ( int i = 0; i < 780; i++ )
 	{
@@ -21,14 +37,8 @@ ApplicationManager::ApplicationManager()
 			Arr[i][j] = NULL;
 	}
 
-
-	//memset( Arr , NULL , sizeof( Arr ) );
-	//Arr[0][0] = NULL;
-	//for(int i=0; i<MaxCompCount; i++)
-		//CompList[i] = NULL;
-
 	//Creates the Input / Output Objects & Initialize the GUI
-	OutputInterface = new Output();
+	OutputInterface = new Output(this);
 	InputInterface = OutputInterface->CreateInput();
 }
 
@@ -36,9 +46,28 @@ ApplicationManager::ApplicationManager()
 
 void ApplicationManager::AddComponent(Component* pComp)
 {
-	pComp->AddComponent( this );
+	//Add Components in Grid
+	if (dynamic_cast<Connection*>(pComp))
+		pComp->AddConnection(((Connection*)pComp)->get_path(), this);
+	else
+		pComp->AddComponent(this);
+
+
+	//Push Component in CompList
 	CompList.push_back(pComp);
+
+	//Increase Components count
 	CompCount++;
+}
+
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::save(ofstream &fout)
+{
+	fout << CompList.size();
+	fout << endl;
+	for (unsigned int i = 0; i < CompList.size(); i++)
+		CompList[i]->Save(fout);
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -55,10 +84,14 @@ vector<Component*>& ApplicationManager::GetHighlightedList()
 	return HighlightedCompList;
 }
 
+////////////////////////////////////////////////////////////////////
+
 stack<Action*>& ApplicationManager::getUndoStack()
 {
 	return UndoStack;
 }
+
+////////////////////////////////////////////////////////////////////
 
 stack<Action*>& ApplicationManager::getRedoStack()
 {
@@ -70,7 +103,7 @@ stack<Action*>& ApplicationManager::getRedoStack()
 ActionType ApplicationManager::GetUserAction()
 {
 	//Call input to get what action is required from the user
-	OutputInterface->MouseHovering(  );
+	OutputInterface->MouseHovering(this);
 	return InputInterface->GetUserAction(this,false);
 }
 
@@ -79,30 +112,10 @@ ActionType ApplicationManager::GetUserAction()
 void ApplicationManager::ExecuteAction(ActionType ActType)
 {
 	Action* pAct = NULL;
-	/*switch (ActType)
-	{
-		case ADD_AND_GATE_2:
-			pAct= new AddANDgate2(this);
-			break;
 
-		case ADD_CONNECTION:
-			//TODO: Create AddConection Action here
-			break;
-
-
-		case EXIT:
-			///TODO: create ExitAction here
-			break;
-	}
-	*/
+	//Create Action 
 	if(ActType<=13)
-			pAct = new AddGate( this , ActType );
-	/*case ADD_AND_GATE_2 || ADD_AND_GATE_3 || ADD_Buff || ADD_INV ||	ADD_OR_GATE_2 ||
-		 ADD_NAND_GATE_2 || ADD_NOR_GATE_2 || ADD_XOR_GATE_2 || ADD_XNOR_GATE_2 ||
-		ADD_OR_GATE_3 || ADD_NOR_GATE_3 || ADD_NAND_GATE_3 || ADD_XOR_GATE_3 || ADD_XNOR_GATE_3:
-						pAct = new AddGate(this,ActType); break;
-*/
-
+		pAct = new AddGate( this , ActType );
 	if ( ActType == COPY )
 		pAct = new Copy( this );
 	if ( ActType == CUT )
@@ -115,28 +128,46 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new Select(this);
 	if(ActType== ADD_LED)
 		pAct = new AddLED(this);
-
 	if(ActType== ADD_Switch)
 		pAct = new AddSwitch(this);
+	if (ActType == ADD_CONNECTION)
+		pAct = new AddConnection(this);
 	if (ActType == UNDO)
 		pAct = new Undo(this);
 	if (ActType == REDO)
 		pAct = new Redo(this);
-	if ( ActType == EXIT )
+	if (ActType == EDIT_MENU)
+		pAct = new EditMenu(this);
+	if (ActType == HIDE_DESIGN_B)
+		pAct = new HideDesignToolBar(this);
+	if (ActType == SHOW_DESIGN_B)
+		pAct = new ShowDesignToolBar(this);
+	if (ActType == SHOW_FILE_B)
+		pAct = new ShowFileToolBar(this);
+	if (ActType == HIDE_FILE_B)
+		pAct = new HideFileToolBar(this);
+	if (ActType == SHOW_EDIT_B)
+		pAct = new ShowEditToolBar(this);
+	if (ActType == HIDE_EDIT_B)
+		pAct = new HideEditToolBar(this);
+	if (ActType == EDIT_Label)
+		pAct = new Label(this);
+	if (ActType == SAVE)
+		pAct = new Save(this);
+	if (ActType == LOAD)
+		pAct = new Load(this);
+	if (ActType == EXIT)
 		return;
-
 	if(pAct)
 	{
+		//if Action undo or redo don't push in stacks
 		if (ActType != UNDO && ActType != REDO)
 		{
-			UndoStack.push(pAct);
+			UndoStack.push(pAct);					//Push Action into Undo Stack
 			while (!getRedoStack().empty())			//Empty the stack
 				getRedoStack().pop();
 		}
-		
-		pAct->Execute();
-		//delete pAct;
-		//pAct = NULL;
+		pAct->Execute();		//Execute Action
 	}
 }
 
@@ -144,9 +175,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 void ApplicationManager::UpdateInterface()
 {
-	for (int i = 0; i < CompList.size(); i++)
+	//if not Edit Mode Draw Components
+	if (UI.AppMode != EDIT_MODE)
+	for (unsigned int i = 0; i < CompList.size(); i++)
 		CompList[i]->Draw(OutputInterface);
-	
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -179,10 +211,22 @@ Output* ApplicationManager::GetOutput()
 
 ApplicationManager::~ApplicationManager()
 {
-	for(int i=0; i<CompList.size(); i++)
+	//Free memory
+
+	for(unsigned int i=0; i<CompList.size(); i++)
 		delete CompList[i];
+	while (!UndoStack.empty())
+	{
+		Action* temp = UndoStack.top();
+		UndoStack.pop();
+		delete temp;
+	}
+	while (!RedoStack.empty())
+	{
+		Action* temp = RedoStack.top();
+		RedoStack.pop();
+		delete temp;
+	}
 	delete OutputInterface;
 	delete InputInterface;
-
-
 }

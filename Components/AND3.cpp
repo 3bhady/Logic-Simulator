@@ -2,7 +2,7 @@
 
 
 
-AND3::AND3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut)
+AND3::AND3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut, r_GfxInfo)
 {
 	Type = AND3_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -14,7 +14,7 @@ AND3::AND3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut)
 
 void AND3::Operate()
 {
-	if (m_InputPins[0].getStatus() == HIGH&&m_InputPins[1].getStatus() == HIGH&&m_InputPins[2].getStatus()==HIGH)
+	if (m_InputPins[0].getStatus() == HIGH&&m_InputPins[1].getStatus() == HIGH&&m_InputPins[2].getStatus() == HIGH)
 		m_OutputPin.setStatus(HIGH);
 	else
 		m_OutputPin.setStatus(LOW);
@@ -26,7 +26,7 @@ void AND3::Operate()
 void AND3::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, AND3_, highlighted,forbidden);
+	pOut->DrawGate(m_GfxInfo, AND3_, highlighted, forbidden);
 }
 
 //returns status of outputpin

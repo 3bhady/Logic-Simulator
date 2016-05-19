@@ -9,7 +9,7 @@ AddLED::~AddLED(void)
 {
 }
 
-bool AddLED::ReadActionParameters(string s)
+bool AddLED::ReadActionParameters()
 {
 	/*
 	//Get a Pointer to the Input / Output Interfaces
@@ -35,28 +35,29 @@ bool AddLED::ReadActionParameters(string s)
 	GInfo.x2 = Cx + Len / 2;
 	GInfo.y1 = Cy - Wdth / 2;
 	GInfo.y2 = Cy + Wdth / 2;
+	inP = make_pair(GInfo.x1, GInfo.y1 + 15);
+
 	return true;
 	*/
-	if (REDO)
-	{
-		pManager->GetOutput()->DrawLED(GInfo, LOW, false);
-		return true;
-	}
-	//Get a Pointer to the Input / Output Interfaces
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
-	//if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
-	return pOut->FollowMouseAndDraw(GInfo, LED_, pManager->GetArr(), false);
+	return true;
 }
 
 void AddLED::Execute()
 {
-	//Get Center point of the Gate
-	ReadActionParameters("Adding LED : Click to add the LED");
+	if (REDO)
+		pManager->GetOutput()->DrawLED(GInfo, LOW, false);
 
-	LED *pL = new LED(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pL);
+
+	//Get a Pointer to the Input / Output Interfaces
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+
+	LED *pL = new LED(GInfo);// , inP);
+
+	 //if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
+	if (pOut->FollowMouseAndDraw(GInfo, Switch_, pManager->GetArr()))
+		pManager->AddComponent(pL);
+	else delete pL;
 }
 
 void AddLED::undo()

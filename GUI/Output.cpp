@@ -1,10 +1,12 @@
 #include "Output.h"
-#include "..\Utility\Utility.h"
-using namespace std;
 #include<iostream>
-class Gate { };
+#include "..\Utility\Utility.h"
+#include "..\Components\Connection.h"
 
-Output::Output()
+using namespace std;
+
+class Gate { };
+Output::Output(ApplicationManager* x)
 {
 	//Initialize user interface parameters
 
@@ -27,7 +29,7 @@ Output::Output()
 	CreateEditToolBar( );
 	CreateStatusBar();		
 
-
+	AppManger = x;
 }
 
 Input* Output::CreateInput() const
@@ -128,37 +130,186 @@ void Output::ClearDrawingArea() const
 {
 	CreateGrid();
 }
+void Output::HideDesignToolBar() const
+{
+	image temp;
+	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering( true );
+	for (int i = 0; i >-UI.ToolBarHeight; i-=7)
+	{
+		
+		pWind->DrawImage(temp, 0, 0);
+		pWind->DrawImage("Images\\GridToolbar.jpg", 0, 0);
+		if (!UI.HiddenEditBar) CreateEditToolBar();
+		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB1.jpg", UI.ToolBarStartX, i);
+		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, UI.ToolBarTitleStartY + i);
+		pWind->UpdateBuffer();
+	}
+	CreateGrid();
+	CreateToolBars();
+	pWind->UpdateBuffer();
+	pWind->SetBuffering(false);
+}
+
+void Output::ShowDesignToolBar() const
+{
+	image temp;
+	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering( true );
+	for (int i = -UI.ToolBarHeight; i <0; i+=7)
+	{
+		
+		pWind->DrawImage(temp, 0, 0);
+		pWind->DrawImage("Images\\GridToolbar.jpg", 0, 0);
+		if (!UI.HiddenEditBar) CreateEditToolBar();
+		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB1.jpg", UI.ToolBarStartX, i);
+		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, UI.ToolBarTitleStartY + i);
+		pWind->UpdateBuffer();
+	}
+	CreateGrid();
+	CreateToolBars();
+	pWind->UpdateBuffer();
+	pWind->SetBuffering(false);
+}
+
+void Output::HideFileToolBar() const
+{
+	image temp;
+	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering( true );
+	for (int i = 0; i >-UI.FileBarWidth; i-=4)
+	{
+		
+		pWind->DrawImage(temp, 0, 0);
+		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.FileBarStartX, UI.FileBarStartY);
+		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB1.jpg", i, UI.FileBarStartY);
+		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", i + UI.FileBarWidth, UI.FileBarTitleStartY);
+		pWind->UpdateBuffer();
+	}
+	CreateGrid();
+	CreateToolBars();
+	pWind->UpdateBuffer();
+	pWind->SetBuffering(false);
+}
+
+void Output::ShowFileToolBar() const
+{
+	image temp;
+	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering( true );
+	for (int i = -UI.FileBarWidth; i <0; i+=4)
+	{
+		pWind->DrawImage(temp, 0, 0);
+		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.FileBarStartX, UI.FileBarStartY);
+		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB1.jpg", i, UI.FileBarStartY);
+		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarWidth + i, UI.FileBarTitleStartY);
+		pWind->UpdateBuffer();
+	}
+	CreateGrid();
+	CreateToolBars();
+	pWind->UpdateBuffer();
+	pWind->SetBuffering(false);
+}
+
+void Output::HideEditToolBar() const
+{
+	image temp;
+	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering( true );
+	for (int i = -UI.EditBarWidth; i <0; i+=4)
+	{
+		pWind->DrawImage(temp, 0, 0);
+		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.EditBarTitleStartX, UI.EditBarStartY);
+		if (UI.AppMode == DESIGN)
+			pWind->DrawImage("Images\\ToolBars\\Editbar\\EB1.jpg", i + UI.EditBarStartX + UI.EditBarWidth, UI.EditBarStartY);
+		else if (UI.AppMode == SIMULATION)
+			pWind->DrawImage("Images\\ToolBars\\Editbar\\EB2.jpg", i + UI.EditBarStartX, UI.EditBarStartY);
+		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", i + UI.EditBarStartX + UI.EditBarTitleWidth, UI.EditBarTitleStartY);
+		pWind->UpdateBuffer();
+	}
+	
+	CreateGrid();
+	CreateToolBars();
+	pWind->UpdateBuffer();
+	pWind->SetBuffering(false);
+	
+}
+
+void Output::ShowEditToolBar() const
+{
+	image temp;
+	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
+	pWind->SetBuffering( true );
+	for (int i = 0; i >-UI.EditBarWidth; i-=4)
+	{
+		pWind->DrawImage(temp, 0, 0);
+		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.EditBarTitleStartX, UI.EditBarStartY);
+		if (UI.AppMode == DESIGN)
+			pWind->DrawImage("Images\\ToolBars\\Editbar\\EB1.jpg", i + UI.EditBarStartX + UI.EditBarWidth, UI.EditBarStartY);
+		else if (UI.AppMode == SIMULATION)
+			pWind->DrawImage("Images\\ToolBars\\Editbar\\EB2.jpg", i + UI.EditBarStartX + UI.EditBarWidth, UI.EditBarStartY);
+		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", i + UI.EditBarStartX + UI.EditBarTitleWidth, UI.EditBarTitleStartY);
+		pWind->UpdateBuffer();
+	}
+	CreateGrid();
+	CreateToolBars();
+	pWind->UpdateBuffer();
+	pWind->SetBuffering(false);
+}
+
+void Output::CloseEditMenu(ApplicationManager* pManager) const
+{
+	pWind->SetBuffering(true);
+	CreateGrid();
+	CreateToolBars();
+	UI.AppMode = DESIGN;
+	pManager->UpdateInterface( );
+	pManager->GetOutput( )->UpdateBuffer( );
+	pManager->GetOutput( )->SetBuffering( false );
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
 //Draws the menu (toolbar) in the Design mode
 void Output::CreateDesignToolBar() const
 {
-	UI.AppMode = DESIGN;	//Design Mode
-
-	pWind->DrawImage( "Images\\ToolBars\\Toolbar\\TB1.jpg" ,UI.ToolBarStartX , UI.ToolBarStartY );
-	pWind->DrawImage( "Images\\ToolBars\\Toolbar\\TB2.jpg" ,UI.ToolBarTitleStartX , UI.ToolBarTitleStartY );
-
-}
-
-//////////////////////////////////////////////////////////////////////////////////
-
-void Output::CreateFileToolBar( ) const
-{
-
-	pWind->DrawImage( "Images\\ToolBars\\Filebar\\FB1.jpg" , UI.FileBarStartX , UI.FileBarStartY );
-	pWind->DrawImage( "Images\\ToolBars\\Filebar\\FB2.jpg" , UI.FileBarTitleStartX ,UI.FileBarTitleStartY );
+	//UI.AppMode = DESIGN;	//Design Mode
+	if (!UI.HiddenToolBar)
+	{
+		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB1.jpg", UI.ToolBarStartX, UI.ToolBarStartY);
+		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, UI.ToolBarTitleStartY);
+	}
+	else
+	{
+		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, 0);
+	}
 
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void Output::CreateEditToolBar( ) const
+void Output::CreateFileToolBar() const
 {
-	pWind->DrawImage( "Images\\ToolBars\\Editbar\\EB2.jpg" , UI.EditBarStartX , UI.EditBarStartY );
-	pWind->DrawImage( "Images\\ToolBars\\Editbar\\EB3.jpg" , UI.EditBarTitleStartX ,UI.EditBarTitleStartY );
+	if (!UI.HiddenFileBar)
+	{
+		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB1.jpg", UI.FileBarStartX, UI.FileBarStartY);
+		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX, UI.FileBarTitleStartY);
+
+	}
+	else 	pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX - UI.FileBarWidth, UI.FileBarTitleStartY);
 }
 
+//////////////////////////////////////////////////////////////////////////////////
+
+void Output::CreateEditToolBar() const
+{
+	if (!UI.HiddenEditBar)
+	{
+		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB2.jpg", UI.EditBarStartX, UI.EditBarStartY);
+		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX, UI.EditBarTitleStartY);
+	}
+	else pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX + UI.EditBarWidth, UI.EditBarTitleStartY);
+}
 //////////////////////////////////////////////////////////////////////////////////
 
 void Output::CreateGrid( ) const
@@ -200,7 +351,7 @@ void Output::DrawDots(int xStart, int yStart,int xFinish,int yFinish)
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void Output::MouseHovering( )const
+void Output::MouseHovering(ApplicationManager*pApp)const
 {
 	string z1 = "Images\\ToolBars\\Toolbar\\toolbar";
 	string z2 = ".jpg";
@@ -213,6 +364,29 @@ void Output::MouseHovering( )const
 	int x , y;
 	pWind->GetMouseCoord( x , y );
 
+	//kero
+	//======================================
+	if (UI.AppMode == EDIT_MODE)
+	{
+
+		int selecteditem = ((y - UI.EditMenuStartY) / UI.EditMenuItemHeight);
+
+		if (UI.isInEditMenu(x, y))
+		{
+			DrawEditMenu(UI.EditMenuStartX, UI.EditMenuStartY, selecteditem);
+		}
+		else
+			pWind->DrawImage("Images\\EDIT MENU\\EDIT MENU.jpg", UI.EditMenuStartX, UI.EditMenuStartY);
+	}
+	if (!UI.isForbidden(x, y))
+	{
+		if (pApp->GetArr()[y][x])
+			PrintMsg(pApp->GetArr()[y][x]->get_label());
+		else
+			PrintMsg("");
+		//return;
+	}			  
+	//========================================
 	if(UI.isInToolBar(x,y ) )
 	{
 		if ( UI.HiddenToolBar ) return;
@@ -244,15 +418,14 @@ void Output::MouseHovering( )const
 			case ITM_Switch: {PrintMsg( "Add Switch" ); break; }
 			case ITM_LED: {PrintMsg( "Add Led" ); break; }
 			case ITM_CONNECTION: {PrintMsg( "Add Connection" ); break; }
-
-
 			
 			}
 		}
 
 	}
 	else {
-		if(!UI.HiddenToolBar)CreateDesignToolBar( );
+		if ( !UI.HiddenToolBar )
+			CreateDesignToolBar( );
 		
 	}
 	if (UI.isInFileBar(x,y))
@@ -342,14 +515,16 @@ void Output::MouseHovering( )const
 			
 		}
 	}
-	if ( !UI.isInEditBar( x , y ) && !UI.isInFileBar( x , y ) && !UI.isInToolBar( x , y ) )
-		PrintMsg( "" );
+	//if ( !UI.isInEditBar( x , y ) && !UI.isInFileBar( x , y ) && !UI.isInToolBar( x , y ) )
+	//{	 
+		//PrintMsg( "" );
+	//}
 	pWind->UpdateBuffer( );
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 
-bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType CompType , Component ** Arr[780] , bool selected )
+bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType CompType , Component ** Arr[780])
 {
  	GraphicsInfo temp = r_GfxInfo;
 	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
@@ -359,8 +534,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType CompTy
 	  char cEscape;	//the character pressed to cancle the addition of the gate
 	  bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
 		do {
-			
-			
+
 			pWind->DrawImage( initImage , 0 , 0 );
 			
 			pWind->GetMouseCoord( r_GfxInfo.x1 , r_GfxInfo.y1 );
@@ -387,7 +561,6 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType CompTy
 				r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
 				r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
 			}
-
 			
 			if ( pWind->GetKeyPress( cEscape ) == ESCAPE )
 			{
@@ -398,10 +571,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType CompTy
 				return false;
 			}
 		
-
-
 			forbidden = false;
-
 		
 			for ( int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i++ )
 			{
@@ -551,7 +721,7 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 		if (pWind->GetKeyPress(cEscape) == ESCAPE)		// if user pressed ESCAPE , all the components return to their initial positions
 		{
 			pWind->DrawImage(initImage, 0, 0);
-			for (int i = 0; i < HighlightedVec.size(); i++)
+			for (unsigned int i = 0; i < HighlightedVec.size(); i++)
 				HighlightedVec[i]->set_GraphicInfo(initialGFxInfo[i]);
 			pWind->UpdateBuffer();
 			pWind->SetBuffering(false);
@@ -760,7 +930,7 @@ void Output::DrawEditMenu(int x, int y, int selectedItem = 6) const
 	else MenuImage += "EDIT MENU";
 	MenuImage += ".jpg";
 
-	pWind->DrawImage(MenuImage, x, y, UI.EditMenu_Width, UI.EditMenu_Height);
+	pWind->DrawImage(MenuImage, x, y, UI.EditMenuItemWidth, UI.EditMenuHeight);
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -815,12 +985,48 @@ void Output::FlushKeyQueue( )
 	pWind->FlushKeyQueue( );
 }
 
-void Output::DrawConnection(GraphicsInfo r_GfxInfo, bool selected) const
+void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, bool selected) const
 {
 	//TODO: Add code to draw connection
+	if (selected)
+		pWind->SetPen(ROYALBLUE, 5);
+	else
+		pWind->SetPen(BLACK, 5);
+	int a = r_GfxInfo.x2, b = r_GfxInfo.y2;
+	//for (int i = 0;i < 780;i++)for (int j = 0;j < 1400;j++)if (AppManger->GetArr()[i][j] == con)pWind->DrawPixel(j, i);
 	
-}
+	while (true)
+	{
+		if (a == r_GfxInfo.x1 &&b == r_GfxInfo.y1)break;
+		int c = a;int d = b;
+		a = kol.arr[c][d].first;
+		b = kol.arr[c][d].second;
+		bool test = false;
 
+		if ((AppManger->GetArr()[d][c] == con || (c == r_GfxInfo.x2&&d == r_GfxInfo.y2))
+			&& (AppManger->GetArr()[b][a] == con || (a == r_GfxInfo.x1&&b == r_GfxInfo.y1) || dynamic_cast<Connection*>(AppManger->GetArr()[b][a])->getSourcePin() == dynamic_cast<Connection*>(con)->getSourcePin()))
+		{
+			
+			pWind->DrawLine(c, d - UI.ConnectionOffset, a, b - UI.ConnectionOffset);
+		}
+		else if(!(dynamic_cast<Connection*>(AppManger->GetArr()[b][a])->getSourcePin() == dynamic_cast<Connection*>(con)->getSourcePin()))
+		{
+			
+			if (c == a) {
+				if(d>b)
+				pWind->DrawBezier(c, d - 4, a - 15, b, a - 7, b - 7, a, b - 17);
+				else
+				pWind->DrawBezier(a, b +8, c - 15, d, c - 7, d - 7, c, d - 7);
+			}
+			else
+				if(c>a)
+					pWind->DrawBezier(c - 1, d -7, a +3, b-15, a - 6, b - 14, a-16, b-7 );
+				else
+					pWind->DrawBezier(a +15, b - 7, c+19, d - 15, c +16, d - 14, c+2 , d - 7);
+		}
+
+	}
+}
 Output::~Output()
 {
 	delete pWind;

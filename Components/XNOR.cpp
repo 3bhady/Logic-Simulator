@@ -2,7 +2,7 @@
 
 
 
-XNOR2::XNOR2(const GraphicsInfo &r_GfxInfo, int r_FanOut) : Gate(2, r_FanOut)
+XNOR2::XNOR2(const GraphicsInfo &r_GfxInfo, int r_FanOut) : Gate(2, r_FanOut, r_GfxInfo)
 {
 	Type = XNOR2_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -25,7 +25,7 @@ void XNOR2::Operate()
 void XNOR2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, XNOR2_, highlighted,forbidden);
+	pOut->DrawGate(m_GfxInfo, XNOR2_, highlighted, forbidden);
 }
 
 //returns status of outputpin

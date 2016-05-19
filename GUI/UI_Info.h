@@ -56,8 +56,8 @@ struct UI_Info	//User Interface Info.
 		FileBarTitleStartX = FileBarWidth ,
 		//FileBarTitleStartY = 280 + FileBarHeight - FileBarTitleHeight ,
 		FileBarTitleStartY=FileBarStartY+FileBarHeight-FileBarTitleHeight,
-		EditmenuItemHeight = 26;	//Height of each item in editmenu
-
+		EditmenuItemHeight = 26,	//Height of each item in editmenu
+	     ConnectionOffset = 5;//the thickness of the drawing line
 
 	color DrawColor;		//Drawing color
 	color SelectColor;		//Highlighting color
@@ -69,14 +69,18 @@ struct UI_Info	//User Interface Info.
 	//This should be calculated accurately because it will be used later to create connections between gates
 	//For now, we will assume that rect width = 50 and height = 50
 
-	static const int	Gate_Width = 75 ,		// Gate Image default width
-		Gate_Height = 50 ,		// Gate Image default height
-		Switch_Width = 60 ,		// Switch Image default width
-		Switch_Height = 30 ,		// Switch Image default height
-		LED_Width = 45 ,			// LED Image default width
-		LED_Height = 45 ,		// LED Image default height
-		EditMenu_Width = 102 ,	// EditMenu Image default width
-		EditMenu_Height = 161;	// EditMenu Image default height
+	static const int	Gate_Width = 75,		// Gate Image default width
+		Gate_Height = 50,		// Gate Image default height
+		Switch_Width = 60,		// Switch Image default width
+		Switch_Height = 30,		// Switch Image default height
+		LED_Width = 45,			// LED Image default width
+		LED_Height = 45;		// LED Image default height
+
+int		EditMenuStartX,
+		EditMenuStartY;
+	const int EditMenuItemHeight = 26,	//Height of each item in editmenu
+		EditMenuItemWidth = 102,	// EditMenu Image default width
+		EditMenuHeight = 161;	// EditMenu Image default height
 
 
 	/////////////////////////////////
@@ -91,7 +95,13 @@ bool isInToolBar( int x , int y )
 		}
 		return false;
 	}
-
+bool isInEditMenu(int x, int y)
+{
+	if (x >= EditMenuStartX&&x < (EditMenuStartX + UI.EditMenuItemWidth))
+		if (y >= EditMenuStartY&&y < EditMenuStartY + EditMenuHeight)
+			return true;
+	return false;
+}
 bool  isInToolBarTitle( int x , int y )
 	{
 		if ( y < ToolBarHeight + ToolBarTitleHeight &&y>=ToolBarHeight)

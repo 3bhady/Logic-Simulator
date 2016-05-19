@@ -2,7 +2,7 @@
 
 
 
-NOR3::NOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut)
+NOR3::NOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut, r_GfxInfo)
 {
 	Type = NOR3_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -25,7 +25,7 @@ void NOR3::Operate()
 void NOR3::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, NOR3_, highlighted,forbidden);
+	pOut->DrawGate(m_GfxInfo, NOR3_, highlighted, forbidden);
 }
 
 //returns status of outputpin

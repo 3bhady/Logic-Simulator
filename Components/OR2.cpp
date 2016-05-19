@@ -2,7 +2,7 @@
 
 
 
-OR2::OR2(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(2,r_FanOut)
+OR2::OR2(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(2, r_FanOut, r_GfxInfo)
 {
 	Type = OR2_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -13,7 +13,7 @@ OR2::OR2(const GraphicsInfo &r_GfxInfo, int r_FanOut):Gate(2,r_FanOut)
 
 void OR2::Operate()
 {
-	if (m_InputPins[0].getStatus() == HIGH||m_InputPins[1].getStatus() == HIGH)
+	if (m_InputPins[0].getStatus() == HIGH || m_InputPins[1].getStatus() == HIGH)
 		m_OutputPin.setStatus(HIGH);
 	else
 		m_OutputPin.setStatus(LOW);
@@ -25,7 +25,7 @@ void OR2::Operate()
 void OR2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, OR2_, highlighted,forbidden);
+	pOut->DrawGate(m_GfxInfo, OR2_, highlighted, forbidden);
 }
 
 //returns status of outputpin

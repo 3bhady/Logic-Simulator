@@ -2,7 +2,7 @@
 
 
 
-NAND2::NAND2(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(2, r_FanOut)
+NAND2::NAND2(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(2, r_FanOut, r_GfxInfo)
 {
 	Type = NAND2_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -26,7 +26,7 @@ void NAND2::Operate()
 void NAND2::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, NAND2_, highlighted,forbidden);
+	pOut->DrawGate(m_GfxInfo, NAND2_, highlighted, forbidden);
 }
 
 //returns status of outputpin

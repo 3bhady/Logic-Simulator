@@ -13,7 +13,7 @@ AreaSelect::~AreaSelect( )
 
 }
 
-bool AreaSelect::ReadActionParameters( string s )
+bool AreaSelect::ReadActionParameters()
 {
 
 	if ( pManager->GetInput( )->DetectChange( ) )	  //if the mouse moved far away from the starting point then the user intends to do an Area select
@@ -37,7 +37,7 @@ void AreaSelect::Execute()
 	
 	//this loop is to check if the user wanted to draw a rect or just a simple click on an empty area to unselect every component
 
-	if ( !ReadActionParameters( "" ) )
+	if ( !ReadActionParameters( ) )
 		return;
 
 	int x , y;
@@ -64,9 +64,9 @@ void AreaSelect::Execute()
 		si = y >= UI.u_GfxInfo.y1 ? y : UI.u_GfxInfo.y1;
 		
 		//this loop is for highlighting the components which lay within the drawn rectangle
-		for ( j; j <= sj; j += 15 )
+		for ( j; j <= sj; j ++ )
 		{
-			for ( i= y < UI.u_GfxInfo.y1 ? y : UI.u_GfxInfo.y1; i <= si; i += 15 )
+			for ( i= y < UI.u_GfxInfo.y1 ? y : UI.u_GfxInfo.y1; i <= si; i ++ )
 			{
 				if (pManager->GetArr()[i][j] && !(pManager->GetArr()[i][j]->isSelected()))
 				{

@@ -2,7 +2,7 @@
 
 
 
-BUFFER::BUFFER(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut)
+BUFFER::BUFFER(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut, r_GfxInfo)
 {
 	Type = Buff_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -24,7 +24,7 @@ void BUFFER::Operate()
 void BUFFER::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, Buff_, highlighted,forbidden);
+	pOut->DrawGate(m_GfxInfo, Buff_, highlighted, forbidden);
 }
 
 //returns status of outputpin
@@ -37,11 +37,11 @@ int BUFFER::GetOutPinStatus()
 //returns status of The Inputpin 
 int BUFFER::GetInputPinStatus(int n = 1)
 {
-	return m_InputPins[n-1].getStatus();	//n starts from 1 but array index starts from 0.
+	return m_InputPins[n - 1].getStatus();	//n starts from 1 but array index starts from 0.
 }
 
 //Set status of the input pin ot HIGH or LOW
-void BUFFER::setInputPinStatus(STATUS s, int n=1)
+void BUFFER::setInputPinStatus(STATUS s, int n = 1)
 {
 	m_InputPins[n - 1].setStatus(s);
 }

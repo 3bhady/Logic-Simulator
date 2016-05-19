@@ -11,8 +11,9 @@ class Output	//The application manager should have a pointer to this class
 {
 private:
 	window* pWind;	//Pointer to the Graphics Window
+	ApplicationManager* AppManger;
 public:
-	Output();	//Performs the Window Initialization
+	Output(ApplicationManager*);	//Performs the Window Initialization
 	~Output();	//destructor
 
 	Input* CreateInput() const;		//creates a pointer to the Input object
@@ -32,12 +33,21 @@ public:
 	void CreateToolBars( )const;
 	void ClearStatusBar() const;		
 	void ClearDrawingArea() const;
-
+	//kero
+	//========================================
+	void HideDesignToolBar()const;
+	void ShowDesignToolBar()const;
+	void HideFileToolBar()const;
+	void ShowFileToolBar()const;
+	void HideEditToolBar()const;
+	void ShowEditToolBar()const;
+	void CloseEditMenu( ApplicationManager* pManager )const;
+	//=============================================
 	//window* GetPwind()const;
 
-	void MouseHovering( )const;		//Detect the hovering of the mouse and makes changes according to the hover
+	void MouseHovering(ApplicationManager*pApp)const;		//Detect the hovering of the mouse and makes changes according to the hover
 
-	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, ComponentType, Component ** Arr[780],	bool selected = false);		//Drag & Drop
+	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, ComponentType, Component ** Arr[780]);		//Drag & Drop
 
 	void Magnetize(int &x,int &y);		//Gets the nearest dot in the grid
 
@@ -51,7 +61,7 @@ public:
 	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, bool forbidden = false , string colour = "");
 	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool forbidden = false, bool selected = false, MODE mode = DESIGN);
 	void DrawEditMenu(int x, int y,int selectedItem)const;
-	void DrawConnection(GraphicsInfo r_GfxInfo, bool selected = false) const;
+	void DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, bool selected) const;
 	void DrawRect(int& x, int &y);
 	void DrawDots(int xStart, int yStart, int xFinish, int yFinish);	//Make an area dotted
 	void DeleteGate( GraphicsInfo GfxInfo );		//Draws an empty image on the gate

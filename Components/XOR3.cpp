@@ -2,7 +2,7 @@
 
 
 
-XOR3::XOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut)
+XOR3::XOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut, r_GfxInfo)
 {
 	Type = XOR3_;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -14,10 +14,10 @@ XOR3::XOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut)
 void XOR3::Operate()
 {
 	if ((m_InputPins[0].getStatus() != m_InputPins[1].getStatus()))
-		if(HIGH!=m_InputPins[2].getStatus())
-		m_OutputPin.setStatus(HIGH);
+		if (HIGH != m_InputPins[2].getStatus())
+			m_OutputPin.setStatus(HIGH);
 		else
-		m_OutputPin.setStatus(LOW);
+			m_OutputPin.setStatus(LOW);
 	else if (LOW != m_InputPins[2].getStatus())
 		m_OutputPin.setStatus(HIGH);
 	else
@@ -30,7 +30,7 @@ void XOR3::Operate()
 void XOR3::Draw(Output* pOut)
 {
 	//Call output class and pass gate drawing info to it.
-	pOut->DrawGate(m_GfxInfo, XOR3_, highlighted,forbidden);
+	pOut->DrawGate(m_GfxInfo, XOR3_, highlighted, forbidden);
 }
 
 //returns status of outputpin

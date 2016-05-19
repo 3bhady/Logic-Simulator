@@ -4,14 +4,19 @@ Select::Select(ApplicationManager *pApp) :Action(pApp)
 {
 }
 
-bool Select::ReadActionParameters(string s)
+bool Select::ReadActionParameters()
 {
 	return true;
 }
 
 void Select::Execute()
 {
-	Component* selectedItem = pManager->GetArr( )[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1];	//the selected item
+	if ( UI.AppMode == EDIT_MODE )
+	{
+		pManager->GetOutput( )->CloseEditMenu(pManager);
+		
+	}
+	Component * selectedItem = pManager->GetArr( )[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1];	//the selected item
 	
 	if ( selectedItem )					   //if the clicked area doesn't point to NULL
 	{	

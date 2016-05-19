@@ -11,7 +11,7 @@ Undo::~Undo(void)
 {
 }
 
-bool Undo::ReadActionParameters(string s)
+bool Undo::ReadActionParameters()
 {
 	if(!pManager->getUndoStack().empty())
 		return true;
@@ -20,7 +20,7 @@ bool Undo::ReadActionParameters(string s)
 
 void Undo::Execute()
 {
-	if (ReadActionParameters(""))
+	if (ReadActionParameters())
 	{
 		pManager->getUndoStack().top()->undo();
 		if (!dynamic_cast<Cut*>(pManager->getUndoStack().top()))
