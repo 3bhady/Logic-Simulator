@@ -23,12 +23,12 @@ void Label::Execute()
 		pManager->GetOutput()->CloseEditMenu(pManager);
 	for (unsigned int i = 0; i < pManager->GetCompList().size(); i++)
 		pManager->GetCompList()[i]->Draw(pManager->GetOutput());
-	if (!pManager->GetHighlightedList().empty())
+	if (pManager->getHighlightedCompListSize() != 0)
 	{
 		string str;
 		str = pManager->GetInput()->GetString(pManager->GetOutput());
-		for (unsigned int i = 0; i < pManager->GetHighlightedList().size();i++)
-		pManager->GetHighlightedList()[i]->set_label(str);	
+		for (unsigned int i = 0; i < pManager->getHighlightedCompListSize(); i++)
+		pManager->GetHighlightedComponent(i)->set_label(str);	
 	}
 
 }

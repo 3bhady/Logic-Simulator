@@ -22,7 +22,7 @@ void Undo::Execute()
 {
 	if (ReadActionParameters())
 	{
-		pManager->getUndoStack().top()->undo();
+		pManager->getUndoStack().top()->undo();										//Undo action
 		if (!dynamic_cast<Cut*>(pManager->getUndoStack().top()))
 			pManager->getRedoStack().push(pManager->getUndoStack().top());			//Push this action into the redo stack
 		pManager->getUndoStack().pop();												//Pop this action out of the undo stack

@@ -25,6 +25,6 @@ public:
 
 	buttonstate GetButtonState( const button btMouse , int &iX , int &iY );		//Gets the button state clicked or not
 
-	ActionType GetUserAction( ApplicationManager * pApp, bool selected = false )const;		//Reads the user click and maps it to an action
-	bool close();//the function that calses any other function if the user pressed ESC
+	ActionType GetUserAction( ApplicationManager * pApp )const;		//Reads the user click and maps it to an action
+	bool close();//the function that closes any other function if the user pressed ESC
 };

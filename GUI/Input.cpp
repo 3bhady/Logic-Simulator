@@ -18,7 +18,7 @@ string Input::GetString( Output *pOut )
 	//If the user presses "ESCAPE". This function should return an empty string.
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
-	pOut->PrintMsg( "please enter the label" );
+	pOut->PrintMsg( "Please enter the label" );
 	string label = ""; //label
 	char kvInput; //value of input key pressed by user
 	keytype ktInput; // type of input key
@@ -94,7 +94,7 @@ buttonstate Input::GetButtonState( const button btMouse , int & iX , int & iY )
 
 
 //This function reads the position where the user clicks to determine the desired action
-ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
+ActionType Input::GetUserAction( ApplicationManager * pApp )const
 {
 	int x = 0, y = 0;
 	Component*** Arr = pApp->GetArr();

@@ -57,4 +57,13 @@ public:
 
 	stack<Action*>& getUndoStack();		//returns the undo Stack
 	stack<Action*>& getRedoStack();		//returns the redo Stack
+
+	Component* GetComponent(int x,int y);			//Get component from GRID
+	void ClearHighlightedCompList();				//Clear the HighlightedComplist
+	void HighlightComponent(Component*);			//Highlight component
+	void HighlightComponent(int x, int y);			//Highlight component
+	void UnhighlightComponent(Component*);			//Unhighlight component
+	void UnhighlightComponent(int x, int y);		//Unhighlight component
+	Component* GetHighlightedComponent(int index);	//Get component from highlighted list
+	unsigned int getHighlightedCompListSize();				//returns highlighted list size
 };
