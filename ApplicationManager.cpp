@@ -72,6 +72,37 @@ void ApplicationManager::save(ofstream &fout)
 
 ////////////////////////////////////////////////////////////////////
 
+Component* ApplicationManager::GetComponent( int x , int y )
+{
+	return Arr[y][x];
+}
+
+void ApplicationManager::DeleteComponent( int x , int y )
+{
+	DeleteComponent( Arr[y][x] );
+}
+
+void ApplicationManager::DeleteComponent( Component * pComp )
+{
+	
+	pComp->DeleteComponent( this );
+	if ( pComp == NULL )
+		return;
+
+	/*for ( int j = m_GfxInfo.x1; j < m_GfxInfo.x2 - 1; j++ )
+		for ( int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++ )
+			Arr[i][j] = NULL;	
+	for ( unsigned int i = 0; i < CompList.size( ); i++ )
+		if ( CompList[i] == pComp )
+		{
+			OutputInterface->DeleteGate( m_GfxInfo );
+			delete pApp->GetCompList( )[i];
+			pApp->GetCompList( ).erase( pApp->GetCompList( ).begin( ) + i );
+			break;
+		}		
+		*/
+}
+
 vector<Component*>& ApplicationManager::GetCompList()
 {
 	return CompList;

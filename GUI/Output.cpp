@@ -577,7 +577,7 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType CompTy
 			{
 				for ( int j = r_GfxInfo.y1; j < r_GfxInfo.y2; j++ )
 				{
-					if(i>0&&j>0&&j<700&&i<1390 )
+					if( i>0 && j>0 && j<700 && i<1390 )
 						if ( Arr[j][i] )
 						{
 							forbidden = true; break;

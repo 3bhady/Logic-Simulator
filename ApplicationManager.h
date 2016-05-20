@@ -52,9 +52,16 @@ public:
 	 
 	void save(ofstream &fout);
 	//void load(ifstream &fin);
+
+	Component* GetComponent( int x , int y );
+	void DeleteComponent(int x,int y);
+	void DeleteComponent( Component* pComp );
+
 	vector<Component*>& GetCompList();				//returns the components list
 	vector<Component*>& GetHighlightedList();		//returns the highlighted components list
 
 	stack<Action*>& getUndoStack();		//returns the undo Stack
 	stack<Action*>& getRedoStack();		//returns the redo Stack
+
+
 };

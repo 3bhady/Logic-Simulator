@@ -13,7 +13,7 @@ Delete::~Delete( )
 
 }
 
-bool Delete::ReadActionParameters( string s )
+bool Delete::ReadActionParameters( )
 {
 	//check if highlighted list is empty 
 
