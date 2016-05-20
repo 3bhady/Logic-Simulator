@@ -807,14 +807,6 @@ bool Output::PasteComponents( ApplicationManager * pApp )
 	char cEscape;	//the character pressed to cancle the addition of the gate
 	bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
  //  Component
-
-
-
-
-
-
-
-
 	return false;
 }
 

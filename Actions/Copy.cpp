@@ -12,9 +12,9 @@ Copy::~Copy( )
 
 bool Copy::ReadActionParameters()
 {
-	int size = pManager->GetCompList( ).size( );
+	//int size = pManager->GetCompList( ).size( );
 	bool selected = false; //it's true if at least there is one selected item to be copied
-	if ( pManager->GetHighlightedList( ).size( ) != 0 )
+	if ( pManager->getHighlightedCompListSize() != 0 )
 	{
 		selected = true; pManager->GetClipboard( ).clear( );
 	}
@@ -32,12 +32,12 @@ void Copy::Execute( )
 	if ( !ReadActionParameters( ) )
 		return;
 	//int size = pManager->GetCompList( ).size( );
-	int size = pManager->GetHighlightedList( ).size( );
+	int size = pManager->getHighlightedCompListSize();
 	//PreviousClipboard = pManager->GetClipboard();
-	for ( int i = 0; i < size; i++ )
+	for (int i = 0; i < size; i++)
 		//if ( pManager->GetCompList( )[i]->isSelected( ) )
 		//{	
-	pManager->GetClipboard( ).push_back( make_pair( pManager->GetHighlightedList()[i]->get_GraphicInfo( ) , pManager->GetHighlightedList()[i]->getType( ) ) );
+		pManager->GetClipboard().push_back(make_pair(pManager->GetHighlightedComponent(i)->get_GraphicInfo(), pManager->GetHighlightedComponent(i)->getType()));
 	//	}
 
 

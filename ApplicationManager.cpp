@@ -52,7 +52,6 @@ void ApplicationManager::AddComponent(Component* pComp)
 	else
 		pComp->AddComponent(this);
 
-
 	//Push Component in CompList
 	CompList.push_back(pComp);
 
@@ -131,11 +130,82 @@ stack<Action*>& ApplicationManager::getRedoStack()
 
 ////////////////////////////////////////////////////////////////////
 
+/*Component * ApplicationManager::GetComponent(int x ,int y)
+{
+	return Arr[y][x];
+}  */
+
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::ClearHighlightedCompList()
+{
+	for (unsigned int i = 0; i < HighlightedCompList.size(); i++)		//Unhighlight all components
+		HighlightedCompList[i]->Unhighlight();
+
+	HighlightedCompList.clear();	//Clear List
+}
+
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::HighlightComponent(Component *pC)
+{
+	pC->Highlight();
+	HighlightedCompList.push_back(pC);
+}
+
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::HighlightComponent(int x, int y)
+{
+	Arr[y][x]->Highlight();
+	HighlightedCompList.push_back(Arr[y][x]);
+}
+
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::UnhighlightComponent(Component *pC)
+{
+	pC->Unhighlight();
+	for (unsigned int i = 0; i < HighlightedCompList.size(); i++)
+		if (HighlightedCompList[i] == pC)
+		{
+			HighlightedCompList.erase(HighlightedCompList.begin() + i);
+			return;
+		}
+}
+
+////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::UnhighlightComponent(int x, int y)
+{
+	Arr[y][x]->Unhighlight();
+	for (unsigned int i = 0; i < HighlightedCompList.size(); i++)
+		if (HighlightedCompList[i] == Arr[y][x])
+		{
+			HighlightedCompList.erase(HighlightedCompList.begin() + i);
+			return;
+		}
+}
+
+////////////////////////////////////////////////////////////////////
+
+Component * ApplicationManager::GetHighlightedComponent(int index)
+{
+	return HighlightedCompList[index];
+}
+
+unsigned int ApplicationManager::getHighlightedCompListSize()
+{
+	return HighlightedCompList.size();
+}
+
+////////////////////////////////////////////////////////////////////
+
 ActionType ApplicationManager::GetUserAction()
 {
 	//Call input to get what action is required from the user
 	OutputInterface->MouseHovering(this);
-	return InputInterface->GetUserAction(this,false);
+	return InputInterface->GetUserAction(this);
 }
 
 ////////////////////////////////////////////////////////////////////

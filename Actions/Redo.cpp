@@ -22,8 +22,8 @@ void Redo::Execute()
 
 	if (ReadActionParameters())
 	{
-		pManager->getRedoStack().top()->redo();
-		pManager->getUndoStack().push(pManager->getRedoStack().top());
-		pManager->getRedoStack().pop();
+		pManager->getRedoStack().top()->redo();								//Redo action
+		pManager->getUndoStack().push(pManager->getRedoStack().top());		//Push action in undo stack
+		pManager->getRedoStack().pop();										//Pop action from redo stack
 	}
 }

@@ -16,15 +16,18 @@ void Select::Execute()
 		pManager->GetOutput( )->CloseEditMenu(pManager);
 		
 	}
-	Component * selectedItem = pManager->GetArr( )[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1];	//the selected item
+	Component * selectedItem = pManager->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1);	//the selected item
 	
 	if ( selectedItem )					   //if the clicked area doesn't point to NULL
 	{	
 		GFXInfo = selectedItem->get_GraphicInfo();		//Save the graphics info
 		if ( !selectedItem->isSelected( ) )			//highlight the item if the item is not already highlighted
 		{
+			/*
 			selectedItem->Highlight( );
 			pManager->GetHighlightedList().push_back(selectedItem);		//push it in the highlighted comp list
+			*/
+			pManager->HighlightComponent(selectedItem);
 			return;
 		}
 			//GraphicsInfo &GfxInfo = selectedItem->get_GraphicInfo();	   //the graphics info of the selected component
@@ -48,34 +51,38 @@ void Select::Execute()
 				Move = true;
 
 				//delete the components from the 2D array and draw an empty block over the gate
-				for (unsigned int i = 0; i < pManager->GetHighlightedList().size(); i++)
-					InitialPositions.push_back(make_pair(pManager->GetHighlightedList()[i]->get_GraphicInfo(), pManager->GetHighlightedList()[i]->getType())),
-					pManager->GetHighlightedList()[i]->EraseComponent(pManager);
+				for (unsigned int i = 0; i < pManager->getHighlightedCompListSize(); i++)
+					InitialPositions.push_back(make_pair(pManager->GetHighlightedComponent(i)->get_GraphicInfo(), pManager->GetHighlightedComponent(i)->getType())),
+					pManager->GetHighlightedComponent(i)->EraseComponent(pManager);
 					
 
 				//move the highlighted components
 				pManager->GetOutput()->MoveComponents(pManager, selectedItem);
 			
 				//add the components in the grid in their new positions & add them to the moved components list of the action 
-				for (unsigned int i = 0; i < pManager->GetHighlightedList().size(); i++)
+				for (unsigned int i = 0; i < pManager->getHighlightedCompListSize(); i++)
 				{
-					pManager->GetHighlightedList()[i]->AddComponent(pManager);
-					pManager->GetHighlightedList()[i]->Highlight();
-					FinalPositions.push_back(make_pair(pManager->GetHighlightedList()[i]->get_GraphicInfo(), pManager->GetHighlightedList()[i]->getType()));
+					pManager->GetHighlightedComponent(i)->AddComponent(pManager);
+					pManager->GetHighlightedComponent(i)->Highlight();
+					FinalPositions.push_back(make_pair(pManager->GetHighlightedComponent(i)->get_GraphicInfo(), pManager->GetHighlightedComponent(i)->getType()));
 				}
 			}
 			else
 			{
-				//if not move then unselect the selected item
-				selectedItem->Unhighlight();
+				//if not move then unselect the selected item and remove it from the highlighted components vector
+				pManager->UnhighlightComponent(selectedItem);
 
-				//find the selected item and remove it from the highlighted components vector
+				/*selectedItem->Unhighlight();
+
+				//find the selected item 
 				for (unsigned int i = 0; i < pManager->GetHighlightedList().size(); i++)
 				{
 					if (pManager->GetHighlightedList()[i] == selectedItem)
 						pManager->GetHighlightedList().erase(pManager->GetHighlightedList().begin() + i);
 				}
+				*/
 			}
+
 	}
 }
 
@@ -83,25 +90,29 @@ void Select::undo()
 {
 	if (!Move)
 	{
-		Component * pC = pManager->GetArr()[GFXInfo.y1][GFXInfo.x1];
+		Component * pC = pManager->GetComponent(GFXInfo.x1, GFXInfo.y1);
 		if (!pC->isSelected())
 		{
-			pC->Highlight();	
-			pManager->GetHighlightedList().push_back(pC);
+			//pC->Highlight();	
+			//pManager->GetHighlightedList().push_back(pC);
+			pManager->HighlightComponent(pC);
 		}
 		else {
+			/*
 			pC->Unhighlight();
 			for (unsigned int i = 0; i < pManager->GetHighlightedList().size(); i++)
 			{
 				if (pManager->GetHighlightedList()[i] == pC)
 					pManager->GetHighlightedList().erase(pManager->GetHighlightedList().begin() + i);
 			}
+			*/
+			pManager->UnhighlightComponent(pC);
 		}
 	}
 	else {
 		for (unsigned int i = 0; i < FinalPositions.size(); i++)
 		{
-			Component* pG = pManager->GetArr()[FinalPositions[i].first.y1][FinalPositions[i].first.x1];
+			Component* pG = pManager->GetComponent(FinalPositions[i].first.x1, FinalPositions[i].first.y1);
 			pG->EraseComponent(pManager);
 			pG->get_GraphicInfo() = InitialPositions[i].first;
 			pG->AddComponent(pManager);
@@ -114,26 +125,29 @@ void Select::redo()
 {
 	if (!Move)
 	{
-		Component * pC = pManager->GetArr()[GFXInfo.y1][GFXInfo.x1];
+		Component * pC = pManager->GetComponent(GFXInfo.x1, GFXInfo.y1);
 		if (!pC->isSelected())
 		{
-			pC->Highlight();
-			pManager->GetHighlightedList().push_back(pC);
+			pManager->HighlightComponent(pC);
+		//	pC->Highlight();
+			//pManager->GetHighlightedList().push_back(pC);
 		}
 		else
 		{
-			pC->Unhighlight();
+			pManager->UnhighlightComponent(pC);
+			/*pC->Unhighlight();
 			for (unsigned int i = 0; i < pManager->GetHighlightedList().size(); i++)
 			{
 				if (pManager->GetHighlightedList()[i] == pC)
 					pManager->GetHighlightedList().erase(pManager->GetHighlightedList().begin() + i);
 			}
+			*/
 		}
 	}
 	else {
 		for (unsigned int i = 0; i < InitialPositions.size(); i++)
 		{
-			Component* pG= pManager->GetArr()[InitialPositions[i].first.y1][InitialPositions[i].first.x1];
+			Component* pG = pManager->GetComponent(InitialPositions[i].first.x1, InitialPositions[i].first.y1);
 			pG->EraseComponent(pManager);
 			pG->get_GraphicInfo() = FinalPositions[i].first;
 			pG->AddComponent(pManager);

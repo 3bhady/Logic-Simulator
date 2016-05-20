@@ -18,16 +18,6 @@ bool AddGate::ReadActionParameters()
 
 void AddGate::Execute()
 {
-	if (REDO)			//if redo draw the gate in it's initial position
-	{
-		string GateImage = "Images\\PNG Gates\\", GateNumber;
-		stringstream ss;
-		ss << (int)ActType;
-		ss >> GateNumber;
-		GateImage += GateNumber + ".png";
-		pManager->GetOutput()->DrawPNGImage(GateImage, GInfo);
-	}
-
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
@@ -107,16 +97,30 @@ void AddGate::Execute()
 	}
 	}
 
+	if (REDO)			//if redo draw the gate in it's initial position
+	{
+		string GateImage = "Images\\PNG Gates\\", GateNumber;
+		stringstream ss;
+		ss << (int)ActType;
+		ss >> GateNumber;
+		GateImage += GateNumber + ".png";
+		pManager->GetOutput()->DrawPNGImage(GateImage, GInfo);
+		pManager->AddComponent(pG);
+		return;
+	}
+
 	//if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
 	if (pOut->FollowMouseAndDraw(pG->get_GraphicInfo(), (ComponentType)(int)ActType, pManager->GetArr()))
-		pManager->AddComponent(pG);
+	{
+		pManager->AddComponent(pG); GInfo = pG->get_GraphicInfo();
+	}
 
 	else delete pG;
 }
 
 void AddGate::undo()
 {
-	pManager->GetArr()[GInfo.y1][GInfo.x1]->DeleteComponent(pManager);
+	pManager->GetComponent(GInfo.x1, GInfo.y1)->DeleteComponent(pManager);
 	//pManager->GetOutput()->DrawJPEGImage(initImage, 0, 0);				//Draw the stored image before this action
 }
 
