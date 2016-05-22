@@ -166,18 +166,8 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 	if (cType == LEFT_CLICK)
 	{
 		//if the click is in a bar toggle the status of this bar
-		if (UI.HiddenToolBar&&UI.isInToolBarTitle(x, y))
-			return SHOW_DESIGN_B;
-		if (!UI.HiddenToolBar && UI.isInToolBarTitle(x, y))
-			return HIDE_DESIGN_B;
-		if (UI.HiddenFileBar  &&UI.isInFileBarTitle(x, y))
-			return SHOW_FILE_B;
-		if (!UI.HiddenFileBar && UI.isInFileBarTitle(x, y))
-			return HIDE_FILE_B;
-		if (!UI.HiddenEditBar&&UI.isInEditBarTitle(x, y))
-			return HIDE_EDIT_B;
-		if (UI.HiddenEditBar&& UI.isInEditBarTitle(x, y))
-			return SHOW_EDIT_B;
+		if (UI.isInToolBarTitle(x, y)|| UI.isInToolBarTitle(x, y)|| UI.isInFileBarTitle(x, y)|| UI.isInFileBarTitle(x, y)|| UI.isInEditBarTitle(x, y)|| UI.isInEditBarTitle(x, y))
+			return TOGGLE_BARS;
 	}
 
 	if (UI.AppMode == DESIGN)	//application is in design mode
