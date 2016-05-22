@@ -16,7 +16,7 @@
 #include"Actions\Save.h"
 #include"Actions\Load.h"
 #include "Actions\Delete.h"
-#include"ToggleBars.h"
+#include"Actions\ToggleBars.h"
 #include<fstream>
 
 ApplicationManager::ApplicationManager()

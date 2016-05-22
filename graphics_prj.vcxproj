@@ -141,6 +141,7 @@
     <ClCompile Include="Actions\Redo.cpp" />
     <ClCompile Include="Actions\Save.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
+    <ClCompile Include="Actions\ToggleBars.cpp" />
     <ClCompile Include="Actions\Undo.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
@@ -205,7 +206,6 @@
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ToggleBars.cpp" />
     <ClCompile Include="Utility\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +225,7 @@
     <ClInclude Include="Actions\Redo.h" />
     <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Select.h" />
+    <ClInclude Include="Actions\ToggleBars.h" />
     <ClInclude Include="Actions\Undo.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
@@ -274,7 +275,6 @@
     <ClInclude Include="GUI\Output.h" />
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="lodepng.h" />
-    <ClInclude Include="ToggleBars.h" />
     <ClInclude Include="Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>
