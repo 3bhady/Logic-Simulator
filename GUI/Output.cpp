@@ -142,7 +142,6 @@ void Output::HideDesignToolBar() const
 
 	for (int i = 0; i >-UI.ToolBarHeight; i-=10)
 	{
-		
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridToolbar.jpg", 0, 0);
 		if (!UI.HiddenEditBar) CreateEditToolBar();
@@ -150,24 +149,26 @@ void Output::HideDesignToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, UI.ToolBarTitleStartY + i);
 		pWind->UpdateBuffer();
 	}
-	
+	UI.ToolBarStartY -= UI.ToolBarHeight;
+	UI.ToolBarTitleStartY -= UI.ToolBarHeight;
 }
 
 void Output::ShowDesignToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
-	for (int i = -UI.ToolBarHeight; i <0; i+=10)
+	for (int i = 0; i <-UI.ToolBarStartY; i+=10)
 	{
 		
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridToolbar.jpg", 0, 0);
 		if (!UI.HiddenEditBar) CreateEditToolBar();
-		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB1.jpg", UI.ToolBarStartX, i);
+		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB1.jpg", UI.ToolBarStartX, UI.ToolBarStartY + i);
 		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, UI.ToolBarTitleStartY + i);
 		pWind->UpdateBuffer();
 	}
-
+	UI.ToolBarStartY += UI.ToolBarHeight;
+	UI.ToolBarTitleStartY += UI.ToolBarHeight;
 }
 
 void Output::HideFileToolBar() const
@@ -184,7 +185,8 @@ void Output::HideFileToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", i + UI.FileBarWidth, UI.FileBarTitleStartY);
 		pWind->UpdateBuffer();
 	}
-
+	UI.FileBarStartX -= UI.FileBarWidth;
+	UI.FileBarTitleStartX -= UI.FileBarWidth;
 }
 
 void Output::ShowFileToolBar() const
@@ -200,7 +202,8 @@ void Output::ShowFileToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarWidth + i, UI.FileBarTitleStartY);
 		pWind->UpdateBuffer();
 	}
-	
+	UI.FileBarStartX += UI.FileBarWidth;
+	UI.FileBarTitleStartX += UI.FileBarWidth;
 }
 
 void Output::HideEditToolBar() const
@@ -218,26 +221,27 @@ void Output::HideEditToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", i + UI.EditBarStartX + UI.EditBarTitleWidth, UI.EditBarTitleStartY);
 		pWind->UpdateBuffer();
 	}
-	
-	
+	UI.EditBarStartX += UI.EditBarWidth;
+	UI.EditBarTitleStartX += UI.EditBarWidth;
 }
 
 void Output::ShowEditToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
-	for (int i = 0; i >-UI.EditBarWidth; i-=7)
+	for (int i = 0; i > -UI.EditBarWidth; i -= 7)
 	{
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.EditBarTitleStartX, UI.EditBarStartY);
 		if (UI.AppMode == DESIGN)
-			pWind->DrawImage("Images\\ToolBars\\Editbar\\EB1.jpg", i + UI.EditBarStartX + UI.EditBarWidth, UI.EditBarStartY);
+			pWind->DrawImage("Images\\ToolBars\\Editbar\\EB1.jpg", i + UI.EditBarStartX , UI.EditBarStartY);
 		else if (UI.AppMode == SIMULATION)
-			pWind->DrawImage("Images\\ToolBars\\Editbar\\EB2.jpg", i + UI.EditBarStartX + UI.EditBarWidth, UI.EditBarStartY);
-		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", i + UI.EditBarStartX + UI.EditBarTitleWidth, UI.EditBarTitleStartY);
+			pWind->DrawImage("Images\\ToolBars\\Editbar\\EB2.jpg", i + UI.EditBarStartX , UI.EditBarStartY);
+		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", i + UI.EditBarTitleStartX , UI.EditBarTitleStartY);
 		pWind->UpdateBuffer();
 	}
-	
+	UI.EditBarStartX -= UI.EditBarWidth;
+	UI.EditBarTitleStartX -= UI.EditBarWidth;
 }
 
 void Output::CloseEditMenu(ApplicationManager* pManager) const

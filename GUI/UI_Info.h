@@ -25,10 +25,8 @@ struct UI_Info	//User Interface Info.
 		ToolBarTitleHeight = 33 ,	//Tool bar title height
 		ToolBarTitleWidth = 264 ,	//Tool bar title width
 		ToolBarItemWidth = 77 ,		//Width  of each item in toolbar
-		ToolBarStartX = 0 ,
-		ToolBarStartY = 0 ,
+		ToolBarStartX = 0,
 		ToolBarTitleStartX = 0 ,
-		ToolBarTitleStartY = ToolBarHeight ,
 
 		StatusBarHeight = 50 ,		//Status bar height
 		StatusBarWidth = 1360 ,		//Status bar Width
@@ -41,23 +39,27 @@ struct UI_Info	//User Interface Info.
 		EditBarTitleHeight = 100 ,	//Edit bar title height
 		EditBarTitleWidth = 34 ,		//Edit bar title width
 		EditBarItemHeight = 80 ,		//Height of each item in editbar
-		EditBarStartX = width - EditBarWidth - 14 ,
-		EditBarStartY = ToolBarHeight ,
-		EditBarTitleStartX = width - EditBarWidth - EditBarTitleWidth - 14 ,
-		EditBarTitleStartY = EditBarStartY ,
+		EditBarStartY = ToolBarHeight,
+		EditBarTitleStartY = EditBarStartY,
 
 		FileBarHeight = 320 ,		//File bar height
 		FileBarTitleHeight = 100 ,	//File bar title height
 		FileBarTitleWidth = 34 ,		//File bar title width
+		FileBarStartY = height - 15 - StatusBarHeight - FileBarHeight,
+		FileBarTitleStartY = FileBarStartY + FileBarHeight - FileBarTitleHeight,
 		FileBarWidth = 66 ,			//File bar Width
 		FileBarItemHeight = 80 ,		//Height of each item in filebar
-		FileBarStartX = 0 ,
-		FileBarStartY = height-15-StatusBarHeight-FileBarHeight ,
-		FileBarTitleStartX = FileBarWidth ,
-		//FileBarTitleStartY = 280 + FileBarHeight - FileBarTitleHeight ,
-		FileBarTitleStartY=FileBarStartY+FileBarHeight-FileBarTitleHeight,
 		EditmenuItemHeight = 26,	//Height of each item in editmenu
-	     ConnectionOffset = 5;//the thickness of the drawing line
+	    ConnectionOffset = 5;//the thickness of the drawing line
+
+
+	int ToolBarStartY = 0,
+		ToolBarTitleStartY = ToolBarHeight,
+		FileBarStartX = 0,
+		FileBarTitleStartX = FileBarWidth,
+		EditBarStartX = width - EditBarWidth - 14,
+		EditBarTitleStartX = width - EditBarWidth - EditBarTitleWidth - 14;
+
 
 	color DrawColor;		//Drawing color
 	color SelectColor;		//Highlighting color
@@ -88,15 +90,13 @@ int		EditMenuStartX,
 	/////////////////////////////////
 
 bool isInToolBar( int x , int y )
-	{
-		//if ( y <= ToolBarHeight )
-		if(y>=ToolBarStartY&&y<ToolBarStartY+ToolBarHeight
-			&& x>ToolBarStartX && x<= ToolBarStartX+ToolBarWidth&&!HiddenToolBar)
-		{
+{
+	if (y >= ToolBarStartY && y<ToolBarTitleStartY
+		&& x>ToolBarStartX && x <= ToolBarStartX + ToolBarWidth)
 			return true;
-		}
-		return false;
-	}
+	return false;
+}
+
 bool isInEditMenu(int x, int y)
 {
 	if (x >= EditMenuStartX&&x < (EditMenuStartX + UI.EditMenuItemWidth))
@@ -104,64 +104,63 @@ bool isInEditMenu(int x, int y)
 			return true;
 	return false;
 }
+
 bool  isInToolBarTitle( int x , int y )
-	{
-		if ( y < ToolBarHeight + ToolBarTitleHeight &&y>=ToolBarHeight)
-			if ( x < UI.ToolBarTitleWidth)
-				return true;
-		return false;
-	}
+{
+	if (y >= ToolBarTitleStartY && y < ToolBarTitleStartY + ToolBarTitleHeight
+		&& x>ToolBarTitleStartX && x < UI.ToolBarTitleWidth)
+			return true;
+	return false;
+}
 
 bool isInStatusBar(int x, int y)
-	{
-		return (y > height - StatusBarHeight - 20);
-
-	}
+{
+	return (y > height - StatusBarHeight - 20);
+}
 
 bool isInFileBar(int x, int y)
-	{
-		if (x>FileBarStartX&&x<ToolBarItemWidth)
-			if (y>FileBarStartY&&y <= FileBarItemHeight*4 + FileBarStartY&&!HiddenFileBar)
-				return true;
-
-		return false;
-	}
+{
+	if (x > FileBarStartX && x < ToolBarItemWidth
+		&&	y > FileBarStartY && y <= FileBarStartY + FileBarHeight)
+			return true;
+	return false;
+}
 
 bool isInFileBarTitle(int x, int y)
-	{
-		if (x > FileBarWidth&&x < FileBarTitleStartX + FileBarTitleWidth)
-			if (y<FileBarTitleStartY + FileBarTitleHeight&&y>UI.FileBarTitleStartY)
-				return true;
-		return false;
-	}
+{
+	if (x > FileBarTitleStartX && x < FileBarTitleStartX + FileBarTitleWidth
+		&&	y < FileBarTitleStartY + FileBarTitleHeight && y > UI.FileBarTitleStartY)
+			return true;
+	return false;
+}
 
 bool isInEditBar(int x, int y)
-	{
-		if (x > EditBarStartX&&x<UI.width-15)
-			if (y<EditBarHeight + EditBarStartY && y >EditBarStartY&&!HiddenEditBar)
-				return true;
-		return false;
-	}
+{
+	if (x > EditBarStartX && x < UI.width-15
+		&&	y < EditBarHeight + EditBarStartY && y > EditBarStartY)
+			return true;
+	return false;
+}
 
 bool isInEditBarTitle(int x, int y)
-	{
-		if (x > EditBarTitleStartX&&x<EditBarStartX)
-			if (y>EditBarTitleStartY&&y < EditBarTitleHeight + EditBarTitleStartY)
-				return true;
-		return false;
-	}
+{
+	if (x > EditBarTitleStartX && x < EditBarStartX
+		&&	y > EditBarTitleStartY && y < EditBarTitleHeight + EditBarTitleStartY)
+			return true;
+	return false;
+}
 
-bool isInBar( int x , int y )
-	{
-		return isInStatusBar( x , y ) || isInEditBar( x , y ) || isInFileBar( x , y );
-	}
+bool isInBar(int x, int y)
+{
+	return (isInStatusBar(x, y) || isInEditBar(x, y) || isInFileBar(x, y));
+}
 
 bool isForbidden(int x,int y)
-	{
-		return (isInEditBar(x, y) || isInEditBarTitle(x, y) ||
-			isInFileBar(x, y) || isInFileBarTitle(x, y) ||
-			isInToolBar(x, y) || isInToolBarTitle(x, y) ||
-			isInStatusBar(x, y) || x>UI.width - UI.wx || x < 15 );
-	}
+{
+	return (isInEditBar(x, y) || isInEditBarTitle(x, y) ||
+		isInFileBar(x, y) || isInFileBarTitle(x, y) ||
+		isInToolBar(x, y) || isInToolBarTitle(x, y) ||
+		isInStatusBar(x, y) || x>UI.width - UI.wx || x < 15 );
+}
 
 }UI;	//create a single global object UI
