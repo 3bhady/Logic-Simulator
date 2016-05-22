@@ -160,13 +160,53 @@ int Connection::getCompIndexConnectedToInPin(int n)
 	return SrcPin->getCompIndex();
 }
 
-Component * Connection::DeleteConnection(ApplicationManager* ptr)
-{
 
-	for ( int i = 0; i < 780; i++ )
-		for ( int j = 0; j < 1400; j++ )
-			if ( ptr->GetArr( )[i][j] == this )ptr->GetArr( )[i][j] = NULL;
-	this->getSourcePin( )->DeleteConnection( this );
-	this->getDestPin( )->set_connection( NULL );
-	return this;
+void Connection::EraseComponent(ApplicationManager * pApp)
+{
+	Component *** Arr = pApp->GetArr();
+	int a = m_GfxInfo.x2, b = m_GfxInfo.y2;
+	while (true)
+	{
+		if (a == m_GfxInfo.x1 &&b == m_GfxInfo.y1)break;
+		int c = a;int d = b;
+		int x = a;
+		a = outx.arr[a][b].first, b = outx.arr[x][b].second;
+		if (a == c) {
+			if (d > b) {
+				for (int i = b - 5;i <= d - 5;i++)
+					if (Arr[i][a] == this) {
+						for (int j = a;j < a + 5;j++)if(Arr[i][j]==this)(Arr[i][j]) = NULL;
+					}
+			}
+			else
+				for (int i = d - 5;i <= b - 5;i++)
+					if (Arr[i][a] == this) {
+
+						for (int j = a;j < a + 5;j++)if(Arr[i][j] == this)(Arr[i][j]) = NULL;
+					}
+		}
+		if (b == d) {
+			if (a > c)
+				for (int i = c;i <= a;i++) {
+					if (Arr[b][i] == this) {
+						for (int j = b - 7;j < b + 1;j++)if(Arr[j][i] == this)(Arr[j][i]) = NULL;
+					}
+				}
+			else
+				for (int i = a;i <= c;i++)
+					if (Arr[b][i] == this) {
+						for (int j = b - 7;j < b + 1;j++)if(Arr[j][i] == this)Arr[j][i] = NULL;
+					}
+
+		}
+	}
+	
+	/*
+	for (int i = 0; i < 780; i++)
+		for (int j = 0; j < 1400; j++)
+			if (pApp->GetArr()[i][j] == this)
+				pApp->GetArr()[i][j] = NULL;*/
+	this->getSourcePin()->DeleteConnection(this);
+	this->getDestPin()->set_connection(NULL);
+	
 }

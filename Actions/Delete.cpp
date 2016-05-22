@@ -36,7 +36,11 @@ void Delete::Execute( )
 	}
 
 	pManager->ClearHighlightedCompList( );
-
+	//pManager->UpdateInterface();
+	pManager->GetOutput()->ClearDrawingArea();
+	pManager->GetOutput()->CreateToolBars();
+	pManager->UpdateInterface();
+	pManager->GetOutput()->UpdateBuffer();
 
 }
 
