@@ -854,20 +854,20 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected,
 void Output::DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, bool forbidden, string colour)
 {
 	//Getting the switch image
-
 	string LEDImage = "Images\\LED\\";
 	if (state)			  // ON or OFF
 		LEDImage += "ON" + colour;
 	else LEDImage += "OFF";
-	if (selected)		 // Highlighted
-		LEDImage += "H";
-	else if (forbidden)	//Forbidden
+	if (forbidden)	//Forbidden
 		LEDImage += "F";
-	LEDImage += ".jpg";
+	else if (selected)		 // Highlighted
+		LEDImage += "H";
+	LEDImage += ".png";
 
 	Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
 
-	pWind->DrawImage(LEDImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.LED_Width, UI.LED_Height);
+	//pWind->DrawImage(LEDImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.LED_Width, UI.LED_Height);
+	DrawPNG(pWind, LEDImage, r_GfxInfo);
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -875,7 +875,6 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, bool for
 void Output::DrawSwitch(GraphicsInfo r_GfxInfo, STATUS status, bool selected, bool forbidden, MODE mode)
 {
 	//Getting the switch image
-
 	string SwitchImage = "Images\\Switch\\";
 	if (mode == DESIGN)		  // Design or Simulation mode
 		SwitchImage += "DSN";
@@ -884,16 +883,17 @@ void Output::DrawSwitch(GraphicsInfo r_GfxInfo, STATUS status, bool selected, bo
 			SwitchImage += "ON";
 		else SwitchImage += "OFF";
 	}
-	if (selected)		 // Highlighted
-		SwitchImage += "H";
-	else if (forbidden)	//Forbidden
+	if (forbidden)			 //Forbidden
 		SwitchImage += "F";
-	SwitchImage += ".jpg";
+	else if (selected)		 // Highlighted
+		SwitchImage += "H";
+	SwitchImage += ".png";
 
 
 	Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
 
-	pWind->DrawImage(SwitchImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Switch_Width, UI.Switch_Height);
+	//pWind->DrawImage(SwitchImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Switch_Width, UI.Switch_Height);
+	DrawPNG(pWind, SwitchImage, r_GfxInfo);
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -969,6 +969,8 @@ void Output::FlushKeyQueue( )
 	pWind->FlushKeyQueue( );
 }
 
+
+
 void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, bool selected) const
 {
 	//TODO: Add code to draw connection
@@ -988,12 +990,14 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, 
 		bool test = false;
 
 		if ((AppManger->GetArr()[d][c] == con || (c == r_GfxInfo.x2&&d == r_GfxInfo.y2))
-			&& (AppManger->GetArr()[b][a] == con || (a == r_GfxInfo.x1&&b == r_GfxInfo.y1) || dynamic_cast<Connection*>(AppManger->GetArr()[b][a])->getSourcePin() == dynamic_cast<Connection*>(con)->getSourcePin()))
+			&& (AppManger->GetArr()[b][a] == con || (a == r_GfxInfo.x1&&b == r_GfxInfo.y1)|| (a == r_GfxInfo.x2&&b == r_GfxInfo.y2&&AppManger->GetArr()[d][c]==con) || (dynamic_cast<Connection*>(AppManger->GetArr()[b][a])&&((Connection*)AppManger->GetArr()[b][a])->getSourcePin() == ((Connection*)con)->getSourcePin())))
 		{
 			
 			pWind->DrawLine(c, d - UI.ConnectionOffset, a, b - UI.ConnectionOffset);
 		}
-		else if(!(dynamic_cast<Connection*>(AppManger->GetArr()[b][a])->getSourcePin() == dynamic_cast<Connection*>(con)->getSourcePin()))
+		else if(dynamic_cast<Connection*>(AppManger->GetArr()[b][a]))
+			if((((Connection*)AppManger->GetArr()[b][a])->getSourcePin() != ((Connection*)con)->getSourcePin()))
+if((!(dynamic_cast<Connection*>(AppManger->GetArr()[d][c])))||((Connection*)AppManger->GetArr()[d][c])->getSourcePin() != ((Connection*)con)->getSourcePin()|| (AppManger->GetArr()[d][c])==con)
 		{
 			
 			if (c == a) {

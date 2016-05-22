@@ -67,7 +67,8 @@ enum ActionType
 enum STATUS
 {
 	LOW,
-	HIGH
+	HIGH,
+	FLOATING
 };
 //Possible types of components that could be connected to the first edge of the connection
 enum FS

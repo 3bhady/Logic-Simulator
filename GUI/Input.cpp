@@ -6,11 +6,17 @@ Input::Input(window* pW)
 	pWind = pW; //point to the passed window
 }
 
-void Input::GetPointClicked(int &x, int &y)
+clicktype Input::GetPointClicked(int &x, int &y)
 {
-	pWind->WaitMouseClick(x, y);	//Wait for mouse click
+	return pWind->GetMouseClick(x, y);	//Wait for mouse click
 }
 
+keytype Input::GetKeyPressed( )
+{
+	char C;
+	
+	return pWind->GetKeyPress( C );
+}
 string Input::GetString( Output *pOut )
 {
 	///TODO: Implement this Function
@@ -104,9 +110,9 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 	//clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
 	char HotKey;
 
+
 	clicktype cType= pWind->GetMouseClick( x , y );
-	/*if ( cType == LEFT_CLICK )
-		cout << "test" << endl;	*/
+
 	keytype kType =pWind->GetKeyPress( HotKey );
 	
 	//Get the coordinates of the user click
@@ -137,7 +143,7 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 				case 2:return CUT;
 				case 3:return PASTE;
 				case 4:return DEL;
-				case 5:return MOVE;
+				case 5:return SELECT;
 
 				}
 

@@ -13,7 +13,7 @@ void WritePNG( window * pWind , image &screen , int x , int y , vector<unsigned 
 		//height = UI.height - y - 15;
 	pWind->StoreImage( screen , x , y , width , height );
 	unsigned char * Arr = screen.GetArr( );
-	int Size = Image.size();
+	unsigned int Size = Image.size();
 	//int Size = (sizeof( Arr ) / sizeof( *Arr ));
 	unsigned int i;
 	for ( i = 0; i < Size; i+=4 )

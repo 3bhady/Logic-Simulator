@@ -42,7 +42,6 @@ void Connection::Operate( )
 	//Status of connection destination pin = status of connection source pin
 	DstPin->setStatus( ( STATUS )SrcPin->getStatus( ) );
 
-
 }
 
 void Connection::Draw( Output* pOut )
@@ -124,13 +123,14 @@ BFSOut& Connection::get_path( )
 {
 	return outx;
 }
-int Connection::GetOutPinStatus( )	//returns status of outputpin if LED, return -1
+
+STATUS Connection::GetOutPinStatus()	//returns status of outputpin
 {
 	return DstPin->getStatus( );
 }
 
 
-int Connection::GetInputPinStatus( int n = 1 )	//returns status of Inputpin # n if SWITCH, return -1
+STATUS Connection::GetInputPinStatus(int n = 1)	//returns status of Inputpin #n
 {
 	return SrcPin->getStatus( );	//n is ignored as connection has only one input pin (src pin)
 }
@@ -140,7 +140,27 @@ void Connection::setInputPinStatus( STATUS s , int n = 1 )
 	SrcPin->setStatus( s );
 }
 
-Component * Connection::DeleteConnection( ApplicationManager* ptr )
+int Connection::getNumberofInPins()
+{
+	return 1;
+}
+
+bool Connection::isInpinFloating(int n)
+{
+	return false;
+}
+
+bool Connection::isOutpinFloating()
+{
+	return DstPin->get_connection();
+}
+
+int Connection::getCompIndexConnectedToInPin(int n)
+{
+	return SrcPin->getCompIndex();
+}
+
+Component * Connection::DeleteConnection(ApplicationManager* ptr)
 {
 
 	for ( int i = 0; i < 780; i++ )

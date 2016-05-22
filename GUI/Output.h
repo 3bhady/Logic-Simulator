@@ -51,6 +51,7 @@ public:
 
 	void Magnetize(int &x,int &y);		//Gets the nearest dot in the grid
 
+
 	/////////////////////////
 	//**Drawing Functions**//
 	/////////////////////////
@@ -75,6 +76,7 @@ public:
 	void UpdateBuffer( );
 	void FlushMouseQueue( );
 	void FlushKeyQueue( );
+	
 
 	void PrintMsg(string msg) const;	//Print a message on Status bar
 	void StoreImage(image &imgThis, const unsigned usX, const unsigned short usY, const unsigned short usWidth, const unsigned short usHeight);

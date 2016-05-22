@@ -9,7 +9,8 @@ a component. The output pin propagates its value immediately to the associated c
 #include "Pin.h"
 #include<algorithm>
 class Connection;	//Forward class declartion
-class Component;	//Forward class declartion
+class Component;//Forward class declartion
+
 using namespace std;
 
 class OutputPin : public Pin	//inherited from class Pin
@@ -19,15 +20,20 @@ private:
 	vector<Connection*> VOC;
 	int m_FanOut;	//Maximum No. of connections connected to that output pin (depends on the component)
 	int m_Conn;		//Actual No. of connections connected to that output pin
-	Component* pComp; //Component at which this pin is associated
+	Component* pComp;
 
 public:
 	OutputPin(int r_FanOut);
 	bool ConnectTo(Connection *r_Conn);	//connect to a new connection
 	vector<Connection*>& GetConnections();//return the vector of connections
 	int GetNum();//return the Actual No. of connections connected to that output pin.
-	void SetComponent(Component *);//set a new connection to this pin
+
+	Component* getComponent();	//returns the component of this pin
+	int getCompIndex();	//returns the index of the component of this pin
+
 	Connection* GetConnection(int);//return a connection
 	void DeleteConnection(Connection*);
+	void SetComponent(Component *pCmp);
+
 };
 

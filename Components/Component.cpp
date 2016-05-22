@@ -2,7 +2,9 @@
 #include "Component.h"
 #include <iostream>
 using namespace std;
+
 int Component::ID = 1;
+
 Component::Component(const GraphicsInfo &r_GfxInfo)
 {
 	m_GfxInfo = r_GfxInfo;
@@ -92,6 +94,16 @@ ComponentType Component::getType()
 Component::Component()
 {
 	m_Label = "NO-Label";
+}
+
+void Component::setCompIndex(int index)
+{
+	compIndex = index;
+}
+
+int Component::getCompIndex()
+{
+	return compIndex;
 }
 
 Component::~Component()

@@ -51,13 +51,17 @@ void ApplicationManager::AddComponent(Component* pComp)
 	if (dynamic_cast<Connection*>(pComp))
 		pComp->AddConnection(((Connection*)pComp)->get_path(), this);
 	else
+	{
 		pComp->AddComponent(this);
+	}
+		//Push Component in CompList
+		CompList.push_back(pComp);
 
-	//Push Component in CompList
-	CompList.push_back(pComp);
+		//Set index of Component
+		pComp->setCompIndex(CompCount);
 
-	//Increase Components count
-	CompCount++;
+		//Increase Components count
+		CompCount++;
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -342,3 +346,59 @@ ApplicationManager::~ApplicationManager()
 	delete OutputInterface;
 	delete InputInterface;
 }
+
+//Simulate
+bool ApplicationManager::Simulate()
+{
+	vector<bool> visited;
+	visited.resize(CompList.size(), false);
+	int SimulationResult = 0;
+	for (unsigned int i = 0; i < CompList.size(); i++)
+	{
+		if (CompList[i]->isOutpinFloating())
+		{
+			SimulationResult = 1;
+			break;
+		}
+	}
+	if (!SimulationResult)
+	{
+		for (unsigned int i = 0; i < CompList.size(); i++)
+			if (CompList[i]->getType() == Switch_)
+				CompList[i]->Operate();
+		for (unsigned int i = 0; i < CompList.size(); i++)
+			if (CompList[i]->getType() == LED_)
+				dfs(visited, CompList, i, SimulationResult);
+	}
+	if (SimulationResult == 1)
+	{
+		OutputInterface->PrintMsg("Simulation Failed ... Floating Pins !!"); 
+		return false;
+	}
+	if (SimulationResult == 2)
+	{
+		OutputInterface->PrintMsg("Simulation Failed ... Circuit contains feedback !!");
+		return false;
+	}
+	return true;
+}
+
+STATUS ApplicationManager::dfs(vector<bool>& visited, const vector<Component*>& Complist, int index, int &result)
+{
+
+	if (result)return FLOATING;
+	if (Complist[index]->GetOutPinStatus() != FLOATING)return Complist[index]->GetOutPinStatus();
+	if (visited[index]) { result = 2; return FLOATING; }
+	visited[index] = true;
+	for (int i = 0; i < Complist[i]->getNumberofInPins(); i++)
+	{
+		if (!Complist[i]->isInpinFloating(i))
+			Complist[i]->setInputPinStatus(STATUS(dfs(visited, Complist, Complist[i]->getCompIndexConnectedToInPin(i), result)), i);
+		else {
+			result = 1; return FLOATING;
+		}
+	}
+	Complist[index]->Operate();
+	return Complist[index]->GetOutPinStatus();
+}
+

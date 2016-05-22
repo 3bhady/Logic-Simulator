@@ -28,6 +28,7 @@ void OR3::Draw(Output* pOut)
 	pOut->DrawGate(m_GfxInfo, OR3_, highlighted, forbidden);
 }
 
+/*
 //returns status of outputpin
 int OR3::GetOutPinStatus()
 {
@@ -48,7 +49,7 @@ void OR3::setInputPinStatus(STATUS s, int n)
 }
 
 
-
+*/
 
 OR3::~OR3()
 {

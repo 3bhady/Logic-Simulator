@@ -29,6 +29,7 @@ void NAND3::Draw(Output* pOut)
 	pOut->DrawGate(m_GfxInfo, NAND3_, highlighted, forbidden);
 }
 
+/*
 //returns status of outputpin
 int NAND3::GetOutPinStatus()
 {
@@ -47,7 +48,7 @@ void NAND3::setInputPinStatus(STATUS s, int n)
 {
 	m_InputPins[n - 1].setStatus(s);
 }
-
+*/
 NAND3::~NAND3()
 {
 }

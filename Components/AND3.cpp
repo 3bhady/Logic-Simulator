@@ -28,7 +28,7 @@ void AND3::Draw(Output* pOut)
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, AND3_, highlighted, forbidden);
 }
-
+/*
 //returns status of outputpin
 int AND3::GetOutPinStatus()
 {
@@ -47,7 +47,7 @@ void AND3::setInputPinStatus(STATUS s, int n)
 {
 	m_InputPins[n - 1].setStatus(s);
 }
-
+*/
 
 AND3::~AND3()
 {

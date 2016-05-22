@@ -28,6 +28,7 @@ void XOR2::Draw(Output* pOut)
 	pOut->DrawGate(m_GfxInfo, XOR2_, highlighted, forbidden);
 }
 
+/*
 //returns status of outputpin
 int XOR2::GetOutPinStatus()
 {
@@ -47,7 +48,7 @@ void XOR2::setInputPinStatus(STATUS s, int n)
 	m_InputPins[n - 1].setStatus(s);
 }
 
-
+*/
 
 
 XOR2::~XOR2()
