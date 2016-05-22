@@ -370,7 +370,7 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 		else   //kero hena TODO todo eh dh ya kero?? eh??
 		{
 			pWind->DrawImage( "Images\\EDIT MENU\\EDIT MENU.jpg" , UI.EditMenuStartX , UI.EditMenuStartY );
-		//	pWind->UpdateBuffer( );
+		
 		}
 	}
 	if (!UI.isForbidden(x, y))
@@ -484,7 +484,11 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 	else {
 		if (UI.isInEditBar(x, y))
 		{
-			if ( UI.HiddenEditBar )return;
+			if ( UI.HiddenEditBar )
+			{
+				pWind->UpdateBuffer( );
+				return;
+			}
 			string num = "", s = "";
 			stringstream ss;
 			int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
@@ -507,14 +511,12 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 		}
 		else
 		{
-			if ( !UI.HiddenEditBar )CreateEditToolBar( );  //TODO make it draw simulation
+			if ( !UI.HiddenEditBar )
+				CreateEditToolBar( );  //TODO make it draw simulation
 			
 		}
 	}
-	//if ( !UI.isInEditBar( x , y ) && !UI.isInFileBar( x , y ) && !UI.isInToolBar( x , y ) )
-	//{	 
-		//PrintMsg( "" );
-	//}
+	
 	pWind->UpdateBuffer( );
 }
 
@@ -971,6 +973,8 @@ void Output::FlushKeyQueue( )
 	pWind->FlushKeyQueue( );
 }
 
+
+
 void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, bool selected) const
 {
 	//TODO: Add code to draw connection
@@ -990,12 +994,14 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, 
 		bool test = false;
 
 		if ((AppManger->GetArr()[d][c] == con || (c == r_GfxInfo.x2&&d == r_GfxInfo.y2))
-			&& (AppManger->GetArr()[b][a] == con || (a == r_GfxInfo.x1&&b == r_GfxInfo.y1) || dynamic_cast<Connection*>(AppManger->GetArr()[b][a])->getSourcePin() == dynamic_cast<Connection*>(con)->getSourcePin()))
+			&& (AppManger->GetArr()[b][a] == con || (a == r_GfxInfo.x1&&b == r_GfxInfo.y1)|| (a == r_GfxInfo.x2&&b == r_GfxInfo.y2&&AppManger->GetArr()[d][c]==con) || (dynamic_cast<Connection*>(AppManger->GetArr()[b][a])&&((Connection*)AppManger->GetArr()[b][a])->getSourcePin() == ((Connection*)con)->getSourcePin())))
 		{
 			
 			pWind->DrawLine(c, d - UI.ConnectionOffset, a, b - UI.ConnectionOffset);
 		}
-		else if(!(dynamic_cast<Connection*>(AppManger->GetArr()[b][a])->getSourcePin() == dynamic_cast<Connection*>(con)->getSourcePin()))
+		else if(dynamic_cast<Connection*>(AppManger->GetArr()[b][a]))
+			if((((Connection*)AppManger->GetArr()[b][a])->getSourcePin() != ((Connection*)con)->getSourcePin()))
+if((!(dynamic_cast<Connection*>(AppManger->GetArr()[d][c])))||((Connection*)AppManger->GetArr()[d][c])->getSourcePin() != ((Connection*)con)->getSourcePin()|| (AppManger->GetArr()[d][c])==con)
 		{
 			
 			if (c == a) {
@@ -1012,7 +1018,7 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, 
 		}
 
 	}
-	pWind->UpdateBuffer( );
+	//pWind->UpdateBuffer( );
 }
 Output::~Output()
 {

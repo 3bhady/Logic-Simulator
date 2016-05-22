@@ -64,6 +64,7 @@ switch(msg) {
 
 	  case WM_KEYDOWN:
 	    switch(wParam) {
+
 		case 46:   //delete
 			if ( wipInput != NULL ) {
 				wipInput->SetKeyInfo( hwnd , FUNCTION , 2000 );

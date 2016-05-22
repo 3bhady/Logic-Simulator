@@ -26,6 +26,7 @@ void Label::Execute()
 	{
 		string str;
 		str = pManager->GetInput()->GetString(pManager->GetOutput());
+		str = str == "" ? "NO-LABEL" : str;
 		for (unsigned int i = 0; i < pManager->getHighlightedCompListSize(); i++)
 		pManager->GetHighlightedComponent(i)->set_label(str);	
 	}

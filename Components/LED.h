@@ -21,7 +21,7 @@ public:
 	virtual STATUS GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	virtual STATUS GetInputPinStatus(int n);	//returns status of the Inputpin # n if SWITCH, return -1
 	virtual void setInputPinStatus(STATUS s, int n);	//set status of the Inputpin, to be used by connection class.
-	pair<int, int> get_INPC();//the function which gets an inputpin coordinates
+	pair<int, int>& get_INPC();//the function which gets an inputpin coordinates
 	InputPin* get_inputpin();
 	virtual int getNumberofInPins();
 	virtual bool isInpinFloating(int n);

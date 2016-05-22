@@ -13,11 +13,17 @@ Input::~Input()
 
 }
 
-void Input::GetPointClicked(int &x, int &y)
+clicktype Input::GetPointClicked(int &x, int &y)
 {
-	pWind->WaitMouseClick(x, y);	//Wait for mouse click
+	return pWind->GetMouseClick(x, y);	//Wait for mouse click
 }
 
+keytype Input::GetKeyPressed( )
+{
+	char C;
+	
+	return pWind->GetKeyPress( C );
+}
 string Input::GetString( Output *pOut )
 {
 	pOut->PrintMsg( "Please enter the label" );
@@ -93,7 +99,9 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 	//clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
 	char HotKey;
 
+
 	clicktype cType= pWind->GetMouseClick( x , y );
+
 	keytype kType =pWind->GetKeyPress( HotKey );
 	
 	//Get the coordinates of the user click
@@ -130,7 +138,7 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 				case 2:return CUT;
 				case 3:return PASTE;
 				case 4:return DEL;
-				case 5:return MOVE;
+				case 5:return SELECT;
 				}
 			}
 			return SELECT;
@@ -187,9 +195,9 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 					return CUT;
 				case 'v':
 					return PASTE;
-				case (2000+'0'):
+				case (-48):
 					return 	DEL;
-					// ctrl is 3000
+					// ctrl is -17
 				default:
 					break;
 				}

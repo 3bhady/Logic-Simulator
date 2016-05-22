@@ -22,7 +22,7 @@ public:
 	STATUS get_state();//return the switch status
 	OutputPin* get_OPP();
 	void setInputPinStatus(STATUS s, int n);
-	virtual pair<int, int> get_OP();//the function that gets the outputpin coordinates
+	virtual pair<int, int>& get_OP();//the function that gets the outputpin coordinates
 	virtual int getNumberofInPins();
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();

@@ -12,7 +12,9 @@ Switch::Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOu
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
-	outP = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 15);
+	outP = make_pair(m_GfxInfo.x2, m_GfxInfo.y1 + 15);
+	m_OutputPin.SetComponent(this);
+
 	//kero
 	//========================
 	switchID = ID++;
@@ -66,8 +68,9 @@ void Switch::setInputPinStatus(STATUS s, int n)
 
 }
 
-pair<int, int> Switch::get_OP()
+pair<int, int>& Switch::get_OP()
 {
+	outP = make_pair(m_GfxInfo.x2, m_GfxInfo.y1 + 15);
 	return outP;
 }
 int Switch::getNumberofInPins()

@@ -66,8 +66,10 @@ void LED::setInputPinStatus(STATUS s, int n = 1)
 }
 
 
-pair<int, int> LED::get_INPC()
+pair<int, int>& LED::get_INPC()
 {
+	inP = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+
 	return inP;
 }
 
