@@ -86,7 +86,7 @@ void Output::ChangeTitle(string Title) const
 void Output::CreateStatusBar() const
 {
 	pWind->DrawImage( "Images\\ToolBars\\Statusbar\\SB1.jpg" , UI.StatusBarStartX , UI.StatusBarStartY);
-	pWind->UpdateBuffer( );
+	//pWind->UpdateBuffer( );
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -266,7 +266,7 @@ void Output::CreateDesignToolBar() const
 	{
 		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, 0);
 	}
-	pWind->UpdateBuffer( );
+	//pWind->UpdateBuffer( );
 
 }
 
@@ -281,7 +281,7 @@ void Output::CreateFileToolBar() const
 
 	}
 	else 	pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX - UI.FileBarWidth, UI.FileBarTitleStartY);
-	pWind->UpdateBuffer( );
+	//pWind->UpdateBuffer( );
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -294,7 +294,7 @@ void Output::CreateEditToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX, UI.EditBarTitleStartY);
 	}
 	else pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX + UI.EditBarWidth, UI.EditBarTitleStartY);
-	pWind->UpdateBuffer( );
+	//pWind->UpdateBuffer( );
 }
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -334,7 +334,7 @@ void Output::DrawDots(int xStart, int yStart,int xFinish,int yFinish)
 			pWind->DrawCircle(i, j, 1);
 		}
 	}
-	pWind->UpdateBuffer( );
+	//pWind->UpdateBuffer( );
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -366,7 +366,7 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 		else   //kero hena TODO todo eh dh ya kero?? eh??
 		{
 			pWind->DrawImage( "Images\\EDIT MENU\\EDIT MENU.jpg" , UI.EditMenuStartX , UI.EditMenuStartY );
-			pWind->UpdateBuffer( );
+		//	pWind->UpdateBuffer( );
 		}
 	}
 	if (!UI.isForbidden(x, y))
@@ -375,12 +375,13 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 			PrintMsg(pApp->GetArr()[y][x]->get_label());
 		else
 			PrintMsg("");
-		//return;
+		
 	}			  
 	//========================================
 	if(UI.isInToolBar(x,y ) )
 	{
-		if ( UI.HiddenToolBar ) return;
+		if ( UI.HiddenToolBar ) 
+			return;
 		string num = "" , s = "";
 		stringstream ss;
 		int ClickedItemOrder = (x / UI.ToolBarItemWidth);

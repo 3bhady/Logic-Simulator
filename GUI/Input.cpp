@@ -19,6 +19,7 @@ string Input::GetString( Output *pOut )
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
 	pOut->PrintMsg( "Please enter the label" );
+	pWind->UpdateBuffer( );
 	string label = ""; //label
 	char kvInput; //value of input key pressed by user
 	keytype ktInput; // type of input key
@@ -54,6 +55,7 @@ string Input::GetString( Output *pOut )
 			}
 			else
 				label += kvInput;
+			
 
 		}
 		///////////////////////////////////////////////////////////////////////////
@@ -63,6 +65,7 @@ string Input::GetString( Output *pOut )
 
 		}
 		pOut->PrintMsg( label );
+		pWind->UpdateBuffer( );
 	}
 }
 
