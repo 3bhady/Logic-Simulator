@@ -37,6 +37,15 @@ int main()
 
 
 /*
+
+
+eman.hosam@gmail.com
+
+
+na5od balna mn el label byt3'yr
+copy name of component
+
+
 ns2l mo3ed :
 (move component w follow mouse and draw need to be one function! )
 

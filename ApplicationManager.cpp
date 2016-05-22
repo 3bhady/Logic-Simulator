@@ -52,7 +52,7 @@ void ApplicationManager::AddComponent(Component* pComp)
 	else
 	{
 		pComp->AddComponent(this);
-
+	}
 		//Push Component in CompList
 		CompList.push_back(pComp);
 
@@ -61,7 +61,6 @@ void ApplicationManager::AddComponent(Component* pComp)
 
 		//Increase Components count
 		CompCount++;
-	}
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -75,6 +74,37 @@ void ApplicationManager::save(ofstream &fout)
 }
 
 ////////////////////////////////////////////////////////////////////
+
+Component* ApplicationManager::GetComponent( int x , int y )
+{
+	return Arr[y][x];
+}
+
+void ApplicationManager::DeleteComponent( int x , int y )
+{
+	//DeleteComponent( Arr[y][x] );
+	Arr[y][x]->DeleteComponent( this );
+}
+
+void ApplicationManager::DeleteComponent( Component * pComp )
+{
+	
+	for ( unsigned int i = 0; i < HighlightedCompList.size( ); i++ )
+		if ( HighlightedCompList[i] == pComp )
+		{
+			HighlightedCompList.erase( HighlightedCompList.begin( ) + i );
+			break;
+		}
+
+	for ( unsigned int i = 0; i < CompList.size( ); i++ )
+		if ( CompList[i] == pComp )
+		{
+
+			delete CompList[i];
+			CompList.erase( CompList.begin( ) + i );
+			break;
+		}
+}
 
 vector<Component*>& ApplicationManager::GetCompList()
 {
@@ -104,10 +134,10 @@ stack<Action*>& ApplicationManager::getRedoStack()
 
 ////////////////////////////////////////////////////////////////////
 
-Component * ApplicationManager::GetComponent(int x ,int y)
+/*Component * ApplicationManager::GetComponent(int x ,int y)
 {
 	return Arr[y][x];
-}
+}  */
 
 ////////////////////////////////////////////////////////////////////
 
@@ -254,6 +284,7 @@ void ApplicationManager::UpdateInterface()
 	if (UI.AppMode != EDIT_MODE)
 	for (unsigned int i = 0; i < CompList.size(); i++)
 		CompList[i]->Draw(OutputInterface);
+	//OutputInterface->UpdateBuffer( );
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -273,6 +304,13 @@ Component *** ApplicationManager::GetArr( )
 vector< pair<GraphicsInfo , ComponentType> >& ApplicationManager::GetClipboard( )
 {
 	return Clipboard;
+}
+
+void ApplicationManager::AddToClipboard( Component * pComp )
+{
+
+	Clipboard.push_back( make_pair( pComp->get_GraphicInfo( ) , pComp->getType( ) ) );
+
 }
 
 ////////////////////////////////////////////////////////////////////

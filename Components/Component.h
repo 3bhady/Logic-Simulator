@@ -36,8 +36,8 @@ public:
 	GraphicsInfo& get_GraphicInfo();
 	void set_GraphicInfo(GraphicsInfo GFX);
 	virtual void AddComponent(ApplicationManager * pApp);		//Add component in 2D array and don't push it in complist	
-	virtual void DeleteComponent( ApplicationManager * pApp );
-	virtual void EraseComponent(ApplicationManager * pApp);
+	virtual void DeleteComponent( ApplicationManager * pApp ); //completly delete it
+	virtual void EraseComponent( ApplicationManager * pApp );//remove it from the grid
 	void Highlight();			//Make the component highlighted
 	void Unhighlight();			//Make the component unhighlighted
 	void Forbid( );				//Makes the component forbidden and it appears red

@@ -24,6 +24,8 @@ bool Cut::ReadActionParameters()
 
 void Cut::Execute( )
 {
+	if ( UI.AppMode == EDIT_MODE )
+		pManager->GetOutput( )->CloseEditMenu( pManager );
 	if ( !ReadActionParameters( ) )
 		return;
 	for ( unsigned int i = 0; i <pManager->GetCompList( ).size( ); i++ )
@@ -33,8 +35,6 @@ void Cut::Execute( )
 			pManager->GetClipboard( ).push_back( make_pair( pManager->GetCompList( )[i]->get_GraphicInfo( ) , pManager->GetCompList( )[i]->getType( ) ) );
 			ActionClipboard.push_back(make_pair(pManager->GetCompList()[i]->get_GraphicInfo(), pManager->GetCompList()[i]->getType()));
 			pManager->GetCompList( )[i]->DeleteComponent( pManager );
-			//delete pManager->GetCompList( )[i];
-			//pManager->GetCompList( ).erase( pManager->GetCompList( ).begin() + i );
 			i--;
 		}
 	pManager->ClearHighlightedCompList();

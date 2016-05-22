@@ -526,7 +526,7 @@ keytype window::GetKeyPress(char &cKey) {
     ProcessMessage(); // Kludge
 
 	kqueTmp = kqueInput.Remove();
-	if(kqueTmp != NULL) {
+ 	if(kqueTmp != NULL) {
 		cKey = kqueTmp->cValue;
         ktTmp = kqueTmp->ktInfo;
 

@@ -5,28 +5,28 @@
 //Parameters:
 //r_Inputs: no. of gate's input pins
 //r_FanOut: Fan out of the gate's output pin
-Gate::Gate(int r_Inputs, int r_FanOut, GraphicsInfo in_Gfxinfo) :m_OutputPin(r_FanOut)
+Gate::Gate( int r_Inputs , int r_FanOut , GraphicsInfo in_Gfxinfo ) :m_OutputPin( r_FanOut )
 {
 	//Allocate number of input pins (equals r_Inputs)
 	m_InputPins = new InputPin[r_Inputs];
 
-	inP = new pair<int, int>[r_Inputs];
+	inP = new pair<int , int>[r_Inputs];
 	m_Inputs = r_Inputs;	//set no. of inputs of that gate
-	switch (r_Inputs)
+	switch ( m_Inputs )
 	{
 	case 1:
-		inP[0] = make_pair(in_Gfxinfo.x1, in_Gfxinfo.y1 + 30);
+		inP[0] = make_pair( in_Gfxinfo.x1 , in_Gfxinfo.y1 + 30 );
 		break;
 	case 2:
-		inP[0] = make_pair(in_Gfxinfo.x1, in_Gfxinfo.y1 + 15);inP[1] = make_pair(in_Gfxinfo.x1, in_Gfxinfo.y1 + 45);
+		inP[0] = make_pair( in_Gfxinfo.x1 , in_Gfxinfo.y1 + 15 ); inP[1] = make_pair( in_Gfxinfo.x1 , in_Gfxinfo.y1 + 45 );
 		break;
 	case 3:
-		inP[0] = make_pair(in_Gfxinfo.x1, in_Gfxinfo.y1 + 15);inP[2] = make_pair(in_Gfxinfo.x1, in_Gfxinfo.y1 + 45);
-		inP[1] = make_pair(in_Gfxinfo.x1, in_Gfxinfo.y1 + 30);
+		inP[0] = make_pair( in_Gfxinfo.x1 , in_Gfxinfo.y1 + 15 ); inP[2] = make_pair( in_Gfxinfo.x1 , in_Gfxinfo.y1 + 45 );
+		inP[1] = make_pair( in_Gfxinfo.x1 , in_Gfxinfo.y1 + 30 );
 		break;
 	}
-	outP = make_pair(in_Gfxinfo.x2, in_Gfxinfo.y1 + 30); //TODO
-														 //Associate all input pins to this gate
+	outP = make_pair( in_Gfxinfo.x2 , in_Gfxinfo.y1 + 30 ); //TODO
+															//Associate all input pins to this gate
 
 	for (int i = 0; i<m_Inputs; i++)
 		m_InputPins[i].setComponent(this);
@@ -40,32 +40,62 @@ Gate::Gate(int r_Inputs, int r_FanOut, GraphicsInfo in_Gfxinfo) :m_OutputPin(r_F
 	//=======================
 }
 
-pair<int, int>& Gate::get_OP()
+pair<int , int>& Gate::get_OP( )
 {
+	outP = make_pair( m_GfxInfo.x2 , m_GfxInfo.y1 + 30 );
 	return outP;
 }
-pair<int, int>* Gate::get_INPC()
+pair<int , int>* Gate::get_INPC( )
 {
-	for (int i = 0;i < m_Inputs;i++)if (m_InputPins[i].get_connection() == NULL)return &inP[i];
+	switch ( m_Inputs )
+	{
+	case 1:
+		inP[0] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 30 );
+		break;
+	case 2:
+		inP[0] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 15 ); inP[1] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 45 );
+		break;
+	case 3:
+		inP[0] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 15 ); inP[2] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 45 );
+		inP[1] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 30 );
+		break;
+	}
+
+	for ( int i = 0; i < m_Inputs; i++ )if ( m_InputPins[i].get_connection( ) == NULL )return &inP[i];
 	return NULL;
 }
-OutputPin * Gate::get_Opin()
+OutputPin * Gate::get_Opin( )
 {
 	return &m_OutputPin;
 }
-InputPin * Gate::get_INpin(pair<int, int>& x)
+InputPin * Gate::get_INpin( pair<int , int>& x )
 {
-	int i, y55 = 10;
-	for (i = 0;i < m_Inputs;i++)
-		if (inP[i].first == x.first&&inP[i].second == x.second)
+	switch ( m_Inputs )
+	{
+	case 1:
+		inP[0] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 30 );
+		break;
+	case 2:
+		inP[0] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 15 ); inP[1] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 45 );
+		break;
+	case 3:
+		inP[0] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 15 ); inP[2] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 45 );
+		inP[1] = make_pair( m_GfxInfo.x1 , m_GfxInfo.y1 + 30 );
+		break;
+	}
+
+	int i , y55 = 10;
+	for ( i = 0; i < m_Inputs; i++ )
+		if ( inP[i].first == x.first&&inP[i].second == x.second )
 			y55 = i;
-	if (y55 >= m_Inputs)return NULL;
+	if ( y55 >= m_Inputs )return NULL;
 	return &m_InputPins[y55];
 }
-void Gate::Save(ofstream & fout)
+
+void Gate::Save( ofstream & fout )
 {
 	string str;
-	switch (Type)
+	switch ( Type )
 	{
 	case AND2_: {str = "AND2"; break; }
 	case OR2_: {str = "OR2"; break; }
@@ -84,22 +114,22 @@ void Gate::Save(ofstream & fout)
 	default:
 		break;
 	}
-	fout << left << setw(15) << str;
-	fout << setw(15) << gateID;
-	fout << setw(15) << get_label();
-	fout << setw(15) << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2;
-	fout << setw(15) << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2;
+	fout << left << setw( 15 ) << str;
+	fout << setw( 15 ) << gateID;
+	fout << setw( 15 ) << get_label( );
+	fout << setw( 15 ) << (m_GfxInfo.x1 + m_GfxInfo.x2) / 2;
+	fout << setw( 15 ) << (m_GfxInfo.y1 + m_GfxInfo.y2) / 2;
 	fout << "\n";
 }
 
-void Gate::Load(ifstream & fin)
+void Gate::Load( ifstream & fin )
 {
-	int x, y;
+	int x , y;
 	string label;
 	int ahbal;
 	fin >> ahbal;
 	fin >> label;
-	set_label(label);
+	set_label( label );
 	fin >> x >> y;
 	m_GfxInfo.x1 = x - UI.Gate_Width / 2;
 	m_GfxInfo.x2 = x + UI.Gate_Width / 2;

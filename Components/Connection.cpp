@@ -1,53 +1,53 @@
 #include "Connection.h"
 
-Connection::Connection(const GraphicsInfo &r_GfxInfo, BFSOut* outs, OutputPin *pSrcPin, InputPin *pDstPin) :Component(r_GfxInfo)
+Connection::Connection( const GraphicsInfo &r_GfxInfo , BFSOut* outs , OutputPin *pSrcPin , InputPin *pDstPin ) :Component( r_GfxInfo )
 
 {
 	outx = *outs;
 	SrcPin = pSrcPin;
 	DstPin = pDstPin;
 }
-void Connection::setSourcePin(OutputPin *pSrcPin)
+void Connection::setSourcePin( OutputPin *pSrcPin )
 {
 	SrcPin = pSrcPin;
 }
 
-OutputPin* Connection::getSourcePin()
+OutputPin* Connection::getSourcePin( )
 {
 	return SrcPin;
 }
 
 
-void Connection::setDestPin(InputPin *pDstPin)
+void Connection::setDestPin( InputPin *pDstPin )
 {
 	DstPin = pDstPin;
 }
 
-InputPin* Connection::getDestPin()
+InputPin* Connection::getDestPin( )
 {
 	return DstPin;
 }
 
-void Connection::Save(ofstream & fout)
+void Connection::Save( ofstream & fout )
 {
 }
 
-void Connection::Load(ifstream & fout)
+void Connection::Load( ifstream & fout )
 {
 }
 
 
-void Connection::Operate()
+void Connection::Operate( )
 {
 	//Status of connection destination pin = status of connection source pin
-	DstPin->setStatus((STATUS)SrcPin->getStatus());
+	DstPin->setStatus( ( STATUS )SrcPin->getStatus( ) );
 
 }
 
-void Connection::Draw(Output* pOut)
+void Connection::Draw( Output* pOut )
 {
 
-	pOut->DrawConnection(m_GfxInfo, outx, this, highlighted);
+	pOut->DrawConnection( m_GfxInfo , outx , this , highlighted );
 
 }
 /*
@@ -119,24 +119,25 @@ for (int i = 0;i < 780;i++) { delete[]vis[i];delete[]ifc[i];delete[]oth[i]; }
 delete[]vis;delete[]ifc;delete[]oth;
 }
 */
-BFSOut& Connection::get_path()
+BFSOut& Connection::get_path( )
 {
 	return outx;
 }
+
 STATUS Connection::GetOutPinStatus()	//returns status of outputpin
 {
-	return DstPin->getStatus();
+	return DstPin->getStatus( );
 }
 
 
 STATUS Connection::GetInputPinStatus(int n = 1)	//returns status of Inputpin #n
 {
-	return SrcPin->getStatus();	//n is ignored as connection has only one input pin (src pin)
+	return SrcPin->getStatus( );	//n is ignored as connection has only one input pin (src pin)
 }
 
-void Connection::setInputPinStatus(STATUS s, int n = 1)
+void Connection::setInputPinStatus( STATUS s , int n = 1 )
 {
-	SrcPin->setStatus(s);
+	SrcPin->setStatus( s );
 }
 
 int Connection::getNumberofInPins()
@@ -157,10 +158,10 @@ int Connection::getCompIndexConnectedToInPin(int n)
 Component * Connection::DeleteConnection(ApplicationManager* ptr)
 {
 
-	for (int i = 0;i < 780;i++)
-		for (int j = 0;j < 1400;j++)
-			if (ptr->GetArr()[i][j] == this)ptr->GetArr()[i][j] = NULL;
-	this->getSourcePin()->DeleteConnection(this);
-	this->getDestPin()->set_connection(NULL);
+	for ( int i = 0; i < 780; i++ )
+		for ( int j = 0; j < 1400; j++ )
+			if ( ptr->GetArr( )[i][j] == this )ptr->GetArr( )[i][j] = NULL;
+	this->getSourcePin( )->DeleteConnection( this );
+	this->getDestPin( )->set_connection( NULL );
 	return this;
 }

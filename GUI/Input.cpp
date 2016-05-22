@@ -19,6 +19,7 @@ string Input::GetString( Output *pOut )
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
 	pOut->PrintMsg( "Please enter the label" );
+	pWind->UpdateBuffer( );
 	string label = ""; //label
 	char kvInput; //value of input key pressed by user
 	keytype ktInput; // type of input key
@@ -54,6 +55,7 @@ string Input::GetString( Output *pOut )
 			}
 			else
 				label += kvInput;
+			
 
 		}
 		///////////////////////////////////////////////////////////////////////////
@@ -63,6 +65,7 @@ string Input::GetString( Output *pOut )
 
 		}
 		pOut->PrintMsg( label );
+		pWind->UpdateBuffer( );
 	}
 }
 
@@ -157,8 +160,8 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 			return SELECT;
 		}
 	}
-	if (cType == LEFT_CLICK)
-	{
+	if (cType == LEFT_CLICK)	//todo eh dh ya kero???  // fen el functions bta3t is in toolbar ??? fen??
+	{	 //bzmtk shaklaha msh w7sh ya kero ???
 		if (UI.HiddenToolBar&&y < UI.ToolBarTitleHeight &&y >= 0 && x < UI.ToolBarTitleWidth)//show hidden toolbar
 			return SHOW_DESIGN_B;
 		if (!UI.HiddenToolBar && UI.isInToolBarTitle(x, y))
@@ -196,8 +199,9 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 				}
 			}
 			//[1] If user clicks on the Toolbar
-			if (y >= 0 && y < UI.ToolBarHeight)
-			{
+			//if (y >= 0 && y < UI.ToolBarHeight)
+			if(UI.isInToolBar(x,y ))
+			{						
 				//Check whick Menu item was clicked
 				//==> This assumes that menu items are lined up horizontally <==
 				int ClickedItemOrder = (x / UI.ToolBarItemWidth);

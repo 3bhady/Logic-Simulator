@@ -29,6 +29,8 @@ bool Copy::ReadActionParameters()
 
 void Copy::Execute( )
 {	  
+	if ( UI.AppMode == EDIT_MODE )
+		pManager->GetOutput( )->CloseEditMenu( pManager );
 	if ( !ReadActionParameters( ) )
 		return;
 	//int size = pManager->GetCompList( ).size( );
