@@ -46,12 +46,7 @@ enum ActionType
 
 	UNDO,		//undo the last Action preformed
 	REDO,		//redo the last Action canceled
-	HIDE_DESIGN_B,
-	SHOW_DESIGN_B,
-	HIDE_FILE_B,
-	SHOW_FILE_B,
-	HIDE_EDIT_B,
-	SHOW_EDIT_B,
+	TOGGLE_BARS,
 	EDIT_MENU,
 	DSN_MODE,	//Switch to Design mode
 	SIM_MODE,	//Switch to Simulatiom mode
