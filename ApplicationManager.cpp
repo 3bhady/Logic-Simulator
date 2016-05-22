@@ -354,21 +354,18 @@ bool ApplicationManager::Simulate()
 	visited.resize(CompList.size(), false);
 	int SimulationResult = 0;
 	for (unsigned int i = 0; i < CompList.size(); i++)
+		if (CompList[i]->getType() == Switch_)
+			CompList[i]->Operate();
+	for (unsigned int i = 0; i < CompList.size(); i++)
+		if (CompList[i]->getType() == LED_)
+			dfs(visited, CompList, i, SimulationResult);
+	for (unsigned int i = 0; i < CompList.size(); i++)
 	{
 		if (CompList[i]->isOutpinFloating())
 		{
 			SimulationResult = 1;
 			break;
 		}
-	}
-	if (!SimulationResult)
-	{
-		for (unsigned int i = 0; i < CompList.size(); i++)
-			if (CompList[i]->getType() == Switch_)
-				CompList[i]->Operate();
-		for (unsigned int i = 0; i < CompList.size(); i++)
-			if (CompList[i]->getType() == LED_)
-				dfs(visited, CompList, i, SimulationResult);
 	}
 	if (SimulationResult == 1)
 	{
