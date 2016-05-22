@@ -280,6 +280,7 @@ void ApplicationManager::UpdateInterface()
 	if (UI.AppMode != EDIT_MODE)
 	for (unsigned int i = 0; i < CompList.size(); i++)
 		CompList[i]->Draw(OutputInterface);
+	//OutputInterface->UpdateBuffer( );
 }
 
 ////////////////////////////////////////////////////////////////////

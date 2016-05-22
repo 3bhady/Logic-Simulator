@@ -43,7 +43,6 @@ void AreaSelect::Execute()
 
 	int x , y;
 	int j, sj, i, si;
-	pManager->GetOutput()->SetBuffering(true);
 	while ( pManager->GetInput()->GetButtonState( LEFT_BUTTON , x , y ) == NO_CLICK )  //exit if the user clicks anywhere
 	{
 
@@ -109,7 +108,7 @@ void AreaSelect::Execute()
 
 	pManager->GetOutput( )->UpdateBuffer( );
 	pManager->GetOutput( )->FlushMouseQueue( );		//to flush the mouse queue so that the application can work right
-	pManager->GetOutput( )->SetBuffering( false );
+	
 }
 void AreaSelect::undo( )
 {
