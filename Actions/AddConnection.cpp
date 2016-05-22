@@ -42,9 +42,7 @@ bool AddConnection::ReadActionParameters( )
 
 				pOut->UpdateBuffer( );
 			}
-		}
-		if ( pIn->GetPointClicked( Cx , Cy ) == LEFT_CLICK )
-		{
+		
 			if ( dynamic_cast< Switch* >(pManager->GetArr( )[Cy][Cx]) ) {
 				GInfo.x1 = ((( Switch* )(pManager->GetArr( )[Cy][Cx]))->get_OP( ).first);
 				GInfo.y1 = ((( Switch* )(pManager->GetArr( )[Cy][Cx]))->get_OP( ).second);
@@ -59,10 +57,7 @@ bool AddConnection::ReadActionParameters( )
 				pOut->UpdateBuffer( );
 			}
 		}
-		/*if (dynamic_cast<Connection*>(pManager->GetArr()[Cy][Cx])) {
-		GInfo.x1 = Cx;
-		GInfo.y1 = Cy;break;
-		}*/
+		
 		
 	} while ( true );
 	//s = "Adding Connection : Click to add the second edge ";
@@ -102,11 +97,7 @@ bool AddConnection::ReadActionParameters( )
 				pOut->PrintMsg( "You choosed an invalid Component, please choose a Gate or Led  " );
 				pOut->UpdateBuffer( );
 			}
-		}
-		if ( pIn->GetPointClicked( Cx , Cy ) == LEFT_CLICK )
-		{
-			if ( dynamic_cast< LED* >(pManager->GetArr( )[Cy][Cx]) ) {
-
+			if ( dynamic_cast< LED* >(pManager->GetArr( )[Cy][Cx])&& (((LED*)(pManager->GetArr()[Cy][Cx]))->get_inputpin()->get_connection() == NULL)) {
 				GInfo.x2 = (( LED* )(pManager->GetArr( )[Cy][Cx]))->get_INPC( ).first;
 				GInfo.y2 = (( LED* )(pManager->GetArr( )[Cy][Cx]))->get_INPC( ).second;
 				second = L;
