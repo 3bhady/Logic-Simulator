@@ -29,8 +29,11 @@ void Delete::Execute( )
 	//remove highlighted elements from component list
 	if ( UI.AppMode == EDIT_MODE )
 		pManager->GetOutput( )->CloseEditMenu( pManager );
-	for ( unsigned int i = 0; i < pManager->getHighlightedCompListSize(); i++ )
+	for ( unsigned int i = 0; i < pManager->getHighlightedCompListSize( ); i++ )
+	{
 		pManager->GetHighlightedList( )[i]->DeleteComponent( pManager );
+		i--;
+	}
 
 	pManager->ClearHighlightedCompList( );
 

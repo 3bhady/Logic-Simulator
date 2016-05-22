@@ -366,7 +366,7 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 		else   //kero hena TODO todo eh dh ya kero?? eh??
 		{
 			pWind->DrawImage( "Images\\EDIT MENU\\EDIT MENU.jpg" , UI.EditMenuStartX , UI.EditMenuStartY );
-		//	pWind->UpdateBuffer( );
+		
 		}
 	}
 	if (!UI.isForbidden(x, y))
@@ -480,7 +480,11 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 	else {
 		if (UI.isInEditBar(x, y))
 		{
-			if ( UI.HiddenEditBar )return;
+			if ( UI.HiddenEditBar )
+			{
+				pWind->UpdateBuffer( );
+				return;
+			}
 			string num = "", s = "";
 			stringstream ss;
 			int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
@@ -503,14 +507,12 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 		}
 		else
 		{
-			if ( !UI.HiddenEditBar )CreateEditToolBar( );  //TODO make it draw simulation
+			if ( !UI.HiddenEditBar )
+				CreateEditToolBar( );  //TODO make it draw simulation
 			
 		}
 	}
-	//if ( !UI.isInEditBar( x , y ) && !UI.isInFileBar( x , y ) && !UI.isInToolBar( x , y ) )
-	//{	 
-		//PrintMsg( "" );
-	//}
+	
 	pWind->UpdateBuffer( );
 }
 
@@ -1008,7 +1010,7 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, 
 		}
 
 	}
-	pWind->UpdateBuffer( );
+	//pWind->UpdateBuffer( );
 }
 Output::~Output()
 {

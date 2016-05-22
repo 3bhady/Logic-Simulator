@@ -105,6 +105,8 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 	char HotKey;
 
 	clicktype cType= pWind->GetMouseClick( x , y );
+	/*if ( cType == LEFT_CLICK )
+		cout << "test" << endl;	*/
 	keytype kType =pWind->GetKeyPress( HotKey );
 	
 	//Get the coordinates of the user click
@@ -194,9 +196,9 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 					return CUT;
 				case 'v':
 					return PASTE;
-				case (2000+'0'):
+				case (-48):
 					return 	DEL;
-					// ctrl is 3000
+					// ctrl is -17
 				default:
 					break;
 				}
