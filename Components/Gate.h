@@ -35,4 +35,11 @@ public:
 	void Save(ofstream &fout);
 	void Load(ifstream &fin);
 	//=============================================
+
+	virtual STATUS GetOutPinStatus();
+	virtual STATUS GetInputPinStatus(int n);
+	virtual void setInputPinStatus(STATUS s, int n);
+	virtual int getNumberofInPins();
+	virtual bool isInpinFloating(int n);
+	virtual int getCompIndexConnectedToInPin(int n);
 };

@@ -79,7 +79,7 @@ bool AddConnection::ReadActionParameters()
 		//pOut->ClearStatusBar();
 		//pOut->PrintMsg("Please choose a vaild Gate or Led");
 		pOut->ClearStatusBar();
-		pOut->PrintMsg("You choosed a nonvalied Component,please choose a Gate or Led  ");
+		pOut->PrintMsg("You choosed an invalid Component, please choose a Gate or Led  ");
 	} while (true);
 	bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), outx);
 	if (outx.check)

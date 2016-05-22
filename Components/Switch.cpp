@@ -22,29 +22,29 @@ Switch::Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOu
 
 void Switch::Operate()
 {
-
+	m_OutputPin.setStatus(State);
 }
 
 
-// Function Draw
-// Draws swtich
+// Draw switch
 void Switch::Draw(Output* pOut)
 {
 	//Call output class and pass switch drawing info to it.
-	pOut->DrawSwitch(m_GfxInfo, State, highlighted);
+	pOut->DrawSwitch(m_GfxInfo, State, forbidden, highlighted, UI.AppMode);
 }
 
+
 //returns status of outputpin
-int Switch::GetOutPinStatus()
+STATUS Switch::GetOutPinStatus()
 {
 	return m_OutputPin.getStatus();
 }
 
 
 //returns status of Inputpin 
-int Switch::GetInputPinStatus(int n = 1)
+STATUS Switch::GetInputPinStatus(int n = 1)
 {
-	return	-1;	//n starts from 1 but array index starts from 0.
+	return	FLOATING;
 }
 //Set status of the switch on or off
 void Switch::set_state(STATUS x)
@@ -64,14 +64,28 @@ OutputPin * Switch::get_OPP()
 
 void Switch::setInputPinStatus(STATUS s, int n)
 {
+
 }
-
-
 
 pair<int, int> Switch::get_OP()
 {
 	return outP;
 }
+int Switch::getNumberofInPins()
+{
+	return 0;
+}
+
+bool Switch::isInpinFloating(int n)
+{
+	return false;
+}
+
+int Switch::getCompIndexConnectedToInPin(int n)
+{
+	return -1;
+}
+
 void Switch::Save(ofstream & fout)
 {
 	fout << left << setw(15) << "SWITCH";

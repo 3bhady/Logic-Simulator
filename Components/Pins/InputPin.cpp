@@ -1,4 +1,5 @@
 #include "InputPin.h"
+#include"..\Connection.h"
 
 InputPin::InputPin()
 {
@@ -26,3 +27,4 @@ void InputPin::set_connection(Connection* x)
 {
 	pCon = x;
 }
+

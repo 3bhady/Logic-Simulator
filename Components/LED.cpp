@@ -1,4 +1,5 @@
 #include "LED.h"
+#include"Connection.h"
 
 LED::LED(const GraphicsInfo &r_GfxInfo)//, pair<int, int> x)
 {
@@ -33,9 +34,7 @@ LED::LED(const GraphicsInfo &r_GfxInfo)//, pair<int, int> x)
 
 void LED::Operate()
 {
-
-	if (m_InputPin.getStatus() == HIGH)State = HIGH;
-	else State = LOW;
+	State = m_InputPin.getStatus();
 }
 
 
@@ -48,22 +47,16 @@ void LED::Draw(Output* pOut)
 }
 
 //returns status of outputpin
-int LED::GetOutPinStatus()
+STATUS LED::GetOutPinStatus()
 {
-	return -1;
+	return FLOATING;
 }
 
 
 //returns status of Inputpin #n
-int LED::GetInputPinStatus(int n = 1)
+STATUS LED::GetInputPinStatus(int n = 1)
 {
-	return m_InputPin.getStatus();	//n starts from 1 but array index starts from 0.
-}
-
-//return the switch status
-STATUS LED::get_state()
-{
-	return State;
+	return m_InputPin.getStatus();	//n is ignored as connection has only one input pin
 }
 
 //Set status of an input pin ot HIGH or LOW
@@ -71,6 +64,7 @@ void LED::setInputPinStatus(STATUS s, int n = 1)
 {
 	m_InputPin.setStatus(s);
 }
+
 
 pair<int, int> LED::get_INPC()
 {
@@ -80,6 +74,21 @@ pair<int, int> LED::get_INPC()
 InputPin * LED::get_inputpin()
 {
 	return &m_InputPin;
+}
+
+int LED::getNumberofInPins()
+{
+	return 1;
+}
+
+bool LED::isInpinFloating(int n)
+{
+	return (m_InputPin.get_connection() == NULL);
+}
+
+int LED::getCompIndexConnectedToInPin(int n)
+{
+	return	m_InputPin.get_connection()->getCompIndexConnectedToInPin(n);
 }
 
 

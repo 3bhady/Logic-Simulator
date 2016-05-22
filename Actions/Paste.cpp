@@ -33,7 +33,7 @@ void Paste::Execute( )
 	*/
 	pManager->ClearHighlightedCompList();
 	unsigned int size = pManager->GetClipboard( ).size( );
-	for ( int i = 0; i < size; i++ )
+	for (unsigned int i = 0; i < size; i++ )
 	{
 		
 		Component* pG;
@@ -125,7 +125,7 @@ void Paste::Execute( )
 	}
 	
 	if (pManager->GetOutput()->MoveComponents(pManager, pManager->GetHighlightedComponent(0)))
-		for (int i = 0; i < size; i++)
+		for (unsigned int i = 0; i < size; i++)
 			pManager->AddComponent(pManager->GetHighlightedComponent(i)),
 			//pManager->GetHighlightedList()[i]->Unhighlight() ,
 			ActionClipBoard.push_back(make_pair(pManager->GetHighlightedComponent(i)->get_GraphicInfo(), pManager->GetHighlightedComponent(i)->getType()));

@@ -34,11 +34,13 @@ public:
 	BFSOut& get_path();
 	void set_path(BFSOut);
 
-	virtual int GetOutPinStatus();	//returns status of outputpin if LED, return -1
-	virtual int GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1
+	virtual STATUS GetOutPinStatus();	//returns status of outputpin if LED, return -1
+	virtual STATUS GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1
 
 	virtual void setInputPinStatus(STATUS s, int n);	//set status of Inputpin # n, to be used by connection class.
-	
+	virtual int getNumberofInPins();
+	virtual bool isInpinFloating(int n);
+	virtual int getCompIndexConnectedToInPin(int n);
 	Component* DeleteConnection(ApplicationManager*);//remove all pointers of this connection from the 2-D array
 
 };

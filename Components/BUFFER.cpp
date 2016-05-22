@@ -26,7 +26,7 @@ void BUFFER::Draw(Output* pOut)
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, Buff_, highlighted, forbidden);
 }
-
+/*
 //returns status of outputpin
 int BUFFER::GetOutPinStatus()
 {
@@ -45,7 +45,7 @@ void BUFFER::setInputPinStatus(STATUS s, int n = 1)
 {
 	m_InputPins[n - 1].setStatus(s);
 }
-
+*/
 
 BUFFER::~BUFFER()
 {

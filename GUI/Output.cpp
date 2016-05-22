@@ -862,7 +862,6 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected,
 void Output::DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, bool forbidden, string colour)
 {
 	//Getting the switch image
-
 	string LEDImage = "Images\\LED\\";
 	if (state)			  // ON or OFF
 		LEDImage += "ON" + colour;
@@ -871,11 +870,12 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, bool for
 		LEDImage += "H";
 	else if (forbidden)	//Forbidden
 		LEDImage += "F";
-	LEDImage += ".jpg";
+	LEDImage += ".png";
 
 	Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
 
-	pWind->DrawImage(LEDImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.LED_Width, UI.LED_Height);
+	//pWind->DrawImage(LEDImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.LED_Width, UI.LED_Height);
+	DrawPNG(pWind, LEDImage, r_GfxInfo);
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -883,7 +883,6 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, bool for
 void Output::DrawSwitch(GraphicsInfo r_GfxInfo, STATUS status, bool selected, bool forbidden, MODE mode)
 {
 	//Getting the switch image
-
 	string SwitchImage = "Images\\Switch\\";
 	if (mode == DESIGN)		  // Design or Simulation mode
 		SwitchImage += "DSN";
@@ -896,12 +895,13 @@ void Output::DrawSwitch(GraphicsInfo r_GfxInfo, STATUS status, bool selected, bo
 		SwitchImage += "H";
 	else if (forbidden)	//Forbidden
 		SwitchImage += "F";
-	SwitchImage += ".jpg";
+	SwitchImage += ".png";
 
 
 	Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
 
-	pWind->DrawImage(SwitchImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Switch_Width, UI.Switch_Height);
+	//pWind->DrawImage(SwitchImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Switch_Width, UI.Switch_Height);
+	DrawPNG(pWind, SwitchImage, r_GfxInfo);
 }
 
 //////////////////////////////////////////////////////////////////////////////////

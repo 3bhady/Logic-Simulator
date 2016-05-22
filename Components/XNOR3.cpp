@@ -29,7 +29,7 @@ void XNOR3::Draw(Output* pOut)
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, XNOR3_, highlighted, forbidden);
 }
-
+/*
 //returns status of outputpin
 int XNOR3::GetOutPinStatus()
 {
@@ -48,7 +48,7 @@ void XNOR3::setInputPinStatus(STATUS s, int n)
 {
 	m_InputPins[n - 1].setStatus(s);
 }
-
+*/
 
 XNOR3::~XNOR3()
 {

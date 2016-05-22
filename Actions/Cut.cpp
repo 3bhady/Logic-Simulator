@@ -26,7 +26,6 @@ void Cut::Execute( )
 {
 	if ( !ReadActionParameters( ) )
 		return;
-	pManager->ClearHighlightedCompList();
 	for ( unsigned int i = 0; i <pManager->GetCompList( ).size( ); i++ )
 		if ( pManager->GetCompList( )[i]->isSelected( ) )
 		{
@@ -38,7 +37,8 @@ void Cut::Execute( )
 			//pManager->GetCompList( ).erase( pManager->GetCompList( ).begin() + i );
 			i--;
 		}
-}
+	pManager->ClearHighlightedCompList();
+}	
 
 void Cut::undo( )
 {

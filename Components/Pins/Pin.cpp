@@ -2,7 +2,7 @@
 
 Pin::Pin()
 {
-	m_Status = LOW;	//Default Status is LOW
+	m_Status = FLOATING;	//Default Status is FLOATING
 }
 
 void Pin::setStatus(STATUS r_Status)

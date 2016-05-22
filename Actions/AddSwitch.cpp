@@ -56,8 +56,10 @@ void AddSwitch::Execute()
 	Switch *pS = new Switch(GInfo, AND2_FANOUT);
 
 	//if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
-	if (pOut->FollowMouseAndDraw(GInfo, Switch_, pManager->GetArr()))
-		pManager->AddComponent(pS);
+	if (pOut->FollowMouseAndDraw(pS->get_GraphicInfo(), Switch_, pManager->GetArr()))
+	{
+		pManager->AddComponent(pS); GInfo = pS->get_GraphicInfo();
+	}
 	else delete pS;
 }
 

@@ -28,6 +28,7 @@ void NOR2::Draw(Output* pOut)
 	pOut->DrawGate(m_GfxInfo, NOR2_, highlighted, forbidden);
 }
 
+/*
 //returns status of outputpin
 int NOR2::GetOutPinStatus()
 {
@@ -47,7 +48,7 @@ void NOR2::setInputPinStatus(STATUS s, int n)
 	m_InputPins[n - 1].setStatus(s);
 }
 
-
+*/
 
 NOR2::~NOR2()
 {

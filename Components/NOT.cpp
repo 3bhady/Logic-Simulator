@@ -26,7 +26,7 @@ void NOT::Draw(Output* pOut)
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, INV_, highlighted, forbidden);
 }
-
+/*
 //returns status of outputpin
 int NOT::GetOutPinStatus()
 {
@@ -46,7 +46,7 @@ void NOT::setInputPinStatus(STATUS s, int n = 1)
 	m_InputPins->setStatus(s);
 }
 
-
+*/
 NOT::~NOT()
 {
 }

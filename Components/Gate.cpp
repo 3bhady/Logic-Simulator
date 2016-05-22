@@ -1,4 +1,5 @@
 #include "Gate.h"
+#include"Connection.h"
 
 //Gate Constructor
 //Parameters:
@@ -32,6 +33,7 @@ Gate::Gate(int r_Inputs, int r_FanOut, GraphicsInfo in_Gfxinfo) :m_OutputPin(r_F
 	Width = UI.Gate_Width;
 	Height = UI.Gate_Height;
 	m_OutputPin.SetComponent(this);
+	m_OutputPin = FLOATING;
 	//kero
 	//===========================
 	gateID = ID++;
@@ -103,5 +105,35 @@ void Gate::Load(ifstream & fin)
 	m_GfxInfo.x2 = x + UI.Gate_Width / 2;
 	m_GfxInfo.y1 = y - UI.Gate_Height / 2;
 	m_GfxInfo.y2 = y + UI.Gate_Height / 2;
+}
+
+STATUS Gate::GetOutPinStatus()
+{
+	return m_OutputPin.getStatus();
+}
+
+STATUS Gate::GetInputPinStatus(int n)
+{
+	return m_InputPins[n - 1].getStatus();	//n starts from 1 but array index starts from 0;
+}
+
+void Gate::setInputPinStatus(STATUS s, int n)
+{
+	m_InputPins[n - 1].setStatus(s);
+}
+
+int Gate::getNumberofInPins()
+{
+	return m_Inputs;
+}
+
+bool Gate::isInpinFloating(int n)
+{
+	return (m_InputPins[n - 1].get_connection() == NULL);
+}
+
+int Gate::getCompIndexConnectedToInPin(int n)
+{
+	return m_InputPins[n - 1].get_connection()->getCompIndexConnectedToInPin(n);
 }
 

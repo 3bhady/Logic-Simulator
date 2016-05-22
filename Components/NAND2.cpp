@@ -29,6 +29,7 @@ void NAND2::Draw(Output* pOut)
 	pOut->DrawGate(m_GfxInfo, NAND2_, highlighted, forbidden);
 }
 
+/*
 //returns status of outputpin
 int NAND2::GetOutPinStatus()
 {
@@ -47,7 +48,7 @@ void NAND2::setInputPinStatus(STATUS s, int n)
 {
 	m_InputPins[n - 1].setStatus(s);
 }
-
+*/
 
 NAND2::~NAND2()
 {
