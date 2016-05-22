@@ -47,6 +47,7 @@ public:
 
 	Component *** GetArr( );	//returns the grid
 	vector< pair<GraphicsInfo , ComponentType> >& GetClipboard( );
+	void AddToClipboard(Component* pComp);
 
 	void AddComponent(Component* pComp);	//Add component in 2D array and push it in complist	
 	 

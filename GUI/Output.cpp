@@ -135,7 +135,7 @@ void Output::HideDesignToolBar() const
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
 	pWind->SetBuffering( true );
-	for (int i = 0; i >-UI.ToolBarHeight; i-=7)
+	for (int i = 0; i >-UI.ToolBarHeight; i-=10)
 	{
 		
 		pWind->DrawImage(temp, 0, 0);
@@ -145,9 +145,9 @@ void Output::HideDesignToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, UI.ToolBarTitleStartY + i);
 		pWind->UpdateBuffer();
 	}
-	CreateGrid();
-	CreateToolBars();
-	pWind->UpdateBuffer();
+	//CreateGrid();
+	//CreateToolBars();
+	//pWind->UpdateBuffer();
 	pWind->SetBuffering(false);
 }
 
@@ -156,7 +156,7 @@ void Output::ShowDesignToolBar() const
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
 	pWind->SetBuffering( true );
-	for (int i = -UI.ToolBarHeight; i <0; i+=7)
+	for (int i = -UI.ToolBarHeight; i <0; i+=10)
 	{
 		
 		pWind->DrawImage(temp, 0, 0);
@@ -166,9 +166,9 @@ void Output::ShowDesignToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, UI.ToolBarTitleStartY + i);
 		pWind->UpdateBuffer();
 	}
-	CreateGrid();
-	CreateToolBars();
-	pWind->UpdateBuffer();
+	//CreateGrid();
+	//CreateToolBars();
+	//pWind->UpdateBuffer();
 	pWind->SetBuffering(false);
 }
 
@@ -177,7 +177,7 @@ void Output::HideFileToolBar() const
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
 	pWind->SetBuffering( true );
-	for (int i = 0; i >-UI.FileBarWidth; i-=4)
+	for (int i = 0; i >-UI.FileBarWidth; i-=7)
 	{
 		
 		pWind->DrawImage(temp, 0, 0);
@@ -186,9 +186,9 @@ void Output::HideFileToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", i + UI.FileBarWidth, UI.FileBarTitleStartY);
 		pWind->UpdateBuffer();
 	}
-	CreateGrid();
-	CreateToolBars();
-	pWind->UpdateBuffer();
+	//CreateGrid();
+	//CreateToolBars();
+	//pWind->UpdateBuffer();
 	pWind->SetBuffering(false);
 }
 
@@ -197,7 +197,7 @@ void Output::ShowFileToolBar() const
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
 	pWind->SetBuffering( true );
-	for (int i = -UI.FileBarWidth; i <0; i+=4)
+	for (int i = -UI.FileBarWidth; i <0; i+=7)
 	{
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.FileBarStartX, UI.FileBarStartY);
@@ -205,9 +205,9 @@ void Output::ShowFileToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarWidth + i, UI.FileBarTitleStartY);
 		pWind->UpdateBuffer();
 	}
-	CreateGrid();
-	CreateToolBars();
-	pWind->UpdateBuffer();
+	//CreateGrid();
+	//CreateToolBars();
+	//pWind->UpdateBuffer();
 	pWind->SetBuffering(false);
 }
 
@@ -216,7 +216,7 @@ void Output::HideEditToolBar() const
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
 	pWind->SetBuffering( true );
-	for (int i = -UI.EditBarWidth; i <0; i+=4)
+	for (int i = -UI.EditBarWidth; i <0; i+=7)
 	{
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.EditBarTitleStartX, UI.EditBarStartY);
@@ -228,9 +228,9 @@ void Output::HideEditToolBar() const
 		pWind->UpdateBuffer();
 	}
 	
-	CreateGrid();
-	CreateToolBars();
-	pWind->UpdateBuffer();
+	//CreateGrid();
+	//CreateToolBars();
+	//pWind->UpdateBuffer();
 	pWind->SetBuffering(false);
 	
 }
@@ -240,7 +240,7 @@ void Output::ShowEditToolBar() const
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
 	pWind->SetBuffering( true );
-	for (int i = 0; i >-UI.EditBarWidth; i-=4)
+	for (int i = 0; i >-UI.EditBarWidth; i-=7)
 	{
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.EditBarTitleStartX, UI.EditBarStartY);
@@ -251,9 +251,9 @@ void Output::ShowEditToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", i + UI.EditBarStartX + UI.EditBarTitleWidth, UI.EditBarTitleStartY);
 		pWind->UpdateBuffer();
 	}
-	CreateGrid();
-	CreateToolBars();
-	pWind->UpdateBuffer();
+	//CreateGrid();
+	//CreateToolBars();
+	//pWind->UpdateBuffer();
 	pWind->SetBuffering(false);
 }
 

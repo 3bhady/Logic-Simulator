@@ -196,8 +196,9 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 				}
 			}
 			//[1] If user clicks on the Toolbar
-			if (y >= 0 && y < UI.ToolBarHeight)
-			{
+			//if (y >= 0 && y < UI.ToolBarHeight)
+			if(UI.isInToolBar(x,y ))
+			{						
 				//Check whick Menu item was clicked
 				//==> This assumes that menu items are lined up horizontally <==
 				int ClickedItemOrder = (x / UI.ToolBarItemWidth);

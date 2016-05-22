@@ -26,7 +26,6 @@ void Cut::Execute( )
 {
 	if ( !ReadActionParameters( ) )
 		return;
-	pManager->ClearHighlightedCompList();
 	for ( unsigned int i = 0; i <pManager->GetCompList( ).size( ); i++ )
 		if ( pManager->GetCompList( )[i]->isSelected( ) )
 		{
@@ -34,10 +33,10 @@ void Cut::Execute( )
 			pManager->GetClipboard( ).push_back( make_pair( pManager->GetCompList( )[i]->get_GraphicInfo( ) , pManager->GetCompList( )[i]->getType( ) ) );
 			ActionClipboard.push_back(make_pair(pManager->GetCompList()[i]->get_GraphicInfo(), pManager->GetCompList()[i]->getType()));
 			pManager->GetCompList( )[i]->DeleteComponent( pManager );
-			//delete pManager->GetCompList( )[i];
-			//pManager->GetCompList( ).erase( pManager->GetCompList( ).begin() + i );
 			i--;
 		}
+	pManager->ClearHighlightedCompList( );
+
 }
 
 void Cut::undo( )

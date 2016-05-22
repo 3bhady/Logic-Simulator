@@ -78,28 +78,28 @@ Component* ApplicationManager::GetComponent( int x , int y )
 
 void ApplicationManager::DeleteComponent( int x , int y )
 {
-	DeleteComponent( Arr[y][x] );
+	//DeleteComponent( Arr[y][x] );
+	Arr[y][x]->DeleteComponent( this );
 }
 
 void ApplicationManager::DeleteComponent( Component * pComp )
 {
 	
-	pComp->DeleteComponent( this );
-	if ( pComp == NULL )
-		return;
+	for ( unsigned int i = 0; i < HighlightedCompList.size( ); i++ )
+		if ( HighlightedCompList[i] == pComp )
+		{
+			HighlightedCompList.erase( HighlightedCompList.begin( ) + i );
+			break;
+		}
 
-	/*for ( int j = m_GfxInfo.x1; j < m_GfxInfo.x2 - 1; j++ )
-		for ( int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++ )
-			Arr[i][j] = NULL;	
 	for ( unsigned int i = 0; i < CompList.size( ); i++ )
 		if ( CompList[i] == pComp )
 		{
-			OutputInterface->DeleteGate( m_GfxInfo );
-			delete pApp->GetCompList( )[i];
-			pApp->GetCompList( ).erase( pApp->GetCompList( ).begin( ) + i );
+
+			delete CompList[i];
+			CompList.erase( CompList.begin( ) + i );
 			break;
-		}		
-		*/
+		}
 }
 
 vector<Component*>& ApplicationManager::GetCompList()
@@ -299,6 +299,13 @@ Component *** ApplicationManager::GetArr( )
 vector< pair<GraphicsInfo , ComponentType> >& ApplicationManager::GetClipboard( )
 {
 	return Clipboard;
+}
+
+void ApplicationManager::AddToClipboard( Component * pComp )
+{
+
+	Clipboard.push_back( make_pair( pComp->get_GraphicInfo( ) , pComp->getType( ) ) );
+
 }
 
 ////////////////////////////////////////////////////////////////////
