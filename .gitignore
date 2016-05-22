@@ -7,3 +7,4 @@ graphics_prj.sdf
 *.txt
 enc_temp_folder/
 Windows.Storage.pdb
+*.VC.opendb
