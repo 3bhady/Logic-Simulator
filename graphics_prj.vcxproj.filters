@@ -76,18 +76,16 @@
     <ClCompile Include="Actions\Redo.cpp" />
     <ClCompile Include="Actions\AddConnection.cpp" />
     <ClCompile Include="Actions\EditMenu.cpp" />
-    <ClCompile Include="Actions\HideDesignToolBar.cpp" />
-    <ClCompile Include="Actions\HideEditToolBar.cpp" />
-    <ClCompile Include="Actions\HideFileToolBar.cpp" />
     <ClCompile Include="Actions\Label.cpp" />
     <ClCompile Include="Actions\Load.cpp" />
     <ClCompile Include="Actions\Save.cpp" />
-    <ClCompile Include="Actions\ShowFileToolBar.cpp" />
-    <ClCompile Include="Actions\ShowEditToolBar.cpp" />
-    <ClCompile Include="Actions\ShowDesignToolBar.cpp" />
     <ClCompile Include="Actions\Delete.cpp" />
     <ClCompile Include="CMUgraphicsLib\colors.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="Actions\Move.cpp" />
+=======
+    <ClCompile Include="Actions\ToggleBars.cpp" />
+>>>>>>> 526fef12fd004b63c2d22af2c1b4c5f96d4c79b2
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -152,17 +150,15 @@
     <ClInclude Include="Actions\AddConnection.h" />
     <ClInclude Include="Components\XOR3.h" />
     <ClInclude Include="Actions\EditMenu.h" />
-    <ClInclude Include="Actions\HideDesignToolBar.h" />
-    <ClInclude Include="Actions\HideEditToolBar.h" />
-    <ClInclude Include="Actions\HideFileToolBar.h" />
     <ClInclude Include="Actions\Label.h" />
     <ClInclude Include="Actions\Load.h" />
     <ClInclude Include="Actions\Save.h" />
-    <ClInclude Include="Actions\ShowFileToolBar.h" />
-    <ClInclude Include="Actions\ShowEditToolBar.h" />
-    <ClInclude Include="Actions\ShowDesignToolBar.h" />
     <ClInclude Include="Actions\Delete.h" />
+<<<<<<< HEAD
     <ClInclude Include="Actions\Move.h" />
+=======
+    <ClInclude Include="Actions\ToggleBars.h" />
+>>>>>>> 526fef12fd004b63c2d22af2c1b4c5f96d4c79b2
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

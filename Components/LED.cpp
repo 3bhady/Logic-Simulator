@@ -95,7 +95,7 @@ bool LED::isOutpinFloating()
 
 int LED::getCompIndexConnectedToInPin(int n)
 {
-	return	m_InputPin.get_connection()->getCompIndexConnectedToInPin(n);
+	return	m_InputPin.get_connection()->getCompIndex();
 }
 
 
