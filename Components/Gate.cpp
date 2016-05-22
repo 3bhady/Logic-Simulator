@@ -11,7 +11,7 @@ Gate::Gate(int r_Inputs, int r_FanOut, GraphicsInfo in_Gfxinfo) :m_OutputPin(r_F
 
 	inP = new pair<int, int>[r_Inputs];
 	m_Inputs = r_Inputs;	//set no. of inputs of that gate
-	switch (r_Inputs)
+	switch (m_Inputs)
 	{
 	case 1:
 		inP[0] = make_pair(in_Gfxinfo.x1, in_Gfxinfo.y1 + 30);
@@ -38,10 +38,25 @@ Gate::Gate(int r_Inputs, int r_FanOut, GraphicsInfo in_Gfxinfo) :m_OutputPin(r_F
 
 pair<int, int>& Gate::get_OP()
 {
+	outP = make_pair(m_GfxInfo.x2, m_GfxInfo.y1 + 30);
 	return outP;
 }
 pair<int, int>* Gate::get_INPC()
 {
+	switch (m_Inputs)
+	{
+	case 1:
+		inP[0] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+		break;
+	case 2:
+		inP[0] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 15);inP[1] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 45);
+		break;
+	case 3:
+		inP[0] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 15);inP[2] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 45);
+		inP[1] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+		break;
+	}
+
 	for (int i = 0;i < m_Inputs;i++)if (m_InputPins[i].get_connection() == NULL)return &inP[i];
 	return NULL;
 }
@@ -51,6 +66,20 @@ OutputPin * Gate::get_Opin()
 }
 InputPin * Gate::get_INpin(pair<int, int>& x)
 {
+	switch (m_Inputs)
+	{
+	case 1:
+		inP[0] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+		break;
+	case 2:
+		inP[0] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 15);inP[1] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 45);
+		break;
+	case 3:
+		inP[0] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 15);inP[2] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 45);
+		inP[1] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+		break;
+	}
+
 	int i, y55 = 10;
 	for (i = 0;i < m_Inputs;i++)
 		if (inP[i].first == x.first&&inP[i].second == x.second)
@@ -58,6 +87,7 @@ InputPin * Gate::get_INpin(pair<int, int>& x)
 	if (y55 >= m_Inputs)return NULL;
 	return &m_InputPins[y55];
 }
+
 void Gate::Save(ofstream & fout)
 {
 	string str;

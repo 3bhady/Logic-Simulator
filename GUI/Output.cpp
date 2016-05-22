@@ -962,12 +962,14 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, 
 		bool test = false;
 
 		if ((AppManger->GetArr()[d][c] == con || (c == r_GfxInfo.x2&&d == r_GfxInfo.y2))
-			&& (AppManger->GetArr()[b][a] == con || (a == r_GfxInfo.x1&&b == r_GfxInfo.y1) || dynamic_cast<Connection*>(AppManger->GetArr()[b][a])->getSourcePin() == dynamic_cast<Connection*>(con)->getSourcePin()))
+			&& (AppManger->GetArr()[b][a] == con || (a == r_GfxInfo.x1&&b == r_GfxInfo.y1)|| (a == r_GfxInfo.x2&&b == r_GfxInfo.y2&&AppManger->GetArr()[d][c]==con) || (dynamic_cast<Connection*>(AppManger->GetArr()[b][a])&&((Connection*)AppManger->GetArr()[b][a])->getSourcePin() == ((Connection*)con)->getSourcePin())))
 		{
 			
 			pWind->DrawLine(c, d - UI.ConnectionOffset, a, b - UI.ConnectionOffset);
 		}
-		else if(!(dynamic_cast<Connection*>(AppManger->GetArr()[b][a])->getSourcePin() == dynamic_cast<Connection*>(con)->getSourcePin()))
+		else if(dynamic_cast<Connection*>(AppManger->GetArr()[b][a]))
+			if((((Connection*)AppManger->GetArr()[b][a])->getSourcePin() != ((Connection*)con)->getSourcePin()))
+if((!(dynamic_cast<Connection*>(AppManger->GetArr()[d][c])))||((Connection*)AppManger->GetArr()[d][c])->getSourcePin() != ((Connection*)con)->getSourcePin()|| (AppManger->GetArr()[d][c])==con)
 		{
 			
 			if (c == a) {

@@ -127,7 +127,7 @@ void AddConnection::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &
 	for (int i = 0;i < 780;i++)
 		for (int j = 0;j < 1400;j++) {
 			if (a[i][j] != NULL)
-				if (dynamic_cast<Connection*>(a[i][j])) { if (dynamic_cast<Connection*>(a[i][j])->getSourcePin() == dynamic_cast<Gate*>(a[y1][x1 - 15])->get_Opin())ifc[i][j] = 0;else  ifc[i][j] = 1;oth[i][j] = 0; }
+				if (dynamic_cast<Connection*>(a[i][j])) { if (((Connection*)(a[i][j]))->getSourcePin() == ((Gate*)a[y1][x1 - 15])->get_Opin())ifc[i][j] = 0;else  ifc[i][j] = 1;oth[i][j] = 0; }
 				else { ifc[i][j] = 0;oth[i][j] = 1; }
 			else { ifc[i][j] = 0;oth[i][j] = 0; }
 		}
@@ -140,34 +140,33 @@ void AddConnection::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &
 		vis[pr.first][pr.second] = 1;
 		qu.pop();
 
-		if (isvalid(pr.first - 15, pr.second, vis, ifc, oth, pr.first, pr.second, x2, y2))
+		if (isvalid(pr.first+15 , pr.second, vis, ifc, oth, pr.first, pr.second, x2, y2,x1))
 		{
-			qu.push(make_pair(pr.first - 15, pr.second));
-			outx.arr[pr.first - 15][pr.second] = make_pair(pr.first, pr.second);
-			vis[pr.first - 15][pr.second] = 1;
+			qu.push(make_pair(pr.first+15 , pr.second));
+			outx.arr[pr.first+15 ][pr.second] = make_pair(pr.first, pr.second);
+			vis[pr.first +15][pr.second] = 1;
 			if (qu.back().first == x2 && qu.back().second == y2)
 				break;
 		}
-		if (isvalid(pr.first, pr.second + 15, vis, ifc, oth, pr.first, pr.second, x2, y2))
+		if (isvalid(pr.first, pr.second + 15, vis, ifc, oth, pr.first, pr.second, x2, y2,x1))
 		{
 			qu.push(make_pair(pr.first, pr.second + 15));
-			outx.arr[pr.first][pr.second + 15] =
-				make_pair(pr.first, pr.second);
+			outx.arr[pr.first][pr.second + 15] =make_pair(pr.first, pr.second);
 			vis[pr.first][pr.second + 15] = 1;	   if (qu.back().first == x2 && qu.back().second == y2)
 				break;
 		}
-		if (isvalid(pr.first + 15, pr.second, vis, ifc, oth, pr.first, pr.second, x2, y2))
+		if (isvalid(pr.first - 15, pr.second, vis, ifc, oth, pr.first, pr.second, x2, y2,x1))
 		{
-			qu.push(make_pair(pr.first + 15, pr.second));
-			outx.arr[pr.first + 15][pr.second] = make_pair(pr.first, pr.second);
-			vis[pr.first + 15][pr.second] = 1;	if (qu.back().first == x2 && qu.back().second == y2)
+			qu.push(make_pair(pr.first - 15, pr.second));
+			outx.arr[pr.first - 15][pr.second] = make_pair(pr.first, pr.second);
+			vis[pr.first - 15][pr.second] = 1;	if (qu.back().first == x2 && qu.back().second == y2)
 				break;
 		}
-		if (isvalid(pr.first, pr.second - 15, vis, ifc, oth, pr.first, pr.second, x2, y2))
+		if (isvalid(pr.first, pr.second-15 , vis, ifc, oth, pr.first, pr.second, x2, y2,x1))
 		{
-			qu.push(make_pair(pr.first, pr.second - 15));
-			outx.arr[pr.first][pr.second - 15] = make_pair(pr.first, pr.second);
-			vis[pr.first][pr.second - 15] = 1;	   if (qu.back().first == x2 && qu.back().second == y2)
+			qu.push(make_pair(pr.first, pr.second-15 ));
+			outx.arr[pr.first][pr.second -15] = make_pair(pr.first, pr.second);
+			vis[pr.first][pr.second -15] = 1;	   if (qu.back().first == x2 && qu.back().second == y2)
 				break;
 		}
 	}
@@ -178,13 +177,14 @@ void AddConnection::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &
 	for (int i = 0;i < 780;i++) { delete[]vis[i];delete[]ifc[i];delete[]oth[i]; }
 	delete[]vis;delete[]ifc;delete[]oth;
 }
-bool AddConnection::isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2)
+bool AddConnection::isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2,int x1)
 {
 	if (y < 630 && x < 1335)
 		if (x >= 0 && y >= 0) {
-			if (x == x2&&y == y2)
+			//if (((x == x2||x+15==x2)&&y == y)|| (x == x2 &&(y==y2-15||y==y2+15)) )
+		if	(x==x2&&y==y2)
 				return true;
-			if (oth[y][x] == 1)
+			if (oth[y][x] == 1/*||(oth[y][x+15]==1)||(oth[y][x - 15] == 1&&!(x==x1|| x -15== x1))*/)
 				return false;
 			if (vis[x][y] == 0)
 				if (ifc[y][x] == 0)
