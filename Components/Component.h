@@ -15,6 +15,7 @@ protected:
 	ComponentType Type;
 	int Width;		//Width of the component
 	int Height;		//Height of the component
+	int compIndex;	//Index of Component in CompList
 	//kero
 	//=================
 	static int ID;
@@ -27,10 +28,11 @@ public:
 	virtual void Draw(Output* pOut) = 0;		//for each component to Draw itself
 	void  set_label(string);					//Set label of the component
 	string get_label();							//Get label of the component
-	virtual int GetOutPinStatus() = 0;			//returns status of outputpin if LED, return -1
-	virtual int GetInputPinStatus(int n) = 0;		//returns status of Inputpin # n if SWITCH, return -1
+	virtual STATUS GetOutPinStatus() = 0;			//returns status of outputpin if LED, return -1
+	virtual STATUS GetInputPinStatus(int n) = 0;	//returns status of Inputpin # n if SWITCH, return -1
 	void Component::AddConnection(BFSOut& xx, ApplicationManager * pApp);
 	virtual void setInputPinStatus(STATUS s,int n) = 0;	//set status of Inputpin # n, to be used by connection class.
+	virtual int getNumberofInPins() = 0;
 	GraphicsInfo& get_GraphicInfo();
 	void set_GraphicInfo(GraphicsInfo GFX);
 	virtual void AddComponent(ApplicationManager * pApp);		//Add component in 2D array and don't push it in complist	
@@ -44,6 +46,11 @@ public:
 	bool isSelected( );			//an indication to whether the component is selected or not
 	ComponentType getType();    // returns the type of the component
 	Component();
+	virtual void setCompIndex(int index);
+	virtual int getCompIndex();
+	virtual bool isInpinFloating(int n) = 0;
+	virtual bool isOutpinFloating() = 0;
+	virtual int getCompIndexConnectedToInPin(int n) = 0;
 
 	//Destructor must be virtual
 	virtual ~Component();

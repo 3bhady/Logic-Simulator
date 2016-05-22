@@ -32,13 +32,15 @@ public:
 	bool isvalid(int x, int y, bool** vis, bool** ifc, bool** oth, int x0, int y0, int x2, int y2);//the function the determines whether a piont is valied or not
 	*/
 	BFSOut& get_path( );
-	void set_path( BFSOut );
 
-	virtual int GetOutPinStatus( );	//returns status of outputpin if LED, return -1
-	virtual int GetInputPinStatus( int n );	//returns status of Inputpin # n if SWITCH, return -1
+	virtual STATUS GetOutPinStatus();	//returns status of outputpin if LED, return -1
+	virtual STATUS GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1
 
-	virtual void setInputPinStatus( STATUS s , int n );	//set status of Inputpin # n, to be used by connection class.
-
-	Component* DeleteConnection( ApplicationManager* );//remove all pointers of this connection from the 2-D array
+	virtual void setInputPinStatus(STATUS s, int n);	//set status of Inputpin # n, to be used by connection class.
+	virtual int getNumberofInPins();
+	virtual bool isInpinFloating(int n);
+	virtual bool isOutpinFloating();
+	virtual int getCompIndexConnectedToInPin(int n);
+	Component* DeleteConnection(ApplicationManager*);//remove all pointers of this connection from the 2-D array
 
 };

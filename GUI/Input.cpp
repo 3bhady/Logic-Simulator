@@ -101,10 +101,10 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 {
 	int x = 0, y = 0;
 	Component*** Arr = pApp->GetArr();
-	//clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
+	clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
 	char HotKey;
 
-	clicktype cType= pWind->GetMouseClick( x , y );
+	//clicktype cType= pWind->GetMouseClick( x , y );
 	keytype kType =pWind->GetKeyPress( HotKey );
 	
 	//Get the coordinates of the user click

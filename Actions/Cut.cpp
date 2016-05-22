@@ -37,9 +37,8 @@ void Cut::Execute( )
 			pManager->GetCompList( )[i]->DeleteComponent( pManager );
 			i--;
 		}
-	pManager->ClearHighlightedCompList( );
-
-}
+	pManager->ClearHighlightedCompList();
+}	
 
 void Cut::undo( )
 {

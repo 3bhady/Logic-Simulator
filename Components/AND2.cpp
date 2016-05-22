@@ -27,6 +27,7 @@ void AND2::Draw(Output* pOut)
 	pOut->DrawGate(m_GfxInfo, AND2_, highlighted, forbidden);
 }
 
+/*
 //returns status of outputpin
 int AND2::GetOutPinStatus()
 {
@@ -45,3 +46,5 @@ void AND2::setInputPinStatus(STATUS s, int n)
 {
 	m_InputPins[n - 1].setStatus(s);
 }
+
+*/ 

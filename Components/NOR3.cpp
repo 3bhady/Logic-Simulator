@@ -28,6 +28,7 @@ void NOR3::Draw(Output* pOut)
 	pOut->DrawGate(m_GfxInfo, NOR3_, highlighted, forbidden);
 }
 
+/*
 //returns status of outputpin
 int NOR3::GetOutPinStatus()
 {
@@ -46,7 +47,7 @@ void NOR3::setInputPinStatus(STATUS s, int n)
 {
 	m_InputPins[n - 1].setStatus(s);
 }
-
+*/
 
 NOR3::~NOR3()
 {

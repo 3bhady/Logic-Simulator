@@ -27,6 +27,10 @@ public:
 	bool ConnectTo(Connection *r_Conn);	//connect to a new connection
 	vector<Connection*>& GetConnections();//return the vector of connections
 	int GetNum();//return the Actual No. of connections connected to that output pin.
+
+	Component* getComponent();	//returns the component of this pin
+	int getCompIndex();	//returns the index of the component of this pin
+
 	Connection* GetConnection(int);//return a connection
 	void DeleteConnection(Connection*);
 	void SetComponent(Component *pCmp);

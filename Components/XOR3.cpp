@@ -33,6 +33,7 @@ void XOR3::Draw(Output* pOut)
 	pOut->DrawGate(m_GfxInfo, XOR3_, highlighted, forbidden);
 }
 
+/*
 //returns status of outputpin
 int XOR3::GetOutPinStatus()
 {
@@ -52,7 +53,7 @@ void XOR3::setInputPinStatus(STATUS s, int n)
 	m_InputPins[n - 1].setStatus(s);
 }
 
-
+*/
 XOR3::~XOR3()
 {
 }

@@ -26,13 +26,13 @@ bool AddConnection::ReadActionParameters( )
 		pIn->GetPointClicked( Cx , Cy );
 
 		if ( dynamic_cast<Gate*>(pManager->GetArr( )[Cy][Cx]) ) {
-			GInfo.x1 = dynamic_cast<Gate*>(pManager->GetArr( )[Cy][Cx])->get_OP( ).first;
-			GInfo.y1 = dynamic_cast<Gate*>(pManager->GetArr( )[Cy][Cx])->get_OP( ).second;
+			GInfo.x1 = ((Gate*)pManager->GetArr( )[Cy][Cx])->get_OP( ).first;
+			GInfo.y1 = ((Gate*)pManager->GetArr( )[Cy][Cx])->get_OP( ).second;
 			first = GA; break;
 		}
 		if ( dynamic_cast<Switch*>(pManager->GetArr( )[Cy][Cx]) ) {
-			GInfo.x1 = Cx;
-			GInfo.y1 = Cy;
+			GInfo.x1 = (((Switch*)(pManager->GetArr()[Cy][Cx]))->get_OP().first);
+			GInfo.y1 = (((Switch*)(pManager->GetArr()[Cy][Cx]))->get_OP().second);
 			first = S;
 			break;
 
@@ -50,20 +50,20 @@ bool AddConnection::ReadActionParameters( )
 	pOut->PrintMsg( "Adding Connection : Click to add the second edge " );
 	do {
 
-		if ( pIn->close( ) ) { pOut->PrintMsg( "Cansel adding Connection" ); return false; }
+		if ( pIn->close( ) ) { pOut->PrintMsg( "Cancel adding Connection" ); return false; }
 		//Wait for User Input
 		pIn->GetPointClicked( Cx , Cy );
 
 		if ( dynamic_cast<Gate*>(pManager->GetArr( )[Cy][Cx]) ) {
-			if ( dynamic_cast<Gate*>(pManager->GetArr( )[Cy][Cx])->get_INPC( ) != NULL ) {
-				if ( dynamic_cast<Gate*>(pManager->GetArr( )[Cy][Cx])->get_INpin( make_pair( ((Cx / 15) * 15) , (((Cy + 14) / 15) * 15) ) ) != NULL&&dynamic_cast<Gate*>(pManager->GetArr( )[Cy][Cx])->get_INpin( make_pair( ((Cx / 15) * 15) , (((Cy + 14) / 15) * 15) ) )->get_connection( ) == NULL )
+			if (( ((Gate*)pManager->GetArr( )[Cy][Cx]))->get_INPC( ) != NULL ) {
+				if ( ((Gate*)pManager->GetArr( )[Cy][Cx])->get_INpin( make_pair( ((Cx / 15) * 15) , (((Cy + 14) / 15) * 15) ) ) != NULL&&((Gate*)pManager->GetArr( )[Cy][Cx])->get_INpin( make_pair( ((Cx / 15) * 15) , (((Cy + 14) / 15) * 15) ) )->get_connection( ) == NULL )
 				{
 					GInfo.x2 = ((Cx) / 15) * 15;
 					GInfo.y2 = ((Cy + 14) / 15) * 15;
 				}
 				else {
-					GInfo.x2 = dynamic_cast<Gate*>(pManager->GetArr( )[Cy][Cx])->get_INPC( )->first;
-					GInfo.y2 = dynamic_cast<Gate*>(pManager->GetArr( )[Cy][Cx])->get_INPC( )->second;
+					GInfo.x2 = ((Gate*)(pManager->GetArr( )[Cy][Cx]))->get_INPC( )->first;
+					GInfo.y2 = ((Gate*)(pManager->GetArr( )[Cy][Cx]))->get_INPC( )->second;
 				}
 				second = G;
 				break;
@@ -73,48 +73,57 @@ bool AddConnection::ReadActionParameters( )
 		}
 		if ( dynamic_cast<LED*>(pManager->GetArr( )[Cy][Cx]) ) {
 
-			GInfo.x1 = Cx;
-			GInfo.y1 = Cy;
+			GInfo.x2 = ((LED*)(pManager->GetArr()[Cy][Cx]))->get_INPC().first;
+			GInfo.y2 = ((LED*)(pManager->GetArr()[Cy][Cx]))->get_INPC().second;
+			second = L;
 			break;
 		}
 		//pOut->ClearStatusBar();
 		//pOut->PrintMsg("Please choose a vaild Gate or Led");
-		pOut->ClearStatusBar( );
-		pOut->PrintMsg( "You choosed a nonvalied Component,please choose a Gate or Led  " );
-	} while ( true );
-	bfs( GInfo.x1 , GInfo.y1 , GInfo.x2 , GInfo.y2 , pManager->GetArr( ) , outx );
-	if ( outx.check )
+		pOut->ClearStatusBar();
+		pOut->PrintMsg("You choosed an invalid Component, please choose a Gate or Led  ");
+	} while (true);
+	bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), outx);
+	if (outx.check)
 		return true;
 	else
 		return false;
 }
 
-void AddConnection::Execute( )
+void AddConnection::Execute()
 {
 	Connection *pS = NULL;
 	//Get Center point of the Connection
-	if ( !
-		ReadActionParameters(  )
+	if (!
+		ReadActionParameters()
 		) {
-		pManager->GetOutput( )->ClearStatusBar( );
-		pManager->GetOutput( )->PrintMsg( "there is no valid path" );
+		pManager->GetOutput()->ClearStatusBar();
+		pManager->GetOutput()->PrintMsg("there is no valid path");
 		return;
 	}
-	if ( first == GA&&second == G )
+	if (first == GA&&second == G)
 	{
 		//if ((((Gate*)pManager->GetArr()[GInfo.y1][GInfo.x1-15]))->get_INpin(make_pair(GInfo.x2, GInfo.x2))->get_connection() == NULL)
 		//if((((Gate*)pManager->GetArr()[GInfo.y2][GInfo.x2]))->get_INpin(make_pair(GInfo.x2, GInfo.x2))==NULL)
 
-		pS = new Connection( GInfo , &outx , ((( Gate* )pManager->GetArr( )[GInfo.y1][GInfo.x1 - 15]))->get_Opin( ) , ((( Gate* )pManager->GetArr( )[GInfo.y2][GInfo.x2]))->get_INpin( make_pair( GInfo.x2 , GInfo.y2 ) ) );
-		((( Gate* )pManager->GetArr( )[GInfo.y1][GInfo.x1 - 15]))->get_Opin( )->ConnectTo( pS );
-		((( Gate* )pManager->GetArr( )[GInfo.y2][GInfo.x2]))->get_INpin( make_pair( GInfo.x2 , GInfo.y2 ) )->set_connection( pS );
-	}if ( first == GA&&second == L )
-		pS = new Connection( GInfo , &outx );
-	if ( first == S&&second == G )
-		pS = new Connection( GInfo , &outx );
-	if ( first == S&&second == L )
-		pS = new Connection( GInfo , &outx );
-
+		pS = new Connection(GInfo, &outx, (((Gate*)pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]))->get_Opin(), (((Gate*)pManager->GetArr()[GInfo.y2][GInfo.x2]))->get_INpin(make_pair(GInfo.x2, GInfo.y2)));
+		(((Gate*)pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]))->get_Opin()->ConnectTo(pS);
+		(((Gate*)pManager->GetArr()[GInfo.y2][GInfo.x2]))->get_INpin(make_pair(GInfo.x2, GInfo.y2))->set_connection(pS);
+	}if (first == GA&&second == L) {
+		pS = new Connection(GInfo, &outx, (((Gate*)pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]))->get_Opin(), (((LED*)pManager->GetArr()[GInfo.y2][GInfo.x2]))->get_inputpin());
+		(((Gate*)pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]))->get_Opin()->ConnectTo(pS);
+		(((LED*)pManager->GetArr()[GInfo.y2][GInfo.x2]))->get_inputpin()->set_connection(pS);
+	}
+	if (first == S&&second == G){
+		pS = new Connection(GInfo, &outx, (((Switch*)pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]))->get_OPP(), (((Gate*)pManager->GetArr()[GInfo.y2][GInfo.x2]))->get_INpin(make_pair(GInfo.x2, GInfo.y2)));
+	(((Gate*)pManager->GetArr()[GInfo.y2][GInfo.x2]))->get_INpin(make_pair(GInfo.x2, GInfo.y2))->set_connection(pS);
+	(((Switch*)pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]))->get_OPP()->ConnectTo(pS);
+}
+	if (first == S&&second == L) {
+		pS = new Connection(GInfo, &outx, (((Switch*)pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]))->get_OPP(), (((LED*)pManager->GetArr()[GInfo.y2][GInfo.x2]))->get_inputpin());
+		(((Switch*)pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]))->get_OPP()->ConnectTo(pS);
+		(((LED*)pManager->GetArr()[GInfo.y2][GInfo.x2]))->get_inputpin()->set_connection(pS);
+	}
 	pManager->AddComponent( pS );
 }
 void AddConnection::bfs( int x1 , int y1 , int x2 , int y2 , Component*** a , BFSOut &outx )
@@ -127,7 +136,22 @@ void AddConnection::bfs( int x1 , int y1 , int x2 , int y2 , Component*** a , BF
 	for (int i = 0;i < 780;i++)
 		for (int j = 0;j < 1400;j++) {
 			if (a[i][j] != NULL)
-				if (dynamic_cast<Connection*>(a[i][j])) { if (((Connection*)(a[i][j]))->getSourcePin() == ((Gate*)a[y1][x1 - 15])->get_Opin())ifc[i][j] = 0;else  ifc[i][j] = 1;oth[i][j] = 0; }
+				if (dynamic_cast<Connection*>(a[i][j])) {
+					if (dynamic_cast<Gate*>(a[y1][x1 - 15])) {
+						if (((Connection*)(a[i][j]))->getSourcePin() == ((Gate*)a[y1][x1 - 15])->get_Opin())
+							ifc[i][j] = 0;
+						else
+							ifc[i][j] = 1;
+						oth[i][j] = 0;
+					}
+					else {
+						if (((Connection*)(a[i][j]))->getSourcePin() == ((Switch*)a[y1][x1 - 15])->get_OPP())
+							ifc[i][j] = 0;
+						else
+							ifc[i][j] = 1;
+						oth[i][j] = 0;
+					}
+				}
 				else { ifc[i][j] = 0;oth[i][j] = 1; }
 			else { ifc[i][j] = 0;oth[i][j] = 0; }
 

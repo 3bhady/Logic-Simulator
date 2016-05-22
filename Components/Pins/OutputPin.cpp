@@ -52,3 +52,13 @@ void OutputPin::SetComponent(Component *pCmp)
 {
 	this->pComp = pCmp;
 }
+
+Component* OutputPin::getComponent()
+{
+	return pComp;
+}
+
+int OutputPin::getCompIndex()
+{
+	return pComp->getCompIndex();
+}
