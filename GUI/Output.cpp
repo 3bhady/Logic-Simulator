@@ -842,9 +842,9 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected,
 	GateImage += ".png";
 
 	//pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
-	clock_t t = clock();
+	//clock_t t = clock();
 	DrawPNG	(pWind, GateImage, r_GfxInfo);
-	cout << clock() - t<<endl;
+	//cout << clock() - t<<endl;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

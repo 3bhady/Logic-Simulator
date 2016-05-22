@@ -27,7 +27,7 @@ string Input::GetString( Output *pOut )
 	{
 		ktInput = pWind->WaitKeyPress( kvInput );
 		//ktInput = pWind->GetKeyPress( kvInput );
-
+		cout << kvInput << endl;
 		switch ( ktInput )
 		{
 		case ESCAPE:
@@ -106,6 +106,7 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 
 	clicktype cType= pWind->GetMouseClick( x , y );
 	keytype kType =pWind->GetKeyPress( HotKey );
+	
 	//Get the coordinates of the user click
 	if  (cType== NO_CLICK&&kType==NO_KEYPRESS)
 		return DSN_TOOL;
@@ -183,7 +184,7 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 		//[1] If user clicks on the Toolbar
 		if (UI.AppMode == DESIGN)	//application is in design mode
 		{
-			if ( kType == ASCII )
+			if ( kType == ASCII||kType==FUNCTION )
 			{
 				switch ( HotKey )
 				{
@@ -193,7 +194,9 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 					return CUT;
 				case 'v':
 					return PASTE;
-
+				case (2000+'0'):
+					return 	DEL;
+					// ctrl is 3000
 				default:
 					break;
 				}

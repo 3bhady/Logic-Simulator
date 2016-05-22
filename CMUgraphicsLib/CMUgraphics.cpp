@@ -18,7 +18,13 @@ windowinput* wipInput = NULL;
 
 static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	
-	switch(msg) {
+	//cout <<"msg" <<msg << endl;
+	//cout <<"hwnd" <<hwnd << endl;
+	//cout <<"wParam" <<wParam << endl;
+	//cout << "lParam" << lParam << endl;			 
+switch(msg) {
+
+	
 	  case WM_LBUTTONDOWN:
         if(wipInput != NULL) {
             wipInput->SetMouseState(hwnd, LEFT_BUTTON, BUTTON_DOWN, LOWORD(lParam), HIWORD(lParam));
@@ -58,6 +64,14 @@ static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lP
 
 	  case WM_KEYDOWN:
 	    switch(wParam) {
+		case 46:   //delete
+			if ( wipInput != NULL ) {
+				wipInput->SetKeyInfo( hwnd , FUNCTION , 2000 );
+			}
+		case 17:	  //ctrl
+			if ( wipInput != NULL ) {
+				wipInput->SetKeyInfo( hwnd , FUNCTION , 3000 );
+			}
 		  case VK_END:
             if(wipInput != NULL) {
                 wipInput->SetKeyInfo(hwnd, ARROW, 1);

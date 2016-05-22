@@ -21,6 +21,7 @@
 #include"Actions\Label.h"
 #include"Actions\Save.h"
 #include"Actions\Load.h"
+#include "Actions\Delete.h"
 #include<fstream>
 
 ApplicationManager::ApplicationManager()
@@ -259,6 +260,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new Load(this);
 	if (ActType == EXIT)
 		return;
+	if ( ActType == DEL )
+		pAct = new Delete( this );
 	if(pAct)
 	{
 		//if Action undo or redo don't push in stacks
