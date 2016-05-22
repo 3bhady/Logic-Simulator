@@ -20,6 +20,7 @@ bool Move::ReadActionParameters( )
 
 void Move::Execute( )
 {
+	
 }
 
 void Move::undo( )
