@@ -32,40 +32,18 @@ void Component::set_GraphicInfo(GraphicsInfo GFX)
 void Component::AddComponent( ApplicationManager * pApp )
 {
 	Component *** Arr = pApp->GetArr( );
-	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2 - 1; j++)
+	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2; j++)
 		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
 			Arr[i][j] = this;
-	/*for (int i = 0; i < UI.height; i += 30)
-	{
-		for (int j = 0; j < UI.width; j += 30)
-		{
-			if (Arr[i][j] != NULL)
-				cout << " T ";
-			else
-				cout << " 0 ";
-		}
-		cout << endl;
-	}	*/
-
 }
 
 void Component::DeleteComponent( ApplicationManager * pApp )
 {
-	Component *** Arr = pApp->GetArr( );
-	for ( int j = m_GfxInfo.x1; j < m_GfxInfo.x2 - 1; j++ )
-		for ( int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++ )
-			Arr[i][j] = NULL;
-	for (int i = 0; i < pApp->GetCompList().size(); i++)
-		if (pApp->GetCompList()[i] == this)
-		{
-			pApp->GetOutput()->DeleteGate(m_GfxInfo);
-			delete pApp->GetCompList()[i];
-			pApp->GetCompList().erase(pApp->GetCompList().begin() + i);
-			break;
-		}
+	EraseComponent( pApp );
+	pApp->DeleteComponent( this );
 }
 
-void Component::EraseComponent(ApplicationManager * pApp)
+void Component::EraseComponent(ApplicationManager * pApp) 
 {
 	Component *** Arr = pApp->GetArr();
 	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2 ; j++)

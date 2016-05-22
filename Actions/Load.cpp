@@ -9,7 +9,7 @@ Load::~Load()
 {
 }
 
-bool Load::ReadActionParameters(string s)
+bool Load::ReadActionParameters()
 {
 	return true;
 }

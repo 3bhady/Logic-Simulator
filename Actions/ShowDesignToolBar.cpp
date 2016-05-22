@@ -12,7 +12,7 @@ ShowDesignToolBar::~ShowDesignToolBar()
 {
 }
 
-bool ShowDesignToolBar::ReadActionParameters(string s)
+bool ShowDesignToolBar::ReadActionParameters()
 {
 	return true;
 }

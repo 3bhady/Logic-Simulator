@@ -9,9 +9,9 @@ AddSwitch::~AddSwitch(void)
 {
 }
 
-bool AddSwitch::ReadActionParameters(string s)
+bool AddSwitch::ReadActionParameters()
 {
-
+	/*
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
@@ -38,22 +38,33 @@ bool AddSwitch::ReadActionParameters(string s)
 	GInfo.y2 = Cy + Wdth / 2;
 	outP = make_pair(GInfo.x2, GInfo.y1 + 15);
 	return true;
+	*/
+	return true;
 }
 
 void AddSwitch::Execute()
 {
 
-	//Get Center point of the Gate
-	ReadActionParameters("Adding Switch : Click to add the Switch");
+	if (REDO)
+		pManager->GetOutput()->DrawSwitch(GInfo, LOW, false);
+
+
+	//Get a Pointer to the Input / Output Interfaces
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
 
 	Switch *pS = new Switch(GInfo, AND2_FANOUT);
-	pManager->AddComponent(pS);
+
+	//if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
+	if (pOut->FollowMouseAndDraw(GInfo, Switch_, pManager->GetArr()))
+		pManager->AddComponent(pS);
+	else delete pS;
 }
 
 void AddSwitch::undo()
 {
-	pManager->GetArr()[GInfo.y1][GInfo.x1]->DeleteComponent(pManager);
-	pManager->GetOutput()->DrawJPEGImage(initImage, 0, 0);				//Draw the stored image before this action
+	pManager->GetComponent(GInfo.x1, GInfo.y1)->DeleteComponent(pManager);
+	//pManager->GetOutput()->DrawJPEGImage(initImage, 0, 0);				//Draw the stored image before this action
 }
 
 void AddSwitch::redo()

@@ -11,7 +11,7 @@ ShowEditToolBar::~ShowEditToolBar()
 {
 }
 
-bool ShowEditToolBar::ReadActionParameters(string s)
+bool ShowEditToolBar::ReadActionParameters()
 {
 	return true;
 }

@@ -11,7 +11,7 @@ HideFileToolBar::~HideFileToolBar()
 {
 }
 
-bool HideFileToolBar::ReadActionParameters(string s)
+bool HideFileToolBar::ReadActionParameters()
 {
 	return true;
 }

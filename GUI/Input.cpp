@@ -18,7 +18,8 @@ string Input::GetString( Output *pOut )
 	//If the user presses "ESCAPE". This function should return an empty string.
 	//"BACKSPACE" should be also supported
 	//User should see what he is typing at the status bar
-	pOut->PrintMsg( "please enter the label" );
+	pOut->PrintMsg( "Please enter the label" );
+	pWind->UpdateBuffer( );
 	string label = ""; //label
 	char kvInput; //value of input key pressed by user
 	keytype ktInput; // type of input key
@@ -26,7 +27,7 @@ string Input::GetString( Output *pOut )
 	{
 		ktInput = pWind->WaitKeyPress( kvInput );
 		//ktInput = pWind->GetKeyPress( kvInput );
-
+		cout << kvInput << endl;
 		switch ( ktInput )
 		{
 		case ESCAPE:
@@ -54,6 +55,7 @@ string Input::GetString( Output *pOut )
 			}
 			else
 				label += kvInput;
+			
 
 		}
 		///////////////////////////////////////////////////////////////////////////
@@ -63,6 +65,7 @@ string Input::GetString( Output *pOut )
 
 		}
 		pOut->PrintMsg( label );
+		pWind->UpdateBuffer( );
 	}
 }
 
@@ -94,9 +97,8 @@ buttonstate Input::GetButtonState( const button btMouse , int & iX , int & iY )
 
 
 //This function reads the position where the user clicks to determine the desired action
-ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
+ActionType Input::GetUserAction( ApplicationManager * pApp )const
 {
-	char z;
 	int x = 0, y = 0;
 	Component*** Arr = pApp->GetArr();
 	//clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
@@ -104,6 +106,7 @@ ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 
 	clicktype cType= pWind->GetMouseClick( x , y );
 	keytype kType =pWind->GetKeyPress( HotKey );
+	
 	//Get the coordinates of the user click
 	if  (cType== NO_CLICK&&kType==NO_KEYPRESS)
 		return DSN_TOOL;
@@ -158,8 +161,8 @@ ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 			return SELECT;
 		}
 	}
-	if (cType == LEFT_CLICK)
-	{
+	if (cType == LEFT_CLICK)	//todo eh dh ya kero???  // fen el functions bta3t is in toolbar ??? fen??
+	{	 //bzmtk shaklaha msh w7sh ya kero ???
 		if (UI.HiddenToolBar&&y < UI.ToolBarTitleHeight &&y >= 0 && x < UI.ToolBarTitleWidth)//show hidden toolbar
 			return SHOW_DESIGN_B;
 		if (!UI.HiddenToolBar && UI.isInToolBarTitle(x, y))
@@ -181,7 +184,7 @@ ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 		//[1] If user clicks on the Toolbar
 		if (UI.AppMode == DESIGN)	//application is in design mode
 		{
-			if ( kType == ASCII )
+			if ( kType == ASCII||kType==FUNCTION )
 			{
 				switch ( HotKey )
 				{
@@ -191,14 +194,17 @@ ActionType Input::GetUserAction( ApplicationManager * pApp, bool selected )const
 					return CUT;
 				case 'v':
 					return PASTE;
-
+				case (2000+'0'):
+					return 	DEL;
+					// ctrl is 3000
 				default:
 					break;
 				}
 			}
 			//[1] If user clicks on the Toolbar
-			if (y >= 0 && y < UI.ToolBarHeight)
-			{
+			//if (y >= 0 && y < UI.ToolBarHeight)
+			if(UI.isInToolBar(x,y ))
+			{						
 				//Check whick Menu item was clicked
 				//==> This assumes that menu items are lined up horizontally <==
 				int ClickedItemOrder = (x / UI.ToolBarItemWidth);

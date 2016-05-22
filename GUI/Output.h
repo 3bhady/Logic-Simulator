@@ -47,8 +47,7 @@ public:
 
 	void MouseHovering(ApplicationManager*pApp)const;		//Detect the hovering of the mouse and makes changes according to the hover
 
-	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, ComponentType, Component ** Arr[780],	bool selected = false,
-		int xOffset = 0, int yOffset = 0);		//Drag & Drop
+	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, ComponentType, Component ** Arr[780]);		//Drag & Drop
 
 	void Magnetize(int &x,int &y);		//Gets the nearest dot in the grid
 
@@ -59,8 +58,8 @@ public:
 	void DrawJPEGImage(const image &imgThis, const int iX, const int iY, const int iWidth = -1, const int iHeight = -1);
 	void DrawPNGImage( string r_filename, GraphicsInfo GfxInfo );
 	void DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate, bool selected = false, bool forbidden = false);
-	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, string colour = "");
-	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected = false, MODE mode = DESIGN);
+	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, bool forbidden = false , string colour = "");
+	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool forbidden = false, bool selected = false, MODE mode = DESIGN);
 	void DrawEditMenu(int x, int y,int selectedItem)const;
 	void DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, bool selected) const;
 	void DrawRect(int& x, int &y);

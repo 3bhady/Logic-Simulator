@@ -89,7 +89,9 @@ int		EditMenuStartX,
 
 bool isInToolBar( int x , int y )
 	{
-		if ( y <= ToolBarHeight )
+		//if ( y <= ToolBarHeight )
+		if(y>=ToolBarStartY&&y<ToolBarStartY+ToolBarHeight
+			&& x>ToolBarStartX && x<= ToolBarStartX+ToolBarWidth&&!HiddenToolBar)
 		{
 			return true;
 		}
@@ -105,7 +107,7 @@ bool isInEditMenu(int x, int y)
 bool  isInToolBarTitle( int x , int y )
 	{
 		if ( y < ToolBarHeight + ToolBarTitleHeight &&y>=ToolBarHeight)
-			if ( x < UI.ToolBarTitleWidth )
+			if ( x < UI.ToolBarTitleWidth)
 				return true;
 		return false;
 	}
@@ -119,7 +121,7 @@ bool isInStatusBar(int x, int y)
 bool isInFileBar(int x, int y)
 	{
 		if (x>FileBarStartX&&x<ToolBarItemWidth)
-			if (y>FileBarStartY&&y <= FileBarItemHeight*4 + FileBarStartY)
+			if (y>FileBarStartY&&y <= FileBarItemHeight*4 + FileBarStartY&&!HiddenFileBar)
 				return true;
 
 		return false;
@@ -136,7 +138,7 @@ bool isInFileBarTitle(int x, int y)
 bool isInEditBar(int x, int y)
 	{
 		if (x > EditBarStartX&&x<UI.width-15)
-			if (y<EditBarHeight + EditBarStartY && y >EditBarStartY)
+			if (y<EditBarHeight + EditBarStartY && y >EditBarStartY&&!HiddenEditBar)
 				return true;
 		return false;
 	}

@@ -11,7 +11,7 @@ HideEditToolBar::~HideEditToolBar()
 {
 }
 
-bool HideEditToolBar::ReadActionParameters(string s)
+bool HideEditToolBar::ReadActionParameters()
 {
 	return true;
 }

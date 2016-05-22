@@ -10,29 +10,31 @@ Paste::~Paste( )
 {
 }
 
-bool Paste::ReadActionParameters( string s )
+bool Paste::ReadActionParameters()
 {
 	if ( pManager->GetClipboard( ).empty( ) )
 	{
 		pManager->GetOutput( )->PrintMsg( "The Clipboard is empty !" );
 		return false;
 	}
-	
 	return true;
 }
 
 void Paste::Execute( )
 {
-	if ( !ReadActionParameters( "" ) )
+	if ( UI.AppMode == EDIT_MODE )
+		pManager->GetOutput( )->CloseEditMenu( pManager );
+	if ( !ReadActionParameters( ) )
 		return;
-	int size = pManager->GetHighlightedList( ).size( );
-	for ( int i = 0; i < size; i++ )
+	/*
+	for (unsigned int i = 0; i < size; i++ )
 	{
 		pManager->GetHighlightedList( )[i]->Unhighlight( );
 	}
 	pManager->GetHighlightedList( ).clear( );
-
-	size = pManager->GetClipboard( ).size( );
+	*/
+	pManager->ClearHighlightedCompList();
+	unsigned int size = pManager->GetClipboard( ).size( );
 	for ( int i = 0; i < size; i++ )
 	{
 		
@@ -119,23 +121,25 @@ void Paste::Execute( )
 			break;
 		}
 
-		pManager->GetHighlightedList( ).push_back( pG );
-		pG->Highlight();
+		//pManager->GetHighlightedList( ).push_back( pG );
+		//pG->Highlight();
+		pManager->HighlightComponent(pG);
 	}
 	
-	if (pManager->GetOutput()->MoveComponents(pManager, pManager->GetHighlightedList()[0]))
+	if (pManager->GetOutput()->MoveComponents(pManager, pManager->GetHighlightedComponent(0)))
 		for (int i = 0; i < size; i++)
-			pManager->AddComponent(pManager->GetHighlightedList()[i]),
-			pManager->GetHighlightedList()[i]->Unhighlight() ,
-			ActionClipBoard.push_back(make_pair(pManager->GetHighlightedList()[i]->get_GraphicInfo(), pManager->GetHighlightedList()[i]->getType()));
-	pManager->GetHighlightedList().clear();
+			pManager->AddComponent(pManager->GetHighlightedComponent(i)),
+			//pManager->GetHighlightedList()[i]->Unhighlight() ,
+			ActionClipBoard.push_back(make_pair(pManager->GetHighlightedComponent(i)->get_GraphicInfo(), pManager->GetHighlightedComponent(i)->getType()));
+	//pManager->GetHighlightedList().clear();
+	pManager->ClearHighlightedCompList();
 }
 
 void Paste::undo( )
 {
 	//Delete the components from the grid
 	for (unsigned int i = 0; i < ActionClipBoard.size(); i++)
-		pManager->GetArr()[ActionClipBoard[i].first.y1][ActionClipBoard[i].first.x1]->DeleteComponent(pManager);
+		pManager->GetComponent(ActionClipBoard[i].first.x1,ActionClipBoard[i].first.y1)->DeleteComponent(pManager);
 
 	//pManager->GetOutput()->DrawJPEGImage(initImage, 0, 0);				//Draw the stored image before this action
 }

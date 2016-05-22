@@ -22,14 +22,15 @@ Output::Output(ApplicationManager* x)
 	//Create the drawing window
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
 	ChangeTitle("Programming Techniques Project");
-
+	pWind->SetBuffering( true );
 	CreateGrid( );
 	CreateDesignToolBar();	
 	CreateFileToolBar( );
 	CreateEditToolBar( );
 	CreateStatusBar();		
-
+	pWind->UpdateBuffer( );
 	AppManger = x;
+	
 }
 
 Input* Output::CreateInput() const
@@ -77,6 +78,7 @@ void Output::Magnetize(int &x, int &y)
 void Output::ChangeTitle(string Title) const
 {
 	pWind->ChangeTitle(Title);
+	pWind->UpdateBuffer( );
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -84,6 +86,7 @@ void Output::ChangeTitle(string Title) const
 void Output::CreateStatusBar() const
 {
 	pWind->DrawImage( "Images\\ToolBars\\Statusbar\\SB1.jpg" , UI.StatusBarStartX , UI.StatusBarStartY);
+	//pWind->UpdateBuffer( );
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -94,6 +97,7 @@ void Output::CreateToolBars( ) const
 	CreateFileToolBar( );
 	CreateEditToolBar( );
 	CreateStatusBar( );
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -109,6 +113,7 @@ void Output::PrintMsg(string msg) const
     pWind->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
 	pWind->SetPen(UI.MsgColor);
 	pWind->DrawString(MsgX+50, UI.height - MsgY, msg);
+	//pWind->UpdateBuffer( );
 }
 
 void Output::StoreImage(image & imgThis, const unsigned usX, const unsigned short usY, const unsigned short usWidth, const unsigned short usHeight)
@@ -134,8 +139,8 @@ void Output::HideDesignToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
-	pWind->SetBuffering( true );
-	for (int i = 0; i >-UI.ToolBarHeight; i-=7)
+
+	for (int i = 0; i >-UI.ToolBarHeight; i-=10)
 	{
 		
 		pWind->DrawImage(temp, 0, 0);
@@ -145,18 +150,14 @@ void Output::HideDesignToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, UI.ToolBarTitleStartY + i);
 		pWind->UpdateBuffer();
 	}
-	CreateGrid();
-	CreateToolBars();
-	pWind->UpdateBuffer();
-	pWind->SetBuffering(false);
+	
 }
 
 void Output::ShowDesignToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
-	pWind->SetBuffering( true );
-	for (int i = -UI.ToolBarHeight; i <0; i+=7)
+	for (int i = -UI.ToolBarHeight; i <0; i+=10)
 	{
 		
 		pWind->DrawImage(temp, 0, 0);
@@ -166,18 +167,15 @@ void Output::ShowDesignToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, UI.ToolBarTitleStartY + i);
 		pWind->UpdateBuffer();
 	}
-	CreateGrid();
-	CreateToolBars();
-	pWind->UpdateBuffer();
-	pWind->SetBuffering(false);
+
 }
 
 void Output::HideFileToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
-	pWind->SetBuffering( true );
-	for (int i = 0; i >-UI.FileBarWidth; i-=4)
+
+	for (int i = 0; i >-UI.FileBarWidth; i-=7)
 	{
 		
 		pWind->DrawImage(temp, 0, 0);
@@ -186,18 +184,15 @@ void Output::HideFileToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", i + UI.FileBarWidth, UI.FileBarTitleStartY);
 		pWind->UpdateBuffer();
 	}
-	CreateGrid();
-	CreateToolBars();
-	pWind->UpdateBuffer();
-	pWind->SetBuffering(false);
+
 }
 
 void Output::ShowFileToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
-	pWind->SetBuffering( true );
-	for (int i = -UI.FileBarWidth; i <0; i+=4)
+
+	for (int i = -UI.FileBarWidth; i <0; i+=7)
 	{
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.FileBarStartX, UI.FileBarStartY);
@@ -205,18 +200,14 @@ void Output::ShowFileToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarWidth + i, UI.FileBarTitleStartY);
 		pWind->UpdateBuffer();
 	}
-	CreateGrid();
-	CreateToolBars();
-	pWind->UpdateBuffer();
-	pWind->SetBuffering(false);
+	
 }
 
 void Output::HideEditToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
-	pWind->SetBuffering( true );
-	for (int i = -UI.EditBarWidth; i <0; i+=4)
+	for (int i = -UI.EditBarWidth; i <0; i+=7)
 	{
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.EditBarTitleStartX, UI.EditBarStartY);
@@ -228,10 +219,6 @@ void Output::HideEditToolBar() const
 		pWind->UpdateBuffer();
 	}
 	
-	CreateGrid();
-	CreateToolBars();
-	pWind->UpdateBuffer();
-	pWind->SetBuffering(false);
 	
 }
 
@@ -239,8 +226,7 @@ void Output::ShowEditToolBar() const
 {
 	image temp;
 	pWind->StoreImage(temp, 0, 0, UI.width, UI.height);
-	pWind->SetBuffering( true );
-	for (int i = 0; i >-UI.EditBarWidth; i-=4)
+	for (int i = 0; i >-UI.EditBarWidth; i-=7)
 	{
 		pWind->DrawImage(temp, 0, 0);
 		pWind->DrawImage("Images\\GridFileAndEdit.jpg", UI.EditBarTitleStartX, UI.EditBarStartY);
@@ -251,21 +237,18 @@ void Output::ShowEditToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", i + UI.EditBarStartX + UI.EditBarTitleWidth, UI.EditBarTitleStartY);
 		pWind->UpdateBuffer();
 	}
-	CreateGrid();
-	CreateToolBars();
-	pWind->UpdateBuffer();
-	pWind->SetBuffering(false);
+	
 }
 
 void Output::CloseEditMenu(ApplicationManager* pManager) const
 {
-	pWind->SetBuffering(true);
+
 	CreateGrid();
 	CreateToolBars();
 	UI.AppMode = DESIGN;
 	pManager->UpdateInterface( );
-	pManager->GetOutput( )->UpdateBuffer( );
-	pManager->GetOutput( )->SetBuffering( false );
+	pWind->UpdateBuffer( );
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -283,6 +266,7 @@ void Output::CreateDesignToolBar() const
 	{
 		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, 0);
 	}
+	//pWind->UpdateBuffer( );
 
 }
 
@@ -297,6 +281,7 @@ void Output::CreateFileToolBar() const
 
 	}
 	else 	pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX - UI.FileBarWidth, UI.FileBarTitleStartY);
+	//pWind->UpdateBuffer( );
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -309,6 +294,7 @@ void Output::CreateEditToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX, UI.EditBarTitleStartY);
 	}
 	else pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX + UI.EditBarWidth, UI.EditBarTitleStartY);
+	//pWind->UpdateBuffer( );
 }
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -327,6 +313,7 @@ void Output::CreateGrid( ) const
 		}
 	}  */
 	pWind->DrawImage( "Images\\Grid.jpg" , 0 , 0 );
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -347,6 +334,7 @@ void Output::DrawDots(int xStart, int yStart,int xFinish,int yFinish)
 			pWind->DrawCircle(i, j, 1);
 		}
 	}
+	//pWind->UpdateBuffer( );
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -375,8 +363,11 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 		{
 			DrawEditMenu(UI.EditMenuStartX, UI.EditMenuStartY, selecteditem);
 		}
-		else
-			pWind->DrawImage("Images\\EDIT MENU\\EDIT MENU.jpg", UI.EditMenuStartX, UI.EditMenuStartY);
+		else   //kero hena TODO todo eh dh ya kero?? eh??
+		{
+			pWind->DrawImage( "Images\\EDIT MENU\\EDIT MENU.jpg" , UI.EditMenuStartX , UI.EditMenuStartY );
+		//	pWind->UpdateBuffer( );
+		}
 	}
 	if (!UI.isForbidden(x, y))
 	{
@@ -384,12 +375,13 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 			PrintMsg(pApp->GetArr()[y][x]->get_label());
 		else
 			PrintMsg("");
-		//return;
+		
 	}			  
 	//========================================
 	if(UI.isInToolBar(x,y ) )
 	{
-		if ( UI.HiddenToolBar ) return;
+		if ( UI.HiddenToolBar ) 
+			return;
 		string num = "" , s = "";
 		stringstream ss;
 		int ClickedItemOrder = (x / UI.ToolBarItemWidth);
@@ -524,47 +516,58 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 
 //////////////////////////////////////////////////////////////////////////////////
 
-bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType , Component ** Arr[780] , bool selected , int xOffset , int yOffset)
+bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType CompType , Component ** Arr[780])
 {
  	GraphicsInfo temp = r_GfxInfo;
 	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
-	  pWind->SetBuffering( true );
 
 	  pWind->FlushKeyQueue( );
 	  char cEscape;	//the character pressed to cancle the addition of the gate
 	  bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
 		do {
-			
-			
+
 			pWind->DrawImage( initImage , 0 , 0 );
 			
 			pWind->GetMouseCoord( r_GfxInfo.x1 , r_GfxInfo.y1 );
-			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2 + xOffset;
-			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2+ yOffset;
-			Magnetize( r_GfxInfo.x1 , r_GfxInfo.y1 );
-			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
-			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
-
+			if (CompType == LED_)
+			{
+				r_GfxInfo.x1 = r_GfxInfo.x1 - UI.LED_Width / 2;
+				r_GfxInfo.y1 = r_GfxInfo.y1 - UI.LED_Height / 2;
+				Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+				r_GfxInfo.x2 = r_GfxInfo.x1 + UI.LED_Width;
+				r_GfxInfo.y2 = r_GfxInfo.y1 + UI.LED_Height;
+			}
+			else if (CompType == Switch_)
+			{
+				r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Switch_Width / 2;
+				r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Switch_Height / 2;
+				Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+				r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Switch_Width;
+				r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Switch_Height;
+			}
+			else {
+				r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
+				r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
+				Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+				r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
+				r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+			}
 			
 			if ( pWind->GetKeyPress( cEscape ) == ESCAPE )
 			{
 				pWind->DrawImage( initImage , 0 , 0 );
 				r_GfxInfo =	temp ;
 				pWind->UpdateBuffer( );
-				pWind->SetBuffering( false );
 				return false;
 			}
 		
-
-
 			forbidden = false;
-
 		
 			for ( int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i++ )
 			{
 				for ( int j = r_GfxInfo.y1; j < r_GfxInfo.y2; j++ )
 				{
-					if(i>0&&j>0&&j<700&&i<1390 )
+					if( i>0 && j>0 && j<700 && i<1390 )
 						if ( Arr[j][i] )
 						{
 							forbidden = true; break;
@@ -575,11 +578,19 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 			if ( forbidden )
 			{
 				PrintMsg( "You can't draw here!" );
-				DrawGate(r_GfxInfo, gType, false, true);
+				if (CompType == LED_)
+					DrawLED(r_GfxInfo, LOW, false, true);
+				else if (CompType == Switch_)
+					DrawSwitch(r_GfxInfo, LOW, false, true);
+				else DrawGate(r_GfxInfo, CompType, false, true);
 			}
 			else
 			{
-				DrawGate( r_GfxInfo , gType );
+				if (CompType == LED_)
+					DrawLED(r_GfxInfo, LOW, false);
+				else if (CompType == Switch_)
+					DrawSwitch(r_GfxInfo, LOW);
+				else DrawGate( r_GfxInfo , CompType );
 			}
 
 			if ( !UI.HiddenToolBar )CreateDesignToolBar( );
@@ -600,20 +611,38 @@ bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType gType 
 			{
 				PrintMsg( "" );  forbidden = false;
 			}
+			
 			pWind->UpdateBuffer( );
 
 
 		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK||forbidden );
 		
-		
-		r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2 + xOffset;
-		r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2 + yOffset;
-		Magnetize( r_GfxInfo.x1 , r_GfxInfo.y1 );
-		r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
-		r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+		if (CompType == LED_)
+		{
+			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.LED_Width / 2;
+			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.LED_Height / 2;
+			Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.LED_Width;
+			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.LED_Height;
+		}
+		else if (CompType == Switch_)
+		{
+			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Switch_Width / 2;
+			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Switch_Height / 2;
+			Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Switch_Width;
+			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Switch_Height;
+		}
+		else {
+			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
+			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
+			Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
+			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+		}
 		
 		PrintMsg( "" );
-		pWind->SetBuffering( false );
+		pWind->UpdateBuffer( );
 return true;
 		
 }
@@ -642,7 +671,7 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 
 	image initImage;
 	pWind->StoreImage(initImage, 0, 0, UI.width, UI.height);
-	pWind->SetBuffering(true);
+
 	
 	pWind->FlushKeyQueue();
 	
@@ -683,10 +712,10 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 		if (pWind->GetKeyPress(cEscape) == ESCAPE)		// if user pressed ESCAPE , all the components return to their initial positions
 		{
 			pWind->DrawImage(initImage, 0, 0);
-			for (int i = 0; i < HighlightedVec.size(); i++)
+			for (unsigned int i = 0; i < HighlightedVec.size(); i++)
 				HighlightedVec[i]->set_GraphicInfo(initialGFxInfo[i]);
 			pWind->UpdateBuffer();
-			pWind->SetBuffering(false);
+		
 			return false;
 		}
 
@@ -755,7 +784,7 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 	} while (pWind->GetMouseClick(x,y) == NO_CLICK || forbidden);
 
 	PrintMsg("");
-	pWind->SetBuffering(false);
+	
 
 	return true;
 
@@ -764,19 +793,10 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 bool Output::PasteComponents( ApplicationManager * pApp )
 {
 	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
-	pWind->SetBuffering( true );
 	pWind->FlushKeyQueue( );
 	char cEscape;	//the character pressed to cancle the addition of the gate
 	bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
  //  Component
-
-
-
-
-
-
-
-
 	return false;
 }
 
@@ -822,14 +842,14 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected,
 	GateImage += ".png";
 
 	//pWind->DrawImage(GateImage, r_GfxInfo.x1, r_GfxInfo.y1, UI.Gate_Width, UI.Gate_Height);
-	clock_t t = clock();
+	//clock_t t = clock();
 	DrawPNG	(pWind, GateImage, r_GfxInfo);
-	cout << clock() - t<<endl;
+	//cout << clock() - t<<endl;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void Output::DrawLED(GraphicsInfo r_GfxInfo,  bool state, bool selected , string colour)
+void Output::DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, bool forbidden, string colour)
 {
 	//Getting the switch image
 
@@ -839,6 +859,8 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo,  bool state, bool selected , string
 	else LEDImage += "OFF";
 	if (selected)		 // Highlighted
 		LEDImage += "H";
+	else if (forbidden)	//Forbidden
+		LEDImage += "F";
 	LEDImage += ".jpg";
 
 	Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
@@ -848,7 +870,7 @@ void Output::DrawLED(GraphicsInfo r_GfxInfo,  bool state, bool selected , string
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void Output::DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected, MODE mode)
+void Output::DrawSwitch(GraphicsInfo r_GfxInfo, STATUS status, bool selected, bool forbidden, MODE mode)
 {
 	//Getting the switch image
 
@@ -862,6 +884,8 @@ void Output::DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool selected, MOD
 	}
 	if (selected)		 // Highlighted
 		SwitchImage += "H";
+	else if (forbidden)	//Forbidden
+		SwitchImage += "F";
 	SwitchImage += ".jpg";
 
 
@@ -925,7 +949,7 @@ void Output::DeleteGate( GraphicsInfo GfxInfo )
 
 bool Output::SetBuffering( const bool bSetting )
 {
-	return pWind->SetBuffering(bSetting);
+	return true; //pWind->SetBuffering(bSetting);
 }
 
 void Output::UpdateBuffer( )
@@ -986,9 +1010,12 @@ if((!(dynamic_cast<Connection*>(AppManger->GetArr()[d][c])))||((Connection*)AppM
 		}
 
 	}
+	pWind->UpdateBuffer( );
 }
 Output::~Output()
 {
+	pWind->SetBuffering( false );
+
 	delete pWind;
 }
 

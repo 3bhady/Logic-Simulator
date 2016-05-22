@@ -1,13 +1,12 @@
-//#ifndef APPLICATION_MANAGER_H
-//#define APPLICATION_MANAGER_H
 #pragma once
+
 #include "Defs.h"
 #include "GUI\Output.h"
 #include "GUI\Input.h"
-//#include "Actions\Action.h"
 #include "Components\Component.h"
 #include<vector>
 #include<stack>
+
 class Component;
 class Action;
 
@@ -48,16 +47,30 @@ public:
 
 	Component *** GetArr( );	//returns the grid
 	vector< pair<GraphicsInfo , ComponentType> >& GetClipboard( );
+	void AddToClipboard(Component* pComp);
 
 	void AddComponent(Component* pComp);	//Add component in 2D array and push it in complist	
 	 
 	void save(ofstream &fout);
 	//void load(ifstream &fin);
+
+	//Component* GetComponent( int x , int y );
+	void DeleteComponent(int x,int y);
+	void DeleteComponent( Component* pComp );
+
 	vector<Component*>& GetCompList();				//returns the components list
 	vector<Component*>& GetHighlightedList();		//returns the highlighted components list
 
 	stack<Action*>& getUndoStack();		//returns the undo Stack
 	stack<Action*>& getRedoStack();		//returns the redo Stack
-};
 
-//#endif
+
+	Component* GetComponent(int x,int y);			//Get component from GRID
+	void ClearHighlightedCompList();				//Clear the HighlightedComplist
+	void HighlightComponent(Component*);			//Highlight component
+	void HighlightComponent(int x, int y);			//Highlight component
+	void UnhighlightComponent(Component*);			//Unhighlight component
+	void UnhighlightComponent(int x, int y);		//Unhighlight component
+	Component* GetHighlightedComponent(int index);	//Get component from highlighted list
+	unsigned int getHighlightedCompListSize();				//returns highlighted list size
+};

@@ -11,7 +11,7 @@ HideDesignToolBar::~HideDesignToolBar()
 {
 }
 
-bool HideDesignToolBar::ReadActionParameters(string s)
+bool HideDesignToolBar::ReadActionParameters()
 {
 	return true;
 }

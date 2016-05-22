@@ -15,7 +15,7 @@ void WritePNG( window * pWind , image &screen , int x , int y , vector<unsigned 
 	unsigned char * Arr = screen.GetArr( );
 	int Size = Image.size();
 	//int Size = (sizeof( Arr ) / sizeof( *Arr ));
-	long long i;
+	unsigned int i;
 	for ( i = 0; i < Size; i+=4 )
 	{
 		if (Image[i + 3])
