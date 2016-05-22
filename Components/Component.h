@@ -49,6 +49,7 @@ public:
 	virtual void setCompIndex(int index);
 	virtual int getCompIndex();
 	virtual bool isInpinFloating(int n) = 0;
+	virtual bool isOutpinFloating() = 0;
 	virtual int getCompIndexConnectedToInPin(int n) = 0;
 
 	//Destructor must be virtual

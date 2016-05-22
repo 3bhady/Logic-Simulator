@@ -25,6 +25,7 @@ public:
 	virtual pair<int, int> get_OP();//the function that gets the outputpin coordinates
 	virtual int getNumberofInPins();
 	virtual bool isInpinFloating(int n);
+	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
 //kero
 //===============================================

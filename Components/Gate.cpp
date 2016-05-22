@@ -162,6 +162,11 @@ bool Gate::isInpinFloating(int n)
 	return (m_InputPins[n - 1].get_connection() == NULL);
 }
 
+bool Gate::isOutpinFloating()
+{
+	return (GetOutPinStatus() == FLOATING);
+}
+
 int Gate::getCompIndexConnectedToInPin(int n)
 {
 	return m_InputPins[n - 1].get_connection()->getCompIndexConnectedToInPin(n);

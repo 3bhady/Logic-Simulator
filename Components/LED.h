@@ -25,6 +25,7 @@ public:
 	InputPin* get_inputpin();
 	virtual int getNumberofInPins();
 	virtual bool isInpinFloating(int n);
+	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
 	//kero	
 	//==================================================

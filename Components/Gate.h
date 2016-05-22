@@ -41,5 +41,6 @@ public:
 	virtual void setInputPinStatus(STATUS s, int n);
 	virtual int getNumberofInPins();
 	virtual bool isInpinFloating(int n);
+	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
 };

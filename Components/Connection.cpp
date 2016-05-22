@@ -150,6 +150,11 @@ bool Connection::isInpinFloating(int n)
 	return false;
 }
 
+bool Connection::isOutpinFloating()
+{
+	return DstPin->get_connection();
+}
+
 int Connection::getCompIndexConnectedToInPin(int n)
 {
 	return SrcPin->getCompIndex();

@@ -5,7 +5,7 @@
 Switch::Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOut)
 {
 	Type = Switch_;
-	State = LOW;
+	State = FLOATING;
 	Width = UI.LED_Width;
 	Height = UI.LED_Height;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -39,7 +39,6 @@ STATUS Switch::GetOutPinStatus()
 {
 	return m_OutputPin.getStatus();
 }
-
 
 //returns status of Inputpin 
 STATUS Switch::GetInputPinStatus(int n = 1)
@@ -79,6 +78,11 @@ int Switch::getNumberofInPins()
 bool Switch::isInpinFloating(int n)
 {
 	return false;
+}
+
+bool Switch::isOutpinFloating()
+{
+	return (m_OutputPin.getStatus()==FLOATING);
 }
 
 int Switch::getCompIndexConnectedToInPin(int n)
