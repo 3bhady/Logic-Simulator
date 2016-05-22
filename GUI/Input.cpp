@@ -157,8 +157,8 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 			return SELECT;
 		}
 	}
-	if (cType == LEFT_CLICK)
-	{
+	if (cType == LEFT_CLICK)	//todo eh dh ya kero???  // fen el functions bta3t is in toolbar ??? fen??
+	{	 //bzmtk shaklaha msh w7sh ya kero ???
 		if (UI.HiddenToolBar&&y < UI.ToolBarTitleHeight &&y >= 0 && x < UI.ToolBarTitleWidth)//show hidden toolbar
 			return SHOW_DESIGN_B;
 		if (!UI.HiddenToolBar && UI.isInToolBarTitle(x, y))

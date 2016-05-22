@@ -24,6 +24,8 @@ bool Cut::ReadActionParameters()
 
 void Cut::Execute( )
 {
+	if ( UI.AppMode == EDIT_MODE )
+		pManager->GetOutput( )->CloseEditMenu( pManager );
 	if ( !ReadActionParameters( ) )
 		return;
 	for ( unsigned int i = 0; i <pManager->GetCompList( ).size( ); i++ )

@@ -22,6 +22,8 @@ bool Paste::ReadActionParameters()
 
 void Paste::Execute( )
 {
+	if ( UI.AppMode == EDIT_MODE )
+		pManager->GetOutput( )->CloseEditMenu( pManager );
 	if ( !ReadActionParameters( ) )
 		return;
 	/*
