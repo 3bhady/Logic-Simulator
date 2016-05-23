@@ -34,7 +34,7 @@ Gate::Gate( int r_Inputs , int r_FanOut , GraphicsInfo in_Gfxinfo ) :m_OutputPin
 	Width = UI.Gate_Width;
 	Height = UI.Gate_Height;
 	m_OutputPin.SetComponent(this);
-	m_OutputPin = FLOATING;
+	//m_OutputPin = FLOATING;
 	//kero
 	//===========================
 	gateID = ID++;
@@ -176,4 +176,24 @@ int Gate::getCompIndexConnectedToInPin(int n)
 {
 	return m_InputPins[n - 1].get_connection()->getCompIndexConnectedToInPin(n);
 }
+
+Gate::~Gate()
+{
+	
+
+	delete[] m_InputPins;
+	delete[]inP;
+}
+void Gate::EraseComponent(ApplicationManager * pApp)
+{
+	Component *** Arr = pApp->GetArr();
+	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2; j++)
+		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
+			Arr[i][j] = NULL;
+	for (int i = 0;i < m_Inputs;i++)
+		m_InputPins[i].Erase(pApp);
+	m_OutputPin.EraseConnections(pApp);
+	pApp->GetOutput()->DeleteGate(m_GfxInfo);
+}
+
 

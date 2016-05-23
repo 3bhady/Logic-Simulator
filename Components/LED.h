@@ -26,6 +26,7 @@ public:
 	virtual int getNumberofInPins();
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
+	void EraseComponent(ApplicationManager * pApp);
 	virtual int getCompIndexConnectedToInPin(int n);
 	//kero	
 	//==================================================

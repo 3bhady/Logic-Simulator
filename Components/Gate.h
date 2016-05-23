@@ -30,6 +30,7 @@ public:
 	virtual pair<int , int>* get_INPC( );//the function which gets an inputpin coordinates
 	virtual OutputPin* get_Opin( );//the function that returns pointer to the outputpin
 	virtual InputPin* get_INpin( pair<int , int> &x );//the function that returns pointer to an inputpin
+	virtual void EraseComponent(ApplicationManager * pApp);//remove it from the grid
 													  //kero
 													  //==================================================
 	void Save( ofstream &fout );
@@ -43,4 +44,5 @@ public:
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
+	~Gate();
 };

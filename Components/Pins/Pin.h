@@ -1,7 +1,7 @@
 #pragma once
 
 #include "..\..\Defs.h"
-
+#include "..\..\ApplicationManager.h"
 class Pin
 {
 protected:
