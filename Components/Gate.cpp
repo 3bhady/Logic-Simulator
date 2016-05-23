@@ -35,6 +35,7 @@ Gate::Gate( int r_Inputs , int r_FanOut , GraphicsInfo in_Gfxinfo ) :m_OutputPin
 	Height = UI.Gate_Height;
 	m_OutputPin.SetComponent(this);
 	//m_OutputPin = FLOATING;
+
 	//kero
 	//===========================
 	gateID = ID++;
@@ -174,7 +175,7 @@ bool Gate::isOutpinFloating()
 
 int Gate::getCompIndexConnectedToInPin(int n)
 {
-	return m_InputPins[n - 1].get_connection()->getCompIndexConnectedToInPin(n);
+	return m_InputPins[n].get_connection()->getCompIndex();
 }
 
 Gate::~Gate()

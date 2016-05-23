@@ -3,7 +3,8 @@
 #include "..\Connection.h"
 
 OutputPin::OutputPin(int r_FanOut)
-{
+
+{	//initially Pin is not connected to anything.
 	m_FanOut = r_FanOut > MAX_CONNS ? MAX_CONNS : r_FanOut;	//set the fan out of the pin.
 	m_Conn = 0;		//initially Pin is not connected to anything.
 	
@@ -70,7 +71,7 @@ OutputPin::~OutputPin()
 
 void OutputPin::SetComponent(Component *pCmp)
 {
-	this->pComp = pCmp;
+	pComp = pCmp;
 }
 
 Component* OutputPin::getComponent()

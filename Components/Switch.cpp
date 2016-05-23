@@ -24,7 +24,7 @@ Switch::Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOu
 
 void Switch::Operate()
 {
-	m_OutputPin.setStatus(State);
+	m_OutputPin.setStatus(LOW);
 }
 
 

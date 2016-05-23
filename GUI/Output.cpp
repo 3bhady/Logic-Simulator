@@ -151,6 +151,7 @@ void Output::HideDesignToolBar() const
 	}
 	UI.ToolBarStartY -= UI.ToolBarHeight;
 	UI.ToolBarTitleStartY -= UI.ToolBarHeight;
+	UI.HiddenToolBar = true;
 }
 
 void Output::ShowDesignToolBar() const
@@ -169,6 +170,7 @@ void Output::ShowDesignToolBar() const
 	}
 	UI.ToolBarStartY += UI.ToolBarHeight;
 	UI.ToolBarTitleStartY += UI.ToolBarHeight;
+	UI.HiddenToolBar = false;
 }
 
 void Output::HideFileToolBar() const
@@ -187,6 +189,7 @@ void Output::HideFileToolBar() const
 	}
 	UI.FileBarStartX -= UI.FileBarWidth;
 	UI.FileBarTitleStartX -= UI.FileBarWidth;
+	UI.HiddenFileBar = true;
 }
 
 void Output::ShowFileToolBar() const
@@ -204,6 +207,7 @@ void Output::ShowFileToolBar() const
 	}
 	UI.FileBarStartX += UI.FileBarWidth;
 	UI.FileBarTitleStartX += UI.FileBarWidth;
+	UI.HiddenFileBar = false;
 }
 
 void Output::HideEditToolBar() const
@@ -223,6 +227,7 @@ void Output::HideEditToolBar() const
 	}
 	UI.EditBarStartX += UI.EditBarWidth;
 	UI.EditBarTitleStartX += UI.EditBarWidth;
+	UI.HiddenEditBar = true;
 }
 
 void Output::ShowEditToolBar() const
@@ -242,6 +247,7 @@ void Output::ShowEditToolBar() const
 	}
 	UI.EditBarStartX -= UI.EditBarWidth;
 	UI.EditBarTitleStartX -= UI.EditBarWidth;
+	UI.HiddenEditBar = false;
 }
 
 void Output::CloseEditMenu(ApplicationManager* pManager) const

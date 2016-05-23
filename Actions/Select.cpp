@@ -16,6 +16,7 @@ void Select::Execute()
 		pManager->GetOutput( )->CloseEditMenu(pManager);
 		
 	}
+
 	Component * selectedItem = pManager->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1);	//the selected item
 	
 	if ( selectedItem )					   //if the clicked area doesn't point to NULL

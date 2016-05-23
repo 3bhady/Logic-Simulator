@@ -11,17 +11,12 @@
 #include"Actions\Redo.h"
 #include"Actions\AddConnection.h"
 #include"Actions\Action.h"
-#include"Actions\HideDesignToolBar.h"
-#include"Actions\ShowDesignToolBar.h"
-#include"Actions\ShowFileToolBar.h"
-#include"Actions\HideFileToolBar.h"
-#include"Actions\ShowEditToolBar.h"
-#include"Actions\HideEditToolBar.h"
 #include"Actions\EditMenu.h"
 #include"Actions\Label.h"
 #include"Actions\Save.h"
 #include"Actions\Load.h"
 #include "Actions\Delete.h"
+#include"Actions\ToggleBars.h"
 #include<fstream>
 
 ApplicationManager::ApplicationManager()
@@ -244,18 +239,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new Redo(this);
 	if (ActType == EDIT_MENU)
 		pAct = new EditMenu(this);
-	if (ActType == HIDE_DESIGN_B)
-		pAct = new HideDesignToolBar(this);
-	if (ActType == SHOW_DESIGN_B)
-		pAct = new ShowDesignToolBar(this);
-	if (ActType == SHOW_FILE_B)
-		pAct = new ShowFileToolBar(this);
-	if (ActType == HIDE_FILE_B)
-		pAct = new HideFileToolBar(this);
-	if (ActType == SHOW_EDIT_B)
-		pAct = new ShowEditToolBar(this);
-	if (ActType == HIDE_EDIT_B)
-		pAct = new HideEditToolBar(this);
+	if (ActType == TOGGLE_BARS)
+		pAct = new ToggleBars(this);
 	if (ActType == EDIT_Label)
 		pAct = new Label(this);
 	if (ActType == SAVE)
@@ -370,11 +355,14 @@ bool ApplicationManager::Simulate()
 	if (SimulationResult == 1)
 	{
 		OutputInterface->PrintMsg("Simulation Failed ... Floating Pins !!"); 
+		OutputInterface->UpdateBuffer();
 		return false;
 	}
 	if (SimulationResult == 2)
 	{
 		OutputInterface->PrintMsg("Simulation Failed ... Circuit contains feedback !!");
+		OutputInterface->UpdateBuffer();
+		Sleep(2000);
 		return false;
 	}
 	return true;
@@ -387,10 +375,10 @@ STATUS ApplicationManager::dfs(vector<bool>& visited, const vector<Component*>& 
 	if (Complist[index]->GetOutPinStatus() != FLOATING)return Complist[index]->GetOutPinStatus();
 	if (visited[index]) { result = 2; return FLOATING; }
 	visited[index] = true;
-	for (int i = 0; i < Complist[i]->getNumberofInPins(); i++)
+	for (int i = 0; i < Complist[index]->getNumberofInPins(); i++)
 	{
 		if (!Complist[i]->isInpinFloating(i))
-			Complist[i]->setInputPinStatus(STATUS(dfs(visited, Complist, Complist[i]->getCompIndexConnectedToInPin(i), result)), i);
+			Complist[i]->setInputPinStatus(STATUS(dfs(visited, Complist, Complist[index]->getCompIndexConnectedToInPin(i), result)), i);
 		else {
 			result = 1; return FLOATING;
 		}
