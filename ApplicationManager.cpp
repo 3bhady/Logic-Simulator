@@ -17,6 +17,8 @@
 #include"Actions\Load.h"
 #include "Actions\Delete.h"
 #include"Actions\ToggleBars.h"
+#include"Actions\New.h"
+#include"Actions\TruthTable.h"
 #include<fstream>
 
 ApplicationManager::ApplicationManager()
@@ -251,6 +253,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		return;
 	if ( ActType == DEL )
 		pAct = new Delete( this );
+	if (ActType == NEW)
+		pAct = new New(this);
+	if (ActType ==Create_TruthTable)
+		pAct = new TruthTable(this);
 	if(pAct)
 	{
 		//if Action undo or redo don't push in stacks
@@ -313,7 +319,6 @@ Output* ApplicationManager::GetOutput()
 ApplicationManager::~ApplicationManager()
 {
 	//Free memory
-
 	for(unsigned int i=0; i<CompList.size(); i++)
 		delete CompList[i];
 	while (!UndoStack.empty())

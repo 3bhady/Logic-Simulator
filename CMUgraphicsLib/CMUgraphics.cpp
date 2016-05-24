@@ -338,10 +338,10 @@ window::~window() {
 
 inline void window::ProcessMessage() {
 
-    MSG msgStruct;
-	
-    if(PeekMessage(&msgStruct, hwndWindow, 0, 0, PM_REMOVE)) {
-	    TranslateMessage(&msgStruct);
+	MSG msgStruct;
+
+	if (PeekMessage(&msgStruct, hwndWindow, 0, 0, PM_REMOVE)) {
+		TranslateMessage(&msgStruct);
 		DispatchMessage(&msgStruct);
 	}
 }

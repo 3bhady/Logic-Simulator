@@ -207,6 +207,8 @@
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Actions\New.cpp" />
+    <ClCompile Include="Actions\TruthTable.cpp" />
     <ClCompile Include="Utility\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -277,6 +279,8 @@
     <ClInclude Include="GUI\Output.h" />
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="lodepng.h" />
+    <ClInclude Include="Actions\New.h" />
+    <ClInclude Include="Actions\TruthTable.h" />
     <ClInclude Include="Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>

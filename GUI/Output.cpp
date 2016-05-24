@@ -40,6 +40,57 @@ Input* Output::CreateInput() const
 	return pIn;
 }
 
+void Output::CreateTruthTableWindow(int RowsNumber, int ColumnNumber, int ColumnWidth, int RowWidth, int StartX, int StartY)
+{
+	pTruthTable= CreateWind((ColumnNumber + 1)*ColumnWidth, (RowsNumber + 2)*RowWidth + 20, StartX, StartY);
+	pTruthTable->ChangeTitle("Truth Table");
+}
+
+void Output::DrawTruthTable(int SwitchCount,int LedCount,int RowsNumber, int ColumnNumber, int ColumnWidth, int RowWidth)
+{
+	pTruthTable->SetPen(BLACK, 3);
+	for (int i = 1; i < ColumnNumber + 1; i++)
+	{
+		pTruthTable->DrawLine(ColumnWidth * i, 0, ColumnWidth * i, 600);
+		pTruthTable->DrawLine(0, RowWidth, ColumnNumber * ColumnWidth, RowWidth);
+	}
+	for (int i = 2; i < RowsNumber + 2; i++)
+	{
+		pTruthTable->DrawLine(0, RowWidth * i, ColumnNumber * ColumnWidth, RowWidth * i);
+	}
+		for (int i = SwitchCount; i > 0; i--)
+		{
+			string order = "", s = "";
+			stringstream ss;
+			int x = (i - 1);
+			ss << x;
+			ss >> order;
+			s = "S" + order;
+			pTruthTable->SetPen(RED);
+			pTruthTable->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
+			pTruthTable->DrawString((i - 1)*(ColumnWidth), RowWidth / 2, s);
+		}
+		for (int i = LedCount; i > 0; i--)
+		{
+			string order = "", s = "";
+			stringstream ss;
+			int x = (i - 1);
+			ss << x;
+			ss >> order;
+			s = "Q" + order;
+			pTruthTable->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
+			pTruthTable->DrawString((i - 1 + SwitchCount)*(ColumnWidth), RowWidth / 2, s);
+		}
+}
+
+void Output::DrawCellValue(int CellX, int CellY ,int value)
+{
+		pWind->SetPen(BLUE);
+		pTruthTable->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
+		pTruthTable->DrawInteger(CellX, CellY, value);
+		
+}
+
 
 //======================================================================================//
 //								Interface Functions										//

@@ -21,6 +21,12 @@ string Component::get_label()
 	return m_Label;
 }
 
+void Component::setID(int id)
+{
+	ID = id;
+}
+
+
 GraphicsInfo & Component::get_GraphicInfo()
 {
 	return m_GfxInfo;
