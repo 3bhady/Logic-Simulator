@@ -290,7 +290,7 @@ void Output::CreateFileToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX, UI.FileBarTitleStartY);
 
 	}
-	else 	pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX - UI.FileBarWidth, UI.FileBarTitleStartY);
+	else 	pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX, UI.FileBarTitleStartY);
 	//pWind->UpdateBuffer( );
 }
 
@@ -303,7 +303,7 @@ void Output::CreateEditToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB2.jpg", UI.EditBarStartX, UI.EditBarStartY);
 		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX, UI.EditBarTitleStartY);
 	}
-	else pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX + UI.EditBarWidth, UI.EditBarTitleStartY);
+	else pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX , UI.EditBarTitleStartY);
 	//pWind->UpdateBuffer( );
 }
 //////////////////////////////////////////////////////////////////////////////////
