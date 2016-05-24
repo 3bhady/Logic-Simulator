@@ -58,21 +58,37 @@ STATUS Switch::get_state()
 	return State;
 }
 
-OutputPin * Switch::get_OPP()
-{
-	return &m_OutputPin;
-}
+
 
 void Switch::setInputPinStatus(STATUS s, int n)
 {
 	set_state(s);
 }
 
-pair<int, int>& Switch::get_OP()
+pair<int, int>& Switch::GetOutputPinCoordinates()//the function that gets the outputpin coordinates
 {
 	outP = make_pair(m_GfxInfo.x2, m_GfxInfo.y1 + 15);
-	return outP;
+	if (m_OutputPin.CheckForAdd())
+		return outP;
+	else
+		return FalsePoint;
 }
+pair<int, int>* Switch::GetInputPinCoordinates(pair<int, int> &Pair)//the function that gets the inputtpin coordinates
+{
+
+	return NULL;
+}
+
+OutputPin * Switch::GetOutputPin()//the function that returns pointer to an outputpin
+{
+	return &m_OutputPin;
+}
+InputPin * Switch::GetInputPin(pair<int, int> &x)
+{
+
+	return NULL;
+}
+
 int Switch::getNumberofInPins()
 {
 	return 0;
@@ -102,11 +118,11 @@ void Switch::EraseComponent(ApplicationManager * pApp)
 	pApp->GetOutput()->DeleteGate(m_GfxInfo);
 }
 
+
 void Switch::SetOutPinStatus(STATUS s)
 {
 	State = s;
 }
-
 
 void Switch::Save(ofstream & fout)
 {

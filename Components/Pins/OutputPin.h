@@ -24,6 +24,7 @@ private:
 
 public:
 	OutputPin(int r_FanOut);
+	bool CheckForAdd();//check if you can add a new connection
 	bool ConnectTo(Connection *r_Conn);	//connect to a new connection
 	void EraseConnections(ApplicationManager*);
 	vector<Connection*>& GetConnections();//return the vector of connections

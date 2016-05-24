@@ -5,6 +5,10 @@
 //#include<iostream>
 using namespace std;
 
+//pair<int, int > FalsePoint = make_pair(0, 0);
+#ifndef FALSEPOINT
+#define FalsePoint make_pair(0,0);
+#endif
 //All possible actions
 enum ActionType 
 {
@@ -66,18 +70,7 @@ enum STATUS
 	HIGH,
 	FLOATING
 };
-//Possible types of components that could be connected to the first edge of the connection
-enum FS
-{
-	GA,//gate
-	S//switch
-};
-//Possible types of components that could be connected to the second edge of the connection
-enum RS
-{
-	G,//gate
-	L//Led
-};
+
 
 enum  MODE	//Modes of operation
 {
