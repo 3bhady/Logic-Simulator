@@ -79,6 +79,11 @@ Component* ApplicationManager::GetComponent( int x , int y )
 	return Arr[y][x];
 }
 
+void ApplicationManager::PointToNull(int x, int y)
+{
+	Arr[y][x] = NULL;
+}
+
 void ApplicationManager::DeleteComponent( int x , int y )
 {
 	//DeleteComponent( Arr[y][x] );
@@ -103,6 +108,13 @@ void ApplicationManager::DeleteComponent( Component * pComp )
 			CompList.erase( CompList.begin( ) + i );
 			break;
 		}
+}
+
+void ApplicationManager::EraseComponent(GraphicsInfo GFX)
+{
+	for (int j = GFX.x1; j < GFX.x2; j++)
+		for (int i = GFX.y1; i < GFX.y2; i++)
+			Arr[i][j] = NULL;
 }
 
 vector<Component*>& ApplicationManager::GetCompList()
@@ -200,6 +212,12 @@ Component * ApplicationManager::GetHighlightedComponent(int index)
 unsigned int ApplicationManager::getHighlightedCompListSize()
 {
 	return HighlightedCompList.size();
+}
+
+void ApplicationManager::UpdateComponentsIndexes()
+{
+	for (unsigned int i = 0; i < CompList.size(); i++)
+		CompList[i]->setCompIndex(i);
 }
 
 ////////////////////////////////////////////////////////////////////

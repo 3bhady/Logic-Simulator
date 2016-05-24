@@ -95,7 +95,7 @@ buttonstate Input::GetButtonState( const button btMouse , int & iX , int & iY )
 ActionType Input::GetUserAction( ApplicationManager * pApp )const
 {
 	int x = 0, y = 0;
-	Component*** Arr = pApp->GetArr();
+	//Component*** Arr = pApp->GetArr();
 	//clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
 	char HotKey;
 
@@ -292,7 +292,7 @@ if (UI.isInFileBar(x, y))
 
 			if ( !UI.isForbidden( x , y ) )
 			{
-				if ( pApp->GetArr()[y][x] )
+				if (pApp->GetComponent(x,y))
 					return SELECT;
 				else
 					return AREASELECT;

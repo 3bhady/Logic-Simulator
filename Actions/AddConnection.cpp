@@ -136,7 +136,6 @@ void AddConnection::Execute()
 	{
 		//if ((((Gate*)pManager->GetArr()[GInfo.y1][GInfo.x1-15]))->get_INpin(make_pair(GInfo.x2, GInfo.x2))->get_connection() == NULL)
 		//if((((Gate*)pManager->GetArr()[GInfo.y2][GInfo.x2]))->get_INpin(make_pair(GInfo.x2, GInfo.x2))==NULL)
-
 		pS = new Connection(GInfo, &outx, (((Gate*)pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]))->get_Opin(), (((Gate*)pManager->GetArr()[GInfo.y2][GInfo.x2]))->get_INpin(make_pair(GInfo.x2, GInfo.y2)));
 		(((Gate*)pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]))->get_Opin()->ConnectTo(pS);
 		(((Gate*)pManager->GetArr()[GInfo.y2][GInfo.x2]))->get_INpin(make_pair(GInfo.x2, GInfo.y2))->set_connection(pS);

@@ -206,10 +206,7 @@ Gate::~Gate()
 }
 void Gate::EraseComponent(ApplicationManager * pApp)
 {
-	Component *** Arr = pApp->GetArr();
-	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2; j++)
-		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
-			Arr[i][j] = NULL;
+	pApp->EraseComponent(m_GfxInfo);
 	for (int i = 0;i < m_Inputs;i++)
 		m_InputPins[i].Erase(pApp);
 	m_OutputPin.EraseConnections(pApp);

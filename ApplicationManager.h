@@ -57,6 +57,7 @@ public:
 	//Component* GetComponent( int x , int y );
 	void DeleteComponent(int x,int y);
 	void DeleteComponent( Component* pComp );
+	void EraseComponent(GraphicsInfo GFX);
 
 	vector<Component*>& GetCompList();				//returns the components list
 	vector<Component*>& GetHighlightedList();		//returns the highlighted components list
@@ -66,6 +67,7 @@ public:
 
 
 	Component* GetComponent(int x,int y);			//Get component from GRID
+	void PointToNull(int x, int y);					//Make point points to NULL in the GRID
 	void ClearHighlightedCompList();				//Clear the HighlightedComplist
 	void HighlightComponent(Component*);			//Highlight component
 	void HighlightComponent(int x, int y);			//Highlight component
@@ -73,4 +75,5 @@ public:
 	void UnhighlightComponent(int x, int y);		//Unhighlight component
 	Component* GetHighlightedComponent(int index);	//Get component from highlighted list
 	unsigned int getHighlightedCompListSize();		//returns highlighted list size
+	void UpdateComponentsIndexes();					//updates the indexes of the components in the complist
 };

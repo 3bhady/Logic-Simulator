@@ -47,6 +47,7 @@ void Simulate::redo()
 
 bool Simulate::Run()
 {
+	pManager->UpdateComponentsIndexes();
 	vector<bool> visited;
 	unsigned int size = pManager->GetCompList().size();
 	visited.resize(size, false);

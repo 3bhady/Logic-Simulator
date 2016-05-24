@@ -53,10 +53,7 @@ void Component::DeleteComponent( ApplicationManager * pApp )
 
 void Component::EraseComponent(ApplicationManager * pApp) 
 {
-	Component *** Arr = pApp->GetArr();
-	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2 ; j++)
-		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
-			Arr[i][j] = NULL;
+	pApp->EraseComponent(m_GfxInfo);
 	pApp->GetOutput()->DeleteGate(m_GfxInfo);
 }
 

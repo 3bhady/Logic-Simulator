@@ -432,8 +432,8 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 	}
 	if (!UI.isForbidden(x, y))
 	{
-		if (pApp->GetArr()[y][x])
-			PrintMsg(pApp->GetArr()[y][x]->get_label());
+		if (pApp->GetComponent(x, y))
+			PrintMsg(pApp->GetComponent(x, y)->get_label());
 		else
 			PrintMsg("");
 		
@@ -457,7 +457,7 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 			case ITM_OR2: {PrintMsg( "Add OR2 Gate" ); break; }
 			case ITM_EXIT: {PrintMsg( "EXIT" ); break; }
 			case ITM_Buff: {PrintMsg( "Add Buffer" ); break; }
-			case ITM_INV: {PrintMsg( "ADD Inverter" ); break; }
+			case ITM_INV: {PrintMsg( "Add Inverter" ); break; }
 			case ITM_NAND2: {PrintMsg( "Add NAND2 Gate" ); break; }
 			case ITM_NOR2: {PrintMsg( "Add NOR2 Gate " ); break; }
 			case ITM_XOR2: {PrintMsg( "Add XOR2 Gate" ); break; }
@@ -469,7 +469,7 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 			case ITM_XOR3: {PrintMsg( "Add XOR3 Gate" ); break; }
 			case ITM_XNOR3: {PrintMsg( "Add XNOR3 Gate" ); break; }
 			case ITM_Switch: {PrintMsg( "Add Switch" ); break; }
-			case ITM_LED: {PrintMsg( "Add Led" ); break; }
+			case ITM_LED: {PrintMsg( "Add LED" ); break; }
 			case ITM_CONNECTION: {PrintMsg( "Add Connection" ); break; }
 			
 			}
