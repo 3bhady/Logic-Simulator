@@ -34,20 +34,22 @@ Gate::Gate( int r_Inputs , int r_FanOut , GraphicsInfo in_Gfxinfo ) :m_OutputPin
 	Width = UI.Gate_Width;
 	Height = UI.Gate_Height;
 	m_OutputPin.SetComponent(this);
-	m_OutputPin = FLOATING;
+	//m_OutputPin = FLOATING;
 	//kero
 	//===========================
 	gateID = ID++;
 	//=======================
 }
 
-pair<int , int>& Gate::get_OP( )
+pair<int, int>& Gate::GetOutputPinCoordinates()//the function that gets the outputpin coordinates
 {
 	outP = make_pair(m_GfxInfo.x2, m_GfxInfo.y1 + 30);
-
-	return outP;
+	if (m_OutputPin.CheckForAdd())
+		return outP;
+	else
+		return FalsePoint;
 }
-pair<int , int>* Gate::get_INPC( )
+pair<int, int>* Gate::GetInputPinCoordinates(pair<int, int> &Pair)//the function that gets the inputtpin coordinates
 {
 	switch (m_Inputs)
 	{
@@ -62,16 +64,18 @@ pair<int , int>* Gate::get_INPC( )
 		inP[1] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
 		break;
 	}
-
+	for (int i = 0;i < m_Inputs;i++)
+		if (inP[i].first == Pair.first&&inP[i].second == Pair.second&&m_InputPins[i].get_connection() == NULL) return &inP[i];
 	for (int i = 0;i < m_Inputs;i++)if (m_InputPins[i].get_connection() == NULL)return &inP[i];
 
 	return NULL;
 }
-OutputPin * Gate::get_Opin( )
+
+OutputPin * Gate::GetOutputPin()//the function that returns pointer to an outputpin
 {
 	return &m_OutputPin;
 }
-InputPin * Gate::get_INpin( pair<int , int>& x )
+InputPin * Gate::GetInputPin(pair<int, int> &x)
 {
 	switch (m_Inputs)
 	{
@@ -87,13 +91,13 @@ InputPin * Gate::get_INpin( pair<int , int>& x )
 		break;
 	}
 
-	int i, y55 = 10;
+	int i, found = 10;
 	for (i = 0;i < m_Inputs;i++)
 		if (inP[i].first == x.first&&inP[i].second == x.second)
 
-			y55 = i;
-	if ( y55 >= m_Inputs )return NULL;
-	return &m_InputPins[y55];
+			found = i;
+	if (found >= m_Inputs)return NULL;
+	return &m_InputPins[found];
 }
 
 void Gate::Save(ofstream & fout)
@@ -176,4 +180,24 @@ int Gate::getCompIndexConnectedToInPin(int n)
 {
 	return m_InputPins[n - 1].get_connection()->getCompIndexConnectedToInPin(n);
 }
+
+Gate::~Gate()
+{
+	
+
+	delete[] m_InputPins;
+	delete[]inP;
+}
+void Gate::EraseComponent(ApplicationManager * pApp)
+{
+	Component *** Arr = pApp->GetArr();
+	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2; j++)
+		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
+			Arr[i][j] = NULL;
+	for (int i = 0;i < m_Inputs;i++)
+		m_InputPins[i].Erase(pApp);
+	m_OutputPin.EraseConnections(pApp);
+	pApp->GetOutput()->DeleteGate(m_GfxInfo);
+}
+
 

@@ -12,6 +12,7 @@ public:
 	InputPin();
 	void setComponent(Component* pCmp);	//sets the component of this input pin
 	Component* getComponent();	//returns the component of this pin
+	void Erase(ApplicationManager*);
 	Connection* get_connection();//returns the Connection witch this pin is connected to.
 	void set_connection(Connection*);//set the connection 
 };

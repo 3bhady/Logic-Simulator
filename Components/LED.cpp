@@ -64,18 +64,40 @@ void LED::setInputPinStatus(STATUS s, int n = 1)
 {
 	m_InputPin.setStatus(s);
 }
-
-
-pair<int, int>& LED::get_INPC()
+void LED::EraseComponent(ApplicationManager * pApp)
 {
-	inP = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
-
-	return inP;
+	Component *** Arr = pApp->GetArr();
+	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2; j++)
+		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
+			Arr[i][j] = NULL;
+	m_InputPin.Erase(pApp);
+	pApp->GetOutput()->DeleteGate(m_GfxInfo);
 }
 
-InputPin * LED::get_inputpin()
+
+
+pair<int, int>& LED::GetOutputPinCoordinates()//the function that gets the outputpin coordinates
+{
+
+	return FalsePoint;
+}
+pair<int, int>* LED::GetInputPinCoordinates(pair<int, int> &Pair)//the function that gets the inputtpin coordinates
+{
+
+	inP = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+	if (m_InputPin.get_connection == NULL)
+		return &inP;
+	return NULL;
+}
+
+OutputPin * LED::GetOutputPin()//the function that returns pointer to an outputpin
+{
+	return NULL;
+}
+InputPin * LED::GetInputPin(pair<int, int> &x)
 {
 	return &m_InputPin;
+
 }
 
 int LED::getNumberofInPins()

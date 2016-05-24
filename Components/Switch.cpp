@@ -58,21 +58,37 @@ STATUS Switch::get_state()
 	return State;
 }
 
-OutputPin * Switch::get_OPP()
-{
-	return &m_OutputPin;
-}
+
 
 void Switch::setInputPinStatus(STATUS s, int n)
 {
 
 }
 
-pair<int, int>& Switch::get_OP()
+pair<int, int>& Switch::GetOutputPinCoordinates()//the function that gets the outputpin coordinates
 {
-	outP = make_pair(m_GfxInfo.x2, m_GfxInfo.y1 + 15);
-	return outP;
+	outP = make_pair(m_GfxInfo.x2, m_GfxInfo.y1 + 30);
+	if (m_OutputPin.CheckForAdd())
+		return outP;
+	else
+		return FalsePoint;
 }
+pair<int, int>* Switch::GetInputPinCoordinates(pair<int, int> &Pair)//the function that gets the inputtpin coordinates
+{
+
+	return NULL;
+}
+
+OutputPin * Switch::GetOutputPin()//the function that returns pointer to an outputpin
+{
+	return &m_OutputPin;
+}
+InputPin * Switch::GetInputPin(pair<int, int> &x)
+{
+
+	return NULL;
+}
+
 int Switch::getNumberofInPins()
 {
 	return 0;
@@ -91,6 +107,15 @@ bool Switch::isOutpinFloating()
 int Switch::getCompIndexConnectedToInPin(int n)
 {
 	return -1;
+}
+void Switch::EraseComponent(ApplicationManager * pApp)
+{
+	Component *** Arr = pApp->GetArr();
+	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2; j++)
+		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
+			Arr[i][j] = NULL;
+	m_OutputPin.EraseConnections(pApp);
+	pApp->GetOutput()->DeleteGate(m_GfxInfo);
 }
 
 void Switch::Save(ofstream & fout)

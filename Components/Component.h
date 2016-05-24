@@ -4,6 +4,8 @@
 #include "..\GUI\Output.h"
 
 //Base class for classes Gate, Switch, and LED.
+class InputPin;
+class OutputPin;
 class Component
 {
 private:
@@ -38,6 +40,10 @@ public:
 	virtual void AddComponent(ApplicationManager * pApp);		//Add component in 2D array and don't push it in complist	
 	virtual void DeleteComponent( ApplicationManager * pApp ); //completly delete it
 	virtual void EraseComponent( ApplicationManager * pApp );//remove it from the grid
+	virtual pair<int, int>* GetInputPinCoordinates(pair<int, int>&x) = 0;//the function that gets the inputtpin coordinates
+	virtual pair<int, int>& GetOutputPinCoordinates() = 0;//the function that gets the outputpin coordinates
+	virtual InputPin* GetInputPin(pair<int, int>&x) = 0;//the function that returns pointer to an inputpin
+	virtual OutputPin* GetOutputPin() = 0;//the function that returns pointer to an outputpin
 	void Highlight();			//Make the component highlighted
 	void Unhighlight();			//Make the component unhighlighted
 	void Forbid( );				//Makes the component forbidden and it appears red
