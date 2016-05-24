@@ -40,6 +40,57 @@ Input* Output::CreateInput() const
 	return pIn;
 }
 
+void Output::CreateTruthTableWindow(int RowsNumber, int ColumnNumber, int ColumnWidth, int RowWidth, int StartX, int StartY)
+{
+	pTruthTable= CreateWind((ColumnNumber + 1)*ColumnWidth, (RowsNumber + 2)*RowWidth + 20, StartX, StartY);
+	pTruthTable->ChangeTitle("Truth Table");
+}
+
+void Output::DrawTruthTable(int SwitchCount,int LedCount,int RowsNumber, int ColumnNumber, int ColumnWidth, int RowWidth)
+{
+	pTruthTable->SetPen(BLACK, 3);
+	for (int i = 1; i < ColumnNumber + 1; i++)
+	{
+		pTruthTable->DrawLine(ColumnWidth * i, 0, ColumnWidth * i, 600);
+		pTruthTable->DrawLine(0, RowWidth, ColumnNumber * ColumnWidth, RowWidth);
+	}
+	for (int i = 2; i < RowsNumber + 2; i++)
+	{
+		pTruthTable->DrawLine(0, RowWidth * i, ColumnNumber * ColumnWidth, RowWidth * i);
+	}
+		for (int i = SwitchCount; i > 0; i--)
+		{
+			string order = "", s = "";
+			stringstream ss;
+			int x = (i - 1);
+			ss << x;
+			ss >> order;
+			s = "S" + order;
+			pTruthTable->SetPen(RED);
+			pTruthTable->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
+			pTruthTable->DrawString((i - 1)*(ColumnWidth), RowWidth / 2, s);
+		}
+		for (int i = LedCount; i > 0; i--)
+		{
+			string order = "", s = "";
+			stringstream ss;
+			int x = (i - 1);
+			ss << x;
+			ss >> order;
+			s = "Q" + order;
+			pTruthTable->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
+			pTruthTable->DrawString((i - 1 + SwitchCount)*(ColumnWidth), RowWidth / 2, s);
+		}
+}
+
+void Output::DrawCellValue(int CellX, int CellY ,int value)
+{
+		pWind->SetPen(BLUE);
+		pTruthTable->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
+		pTruthTable->DrawInteger(CellX, CellY, value);
+		
+}
+
 
 //======================================================================================//
 //								Interface Functions										//
@@ -997,7 +1048,7 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, 
 	else
 		pWind->SetPen(BLACK, 5);
 	int a = r_GfxInfo.x2, b = r_GfxInfo.y2;
-	//for (int i = 0;i < 780;i++)for (int j = 0;j < 1400;j++)if (AppManger->GetArr()[i][j] == con)pWind->DrawPixel(j, i);
+//	for (int i = 0;i < 780;i++)for (int j = 0;j < 1400;j++)if (AppManger->GetArr()[i][j] == con)pWind->DrawPixel(j, i);
 	
 	while (true)
 	{
@@ -1008,30 +1059,34 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, 
 		bool test = false;
 
 		if ((AppManger->GetArr()[d][c] == con || (c == r_GfxInfo.x2&&d == r_GfxInfo.y2))
-			&& (AppManger->GetArr()[b][a] == con || (a == r_GfxInfo.x1&&b == r_GfxInfo.y1)|| (a == r_GfxInfo.x2&&b == r_GfxInfo.y2&&AppManger->GetArr()[d][c]==con) || (dynamic_cast<Connection*>(AppManger->GetArr()[b][a])&&((Connection*)AppManger->GetArr()[b][a])->getSourcePin() == ((Connection*)con)->getSourcePin())))
+			&& (AppManger->GetArr()[b][a] == con || (a == r_GfxInfo.x1&&b == r_GfxInfo.y1) || (a == r_GfxInfo.x2&&b == r_GfxInfo.y2&&AppManger->GetArr()[d][c] == con) || (dynamic_cast<Connection*>(AppManger->GetArr()[b][a]) && ((Connection*)AppManger->GetArr()[b][a])->getSourcePin() == ((Connection*)con)->getSourcePin())))
 		{
-			
+
 			pWind->DrawLine(c, d - UI.ConnectionOffset, a, b - UI.ConnectionOffset);
 		}
-		else if(dynamic_cast<Connection*>(AppManger->GetArr()[b][a]))
-			if((((Connection*)AppManger->GetArr()[b][a])->getSourcePin() != ((Connection*)con)->getSourcePin()))
-if((!(dynamic_cast<Connection*>(AppManger->GetArr()[d][c])))||((Connection*)AppManger->GetArr()[d][c])->getSourcePin() != ((Connection*)con)->getSourcePin()|| (AppManger->GetArr()[d][c])==con)
-		{
-			
-			if (c == a) {
-				if(d>b)
-				pWind->DrawBezier(c, d - 4, a - 15, b, a - 7, b - 7, a, b - 17);
-				else
-				pWind->DrawBezier(a, b +8, c - 15, d, c - 7, d - 7, c, d - 7);
-			}
-			else
-				if(c>a)
-					pWind->DrawBezier(c - 1, d -7, a +3, b-15, a - 6, b - 14, a-16, b-7 );
-				else
-					pWind->DrawBezier(a +15, b - 7, c+19, d - 15, c +16, d - 14, c+2 , d - 7);
-		}
+		else {
+			if (dynamic_cast<Connection*>(AppManger->GetArr()[b][a]))
+				if ((((Connection*)AppManger->GetArr()[b][a])->getSourcePin() != ((Connection*)con)->getSourcePin()))
+					if ((!(dynamic_cast<Connection*>(AppManger->GetArr()[d][c])))
+						|| ((Connection*)AppManger->GetArr()[d][c])->getSourcePin() != ((Connection*)con)->getSourcePin() || (AppManger->GetArr()[d][c]) == con)
+					{
 
+						if (c == a) {
+							if (d > b)
+								pWind->DrawBezier(c, d - 4, a - 15, b, a - 7, b - 7, a, b - 17);
+							else
+								pWind->DrawBezier(a, b + 8, c - 15, d, c - 7, d - 7, c, d - 7);
+						}
+						else
+							if (c > a)
+								pWind->DrawBezier(c - 1, d - 7, a + 3, b - 15, a - 6, b - 14, a - 16, b - 7);
+							else
+								pWind->DrawBezier(a + 15, b - 7, c + 19, d - 15, c + 16, d - 14, c + 2, d - 7);
+					}
+
+		}
 	}
+
 	//pWind->UpdateBuffer( );
 }
 Output::~Output()

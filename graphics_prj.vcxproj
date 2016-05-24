@@ -137,6 +137,7 @@
     <ClCompile Include="Actions\EditMenu.cpp" />
     <ClCompile Include="Actions\Label.cpp" />
     <ClCompile Include="Actions\Load.cpp" />
+    <ClCompile Include="Actions\Move.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="Actions\Redo.cpp" />
     <ClCompile Include="Actions\Save.cpp" />
@@ -207,6 +208,8 @@
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Actions\New.cpp" />
+    <ClCompile Include="Actions\TruthTable.cpp" />
     <ClCompile Include="Utility\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +225,7 @@
     <ClInclude Include="Actions\EditMenu.h" />
     <ClInclude Include="Actions\Label.h" />
     <ClInclude Include="Actions\Load.h" />
+    <ClInclude Include="Actions\Move.h" />
     <ClInclude Include="Actions\Paste.h" />
     <ClInclude Include="Actions\Redo.h" />
     <ClInclude Include="Actions\Save.h" />
@@ -277,6 +281,8 @@
     <ClInclude Include="GUI\Output.h" />
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="lodepng.h" />
+    <ClInclude Include="Actions\New.h" />
+    <ClInclude Include="Actions\TruthTable.h" />
     <ClInclude Include="Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>

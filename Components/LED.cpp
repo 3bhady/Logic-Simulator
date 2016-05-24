@@ -64,6 +64,16 @@ void LED::setInputPinStatus(STATUS s, int n = 1)
 {
 	m_InputPin.setStatus(s);
 }
+void LED::EraseComponent(ApplicationManager * pApp)
+{
+	Component *** Arr = pApp->GetArr();
+	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2; j++)
+		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
+			Arr[i][j] = NULL;
+	m_InputPin.Erase(pApp);
+	pApp->GetOutput()->DeleteGate(m_GfxInfo);
+}
+
 
 
 pair<int, int>& LED::get_INPC()

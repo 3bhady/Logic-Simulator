@@ -18,6 +18,15 @@ Component* InputPin::getComponent()
 
 }
 
+void InputPin::Erase(ApplicationManager * Ptr)
+{
+	if (pCon == NULL)return;
+	Connection* ptrconnection = pCon;
+	pCon = NULL;
+	ptrconnection->DeleteComponent(Ptr);
+
+}
+
 Connection* InputPin::get_connection()
 {
 	return pCon;

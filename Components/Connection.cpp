@@ -211,7 +211,7 @@ void Connection::EraseComponent(ApplicationManager * pApp)
 		for (int j = 0; j < 1400; j++)
 			if (pApp->GetArr()[i][j] == this)
 				pApp->GetArr()[i][j] = NULL;*/
-	this->getSourcePin()->DeleteConnection(this);
+	this->getSourcePin()->EraseConnection(this);
 	this->getDestPin()->set_connection(NULL);
 	
 }

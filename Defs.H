@@ -47,6 +47,7 @@ enum ActionType
 	UNDO,		//undo the last Action preformed
 	REDO,		//redo the last Action canceled
 	TOGGLE_BARS,
+	NEW,
 	EDIT_MENU,
 	DSN_MODE,	//Switch to Design mode
 	SIM_MODE,	//Switch to Simulatiom mode

@@ -263,7 +263,7 @@ if (UI.isInFileBar(x, y))
 				int ClickedItemOrder = ((y - UI.FileBarStartY) / UI.FileBarItemHeight);
 				switch (ClickedItemOrder)
 				{
-				case 0: {break; }
+				case 0: {return NEW; break; }
 				case 1: {return LOAD; break; }
 				case 2: {return SAVE; break; }
 				case 3: {return EXIT; break; }

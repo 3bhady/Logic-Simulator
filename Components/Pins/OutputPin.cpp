@@ -3,8 +3,11 @@
 #include "..\Connection.h"
 
 OutputPin::OutputPin(int r_FanOut)
+
 {	//initially Pin is not connected to anything.
 	m_FanOut = r_FanOut > MAX_CONNS ? MAX_CONNS : r_FanOut;	//set the fan out of the pin.
+	m_Conn = 0;		//initially Pin is not connected to anything.
+	
 //	pComp = NULL;
 }
 
@@ -23,18 +26,32 @@ bool OutputPin::ConnectTo(Connection *r_Conn)
 	return false;	//can't connect to any more connections
 }
 
+void OutputPin::EraseConnections(ApplicationManager* app)
+{
+	for (unsigned int i = 0;i < VOC.size();i++)
+	{
+		if (VOC[i] != NULL) {
+			Connection* ptr = VOC[i];
+			VOC[i] = NULL;
+			ptr->DeleteComponent(app);
+		}
+	}
+}
+
 Connection * OutputPin::GetConnection(int x)
 {
 	return VOC[x];
 }
 
-void OutputPin::DeleteConnection(Connection *x)
+void OutputPin::EraseConnection(Connection *x)
 {
-	int llkj = 0;
-	for (int i = 0;i < m_Conn;i++)
-		if (VOC[i] == x)llkj = i;
-	m_Conn--;
-	VOC.erase(VOC.begin() + llkj);
+	int found = 1000;
+	for (int i = 0;i < VOC.size();i++)
+		if (VOC[i] == x)found = i;
+	if (found != 1000) {
+		m_Conn--;
+		VOC.erase(VOC.begin() + found);
+	}
 }
 
 vector<Connection*>& OutputPin::GetConnections()
@@ -45,6 +62,11 @@ vector<Connection*>& OutputPin::GetConnections()
 int OutputPin::GetNum()
 {
 	return m_Conn;
+}
+
+OutputPin::~OutputPin()
+{
+
 }
 
 void OutputPin::SetComponent(Component *pCmp)
