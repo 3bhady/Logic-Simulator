@@ -73,8 +73,4 @@ public:
 	void UnhighlightComponent(int x, int y);		//Unhighlight component
 	Component* GetHighlightedComponent(int index);	//Get component from highlighted list
 	unsigned int getHighlightedCompListSize();		//returns highlighted list size
-
-	bool Simulate();
-
-	STATUS dfs(vector<bool>& visited, const vector<Component*> & Complist, int index, int &result);
 };

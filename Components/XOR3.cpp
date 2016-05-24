@@ -13,15 +13,19 @@ XOR3::XOR3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut, r_Gfx
 
 void XOR3::Operate()
 {
-	if ((m_InputPins[0].getStatus() != m_InputPins[1].getStatus()))
-		if (HIGH != m_InputPins[2].getStatus())
+	if (CheckFloatingInPins())
+		m_OutputPin.setStatus(FLOATING);
+	else {
+		if ((m_InputPins[0].getStatus() != m_InputPins[1].getStatus()))
+			if (HIGH != m_InputPins[2].getStatus())
+				m_OutputPin.setStatus(HIGH);
+			else
+				m_OutputPin.setStatus(LOW);
+		else if (LOW != m_InputPins[2].getStatus())
 			m_OutputPin.setStatus(HIGH);
 		else
 			m_OutputPin.setStatus(LOW);
-	else if (LOW != m_InputPins[2].getStatus())
-		m_OutputPin.setStatus(HIGH);
-	else
-		m_OutputPin.setStatus(LOW);
+	}
 }
 
 

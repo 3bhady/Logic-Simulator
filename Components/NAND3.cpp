@@ -14,10 +14,14 @@ NAND3::NAND3(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(3, r_FanOut, r_G
 
 void NAND3::Operate()
 {
-	if (m_InputPins[0].getStatus() == HIGH&&m_InputPins[1].getStatus() == HIGH&&m_InputPins[2].getStatus() == HIGH)
-		m_OutputPin.setStatus(LOW);
-	else
-		m_OutputPin.setStatus(HIGH);
+	if (CheckFloatingInPins())
+		m_OutputPin.setStatus(FLOATING);
+	else {
+		if (m_InputPins[0].getStatus() == HIGH&&m_InputPins[1].getStatus() == HIGH&&m_InputPins[2].getStatus() == HIGH)
+			m_OutputPin.setStatus(LOW);
+		else
+			m_OutputPin.setStatus(HIGH);
+	}
 }
 
 

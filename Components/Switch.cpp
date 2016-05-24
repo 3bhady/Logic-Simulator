@@ -5,14 +5,14 @@
 Switch::Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOut)
 {
 	Type = Switch_;
-	State = FLOATING;
+	State = LOW;
 	Width = UI.LED_Width;
 	Height = UI.LED_Height;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
-	outP = make_pair(m_GfxInfo.x2, m_GfxInfo.y1 + 15);
+	outP = make_pair(m_GfxInfo.x2, m_GfxInfo.y1+15);
 	m_OutputPin.SetComponent(this);
 
 	//kero
@@ -24,7 +24,7 @@ Switch::Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOu
 
 void Switch::Operate()
 {
-	m_OutputPin.setStatus(LOW);
+	m_OutputPin.setStatus(State);
 }
 
 
@@ -32,7 +32,7 @@ void Switch::Operate()
 void Switch::Draw(Output* pOut)
 {
 	//Call output class and pass switch drawing info to it.
-	pOut->DrawSwitch(m_GfxInfo, State, forbidden, highlighted, UI.AppMode);
+	pOut->DrawSwitch(m_GfxInfo, State, highlighted,forbidden, UI.AppMode);
 }
 
 
@@ -101,6 +101,12 @@ void Switch::EraseComponent(ApplicationManager * pApp)
 	m_OutputPin.EraseConnections(pApp);
 	pApp->GetOutput()->DeleteGate(m_GfxInfo);
 }
+
+void Switch::SetOutPinStatus(STATUS s)
+{
+	State = s;
+}
+
 
 void Switch::Save(ofstream & fout)
 {

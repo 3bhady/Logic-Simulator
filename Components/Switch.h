@@ -27,13 +27,10 @@ public:
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
+	virtual void SetOutPinStatus(STATUS);
 	void EraseComponent(ApplicationManager * pApp);
-
-//kero
-//===============================================
 	void Save(ofstream &fout);
 	void Load(ifstream &fout);
-	//================================================
 	~Switch();
 };
 

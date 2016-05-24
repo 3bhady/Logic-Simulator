@@ -31,12 +31,8 @@ public:
 	virtual OutputPin* get_Opin( );//the function that returns pointer to the outputpin
 	virtual InputPin* get_INpin( pair<int , int> &x );//the function that returns pointer to an inputpin
 	virtual void EraseComponent(ApplicationManager * pApp);//remove it from the grid
-													  //kero
-													  //==================================================
 	void Save( ofstream &fout );
 	void Load( ifstream &fin );
-	//=============================================
-
 	virtual STATUS GetOutPinStatus();
 	virtual STATUS GetInputPinStatus(int n);
 	virtual void setInputPinStatus(STATUS s, int n);
@@ -44,5 +40,8 @@ public:
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
+	virtual void ShowPinsStatuses(Output* pOut);
+	virtual bool CheckFloatingInPins();
+	virtual void SetOutPinStatus(STATUS s);
 	~Gate();
 };

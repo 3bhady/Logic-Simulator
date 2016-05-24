@@ -10,14 +10,17 @@
 class Output	//The application manager should have a pointer to this class
 {
 private:
-	window* pWind;	//Pointer to the Graphics Window
+	window* pWind;	//Pointer to the Graphics Window 
+	window * pTruthTable; 
 	ApplicationManager* AppManger;
 public:
 	Output(ApplicationManager*);	//Performs the Window Initialization
 	~Output();	//destructor
-
+	
 	Input* CreateInput() const;		//creates a pointer to the Input object
-
+	void CreateTruthTableWindow(int RowsNumber, int ColumnNumber, int ColumnWidth, int RowWidth, int StartX, int StartY);
+	void DrawTruthTable(int SwitchCount, int LedCount, int RowsNumber, int ColumnNumber, int ColumnWidth, int RowWidth);
+	void DrawCellValue(int RowWidth, int ColumnWidth, int value);
 	void ChangeTitle(string Title) const;
 
 	/////////////////////////////////////////
@@ -66,7 +69,7 @@ public:
 	void DrawRect(int& x, int &y);
 	void DrawDots(int xStart, int yStart, int xFinish, int yFinish);	//Make an area dotted
 	void DeleteGate( GraphicsInfo GfxInfo );		//Draws an empty image on the gate
-
+	void DrawPinStatus(STATUS status, int x,int y);
 	/////////////////////////
 	//**Window Functions**///
 	/////////////////////////

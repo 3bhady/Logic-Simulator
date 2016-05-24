@@ -17,6 +17,9 @@
 #include"Actions\Load.h"
 #include "Actions\Delete.h"
 #include"Actions\ToggleBars.h"
+#include"Actions\Simulate.h"
+#include"Actions\New.h"
+#include"Actions\TruthTable.h"
 #include<fstream>
 
 ApplicationManager::ApplicationManager()
@@ -247,10 +250,16 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new Save(this);
 	if (ActType == LOAD)
 		pAct = new Load(this);
+	if (ActType == SIM_MODE)
+		pAct = new Simulate(this);
 	if (ActType == EXIT)
 		return;
 	if ( ActType == DEL )
 		pAct = new Delete( this );
+	if (ActType == NEW)
+		pAct = new New(this);
+	if (ActType ==Create_TruthTable)
+		pAct = new TruthTable(this);
 	if(pAct)
 	{
 		//if Action undo or redo don't push in stacks
@@ -313,7 +322,6 @@ Output* ApplicationManager::GetOutput()
 ApplicationManager::~ApplicationManager()
 {
 	//Free memory
-
 	for(unsigned int i=0; i<CompList.size(); i++)
 		delete CompList[i];
 	while (!UndoStack.empty())
@@ -332,58 +340,5 @@ ApplicationManager::~ApplicationManager()
 	delete InputInterface;
 }
 
-//Simulate
-bool ApplicationManager::Simulate()
-{
-	vector<bool> visited;
-	visited.resize(CompList.size(), false);
-	int SimulationResult = 0;
-	for (unsigned int i = 0; i < CompList.size(); i++)
-		if (CompList[i]->getType() == Switch_)
-			CompList[i]->Operate();
-	for (unsigned int i = 0; i < CompList.size(); i++)
-		if (CompList[i]->getType() == LED_)
-			dfs(visited, CompList, i, SimulationResult);
-	for (unsigned int i = 0; i < CompList.size(); i++)
-	{
-		if (CompList[i]->isOutpinFloating())
-		{
-			SimulationResult = 1;
-			break;
-		}
-	}
-	if (SimulationResult == 1)
-	{
-		OutputInterface->PrintMsg("Simulation Failed ... Floating Pins !!"); 
-		OutputInterface->UpdateBuffer();
-		return false;
-	}
-	if (SimulationResult == 2)
-	{
-		OutputInterface->PrintMsg("Simulation Failed ... Circuit contains feedback !!");
-		OutputInterface->UpdateBuffer();
-		Sleep(2000);
-		return false;
-	}
-	return true;
-}
 
-STATUS ApplicationManager::dfs(vector<bool>& visited, const vector<Component*>& Complist, int index, int &result)
-{
-
-	if (result)return FLOATING;
-	if (Complist[index]->GetOutPinStatus() != FLOATING)return Complist[index]->GetOutPinStatus();
-	if (visited[index]) { result = 2; return FLOATING; }
-	visited[index] = true;
-	for (int i = 0; i < Complist[index]->getNumberofInPins(); i++)
-	{
-		if (!Complist[i]->isInpinFloating(i))
-			Complist[i]->setInputPinStatus(STATUS(dfs(visited, Complist, Complist[index]->getCompIndexConnectedToInPin(i), result)), i);
-		else {
-			result = 1; return FLOATING;
-		}
-	}
-	Complist[index]->Operate();
-	return Complist[index]->GetOutPinStatus();
-}
 

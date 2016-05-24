@@ -28,6 +28,8 @@ public:
 	virtual bool isOutpinFloating();
 	void EraseComponent(ApplicationManager * pApp);
 	virtual int getCompIndexConnectedToInPin(int n);
+	virtual void SetOutPinStatus(STATUS s);
+	void setState(STATUS s);
 	//kero	
 	//==================================================
 	void Save(ofstream &fout);
