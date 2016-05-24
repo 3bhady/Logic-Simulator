@@ -4,8 +4,11 @@
 #include<vector>
 //#include<iostream>
 using namespace std;
-pair<int, int > FalsePoint = make_pair(0, 0);
 
+//pair<int, int > FalsePoint = make_pair(0, 0);
+#ifndef FALSEPOINT
+#define FalsePoint make_pair(0,0);
+#endif
 //All possible actions
 enum ActionType 
 {
@@ -47,12 +50,8 @@ enum ActionType
 
 	UNDO,		//undo the last Action preformed
 	REDO,		//redo the last Action canceled
-	HIDE_DESIGN_B,
-	SHOW_DESIGN_B,
-	HIDE_FILE_B,
-	SHOW_FILE_B,
-	HIDE_EDIT_B,
-	SHOW_EDIT_B,
+	TOGGLE_BARS,
+	NEW,
 	EDIT_MENU,
 	DSN_MODE,	//Switch to Design mode
 	SIM_MODE,	//Switch to Simulatiom mode

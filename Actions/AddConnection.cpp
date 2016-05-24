@@ -24,7 +24,7 @@ bool AddConnection::ReadActionParameters()
 	do {
 		if (pIn->GetKeyPressed() == ESCAPE)
 			return false;
-		if (pIn->GetPointClicked(Cx, Cy) == LEFT_CLICK) {
+		if (pIn->GetPointClicked(Cx, Cy) == LEFT_CLICK&& (pManager->GetArr()[Cy][Cx])!=NULL) {
 			if (((pManager->GetArr()[Cy][Cx])->GetOutputPinCoordinates().first != 0
 				&& (pManager->GetArr()[Cy][Cx])->GetOutputPinCoordinates().second != 0)) {
 				GInfo.x1 = (pManager->GetArr()[Cy][Cx])->GetOutputPinCoordinates().first;
@@ -47,11 +47,12 @@ bool AddConnection::ReadActionParameters()
 	do {
 		if (pIn->GetKeyPressed() == ESCAPE)
 			return false;
-		if (pIn->GetPointClicked(Cx, Cy) == LEFT_CLICK)
+		if (pIn->GetPointClicked(Cx, Cy) == LEFT_CLICK && (pManager->GetArr()[Cy][Cx]) != NULL)
 		{
 			if (pManager->GetArr()[Cy][Cx]->GetInputPinCoordinates(make_pair(Cx, Cy)) != NULL) {
 				GInfo.x2 = (pManager->GetArr()[Cy][Cx])->GetInputPinCoordinates(make_pair(Cx, Cy))->first;
 				GInfo.y2 = (pManager->GetArr()[Cy][Cx])->GetInputPinCoordinates(make_pair(Cx, Cy))->second;
+				break;
 			}
 			else
 			{

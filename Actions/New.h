@@ -1,11 +1,11 @@
 #pragma once
 #include "Action.h"
-class HideEditToolBar :
-	public Action
+class New :	public Action
 {
 public:
-	HideEditToolBar(ApplicationManager*pApp);
-	~HideEditToolBar();
+	New(ApplicationManager*pApp);
+	~New();
+
 	//Reads parameters required for action to execute
 	virtual bool ReadActionParameters();
 

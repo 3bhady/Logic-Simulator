@@ -45,5 +45,6 @@ public:
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
+	void SetOutPinStatus(STATUS s);
 	virtual void EraseComponent(ApplicationManager * pApp);//remove it from the grid
 };

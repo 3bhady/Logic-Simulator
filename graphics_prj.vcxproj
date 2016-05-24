@@ -135,18 +135,15 @@
     <ClCompile Include="Actions\Cut.cpp" />
     <ClCompile Include="Actions\Delete.cpp" />
     <ClCompile Include="Actions\EditMenu.cpp" />
-    <ClCompile Include="Actions\HideDesignToolBar.cpp" />
-    <ClCompile Include="Actions\HideEditToolBar.cpp" />
-    <ClCompile Include="Actions\HideFileToolBar.cpp" />
     <ClCompile Include="Actions\Label.cpp" />
     <ClCompile Include="Actions\Load.cpp" />
+    <ClCompile Include="Actions\Move.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="Actions\Redo.cpp" />
     <ClCompile Include="Actions\Save.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
-    <ClCompile Include="Actions\ShowDesignToolBar.cpp" />
-    <ClCompile Include="Actions\ShowEditToolBar.cpp" />
-    <ClCompile Include="Actions\ShowFileToolBar.cpp" />
+    <ClCompile Include="Actions\Simulate.cpp" />
+    <ClCompile Include="Actions\ToggleBars.cpp" />
     <ClCompile Include="Actions\Undo.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
@@ -211,6 +208,8 @@
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Actions\New.cpp" />
+    <ClCompile Include="Actions\TruthTable.cpp" />
     <ClCompile Include="Utility\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -224,18 +223,15 @@
     <ClInclude Include="Actions\Cut.h" />
     <ClInclude Include="Actions\Delete.h" />
     <ClInclude Include="Actions\EditMenu.h" />
-    <ClInclude Include="Actions\HideDesignToolBar.h" />
-    <ClInclude Include="Actions\HideEditToolBar.h" />
-    <ClInclude Include="Actions\HideFileToolBar.h" />
     <ClInclude Include="Actions\Label.h" />
     <ClInclude Include="Actions\Load.h" />
+    <ClInclude Include="Actions\Move.h" />
     <ClInclude Include="Actions\Paste.h" />
     <ClInclude Include="Actions\Redo.h" />
     <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Select.h" />
-    <ClInclude Include="Actions\ShowDesignToolBar.h" />
-    <ClInclude Include="Actions\ShowEditToolBar.h" />
-    <ClInclude Include="Actions\ShowFileToolBar.h" />
+    <ClInclude Include="Actions\Simulate.h" />
+    <ClInclude Include="Actions\ToggleBars.h" />
     <ClInclude Include="Actions\Undo.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
@@ -285,6 +281,8 @@
     <ClInclude Include="GUI\Output.h" />
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="lodepng.h" />
+    <ClInclude Include="Actions\New.h" />
+    <ClInclude Include="Actions\TruthTable.h" />
     <ClInclude Include="Utility\Utility.h" />
   </ItemGroup>
   <ItemGroup>

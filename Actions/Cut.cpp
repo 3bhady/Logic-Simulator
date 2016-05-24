@@ -24,8 +24,6 @@ bool Cut::ReadActionParameters()
 
 void Cut::Execute( )
 {
-	if (pManager->Simulate())
-		cout << "OK";
 	if ( UI.AppMode == EDIT_MODE )
 		pManager->GetOutput( )->CloseEditMenu( pManager );
 	if ( !ReadActionParameters( ) )

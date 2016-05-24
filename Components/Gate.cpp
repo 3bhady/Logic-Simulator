@@ -35,6 +35,7 @@ Gate::Gate( int r_Inputs , int r_FanOut , GraphicsInfo in_Gfxinfo ) :m_OutputPin
 	Height = UI.Gate_Height;
 	m_OutputPin.SetComponent(this);
 	//m_OutputPin = FLOATING;
+
 	//kero
 	//===========================
 	gateID = ID++;
@@ -153,12 +154,12 @@ STATUS Gate::GetOutPinStatus()
 
 STATUS Gate::GetInputPinStatus(int n)
 {
-	return m_InputPins[n - 1].getStatus();	//n starts from 1 but array index starts from 0;
+	return m_InputPins[n].getStatus();
 }
 
 void Gate::setInputPinStatus(STATUS s, int n)
 {
-	m_InputPins[n - 1].setStatus(s);
+	m_InputPins[n].setStatus(s);
 }
 
 int Gate::getNumberofInPins()
@@ -168,7 +169,7 @@ int Gate::getNumberofInPins()
 
 bool Gate::isInpinFloating(int n)
 {
-	return (m_InputPins[n - 1].get_connection() == NULL);
+	return (!m_InputPins[n].get_connection());
 }
 
 bool Gate::isOutpinFloating()
@@ -178,8 +179,29 @@ bool Gate::isOutpinFloating()
 
 int Gate::getCompIndexConnectedToInPin(int n)
 {
-	return m_InputPins[n - 1].get_connection()->getCompIndexConnectedToInPin(n);
+	return m_InputPins[n].get_connection()->getCompIndex();
 }
+
+
+void Gate::ShowPinsStatuses(Output* pOut)
+{
+	for (int i = 0; i < m_Inputs; i++)
+		pOut->DrawPinStatus(m_InputPins[i].getStatus(), inP[i].first, inP[i].second);
+	pOut->DrawPinStatus(m_OutputPin.getStatus(), outP.first-5, outP.second);
+}
+
+bool Gate::CheckFloatingInPins()
+{
+	for (int i = 0; i < m_Inputs; i++)
+		if (m_InputPins[i].getStatus()==FLOATING)return true;
+	return false;
+}
+
+void Gate::SetOutPinStatus(STATUS s)
+{
+	m_OutputPin.setStatus(s);
+}
+
 
 Gate::~Gate()
 {

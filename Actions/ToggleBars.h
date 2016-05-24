@@ -1,11 +1,12 @@
 #pragma once
+#include"..\ApplicationManager.h"
 #include "Action.h"
-class ShowEditToolBar :
+class ToggleBars :
 	public Action
 {
 public:
-	ShowEditToolBar(ApplicationManager*pApp);
-	~ShowEditToolBar();
+	ToggleBars(ApplicationManager*pApp);
+	~ToggleBars();
 	//Reads parameters required for action to execute
 	virtual bool ReadActionParameters();
 

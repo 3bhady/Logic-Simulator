@@ -1,11 +1,11 @@
-
+#pragma once
 #include "Action.h"
-class HideDesignToolBar :
-	public Action
+class Simulate :	public Action
 {
 public:
-	HideDesignToolBar(ApplicationManager*pApp);
-	~HideDesignToolBar();
+	Simulate(ApplicationManager *pApp);
+	~Simulate();
+
 	//Reads parameters required for action to execute
 	virtual bool ReadActionParameters();
 
@@ -18,6 +18,10 @@ public:
 	//To redo this action (code depends on action type)
 	virtual void redo();
 
+	//returns true if simulation succeded
+	bool Run();
 
-	//todo kero shel kol el classes d w e3mlha class wa7d bs w sameh toggle toolbar
+	//Gets the input pin status of the LED
+	STATUS dfs(vector<bool>& visited, const vector<Component*>& Complist, int index, int &result);
 };
+

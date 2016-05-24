@@ -1,5 +1,0 @@
-6
-AND3           1              NO-Label       487            220            
-NOR3           2              NO-Label       937            235            
-NOR3           3              NO-Label       697            100            
-NAND3          5              NO-Label       682            430            

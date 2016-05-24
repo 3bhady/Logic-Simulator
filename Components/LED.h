@@ -30,6 +30,8 @@ public:
 	virtual pair<int, int>& GetOutputPinCoordinates();//the function that gets the outputpin coordinates
 	virtual InputPin* GetInputPin(pair<int, int>&x);//the function that returns pointer to an inputpin
 	virtual OutputPin* GetOutputPin();//the function that returns pointer to an outputpin
+	virtual void SetOutPinStatus(STATUS s);
+	void setState(STATUS s);
 	//kero	
 	//==================================================
 	void Save(ofstream &fout);

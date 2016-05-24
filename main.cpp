@@ -7,7 +7,6 @@ int main()
 	ActionType ActType;
 	//Create an object of ApplicationManager
 
-	
 	ApplicationManager AppManager;
 	
 
@@ -18,10 +17,6 @@ int main()
 
 		//Execute the action
 		AppManager.ExecuteAction(ActType);
-
-	//	int x, y;
-		//pWind->GetMouseCoord(x, y);
-		//cout << x << " " << y << endl;
 
 		//Update the drawing window
 		AppManager.UpdateInterface();

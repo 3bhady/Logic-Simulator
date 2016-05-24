@@ -103,7 +103,7 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 	clicktype cType= pWind->GetMouseClick( x , y );
 
 	keytype kType =pWind->GetKeyPress( HotKey );
-	
+
 	//Get the coordinates of the user click
 	if  (cType== NO_CLICK&&kType==NO_KEYPRESS)
 		return DSN_TOOL;
@@ -117,6 +117,23 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 	{
 		UI.EditMenuStartY = y;
 		UI.EditMenuStartX = x;
+	}
+
+	//if SIMULATION MODE
+	if (UI.AppMode == SIMULATION)
+	{
+		//Hide toolbar
+		if (!UI.HiddenToolBar)
+			pApp->GetOutput()->HideDesignToolBar(), UI.HiddenToolBar = true;
+
+		//if Switch clicked toggle it's state
+		if (pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1)->getType() == Switch_)
+		{
+			if (pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1)->GetOutPinStatus() == LOW)
+				pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1)->SetOutPinStatus(HIGH);
+			else pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1)->SetOutPinStatus(LOW);
+		}
+		return SIM_MODE;
 	}
 
 	//if EDITMODE
@@ -166,18 +183,8 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 	if (cType == LEFT_CLICK)
 	{
 		//if the click is in a bar toggle the status of this bar
-		if (UI.HiddenToolBar&&UI.isInToolBarTitle(x, y))
-			return SHOW_DESIGN_B;
-		if (!UI.HiddenToolBar && UI.isInToolBarTitle(x, y))
-			return HIDE_DESIGN_B;
-		if (UI.HiddenFileBar  &&UI.isInFileBarTitle(x, y))
-			return SHOW_FILE_B;
-		if (!UI.HiddenFileBar && UI.isInFileBarTitle(x, y))
-			return HIDE_FILE_B;
-		if (!UI.HiddenEditBar&&UI.isInEditBarTitle(x, y))
-			return HIDE_EDIT_B;
-		if (UI.HiddenEditBar&& UI.isInEditBarTitle(x, y))
-			return SHOW_EDIT_B;
+		if (UI.isInToolBarTitle(x, y)|| UI.isInToolBarTitle(x, y)|| UI.isInFileBarTitle(x, y)|| UI.isInFileBarTitle(x, y)|| UI.isInEditBarTitle(x, y)|| UI.isInEditBarTitle(x, y))
+			return TOGGLE_BARS;
 	}
 
 	if (UI.AppMode == DESIGN)	//application is in design mode
@@ -246,7 +253,7 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 				case ITM_LOAD: return LOAD;
 				case ITM_UNDO: return UNDO;
 				case ITM_REDO: return REDO;
-				case ITM_SIM_MODE: return SIM_MODE;
+				//case ITM_SIM_MODE: return SIM_MODE;
 
 				default: return DSN_TOOL;	//A click on empty place in design toolbar
 				}
@@ -256,7 +263,7 @@ if (UI.isInFileBar(x, y))
 				int ClickedItemOrder = ((y - UI.FileBarStartY) / UI.FileBarItemHeight);
 				switch (ClickedItemOrder)
 				{
-				case 0: {break; }
+				case 0: {return NEW; break; }
 				case 1: {return LOAD; break; }
 				case 2: {return SAVE; break; }
 				case 3: {return EXIT; break; }
@@ -299,11 +306,9 @@ if (UI.isInFileBar(x, y))
 		}
 		else	//Application is in Simulation mode
 		{
-			return SIM_MODE;	//This should be changed after creating the compelete simulation bar
+			//return SIM_MODE;	//This should be changed after creating the compelete simulation bar
 		}
 	}
-	//TO DO : return when sim mode
-	return SIM_MODE;
 }
 
 bool Input::close()

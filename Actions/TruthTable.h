@@ -1,11 +1,21 @@
 #pragma once
 #include "Action.h"
-class ShowFileToolBar :
+#include"AddSwitch.h"
+#include"AddLED.h"
+class TruthTable :
 	public Action
 {
+	int RowWidth = 35,
+		ColumnWidth = 35,
+		Height,
+		Width,
+		StartX = 100,
+		StartY = 50;
+	int **Arr;
+
 public:
-	ShowFileToolBar(ApplicationManager*pApp);
-	~ShowFileToolBar();
+	TruthTable(ApplicationManager*pApp);
+	~TruthTable();
 	//Reads parameters required for action to execute
 	virtual bool ReadActionParameters();
 

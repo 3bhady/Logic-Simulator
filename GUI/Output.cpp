@@ -40,6 +40,57 @@ Input* Output::CreateInput() const
 	return pIn;
 }
 
+void Output::CreateTruthTableWindow(int RowsNumber, int ColumnNumber, int ColumnWidth, int RowWidth, int StartX, int StartY)
+{
+	pTruthTable= CreateWind((ColumnNumber + 1)*ColumnWidth, (RowsNumber + 2)*RowWidth + 20, StartX, StartY);
+	pTruthTable->ChangeTitle("Truth Table");
+}
+
+void Output::DrawTruthTable(int SwitchCount,int LedCount,int RowsNumber, int ColumnNumber, int ColumnWidth, int RowWidth)
+{
+	pTruthTable->SetPen(BLACK, 3);
+	for (int i = 1; i < ColumnNumber + 1; i++)
+	{
+		pTruthTable->DrawLine(ColumnWidth * i, 0, ColumnWidth * i, 600);
+		pTruthTable->DrawLine(0, RowWidth, ColumnNumber * ColumnWidth, RowWidth);
+	}
+	for (int i = 2; i < RowsNumber + 2; i++)
+	{
+		pTruthTable->DrawLine(0, RowWidth * i, ColumnNumber * ColumnWidth, RowWidth * i);
+	}
+		for (int i = SwitchCount; i > 0; i--)
+		{
+			string order = "", s = "";
+			stringstream ss;
+			int x = (i - 1);
+			ss << x;
+			ss >> order;
+			s = "S" + order;
+			pTruthTable->SetPen(RED);
+			pTruthTable->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
+			pTruthTable->DrawString((i - 1)*(ColumnWidth), RowWidth / 2, s);
+		}
+		for (int i = LedCount; i > 0; i--)
+		{
+			string order = "", s = "";
+			stringstream ss;
+			int x = (i - 1);
+			ss << x;
+			ss >> order;
+			s = "Q" + order;
+			pTruthTable->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
+			pTruthTable->DrawString((i - 1 + SwitchCount)*(ColumnWidth), RowWidth / 2, s);
+		}
+}
+
+void Output::DrawCellValue(int CellX, int CellY ,int value)
+{
+		pWind->SetPen(BLUE);
+		pTruthTable->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
+		pTruthTable->DrawInteger(CellX, CellY, value);
+		
+}
+
 
 //======================================================================================//
 //								Interface Functions										//
@@ -151,6 +202,7 @@ void Output::HideDesignToolBar() const
 	}
 	UI.ToolBarStartY -= UI.ToolBarHeight;
 	UI.ToolBarTitleStartY -= UI.ToolBarHeight;
+	UI.HiddenToolBar = true;
 }
 
 void Output::ShowDesignToolBar() const
@@ -169,6 +221,7 @@ void Output::ShowDesignToolBar() const
 	}
 	UI.ToolBarStartY += UI.ToolBarHeight;
 	UI.ToolBarTitleStartY += UI.ToolBarHeight;
+	UI.HiddenToolBar = false;
 }
 
 void Output::HideFileToolBar() const
@@ -187,6 +240,7 @@ void Output::HideFileToolBar() const
 	}
 	UI.FileBarStartX -= UI.FileBarWidth;
 	UI.FileBarTitleStartX -= UI.FileBarWidth;
+	UI.HiddenFileBar = true;
 }
 
 void Output::ShowFileToolBar() const
@@ -204,6 +258,7 @@ void Output::ShowFileToolBar() const
 	}
 	UI.FileBarStartX += UI.FileBarWidth;
 	UI.FileBarTitleStartX += UI.FileBarWidth;
+	UI.HiddenFileBar = false;
 }
 
 void Output::HideEditToolBar() const
@@ -223,6 +278,7 @@ void Output::HideEditToolBar() const
 	}
 	UI.EditBarStartX += UI.EditBarWidth;
 	UI.EditBarTitleStartX += UI.EditBarWidth;
+	UI.HiddenEditBar = true;
 }
 
 void Output::ShowEditToolBar() const
@@ -242,6 +298,7 @@ void Output::ShowEditToolBar() const
 	}
 	UI.EditBarStartX -= UI.EditBarWidth;
 	UI.EditBarTitleStartX -= UI.EditBarWidth;
+	UI.HiddenEditBar = false;
 }
 
 void Output::CloseEditMenu(ApplicationManager* pManager) const
@@ -284,7 +341,7 @@ void Output::CreateFileToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX, UI.FileBarTitleStartY);
 
 	}
-	else 	pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX - UI.FileBarWidth, UI.FileBarTitleStartY);
+	else 	pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX, UI.FileBarTitleStartY);
 	//pWind->UpdateBuffer( );
 }
 
@@ -297,7 +354,7 @@ void Output::CreateEditToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB2.jpg", UI.EditBarStartX, UI.EditBarStartY);
 		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX, UI.EditBarTitleStartY);
 	}
-	else pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX + UI.EditBarWidth, UI.EditBarTitleStartY);
+	else pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX , UI.EditBarTitleStartY);
 	//pWind->UpdateBuffer( );
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -883,7 +940,7 @@ void Output::DrawSwitch(GraphicsInfo r_GfxInfo, STATUS status, bool selected, bo
 	if (mode == DESIGN)		  // Design or Simulation mode
 		SwitchImage += "DSN";
 	else {
-		if (status)			  // ON or OFF
+		if (status==HIGH)			  // ON or OFF
 			SwitchImage += "ON";
 		else SwitchImage += "OFF";
 	}
@@ -947,6 +1004,14 @@ void Output::DrawRect(int& x, int &y)
 void Output::DeleteGate( GraphicsInfo GfxInfo )
 {
 	pWind->DrawImage( "Images\\Images\\Gates\\emptygate.jpg" , GfxInfo.x1 , GfxInfo.y1 );
+}
+
+void Output::DrawPinStatus(STATUS status,int x ,int y)
+{
+	if (status)
+		pWind->SetBrush(GREEN);
+	else pWind->SetBrush(RED);
+	pWind->DrawRectangle(x, y - 16, x + 6, y - 10);
 }
 
 

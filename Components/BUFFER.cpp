@@ -12,10 +12,14 @@ BUFFER::BUFFER(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut, r
 }
 void BUFFER::Operate()
 {
-	if (m_InputPins[0].getStatus() == HIGH)
-		m_OutputPin.setStatus(HIGH);
-	else
-		m_OutputPin.setStatus(LOW);
+	if (CheckFloatingInPins())
+		m_OutputPin.setStatus(FLOATING);
+	else {
+		if (m_InputPins[0].getStatus() == HIGH)
+			m_OutputPin.setStatus(HIGH);
+		else
+			m_OutputPin.setStatus(LOW);
+	}
 }
 
 

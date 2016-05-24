@@ -85,7 +85,7 @@ pair<int, int>* LED::GetInputPinCoordinates(pair<int, int> &Pair)//the function 
 {
 
 	inP = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
-	if (m_InputPin.get_connection == NULL)
+	if (m_InputPin.get_connection() == NULL)
 		return &inP;
 	return NULL;
 }
@@ -107,7 +107,7 @@ int LED::getNumberofInPins()
 
 bool LED::isInpinFloating(int n)
 {
-	return (m_InputPin.get_connection() == NULL);
+	return (!m_InputPin.get_connection());
 }
 
 bool LED::isOutpinFloating()
@@ -117,7 +117,17 @@ bool LED::isOutpinFloating()
 
 int LED::getCompIndexConnectedToInPin(int n)
 {
-	return	m_InputPin.get_connection()->getCompIndexConnectedToInPin(n);
+	return	m_InputPin.get_connection()->getCompIndex();
+}
+
+void LED::SetOutPinStatus(STATUS s)
+{
+	setState(s);
+}
+
+void LED::setState(STATUS s)
+{
+	State = s;
 }
 
 
