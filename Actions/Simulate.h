@@ -19,9 +19,9 @@ public:
 	virtual void redo();
 
 	//returns true if simulation succeded
-	bool Run();
+	static bool Run(ApplicationManager*pManager);
 
 	//Gets the input pin status of the LED
-	STATUS dfs(vector<bool>& visited, const vector<Component*>& Complist, int index, int &result);
+	static STATUS dfs(vector<bool>& visited, const vector<Component*>& Complist, int index, int &result);
 };
 

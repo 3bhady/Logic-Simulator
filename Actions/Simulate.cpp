@@ -18,7 +18,7 @@ bool Simulate::ReadActionParameters()
 
 void Simulate::Execute()
 {
-	if (Run())
+	if (Run(pManager))
 	{
 		UI.AppMode = SIMULATION;
 		for (unsigned int i = 0; i < pManager->GetCompList().size(); i++)
@@ -45,7 +45,7 @@ void Simulate::redo()
 }
 
 
-bool Simulate::Run()
+  bool Simulate::Run(ApplicationManager*pManager)
 {
 	vector<bool> visited;
 	unsigned int size = pManager->GetCompList().size();

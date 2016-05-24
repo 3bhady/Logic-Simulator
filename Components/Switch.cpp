@@ -65,7 +65,7 @@ OutputPin * Switch::get_OPP()
 
 void Switch::setInputPinStatus(STATUS s, int n)
 {
-
+	set_state(s);
 }
 
 pair<int, int>& Switch::get_OP()
@@ -122,7 +122,8 @@ void Switch::Load(ifstream & fin)
 {
 	int x, y;
 	string label;
-	fin.ignore();
+	string ahbal;
+	fin >> ahbal;
 	fin >> label;
 	set_label(label);
 	fin >> x >> y;

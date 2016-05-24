@@ -85,9 +85,9 @@ void Output::DrawTruthTable(int SwitchCount,int LedCount,int RowsNumber, int Col
 
 void Output::DrawCellValue(int CellX, int CellY ,int value)
 {
-		pWind->SetPen(BLUE);
+	    pTruthTable->SetPen(BLUE);
 		pTruthTable->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
-		pTruthTable->DrawInteger(CellX, CellY, value);
+		pTruthTable->DrawInteger(CellX+5, CellY+5, value);
 		
 }
 

@@ -133,7 +133,8 @@ void LED::Load(ifstream & fin)
 {
 	int x, y;
 	string label;
-	fin.ignore();
+	string ahbal;
+	fin >> ahbal;
 	fin >> label;
 	set_label(label);
 	fin >> x >> y;
