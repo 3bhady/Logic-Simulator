@@ -12,10 +12,14 @@ NOT::NOT(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(1, r_FanOut, r_GfxIn
 }
 void NOT::Operate()
 {
-	if (m_InputPins[0].getStatus() == LOW)
-		m_OutputPin.setStatus(HIGH);
-	else
-		m_OutputPin.setStatus(LOW);
+	if (CheckFloatingInPins())
+		m_OutputPin.setStatus(FLOATING);
+	else {
+		if (m_InputPins[0].getStatus() == LOW)
+			m_OutputPin.setStatus(HIGH);
+		else
+			m_OutputPin.setStatus(LOW);
+	}
 }
 
 

@@ -82,6 +82,7 @@
     <ClCompile Include="Actions\Delete.cpp" />
     <ClCompile Include="CMUgraphicsLib\colors.cpp" />
     <ClCompile Include="Actions\ToggleBars.cpp" />
+    <ClCompile Include="Actions\Simulate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Delete.h" />
     <ClInclude Include="Actions\ToggleBars.h" />
+    <ClInclude Include="Actions\Simulate.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

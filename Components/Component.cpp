@@ -106,6 +106,7 @@ int Component::getCompIndex()
 	return compIndex;
 }
 
+
 Component::~Component()
 {}
 

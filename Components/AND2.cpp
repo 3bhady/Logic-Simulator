@@ -12,10 +12,14 @@ AND2::AND2(const GraphicsInfo &r_GfxInfo, int r_FanOut) :Gate(2, r_FanOut, r_Gfx
 
 void AND2::Operate()
 {
-	if (m_InputPins[0].getStatus() == HIGH&&m_InputPins[1].getStatus() == HIGH)
-		m_OutputPin.setStatus(HIGH);
-	else
-		m_OutputPin.setStatus(LOW);
+	if (CheckFloatingInPins())
+		m_OutputPin.setStatus(FLOATING);
+	else {
+		if (m_InputPins[0].getStatus() == HIGH&&m_InputPins[1].getStatus() == HIGH)
+			m_OutputPin.setStatus(HIGH);
+		else
+			m_OutputPin.setStatus(LOW);
+	}
 }
 
 

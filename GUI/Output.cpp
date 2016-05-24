@@ -889,7 +889,7 @@ void Output::DrawSwitch(GraphicsInfo r_GfxInfo, STATUS status, bool selected, bo
 	if (mode == DESIGN)		  // Design or Simulation mode
 		SwitchImage += "DSN";
 	else {
-		if (status)			  // ON or OFF
+		if (status==HIGH)			  // ON or OFF
 			SwitchImage += "ON";
 		else SwitchImage += "OFF";
 	}
@@ -953,6 +953,14 @@ void Output::DrawRect(int& x, int &y)
 void Output::DeleteGate( GraphicsInfo GfxInfo )
 {
 	pWind->DrawImage( "Images\\Images\\Gates\\emptygate.jpg" , GfxInfo.x1 , GfxInfo.y1 );
+}
+
+void Output::DrawPinStatus(STATUS status,int x ,int y)
+{
+	if (status)
+		pWind->SetBrush(GREEN);
+	else pWind->SetBrush(RED);
+	pWind->DrawRectangle(x, y - 16, x + 6, y - 10);
 }
 
 

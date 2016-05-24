@@ -152,12 +152,17 @@ bool Connection::isInpinFloating(int n)
 
 bool Connection::isOutpinFloating()
 {
-	return (DstPin->get_connection()==NULL);
+	return (!DstPin->get_connection());
 }
 
 int Connection::getCompIndexConnectedToInPin(int n)
 {
 	return SrcPin->getCompIndex();
+}
+
+void Connection::SetOutPinStatus(STATUS s)
+{
+	DstPin->setStatus(s);
 }
 
 

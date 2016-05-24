@@ -43,4 +43,8 @@ public:
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
+
+	virtual void ShowPinsStatuses(Output* pOut);
+	virtual bool CheckFloatingInPins();
+	virtual void SetOutPinStatus(STATUS s);
 };

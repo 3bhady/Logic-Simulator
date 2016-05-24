@@ -85,7 +85,7 @@ int LED::getNumberofInPins()
 
 bool LED::isInpinFloating(int n)
 {
-	return (m_InputPin.get_connection() == NULL);
+	return (!m_InputPin.get_connection());
 }
 
 bool LED::isOutpinFloating()
@@ -96,6 +96,16 @@ bool LED::isOutpinFloating()
 int LED::getCompIndexConnectedToInPin(int n)
 {
 	return	m_InputPin.get_connection()->getCompIndex();
+}
+
+void LED::SetOutPinStatus(STATUS s)
+{
+	setState(s);
+}
+
+void LED::setState(STATUS s)
+{
+	State = s;
 }
 
 

@@ -27,6 +27,8 @@ public:
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
+	virtual void SetOutPinStatus(STATUS s);
+	void setState(STATUS s);
 	//kero	
 	//==================================================
 	void Save(ofstream &fout);

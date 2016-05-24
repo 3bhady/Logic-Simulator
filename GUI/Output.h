@@ -66,7 +66,7 @@ public:
 	void DrawRect(int& x, int &y);
 	void DrawDots(int xStart, int yStart, int xFinish, int yFinish);	//Make an area dotted
 	void DeleteGate( GraphicsInfo GfxInfo );		//Draws an empty image on the gate
-
+	void DrawPinStatus(STATUS status, int x,int y);
 	/////////////////////////
 	//**Window Functions**///
 	/////////////////////////
