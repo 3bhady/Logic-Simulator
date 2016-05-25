@@ -49,6 +49,7 @@ void Component::DeleteComponent( ApplicationManager * pApp )
 {
 	EraseComponent( pApp );
 	pApp->DeleteComponent( this );
+	ID--;
 }
 
 void Component::EraseComponent(ApplicationManager * pApp) 

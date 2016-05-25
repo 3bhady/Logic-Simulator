@@ -130,6 +130,16 @@ void LED::setState(STATUS s)
 	State = s;
 }
 
+int LED::getID()
+{
+	return LEDID;
+}
+
+int LED::GetInputPinIndex(InputPin * DstPin)
+{
+	return 0;
+}
+
 
 void LED::Save(ofstream & fout)
 {
@@ -145,8 +155,7 @@ void LED::Load(ifstream & fin)
 {
 	int x, y;
 	string label;
-	string ahbal;
-	fin >> ahbal;
+	fin >> LEDID;
 	fin >> label;
 	set_label(label);
 	fin >> x >> y;

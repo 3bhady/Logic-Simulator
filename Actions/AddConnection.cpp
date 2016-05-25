@@ -178,6 +178,35 @@ bool AddConnection::isvalid(int x, int y, int** vis, int** ifc, int** oth, int x
 	return false;
 }
 
+void AddConnection::LoadConnection(int SrcID,int DstID)
+{
+	Component* pSrcComp = NULL;
+	Component* pDstComp = NULL;
+	for (int i = 0; i < pManager->GetCompList().size(); i++)
+		if (pManager->GetCompList()[i]->getID() == SrcID)
+		{
+			pSrcComp = pManager->GetCompList()[i];
+			break;
+		}
+	for (int i = 0; i < pManager->GetCompList().size(); i++)
+		if (pManager->GetCompList()[i]->getID() == DstID)
+		{
+			pDstComp = pManager->GetCompList()[i];
+			break;
+		}
+	GInfo.x1 = pSrcComp->GetOutputPinCoordinates().first;
+	GInfo.y1 = pSrcComp->GetOutputPinCoordinates().second;
+	GInfo.x2 = pDstComp->GetInputPinCoordinates(make_pair(0, 0))->first;
+	GInfo.y2 = pDstComp->GetInputPinCoordinates(make_pair(0, 0))->second;
+//	bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), outx);
+	
+		Connection *pS = NULL;
+		pS = new Connection(GInfo, &outx, pSrcComp->GetOutputPin(), pDstComp->GetInputPin(make_pair(GInfo.x2, GInfo.y2)));
+		pSrcComp->GetOutputPin()->ConnectTo(pS);
+		pDstComp->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(pS);
+		pManager->AddComponent(pS);
+}
+
 void AddConnection::undo( )
 {
 }

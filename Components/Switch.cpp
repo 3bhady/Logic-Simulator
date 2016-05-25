@@ -108,6 +108,14 @@ int Switch::getCompIndexConnectedToInPin(int n)
 {
 	return -1;
 }
+int Switch::getID()
+{
+	return switchID;
+}
+int Switch::GetInputPinIndex(InputPin * DstPin)
+{
+	return 0;
+}
 void Switch::EraseComponent(ApplicationManager * pApp)
 {
 	Component *** Arr = pApp->GetArr();
@@ -138,8 +146,7 @@ void Switch::Load(ifstream & fin)
 {
 	int x, y;
 	string label;
-	string ahbal;
-	fin >> ahbal;
+	fin >> switchID;
 	fin >> label;
 	set_label(label);
 	fin >> x >> y;

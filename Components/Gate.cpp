@@ -13,7 +13,6 @@ Gate::Gate( int r_Inputs , int r_FanOut , GraphicsInfo in_Gfxinfo ) :m_OutputPin
 	inP = new pair<int , int>[r_Inputs];
 	m_Inputs = r_Inputs;	//set no. of inputs of that gate
 	switch (m_Inputs)
-
 	{
 	case 1:
 		inP[0] = make_pair( in_Gfxinfo.x1 , in_Gfxinfo.y1 + 30 );
@@ -95,7 +94,6 @@ InputPin * Gate::GetInputPin(pair<int, int> &x)
 	int i, found = 10;
 	for (i = 0;i < m_Inputs;i++)
 		if (inP[i].first == x.first&&inP[i].second == x.second)
-
 			found = i;
 	if (found >= m_Inputs)return NULL;
 	return &m_InputPins[found];
@@ -136,8 +134,7 @@ void Gate::Load( ifstream & fin )
 {
 	int x , y;
 	string label;
-	int ahbal;
-	fin >> ahbal;
+	fin >> gateID;
 	fin >> label;
 	set_label( label );
 	fin >> x >> y;
@@ -181,6 +178,26 @@ int Gate::getCompIndexConnectedToInPin(int n)
 {
 	return m_InputPins[n].get_connection()->getCompIndex();
 }
+
+int Gate::getID()
+{
+	return gateID;
+}
+
+int Gate::GetInputPinIndex(InputPin*DstPin)
+{
+	int pinIndex = 0;
+	for (int i = 0; i < m_Inputs; i++)
+	{
+		if (m_InputPins[i].get_connection() == DstPin->get_connection())
+			break;
+		pinIndex++;
+	}
+	return pinIndex + 1;
+		
+}
+
+
 
 
 void Gate::ShowPinsStatuses(Output* pOut)

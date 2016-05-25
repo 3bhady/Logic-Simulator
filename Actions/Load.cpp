@@ -1,5 +1,5 @@
 #include "Load.h"
-
+#include"AddConnection.h"
 Load::Load(ApplicationManager*pApp):Action(pApp)
 {
 }
@@ -127,7 +127,19 @@ void Load::Execute()
 			pManager->AddComponent(pG);
 		}
 	}
-	
+	string s = "";
+	fin >> s;
+	while (!fin.eof())
+	{
+		int SrcID;
+		int DstID;
+		int x;
+		fin >> SrcID;
+		fin >> DstID;
+		fin >> x;
+		AddConnection*Load = new AddConnection(pManager);
+		Load->LoadConnection(SrcID, DstID);
+	}
 }
 
 void Load::undo()

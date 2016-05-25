@@ -29,7 +29,8 @@ public:
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
-
+	virtual int getID();
+	virtual  int GetInputPinIndex(InputPin*DstPin);
 	virtual void SetOutPinStatus(STATUS);
 	void EraseComponent(ApplicationManager * pApp);
 	void Save(ofstream &fout);

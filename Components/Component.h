@@ -59,6 +59,8 @@ public:
 	virtual bool isOutpinFloating() = 0;
 	virtual int getCompIndexConnectedToInPin(int n) = 0;
 	virtual void SetOutPinStatus(STATUS s) = 0;
+	virtual int getID() = 0;
+	virtual  int GetInputPinIndex(InputPin*DstPin) = 0;
 	//Destructor must be virtual
 	virtual ~Component();
 };

@@ -1,5 +1,8 @@
 #include "Connection.h"
-
+#include<iomanip>
+#include<fstream>
+#include"..\Actions\AddConnection.h"
+using namespace std;
 Connection::Connection( const GraphicsInfo &r_GfxInfo , BFSOut* outs , OutputPin *pSrcPin , InputPin *pDstPin ) :Component( r_GfxInfo )
 
 {
@@ -30,9 +33,13 @@ InputPin* Connection::getDestPin( )
 
 void Connection::Save( ofstream & fout )
 {
+	fout <<setw(15)<<SrcPin->getComponent()->getID();
+	fout << setw(15) << DstPin->getComponent()->getID();
+	fout<< setw(15) << DstPin->getComponent()->GetInputPinIndex(DstPin);
+
 }
 
-void Connection::Load( ifstream & fout )
+void Connection::Load( ifstream & fin )
 {
 }
 
@@ -85,6 +92,11 @@ STATUS Connection::GetInputPinStatus(int n = 1)	//returns status of Inputpin #n
 	return SrcPin->getStatus( );	//n is ignored as connection has only one input pin (src pin)
 }
 
+int Connection::getID()
+{
+	return 0;
+}
+
 void Connection::setInputPinStatus( STATUS s , int n = 1 )
 {
 	SrcPin->setStatus( s );
@@ -113,6 +125,11 @@ int Connection::getCompIndexConnectedToInPin(int n)
 void Connection::SetOutPinStatus(STATUS s)
 {
 	DstPin->setStatus(s);
+}
+
+int Connection::GetInputPinIndex(InputPin * DstPin)
+{
+	return 0;
 }
 
 

@@ -32,6 +32,8 @@ public:
 	virtual OutputPin* GetOutputPin();//the function that returns pointer to an outputpin
 	virtual void SetOutPinStatus(STATUS s);
 	void setState(STATUS s);
+	virtual int getID();
+	virtual  int GetInputPinIndex(InputPin*DstPin);
 	//kero	
 	//==================================================
 	void Save(ofstream &fout);

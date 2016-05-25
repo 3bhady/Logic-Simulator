@@ -66,10 +66,26 @@ void ApplicationManager::AddComponent(Component* pComp)
 
 void ApplicationManager::save(ofstream &fout)
 {
-	fout << CompList.size();
-	fout << endl;
+	int CompSize = 0;
 	for (unsigned int i = 0; i < CompList.size(); i++)
-		CompList[i]->Save(fout);
+		if (!dynamic_cast<Connection*>(CompList[i]))
+		{
+			CompSize++;
+		}
+	fout << CompSize;
+	fout << endl;
+		for (unsigned int i = 0; i < CompList.size(); i++)
+		if (!dynamic_cast<Connection*>(CompList[i]))
+			CompList[i]->Save(fout);
+		fout << endl;
+		fout << "Connections: "<< endl;
+		for (unsigned int i = 0; i < CompList.size(); i++)
+			if (dynamic_cast<Connection*>(CompList[i]))
+			{
+				CompList[i]->Save(fout);
+				fout << endl;
+			}
+		
 }
 
 ////////////////////////////////////////////////////////////////////
