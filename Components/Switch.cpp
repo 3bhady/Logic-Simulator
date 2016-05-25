@@ -6,19 +6,15 @@ Switch::Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut) :m_OutputPin(r_FanOu
 {
 	Type = Switch_;
 	State = LOW;
-	Width = UI.LED_Width;
-	Height = UI.LED_Height;
+	Width = UI.Switch_Width;
+	Height = UI.Switch_Height;
 	m_GfxInfo.x1 = r_GfxInfo.x1;
 	m_GfxInfo.y1 = r_GfxInfo.y1;
 	m_GfxInfo.x2 = r_GfxInfo.x2;
 	m_GfxInfo.y2 = r_GfxInfo.y2;
 	outP = make_pair(m_GfxInfo.x2, m_GfxInfo.y1+15);
 	m_OutputPin.SetComponent(this);
-
-	//kero
-	//========================
 	switchID = ID++;
-	//==============================
 }
 
 
@@ -118,10 +114,7 @@ int Switch::GetInputPinIndex(InputPin * DstPin)
 }
 void Switch::EraseComponent(ApplicationManager * pApp)
 {
-	Component *** Arr = pApp->GetArr();
-	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2; j++)
-		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
-			Arr[i][j] = NULL;
+	pApp->EraseComponent(m_GfxInfo);
 	m_OutputPin.EraseConnections(pApp);
 	pApp->GetOutput()->DeleteGate(m_GfxInfo);
 }

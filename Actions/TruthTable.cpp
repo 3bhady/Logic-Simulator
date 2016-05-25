@@ -26,19 +26,19 @@ void TruthTable::Execute()
 {
 	
 	int SwitchCount = 0, LedCount=0;
-	for (int i = 0; i<pManager->GetCompList().size(); i++)
+	for (int i = 0; i<pManager->GetComplistSize(); i++)
 	{
-		if (dynamic_cast<Switch*>(pManager->GetCompList()[i]))
+		if (dynamic_cast<Switch*>(pManager->GetComponent(i)))
 			SwitchCount++;
-		if (dynamic_cast<LED*>(pManager->GetCompList()[i]))
+		if (dynamic_cast<LED*>(pManager->GetComponent(i)))
 			LedCount++;
 	}
 	SwitchArr = new int[SwitchCount];
 	int m = 0;
-	for (int i = 0; i < pManager->GetCompList().size(); i++)
-		if (dynamic_cast<Switch*>(pManager->GetCompList()[i]))
+	for (int i = 0; i < pManager->GetComplistSize(); i++)
+		if (dynamic_cast<Switch*>(pManager->GetComponent(i)))
 		{
-			SwitchArr[m]=pManager->GetCompList()[i]->GetInputPinStatus(0);
+			SwitchArr[m] = pManager->GetComponent(i)->GetInputPinStatus(0);
 			m++;
 		}
 	if (!Simulate::Run(pManager))
@@ -80,18 +80,18 @@ void TruthTable::Execute()
 	for (int i = 0; i < RowsCount; i++)
 	{
 		int j = 0;
-		for (int k = 0; k < pManager->GetCompList().size(); k++)
-			if (dynamic_cast<Switch*>(pManager->GetCompList()[k]))
+		for (int k = 0; k < pManager->GetComplistSize(); k++)
+			if (dynamic_cast<Switch*>(pManager->GetComponent(k)))
 			{
-				pManager->GetCompList()[k]->setInputPinStatus((STATUS)Arr[i][j], 0);
+				pManager->GetComponent(k)->setInputPinStatus((STATUS)Arr[i][j], 0);
 				j++;
 			}
 		Simulate::Run(pManager);
 		j = 0;
-		for (int k = 0; k < pManager->GetCompList().size(); k++)
-			if (dynamic_cast<LED*>(pManager->GetCompList()[k]))
+		for (int k = 0; k < pManager->GetComplistSize(); k++)
+			if (dynamic_cast<LED*>(pManager->GetComponent(k)))
 			{
-				Arr[i][j + SwitchCount] = (int)(pManager->GetCompList()[k]->GetInputPinStatus(0));
+				Arr[i][j + SwitchCount] = (int)(pManager->GetComponent(k)->GetInputPinStatus(0));
 				j++;
 			}
 	}
@@ -108,9 +108,6 @@ void TruthTable::Execute()
 				pManager->GetOutput()->DrawCellValue((j)*ColumnWidth + 2, (i + 1)*RowWidth + 2, value);
 			}
 		}
-
-		//aktb esm el stream elly ana fata7to if(file.isopen)
-		//while(notendoffile)
 		for (int i = 0; i < RowsCount; i++)
 		{
 			for (int j = 0; j < LedCount; j++)
@@ -142,7 +139,7 @@ void TruthTable::Execute()
 			int x = (i - 1);
 			ss << x;
 			ss >> order;
-			s = "Q" + order;
+			s = "L" + order;
 			fout << s << setw(5);
 		}
 		fout << endl;
@@ -156,10 +153,10 @@ void TruthTable::Execute()
 		}
 	}
 		 m = 0;
-	for (int i = 0; i < pManager->GetCompList().size(); i++)
-		if (dynamic_cast<Switch*>(pManager->GetCompList()[i]))
+		 for (int i = 0; i < pManager->GetComplistSize(); i++)
+		if (dynamic_cast<Switch*>(pManager->GetComponent(i)))
 		{
-			pManager->GetCompList()[i]->setInputPinStatus((STATUS)SwitchArr[m],0);
+			pManager->GetComponent(i)->setInputPinStatus((STATUS)SwitchArr[m],0);
 			m++;
 		}
 }

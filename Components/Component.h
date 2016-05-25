@@ -18,10 +18,7 @@ protected:
 	int Width;		//Width of the component
 	int Height;		//Height of the component
 	int compIndex;	//Index of Component in CompList
-	//kero
-	//=================
 	static int ID;
-	//========================
 public:
 	Component(const GraphicsInfo &r_GfxInfo);
 	virtual void Save(ofstream &fout) = 0;

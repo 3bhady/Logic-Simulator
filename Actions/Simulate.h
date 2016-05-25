@@ -22,6 +22,6 @@ public:
 	static bool Run(ApplicationManager*pManager);
 
 	//Gets the input pin status of the LED
-	static STATUS dfs(vector<bool>& visited, const vector<Component*>& Complist, int index, int &result);
+	static STATUS dfs(vector<bool>& visited,Component* &Comp, int index, int &result,ApplicationManager* pApp);
 };
 

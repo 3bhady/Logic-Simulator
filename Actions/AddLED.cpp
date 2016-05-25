@@ -47,17 +47,17 @@ void AddLED::Execute()
 	if (REDO)
 		pManager->GetOutput()->DrawLED(GInfo, LOW, false);
 
-
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	LED *pL = new LED(GInfo);//, inP);
+	LED *pL = new LED(GInfo);
 
 	 //if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
 	if (pOut->FollowMouseAndDraw(pL->get_GraphicInfo(), LED_ , pManager->GetArr()))
 	{
-		pManager->AddComponent(pL); GInfo = pL->get_GraphicInfo();
+		pManager->AddComponent(pL);
+		GInfo = pL->get_GraphicInfo();
 	}
 	else delete pL;
 }

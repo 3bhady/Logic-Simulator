@@ -17,7 +17,14 @@ bool Save::ReadActionParameters()
 
 void Save::Execute()
 {
-	ofstream fout("save-load.txt");
+string FileName=pManager->GetInput()->GetString(pManager->GetOutput());
+string s = FileName + ".txt";
+if (s == ".txt")
+{
+	pManager->GetOutput()->PrintMsg("you must enter a label to the file");
+	return;
+}
+	ofstream fout(s);
 	//fout.open("save-load.txt");
 	pManager->save(fout);
     //fout.close();

@@ -12,10 +12,10 @@ Cut::~Cut( )
 
 bool Cut::ReadActionParameters()
 {
-	int size = pManager->GetCompList( ).size( );
+	int size = pManager->GetComplistSize();
 	bool selected = false; //it's true if at least there is one selected item to be copied
 	for ( int i = 0; i < size; i++ )
-		if ( pManager->GetCompList( )[i]->isSelected( ) )
+		if ( pManager->GetComponent(i)->isSelected( ) )
 		{
 			selected = true; pManager->GetClipboard( ).clear( );  break;
 		}
@@ -28,13 +28,13 @@ void Cut::Execute( )
 		pManager->GetOutput( )->CloseEditMenu( pManager );
 	if ( !ReadActionParameters( ) )
 		return;
-	for ( unsigned int i = 0; i <pManager->GetCompList( ).size( ); i++ )
-		if ( pManager->GetCompList( )[i]->isSelected( ) )
+	for ( unsigned int i = 0; i <pManager->GetComplistSize(); i++ )
+		if ( pManager->GetComponent(i)->isSelected( ) )
 		{
 			
-			pManager->GetClipboard( ).push_back( make_pair( pManager->GetCompList( )[i]->get_GraphicInfo( ) , pManager->GetCompList( )[i]->getType( ) ) );
-			ActionClipboard.push_back(make_pair(pManager->GetCompList()[i]->get_GraphicInfo(), pManager->GetCompList()[i]->getType()));
-			pManager->GetCompList( )[i]->DeleteComponent( pManager );
+			pManager->GetClipboard( ).push_back( make_pair( pManager->GetComponent(i)->get_GraphicInfo( ) , pManager->GetComponent(i)->getType( ) ) );
+			ActionClipboard.push_back(make_pair(pManager->GetComponent(i)->get_GraphicInfo(), pManager->GetComponent(i)->getType()));
+			pManager->GetComponent(i)->DeleteComponent( pManager );
 			i--;
 		}
 	pManager->ClearHighlightedCompList();

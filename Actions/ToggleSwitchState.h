@@ -1,10 +1,11 @@
 #pragma once
 #include "Action.h"
-class New :	public Action
+class ToggleSwitchState :	public Action
 {
 public:
-	New(ApplicationManager*pApp);
-	~New();
+	
+	ToggleSwitchState(ApplicationManager* pApp);
+	~ToggleSwitchState();
 
 	//Reads parameters required for action to execute
 	virtual bool ReadActionParameters();
@@ -14,6 +15,7 @@ public:
 
 	//To undo this action (code depends on action type)
 	virtual void undo();
+
 	//To redo this action (code depends on action type)
 	virtual void redo();
 };

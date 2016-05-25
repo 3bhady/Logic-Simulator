@@ -135,7 +135,7 @@ int Connection::GetInputPinIndex(InputPin * DstPin)
 
 void Connection::EraseComponent(ApplicationManager * pApp)
 {
-	Component *** Arr = pApp->GetArr();
+	//Component *** Arr = pApp->GetArr();
 	int a = m_GfxInfo.x2, b = m_GfxInfo.y2;
 	while (true)
 	{
@@ -146,28 +146,28 @@ void Connection::EraseComponent(ApplicationManager * pApp)
 		if (a == c) {
 			if (d > b) {
 				for (int i = b - 5;i <= d - 5;i++)
-					if (Arr[i][a] == this) {
-						for (int j = a;j < a + 5;j++)if(Arr[i][j]==this)(Arr[i][j]) = NULL;
+					if (pApp->GetComponent(i,a) == this) {
+						for (int j = a; j < a + 5; j++)if (pApp->GetComponent(i, j) == this)pApp->PointToNull(i, j);
 					}
 			}
 			else
 				for (int i = d - 5;i <= b - 5;i++)
-					if (Arr[i][a] == this) {
+					if (pApp->GetComponent(i, a) == this) {
 
-						for (int j = a;j < a + 5;j++)if(Arr[i][j] == this)(Arr[i][j]) = NULL;
+						for (int j = a; j < a + 5; j++)if (pApp->GetComponent(i, j) == this)pApp->PointToNull(i, j);
 					}
 		}
 		if (b == d) {
 			if (a > c)
 				for (int i = c;i <= a;i++) {
-					if (Arr[b][i] == this) {
-						for (int j = b - 7;j < b + 1;j++)if(Arr[j][i] == this)(Arr[j][i]) = NULL;
+					if (pApp->GetComponent(b, i) == this) {
+						for (int j = b - 7; j < b + 1; j++)if (pApp->GetComponent(j, i) == this)pApp->PointToNull(j, i);
 					}
 				}
 			else
 				for (int i = a;i <= c;i++)
-					if (Arr[b][i] == this) {
-						for (int j = b - 7;j < b + 1;j++)if(Arr[j][i] == this)Arr[j][i] = NULL;
+					if (pApp->GetComponent(b, i) == this) {
+						for (int j = b - 7; j < b + 1; j++)if (pApp->GetComponent(j, i) == this)pApp->PointToNull(j, i);
 					}
 
 		}
