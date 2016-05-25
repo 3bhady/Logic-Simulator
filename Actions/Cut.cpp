@@ -34,12 +34,13 @@ void Cut::Execute( )
 		return;
 
 	//Push the highlighted components in ClipBoard and delete them
-	for (int i = 0; i < pManager->GetComplistSize(); i++)
-		if ( pManager->GetComponent(i)->isSelected( ) )
+	int size = pManager->GetComplistSize();
+	for (int i = 0; i < size; i++)
+		if ( pManager->GetComponent(pManager->GetComplistSize()-1)->isSelected( ) )
 		{
 			pManager->GetClipboard().push_back(make_pair(make_pair(pManager->GetHighlightedComponent(i)->get_GraphicInfo(), pManager->GetHighlightedComponent(i)->getType()), pManager->GetHighlightedComponent(i)->get_label()));
-			ActionClipboard.push_back(make_pair(make_pair(pManager->GetComponent(i)->get_GraphicInfo(), pManager->GetComponent(i)->getType()),pManager->GetComponent(i)->get_label()));
-			pManager->GetComponent(i)->DeleteComponent( pManager );
+			ActionClipboard.push_back(make_pair(make_pair(pManager->GetComponent(pManager->GetComplistSize()-1)->get_GraphicInfo(), pManager->GetComponent(pManager->GetComplistSize()-1)->getType()),pManager->GetComponent(pManager->GetComplistSize()-1)->get_label()));
+			pManager->GetComponent(pManager->GetComplistSize()-1)->DeleteComponent( pManager );
 			//i--;
 		}
 	pManager->ClearHighlightedCompList();
