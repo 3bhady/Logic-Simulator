@@ -21,6 +21,7 @@
 #include"Actions\New.h"
 #include"Actions\TruthTable.h"
 #include "Actions\ToggleSwitchState.h"
+#include "Actions\ReturnToDesignMode.h"
 #include<fstream>
 
 ApplicationManager::ApplicationManager()
@@ -251,6 +252,23 @@ void ApplicationManager::UpdateComponentsIndexes()
 		CompList[i]->setCompIndex(i);
 }
 
+void ApplicationManager::PreSimulation()
+{
+	for (unsigned int i = 0; i <CompList.size(); i++)
+	{
+		if (CompList[i]->getType() == Switch_)
+			CompList[i]->Operate();
+		else CompList[i]->SetOutPinStatus(FLOATING);
+	}
+}
+
+void ApplicationManager::TurnOffLEDs()
+{
+	for (unsigned int i = 0; i < CompList.size(); i++)
+		if (CompList[i]->getType() == LED_)
+			CompList[i]->setInputPinStatus(FLOATING, 0), CompList[i]->Operate();
+}
+
 ////////////////////////////////////////////////////////////////////
 
 ActionType ApplicationManager::GetUserAction()
@@ -311,6 +329,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new TruthTable(this);
 	if (ActType == Change_Switch)
 		pAct = new ToggleSwitchState(this);
+	if (ActType == DSN_MODE)
+		pAct = new ReturnToDesignMode(this);
 	if(pAct)
 	{
 		//if Action undo or redo don't push in stacks
@@ -333,7 +353,6 @@ void ApplicationManager::UpdateInterface()
 	if (UI.AppMode != EDIT_MODE)
 	for (unsigned int i = 0; i < CompList.size(); i++)
 		CompList[i]->Draw(OutputInterface);
-	//OutputInterface->UpdateBuffer( );
 }
 
 ////////////////////////////////////////////////////////////////////

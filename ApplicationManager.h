@@ -78,4 +78,6 @@ public:
 	Component* GetHighlightedComponent(int index);	//Get component from highlighted list
 	unsigned int getHighlightedCompListSize();		//returns highlighted list size
 	void UpdateComponentsIndexes();					//updates the indexes of the components in the complist
+	void PreSimulation();							//Makes the components ready to simulation
+	void TurnOffLEDs();								//Turn all LEDS off
 };

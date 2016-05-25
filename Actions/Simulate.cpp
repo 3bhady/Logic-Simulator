@@ -54,13 +54,7 @@ bool Simulate::Run(ApplicationManager*pManager)
 	int size = pManager->GetComplistSize();
 	visited.resize(size, false);
 	int SimulationResult = 0;
-	for (int i = 0; i < size; i++)
-	{
-		Component* Comp = pManager->GetComponent(i);
-		if (Comp->getType() == Switch_)
-			Comp->Operate();
-		else Comp->SetOutPinStatus(FLOATING);
-	}
+	pManager->PreSimulation();
 	for (int i = 0; i < size; i++)
 		if (pManager->GetComponent(i)->getType() == LED_)
 			dfs(visited, pManager->GetComponent(i), i, SimulationResult, pManager);

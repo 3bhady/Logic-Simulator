@@ -87,6 +87,7 @@
     <ClCompile Include="Actions\TruthTable.cpp" />
     <ClCompile Include="Utility\Utility.cpp" />
     <ClCompile Include="Actions\ToggleSwitchState.cpp" />
+    <ClCompile Include="Actions\ReturnToDesignMode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Actions\TruthTable.h" />
     <ClInclude Include="Utility\Utility.h" />
     <ClInclude Include="Actions\ToggleSwitchState.h" />
+    <ClInclude Include="Actions\ReturnToDesignMode.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
