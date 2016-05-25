@@ -68,10 +68,151 @@ void ApplicationManager::AddComponent(Component* pComp)
 
 void ApplicationManager::save(ofstream &fout)
 {
-	fout << CompList.size();
-	fout << endl;
+	int CompSize = 0;
 	for (unsigned int i = 0; i < CompList.size(); i++)
-		CompList[i]->Save(fout);
+		if (!dynamic_cast<Connection*>(CompList[i]))
+		{
+			CompSize++;
+		}
+	fout << CompSize;
+	fout << endl;
+		for (unsigned int i = 0; i < CompList.size(); i++)
+		if (!dynamic_cast<Connection*>(CompList[i]))
+			CompList[i]->Save(fout);
+		fout << endl;
+		fout << "Connections: "<< endl;
+		for (unsigned int i = 0; i < CompList.size(); i++)
+			if (dynamic_cast<Connection*>(CompList[i]))
+			{
+				CompList[i]->Save(fout);
+				fout << endl;
+			}
+		fout << "-1";
+		
+}
+
+void ApplicationManager::load(ifstream & fin)
+{
+	Component*pG;
+	int CompNum;
+	fin >> CompNum;
+	string type;
+	GraphicsInfo L_GfxInfo;
+	for (int i = 0; i < CompNum; i++)
+	{
+		fin >> type;
+		if (type == "AND2")
+		{
+			pG = new AND2(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "AND3")
+		{
+			pG = new AND3(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "BUFFER")
+		{
+			pG = new BUFFER(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "LED")
+		{
+			pG = new LED(L_GfxInfo);// , AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "NAND2")
+		{
+			pG = new NAND2(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "NAND3")
+		{
+			pG = new NAND3(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "NOR2")
+		{
+			pG = new NOR2(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "NOR3")
+		{
+			pG = new NOR3(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "INVERTER")
+		{
+			pG = new NOT(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "OR2")
+		{
+			pG = new OR2(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "OR3")
+		{
+			pG = new OR3(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "SWITCH")
+		{
+			pG = new Switch(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "XNOR2")
+		{
+			pG = new XNOR2(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "XNOR3")
+		{
+			pG = new XNOR3(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "XOR2")
+		{
+			pG = new XOR2(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+		if (type == "XOR3")
+		{
+			pG = new XOR3(L_GfxInfo, AND2_FANOUT);
+			pG->Load(fin);
+			AddComponent(pG);
+		}
+	}
+	string s = "";
+	fin >> s;
+	while (true)
+	{
+		int SrcID;
+		int DstID;
+		int x;
+		fin >> SrcID;
+		if (SrcID == -1)
+			break;
+		fin >> DstID;
+		fin >> x;
+		AddConnection*Load = new AddConnection(this);
+		Load->LoadConnection(SrcID, DstID);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -139,6 +280,7 @@ void ApplicationManager::EraseComponent(GraphicsInfo GFX)
 		for (int i = GFX.y1; i < GFX.y2; i++)
 			Arr[i][j] = NULL;
 }
+
 
 vector<Component*>& ApplicationManager::GetCompList()
 {
@@ -267,6 +409,29 @@ void ApplicationManager::TurnOffLEDs()
 	for (unsigned int i = 0; i < CompList.size(); i++)
 		if (CompList[i]->getType() == LED_)
 			CompList[i]->setInputPinStatus(FLOATING, 0), CompList[i]->Operate();
+}
+
+void ApplicationManager::NewProject()
+{
+	ClearComplist();
+	//function in appmanger btfady the two stacks
+	while (!UndoStack.empty())
+	{
+		Action* temp = UndoStack.top();
+		UndoStack.pop();
+		delete temp;
+	}
+	while (!RedoStack.empty())
+	{
+		Action* temp = RedoStack.top();
+		RedoStack.pop();
+		delete temp;
+	}
+	GetOutput()->ClearDrawingArea();
+	GetOutput()->CreateToolBars();
+	UpdateInterface();
+	GetOutput()->UpdateBuffer();
+	Component::setID(1);
 }
 
 ////////////////////////////////////////////////////////////////////

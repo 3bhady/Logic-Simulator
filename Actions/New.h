@@ -14,8 +14,11 @@ public:
 
 	//Undo this action
 	virtual void undo();
+	//To redo this action (code depends on action type)
+
 
 	//Redo this action
+
 	virtual void redo();
 
 };
