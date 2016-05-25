@@ -141,7 +141,6 @@ void Output::ChangeTitle(string Title) const
 void Output::CreateStatusBar() const
 {
 	pWind->DrawImage( "Images\\ToolBars\\Statusbar\\SB1.jpg" , UI.StatusBarStartX , UI.StatusBarStartY);
-	//pWind->UpdateBuffer( );
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -321,18 +320,13 @@ void Output::CloseEditMenu(ApplicationManager* pManager) const
 //Draws the menu (toolbar) in the Design mode
 void Output::CreateDesignToolBar() const
 {
-	//UI.AppMode = DESIGN;	//Design Mode
 	if (!UI.HiddenToolBar)
 	{
 		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB1.jpg", UI.ToolBarStartX, UI.ToolBarStartY);
 		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, UI.ToolBarTitleStartY);
 	}
 	else
-	{
 		pWind->DrawImage("Images\\ToolBars\\Toolbar\\TB2.jpg", UI.ToolBarTitleStartX, 0);
-	}
-	//pWind->UpdateBuffer( );
-
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -346,7 +340,6 @@ void Output::CreateFileToolBar() const
 
 	}
 	else 	pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX, UI.FileBarTitleStartY);
-	//pWind->UpdateBuffer( );
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -876,17 +869,24 @@ void Output::DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate,bool selected,
 
 //////////////////////////////////////////////////////////////////////////////////
 
-void Output::DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, bool forbidden, string colour)
+void Output::DrawLED(GraphicsInfo r_GfxInfo, STATUS state, bool selected, bool forbidden, string colour)
 {
 	//Getting the switch image
 	string LEDImage = "Images\\LED\\";
-	if (state)			  // ON or OFF
+
+	// ON or OFF
+	if (state==HIGH)
 		LEDImage += "ON" + colour;
 	else LEDImage += "OFF";
-	if (forbidden)	//Forbidden
+
+	//Forbidden
+	if (forbidden)
 		LEDImage += "F";
-	else if (selected)		 // Highlighted
+
+	// Highlighted
+	else if (selected)
 		LEDImage += "H";
+
 	LEDImage += ".png";
 
 	Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);

@@ -62,7 +62,7 @@ public:
 	void DrawJPEGImage(const image &imgThis, const int iX, const int iY, const int iWidth = -1, const int iHeight = -1);
 	void DrawPNGImage( string r_filename, GraphicsInfo GfxInfo );
 	void DrawGate(GraphicsInfo  r_GfxInfo, ComponentType gate, bool selected = false, bool forbidden = false);
-	void DrawLED(GraphicsInfo r_GfxInfo, bool state, bool selected, bool forbidden = false , string colour = "");
+	void DrawLED(GraphicsInfo r_GfxInfo, STATUS state, bool selected, bool forbidden = false , string colour = "");
 	void DrawSwitch(GraphicsInfo r_GfxInfo,STATUS status, bool forbidden = false, bool selected = false, MODE mode = DESIGN);
 	void DrawEditMenu(int x, int y,int selectedItem)const;
 	void DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, bool selected) const;

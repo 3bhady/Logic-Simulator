@@ -140,6 +140,7 @@
     <ClCompile Include="Actions\Move.cpp" />
     <ClCompile Include="Actions\Paste.cpp" />
     <ClCompile Include="Actions\Redo.cpp" />
+    <ClCompile Include="Actions\ReturnToDesignMode.cpp" />
     <ClCompile Include="Actions\Save.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
     <ClCompile Include="Actions\Simulate.cpp" />
@@ -229,6 +230,7 @@
     <ClInclude Include="Actions\Move.h" />
     <ClInclude Include="Actions\Paste.h" />
     <ClInclude Include="Actions\Redo.h" />
+    <ClInclude Include="Actions\ReturnToDesignMode.h" />
     <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Select.h" />
     <ClInclude Include="Actions\Simulate.h" />
