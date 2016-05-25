@@ -37,13 +37,16 @@ public:
 
 	virtual STATUS GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	virtual STATUS GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1
+	virtual int getID();
 	virtual bool ChangePath(ApplicationManager*);
+
 	virtual void setInputPinStatus(STATUS s, int n);	//set status of Inputpin # n, to be used by connection class.
 	virtual int getNumberofInPins();
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
 	void SetOutPinStatus(STATUS s);
+	virtual  int GetInputPinIndex(InputPin*DstPin);
 	virtual void EraseComponent(ApplicationManager * pApp);//remove it from the grid
 	virtual InputPin*GetInputPin(int) ;//the function that returns pointer to an inputpin
 	virtual pair<int, int>*GetInputPinCoordinates(int);//the function that returns pointer to an inputpin

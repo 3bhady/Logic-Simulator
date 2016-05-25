@@ -1,5 +1,8 @@
 #include "Connection.h"
-
+#include<iomanip>
+#include<fstream>
+#include"..\Actions\AddConnection.h"
+using namespace std;
 Connection::Connection( const GraphicsInfo &r_GfxInfo , BFSOut* outs , OutputPin *pSrcPin , InputPin *pDstPin ) :Component( r_GfxInfo )
 
 {
@@ -30,9 +33,12 @@ InputPin* Connection::getDestPin( )
 
 void Connection::Save( ofstream & fout )
 {
+	fout <<setw(15)<<SrcPin->getComponent()->getID();
+	fout << setw(15) << DstPin->getComponent()->getID();
+	fout<< setw(15) << DstPin->getComponent()->GetInputPinIndex(DstPin);
 }
 
-void Connection::Load( ifstream & fout )
+void Connection::Load( ifstream & fin )
 {
 }
 
@@ -83,6 +89,11 @@ STATUS Connection::GetInputPinStatus(int n = 1)	//returns status of Inputpin #n
 	return SrcPin->getStatus( );	//n is ignored as connection has only one input pin (src pin)
 }
 
+
+int Connection::getID()
+{
+	return 0;
+}
 bool Connection::ChangePath(ApplicationManager* pManger)
 {
 	bfs(m_GfxInfo.x1, m_GfxInfo.y1, m_GfxInfo.x2, m_GfxInfo.y2, pManger->GetArr(), outx);
@@ -122,6 +133,10 @@ void Connection::SetOutPinStatus(STATUS s)
 	DstPin->setStatus(s);
 }
 
+	int Connection::GetInputPinIndex(InputPin * DstPin)
+{
+	return 0;
+}
 void Connection::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &outx)
 {
 	for (int i = 0;i < 780;i++)

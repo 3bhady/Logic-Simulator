@@ -34,7 +34,11 @@ public:
 	virtual InputPin*GetInputPin(int);//the function that returns pointer to an inputpin
 	virtual pair<int, int>*GetInputPinCoordinates(int);//the function that returns pointer to an inputpin
 	void setState(STATUS s);
+
+	virtual int getID();
+	virtual  int GetInputPinIndex(InputPin*DstPin);
 	virtual int GetInputPinIndex(pair<int, int>& coordinates);
+
 
 	//kero	
 	//==================================================

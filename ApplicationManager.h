@@ -52,7 +52,7 @@ public:
 	void AddComponent(Component* pComp);	//Add component in 2D array and push it in complist	
 	 
 	void save(ofstream &fout);
-	//void load(ifstream &fin);
+	void load(ifstream &fin);
 
 	//Component* GetComponent( int x , int y );
 	void DeleteComponent(int x,int y);
@@ -78,4 +78,5 @@ public:
 	Component* GetHighlightedComponent(int index);	//Get component from highlighted list
 	unsigned int getHighlightedCompListSize();		//returns highlighted list size
 	void UpdateComponentsIndexes();					//updates the indexes of the components in the complist
+	void NewProject();
 };

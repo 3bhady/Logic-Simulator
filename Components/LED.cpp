@@ -135,6 +135,16 @@ void LED::setState(STATUS s)
 	State = s;
 }
 
+
+int LED::getID()
+{
+	return LEDID;
+}
+
+int LED::GetInputPinIndex(InputPin * DstPin)
+{
+	return 0;
+}
 int LED::GetInputPinIndex(pair<int, int>& coordinates)
 {
 	inP = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
@@ -158,8 +168,7 @@ void LED::Load(ifstream & fin)
 {
 	int x, y;
 	string label;
-	string ahbal;
-	fin >> ahbal;
+	fin >> LEDID;
 	fin >> label;
 	set_label(label);
 	fin >> x >> y;
