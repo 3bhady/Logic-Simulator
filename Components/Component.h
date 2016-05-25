@@ -47,6 +47,7 @@ public:
 	virtual pair<int, int>& GetOutputPinCoordinates() = 0;//the function that gets the outputpin coordinates
 	virtual InputPin* GetInputPin(pair<int, int>&x) = 0;//the function that returns pointer to an inputpin
 	virtual OutputPin* GetOutputPin() = 0;//the function that returns pointer to an outputpin
+	virtual pair<int, int>* GetInputPinCoordinates(InputPin* InputP) ;//the function that gets the inputpin coordinates
 	void Highlight();			//Make the component highlighted
 	void Unhighlight();			//Make the component unhighlighted
 	void Forbid( );				//Makes the component forbidden and it appears red
