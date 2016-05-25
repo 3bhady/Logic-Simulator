@@ -137,6 +137,7 @@ void ApplicationManager::EraseComponent(GraphicsInfo GFX)
 			Arr[i][j] = NULL;
 }
 
+
 vector<Component*>& ApplicationManager::GetCompList()
 {
 	return CompList;
