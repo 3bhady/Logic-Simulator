@@ -68,6 +68,11 @@ void Component::EraseComponent(ApplicationManager * pApp)
 	pApp->GetOutput()->DeleteGate(m_GfxInfo);
 }
 
+pair<int, int>* Component::GetInputPinCoordinates(InputPin * InputP)
+{
+	return NULL;
+}
+
 void Component::Highlight()
 {
 	highlighted = true;

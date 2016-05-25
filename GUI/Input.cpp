@@ -101,8 +101,8 @@ ActionType Input::GetUserAction(ApplicationManager * pApp)const
 
 	//Get user click and key pressed
 	clicktype cType = pWind->GetMouseClick(x, y);
-	keytype kType = pWind->GetKeyPress(HotKey);
 
+	keytype kType = pWind->GetKeyPress(HotKey);
 	//Get the coordinates of the user click
 	//if (cType == NO_CLICK && kType == NO_KEYPRESS)
 	//	return DSN_TOOL;

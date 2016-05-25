@@ -31,7 +31,7 @@ public:
 	virtual InputPin* GetInputPin(pair<int, int>&x);//the function that returns pointer to an inputpin
 	virtual OutputPin* GetOutputPin();//the function that returns pointer to an outputpin
 	virtual void EraseComponent(ApplicationManager * pApp);//remove it from the grid
-
+	virtual pair<int, int>* GetInputPinCoordinates(InputPin* InputP);//the function that gets the inputtpin coordinates
 	void Save( ofstream &fout );
 	void Load( ifstream &fin );
 	virtual STATUS GetOutPinStatus();

@@ -203,15 +203,14 @@ bool Select::MoveDest(Connection * Comp)
 	return false;
 }
 
-bool Select::MoveOutPin(pair<int, int>& NewPair)
+bool Select::MoveOutPin(Connection*Comp)
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	int Cx = NewPair.first, Cy = NewPair.second;
+	int Cx = Comp->getSourcePin()->getComponent()->GetOutputPinCoordinates().first, Cy = Comp->getSourcePin()->getComponent()->GetOutputPinCoordinates().second;
 	bool check = true;
 	GraphicsInfo GInfo;
 	Component* ChangedComponent = pManager->GetArr()[Cy][Cx - 15];
-	Connection*Comp = NULL;
 	for (int i = 0;i < ChangedComponent->GetOutputPin()->GetConnections().size();i++) {
 		Comp = ChangedComponent->GetOutputPin()->GetConnections()[i];
 		GInfo.x1 = Comp->get_GraphicInfo().x1;
@@ -243,16 +242,16 @@ bool Select::MoveOutPin(pair<int, int>& NewPair)
 	return check;
 }
 
-bool Select::MoveInput(pair<int, int>& NewPair)
+bool Select::MoveInput(Connection*Comp)
 {
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
-	int Cx = NewPair.first, Cy = NewPair.second;
+	int Cx = Comp->getDestPin()->getComponent()->GetInputPinCoordinates(Comp->getDestPin())->first, Cy = Comp->getDestPin()->getComponent()->GetInputPinCoordinates(Comp->getDestPin())->second;
 	bool check = true;
 	GraphicsInfo GInfo;
-	Component* ChangedComponent = pManager->GetArr()[Cy][Cx - 15];
-	Connection*Comp = NULL;
-		Comp = ChangedComponent->GetInputPin(NewPair)->get_connection();
+	Component* ChangedComponent = pManager->GetArr()[Cy][Cx];
+	Comp = NULL;
+		Comp = ChangedComponent->GetInputPin(make_pair(Cx,Cy))->get_connection();
 		GInfo.x1 = Comp->get_GraphicInfo().x1;
 		GInfo.y1 = Comp->get_GraphicInfo().y1;
 		GInfo.x2 = Comp->get_GraphicInfo().x2;
@@ -284,6 +283,7 @@ bool Select::MoveInput(pair<int, int>& NewPair)
 bool Select::ReturnConnection(GraphicsInfo & GInfo,Connection*Comp)
 {
 		Comp->EraseComponent(pManager);
+
 		pManager->GetComponent(GInfo.x1 - 15,GInfo.y1)->GetOutputPin()->ConnectTo(Comp);
 		pManager->GetComponent(GInfo.x2,GInfo.y2)->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(Comp);
 		if (bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), Comp->get_path()))
@@ -295,6 +295,7 @@ bool Select::ReturnConnection(GraphicsInfo & GInfo,Connection*Comp)
 		pManager->GetComponent(GInfo.x1 - 15,GInfo.y1)->GetOutputPin()->ConnectTo(Comp);
 		pManager->GetComponent(GInfo.x2,GInfo.y2)->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(Comp);
 		return true;
+
 }
 
 bool Select::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &ConnectionPath)

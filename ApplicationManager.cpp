@@ -536,7 +536,7 @@ Component *** ApplicationManager::GetArr( )
 	return Arr;
 }
 
-vector< pair<GraphicsInfo , ComponentType> >& ApplicationManager::GetClipboard( )
+vector< pair<pair<GraphicsInfo , ComponentType>,string >>& ApplicationManager::GetClipboard( )
 {
 	return Clipboard;
 }
@@ -544,7 +544,7 @@ vector< pair<GraphicsInfo , ComponentType> >& ApplicationManager::GetClipboard( 
 void ApplicationManager::AddToClipboard( Component * pComp )
 {
 
-	Clipboard.push_back( make_pair( pComp->get_GraphicInfo( ) , pComp->getType( ) ) );
+	Clipboard.push_back( make_pair(make_pair( pComp->get_GraphicInfo( ) , pComp->getType( ) ),pComp->get_label()) );
 
 }
 
