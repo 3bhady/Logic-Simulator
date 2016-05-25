@@ -16,6 +16,7 @@ class LED : public Component
 	int LEDID;
 public:
 	LED(const GraphicsInfo &r_GfxInfo);//, pair<int, int> x);
+	virtual pair<int, int>* GetInputPinCoordinates(InputPin* InputP);//the function that gets the inputtpin coordinates
 	virtual void Operate();	//Calculates the output of led
 	virtual void Draw(Output* pOut);	//Draws led
 	virtual STATUS GetOutPinStatus();	//returns status of outputpin if LED, return -1

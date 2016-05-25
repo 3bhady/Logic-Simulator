@@ -27,6 +27,12 @@ LED::LED(const GraphicsInfo &r_GfxInfo)//, pair<int, int> x)
 	LEDID = ID++;
 }
 
+pair<int, int>* LED::GetInputPinCoordinates(InputPin * InputP)
+{
+	inP = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+		return &inP;
+}
+
 
 void LED::Operate()
 {
