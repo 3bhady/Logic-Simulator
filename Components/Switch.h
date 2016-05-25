@@ -14,7 +14,7 @@ class Switch : public Component
 public:
 	Switch(const GraphicsInfo &r_GfxInfo, int r_FanOut);
 	virtual void Operate();	//Calculates the output of switch
-	virtual void Draw(Output* pOut);	//Draws switch
+	virtual void Draw(Output* pOut, ApplicationManager* AppManger = NULL);	//Draws switch
 
 	virtual STATUS GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	virtual STATUS GetInputPinStatus(int n);	//returns status of the Inputpin # n if SWITCH, return -1

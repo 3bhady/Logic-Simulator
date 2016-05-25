@@ -26,7 +26,7 @@ void NOR2::Operate()
 
 // Function Draw
 // Draws 2-input NOR gate
-void NOR2::Draw(Output* pOut)
+void NOR2::Draw(Output* pOut, ApplicationManager* AppManger)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, NOR2_, highlighted, forbidden);

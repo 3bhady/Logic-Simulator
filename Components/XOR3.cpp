@@ -31,7 +31,7 @@ void XOR3::Operate()
 
 // Function Draw
 // Draws 3-input XOR gate
-void XOR3::Draw(Output* pOut)
+void XOR3::Draw(Output* pOut, ApplicationManager* AppManger)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, XOR3_, highlighted, forbidden);

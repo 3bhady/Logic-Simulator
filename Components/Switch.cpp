@@ -25,7 +25,7 @@ void Switch::Operate()
 
 
 // Draw switch
-void Switch::Draw(Output* pOut)
+void Switch::Draw(Output* pOut, ApplicationManager* AppManger )
 {
 	//Call output class and pass switch drawing info to it.
 	pOut->DrawSwitch(m_GfxInfo, State, highlighted,forbidden, UI.AppMode);

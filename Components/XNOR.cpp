@@ -26,7 +26,7 @@ void XNOR2::Operate()
 
 // Function Draw
 // Draws 2-input XNOR gate
-void XNOR2::Draw(Output* pOut)
+void XNOR2::Draw(Output* pOut, ApplicationManager* AppManger)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, XNOR2_, highlighted, forbidden);

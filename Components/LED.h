@@ -18,7 +18,7 @@ public:
 	LED(const GraphicsInfo &r_GfxInfo);//, pair<int, int> x);
 	virtual pair<int, int>* GetInputPinCoordinates(InputPin* InputP);//the function that gets the inputtpin coordinates
 	virtual void Operate();	//Calculates the output of led
-	virtual void Draw(Output* pOut);	//Draws led
+	virtual void Draw(Output* pOut, ApplicationManager* AppManger = NULL);	//Draws led
 	virtual STATUS GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	virtual STATUS GetInputPinStatus(int n);	//returns status of the Inputpin # n if SWITCH, return -1
 	virtual void setInputPinStatus(STATUS s, int n);	//set status of the Inputpin, to be used by connection class.

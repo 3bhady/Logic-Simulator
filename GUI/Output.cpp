@@ -6,7 +6,7 @@
 using namespace std;
 
 class Gate { };
-Output::Output(ApplicationManager* x)
+Output::Output()
 {
 	//Initialize user interface parameters
 
@@ -29,7 +29,6 @@ Output::Output(ApplicationManager* x)
 	CreateEditToolBar( );
 	CreateStatusBar();		
 	pWind->UpdateBuffer( );
-	AppManger = x;
 	
 }
 
@@ -959,7 +958,7 @@ void Output::FlushKeyQueue( )
 
 
 
-void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, bool selected) const
+void Output::DrawConnection(GraphicsInfo r_GfxInfo, ApplicationManager* AppManger,BFSOut &NewPath, Component*con, bool selected) const
 {
 	//TODO: Add code to draw connection
 	if (selected)
@@ -973,8 +972,8 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, 
 	{
 		if (a == r_GfxInfo.x1 &&b == r_GfxInfo.y1)break;
 		int c = a;int d = b;
-		a = kol.arr[c][d].first;
-		b = kol.arr[c][d].second;
+		a = NewPath.arr[c][d].first;
+		b = NewPath.arr[c][d].second;
 		bool test = false;
 
 		if ((AppManger->GetArr()[d][c] == con || (c == r_GfxInfo.x2&&d == r_GfxInfo.y2))
@@ -984,10 +983,10 @@ void Output::DrawConnection(GraphicsInfo r_GfxInfo, BFSOut &kol, Component*con, 
 			pWind->DrawLine(c, d - UI.ConnectionOffset, a, b - UI.ConnectionOffset);
 		}
 		else {
-			if (dynamic_cast<Connection*>(AppManger->GetArr()[b][a]))
-				if ((((Connection*)AppManger->GetArr()[b][a])->getSourcePin() != ((Connection*)con)->getSourcePin()))
-					if ((!(dynamic_cast<Connection*>(AppManger->GetArr()[d][c])))
-						|| ((Connection*)AppManger->GetArr()[d][c])->getSourcePin() != ((Connection*)con)->getSourcePin() || (AppManger->GetArr()[d][c]) == con)
+			if ((AppManger->GetArr()[b][a])->getSourcePin() != NULL)
+				if (((AppManger->GetArr()[b][a])->getSourcePin() != (con)->getSourcePin()))
+					if ((!((AppManger->GetArr()[d][c]->getSourcePin() != NULL)))
+						|| (AppManger->GetArr()[d][c])->getSourcePin() != (con)->getSourcePin() || (AppManger->GetArr()[d][c]) == con)
 					{
 
 						if (c == a) {

@@ -26,7 +26,7 @@ void OR3::Operate()
 
 // Function Draw
 // Draws 3-input OR gate
-void OR3::Draw(Output* pOut)
+void OR3::Draw(Output* pOut, ApplicationManager* AppManger)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, OR3_, highlighted, forbidden);

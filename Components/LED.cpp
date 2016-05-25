@@ -42,7 +42,7 @@ void LED::Operate()
 
 // Function Draw
 // Draws Led
-void LED::Draw(Output* pOut)
+void LED::Draw(Output* pOut, ApplicationManager* AppManger )
 {
 	//Call output class and pass led drawing info to it.
 	pOut->DrawLED(m_GfxInfo, State, highlighted, forbidden, colour);
@@ -142,7 +142,7 @@ int LED::getID()
 
 int LED::GetInputPinIndex(InputPin * DstPin)
 {
-	return 0;
+	return 1;
 }
 int LED::GetInputPinIndex(pair<int, int>& coordinates)
 {
