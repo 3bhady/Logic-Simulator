@@ -66,13 +66,6 @@ void LED::setInputPinStatus(STATUS s, int n = 1)
 {
 	m_InputPin.setStatus(s);
 }
-void LED::EraseComponent(ApplicationManager * pApp)
-{
-	pApp->EraseComponent(m_GfxInfo);
-	m_InputPin.Erase(pApp);
-	pApp->GetOutput()->DeleteGate(m_GfxInfo);
-}
-
 
 
 pair<int, int>& LED::GetOutputPinCoordinates()//the function that gets the outputpin coordinates
@@ -157,6 +150,11 @@ int LED::GetInputPinIndex(pair<int, int>& coordinates)
 	if (inP.first == coordinates.first&&inP.second == coordinates.second)
 		return 0;
 	return -1;
+}
+
+void LED::EraseConnections(ApplicationManager * pApp)
+{
+	m_InputPin.Erase(pApp);
 }
 
 

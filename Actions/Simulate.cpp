@@ -55,9 +55,19 @@ bool Simulate::Run(ApplicationManager*pManager)
 	visited.resize(size, false);
 	int SimulationResult = 0;
 	pManager->PreSimulation();
+	bool run = false;
 	for (int i = 0; i < size; i++)
 		if (pManager->GetComponent(i)->getType() == LED_)
+		{
 			dfs(visited, pManager->GetComponent(i), i, SimulationResult, pManager);
+			run = true;
+		}
+	if (!run)
+	{
+		pManager->GetOutput()->PrintMsg("Simulation Failed !!");
+		pManager->GetOutput()->UpdateBuffer();
+		return false;
+	}
 	for (int i = 0; i < size; i++)
 	{
 		if (!visited[i] && pManager->GetComponent(i)->getType() != Switch_)
@@ -83,8 +93,6 @@ bool Simulate::Run(ApplicationManager*pManager)
 
 STATUS Simulate::dfs(vector<bool>& visited,Component*&Comp, int index, int &result, ApplicationManager* pApp)
 {
-
-	//if (result)return FLOATING;
 	if (Comp->GetOutPinStatus() != FLOATING)return Comp->GetOutPinStatus();
 	if (visited[index]) { result = 2; return FLOATING; }
 	visited[index] = true;

@@ -117,11 +117,9 @@ InputPin * Switch::GetInputPin(int)
 	return NULL;
 
 }
-void Switch::EraseComponent(ApplicationManager * pApp)
+void Switch::EraseConnections(ApplicationManager * pApp)
 {
-	pApp->EraseComponent(m_GfxInfo);
 	m_OutputPin.EraseConnections(pApp);
-	pApp->GetOutput()->DeleteGate(m_GfxInfo);
 }
 
 
@@ -148,10 +146,10 @@ void Switch::Load(ifstream & fin)
 	fin >> label;
 	set_label(label);
 	fin >> x >> y;
-	m_GfxInfo.x1 = x - UI.Gate_Width / 2;
-	m_GfxInfo.x2 = x + UI.Gate_Width / 2;
-	m_GfxInfo.y1 = y - UI.Gate_Height / 2;
-	m_GfxInfo.y2 = y + UI.Gate_Height / 2;
+	m_GfxInfo.x1 = x - UI.Switch_Width / 2;
+	m_GfxInfo.x2 = x + UI.Switch_Width / 2;
+	m_GfxInfo.y1 = y - UI.Switch_Height / 2;
+	m_GfxInfo.y2 = y + UI.Switch_Height / 2;
 }
 Switch::~Switch()
 {

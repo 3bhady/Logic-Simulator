@@ -34,10 +34,8 @@ public:
 	virtual  int GetInputPinIndex(InputPin*DstPin);
 
 	virtual InputPin*GetInputPin(int);//the function that returns pointer to an inputpin
-
-
+	virtual void EraseConnections(ApplicationManager* pApp);
 	virtual void SetOutPinStatus(STATUS);
-	void EraseComponent(ApplicationManager * pApp);
 	void Save(ofstream &fout);
 	void Load(ifstream &fout);
 	~Switch();

@@ -43,6 +43,7 @@ public:
 	virtual void AddComponent(ApplicationManager * pApp);		//Add component in 2D array and don't push it in complist	
 	virtual void DeleteComponent( ApplicationManager * pApp ); //completly delete it
 	virtual void EraseComponent( ApplicationManager * pApp );//remove it from the grid
+	virtual void EraseConnections(ApplicationManager* pApp) = 0;	//Delete connections
 	virtual pair<int, int>* GetInputPinCoordinates(pair<int, int>&x) = 0;//the function that gets the inputtpin coordinates
 	virtual pair<int, int>& GetOutputPinCoordinates() = 0;//the function that gets the outputpin coordinates
 	virtual InputPin* GetInputPin(pair<int, int>&x) = 0;//the function that returns pointer to an inputpin

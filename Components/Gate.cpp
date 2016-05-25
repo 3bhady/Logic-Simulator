@@ -260,22 +260,20 @@ int Gate::GetInputPinIndex(pair<int, int> &coordinates)
 	return -1;
 }
 
+void Gate::EraseConnections(ApplicationManager* pApp)
+{
+	for (int i = 0; i < m_Inputs; i++)
+		m_InputPins[i].Erase(pApp);
+	m_OutputPin.EraseConnections(pApp);
+}
+
 
 Gate::~Gate()
 {
-	
-
 	delete[] m_InputPins;
 	delete[]inP;
 }
-void Gate::EraseComponent(ApplicationManager * pApp)
-{
-	pApp->EraseComponent(m_GfxInfo);
-	for (int i = 0;i < m_Inputs;i++)
-		m_InputPins[i].Erase(pApp);
-	m_OutputPin.EraseConnections(pApp);
-	pApp->GetOutput()->DeleteGate(m_GfxInfo);
-}
+
 
 pair<int, int>* Gate::GetInputPinCoordinates(InputPin * InputP)
 {

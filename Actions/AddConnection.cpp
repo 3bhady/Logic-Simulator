@@ -215,8 +215,11 @@ void AddConnection::LoadConnection(int SrcID,int DstID)
 
 void AddConnection::undo( )
 {
-	pManager->GetArr()[GInfo.y2][GInfo.x2]->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->get_connection()->DeleteComponent(pManager);
-
+	pManager->GetComponent(GInfo.x2, GInfo.y2)->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->get_connection()->DeleteComponent(pManager);
+	pManager->GetOutput()->CreateGrid();
+	pManager->GetOutput()->CreateToolBars();
+	pManager->UpdateInterface();
+	pManager->GetOutput()->UpdateBuffer();
 }
 
 void AddConnection::redo( )
@@ -224,6 +227,7 @@ void AddConnection::redo( )
 	bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), outx);
 	Connection *pS = NULL;
 	pS = new Connection(GInfo, &outx, (pManager->GetArr()[GInfo.y1][GInfo.x1 - 15])->GetOutputPin(), (pManager->GetArr()[GInfo.y2][GInfo.x2])->GetInputPin(make_pair(GInfo.x2, GInfo.y2)));
-	pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]->GetOutputPin()->ConnectTo(pS);
-	pManager->GetArr()[GInfo.y2][GInfo.x2]->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(pS);
+	pManager->GetComponent(GInfo.x1 - 15, GInfo.y1)->GetOutputPin()->ConnectTo(pS);
+	pManager->GetComponent(GInfo.x2, GInfo.y2)->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(pS);
+	pManager->AddComponent(pS);
 }

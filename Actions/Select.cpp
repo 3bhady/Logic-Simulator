@@ -47,6 +47,11 @@ void Select::Execute()
 				pManager->GetHighlightedComponent(i)->Highlight();
 				FinalPositions.push_back(make_pair(pManager->GetHighlightedComponent(i)->get_GraphicInfo(), pManager->GetHighlightedComponent(i)->getType()));
 			}
+			for (unsigned int i = 0; i < pManager->getHighlightedCompListSize(); i++)
+			{
+				if (pManager->GetHighlightedComponent(i)->getType() == CONNECTION_)
+					MoveConnection((Connection*)pManager->GetHighlightedComponent(i));
+			}
 		}
 		//if not move then unselect the selected item and remove it from the highlighted components vector
 		else pManager->UnhighlightComponent(selectedItem);
@@ -136,7 +141,7 @@ bool Select::MoveSource(Connection * Comp)
 
 	} while (true);
 	if (check) {
-		Comp->EraseComponent(pManager);
+		Comp->EraseConnections(pManager);
 		pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]->GetOutputPin()->ConnectTo(Comp);
 		pManager->GetArr()[GInfo.y2][GInfo.x2]->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(Comp);
 		if (bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), Comp->get_path()))
@@ -187,7 +192,7 @@ bool Select::MoveDest(Connection * Comp)
 		}
 	} while (true);
 	if (check) {
-		Comp->EraseComponent(pManager);
+		Comp->EraseConnections(pManager);
 		pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]->GetOutputPin()->ConnectTo(Comp);
 		pManager->GetArr()[GInfo.y2][GInfo.x2]->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(Comp);
 		if (bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), Comp->get_path()))
@@ -225,7 +230,7 @@ bool Select::MoveOutPin(Connection*Comp)
 		else check = false;
 
 		if (check) {
-			Comp->EraseComponent(pManager);
+			Comp->EraseConnections(pManager);
 			pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]->GetOutputPin()->ConnectTo(Comp);
 			pManager->GetArr()[GInfo.y2][GInfo.x2]->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(Comp);
 			if (bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), Comp->get_path()))
@@ -250,7 +255,7 @@ bool Select::MoveInput(Connection*Comp)
 	bool check = true;
 	GraphicsInfo GInfo;
 	Component* ChangedComponent = pManager->GetArr()[Cy][Cx];
-	Connection*Comp = NULL;
+	Comp = NULL;
 		Comp = ChangedComponent->GetInputPin(make_pair(Cx,Cy))->get_connection();
 		GInfo.x1 = Comp->get_GraphicInfo().x1;
 		GInfo.y1 = Comp->get_GraphicInfo().y1;
@@ -263,7 +268,7 @@ bool Select::MoveInput(Connection*Comp)
 		else check = false;
 
 		if (check) {
-			Comp->EraseComponent(pManager);
+			Comp->EraseConnections(pManager);
 			pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]->GetOutputPin()->ConnectTo(Comp);
 			pManager->GetArr()[GInfo.y2][GInfo.x2]->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(Comp);
 			if (bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), Comp->get_path()))
@@ -282,7 +287,7 @@ bool Select::MoveInput(Connection*Comp)
 
 bool Select::ReturnConnection(GraphicsInfo & GInfo,Connection*Comp)
 {
-		Comp->EraseComponent(pManager);
+		Comp->EraseConnections(pManager);
 		pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]->GetOutputPin()->ConnectTo(Comp);
 		pManager->GetArr()[GInfo.y2][GInfo.x2]->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(Comp);
 		if (bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), Comp->get_path())) {
@@ -397,7 +402,45 @@ bool Select::isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int 
 }
 
 
+bool Select::MoveConnection(Connection*Comp)
+{
+	Output* pOut = pManager->GetOutput();
+	Input* pIn = pManager->GetInput();
+	int Cx = Comp->getDestPin()->getComponent()->GetInputPinCoordinates(Comp->getDestPin())->first, Cy = Comp->getDestPin()->getComponent()->GetInputPinCoordinates(Comp->getDestPin())->second;
+	bool check = true;
+	GraphicsInfo GInfo;
+	Component* ChangedComponent = pManager->GetArr()[Cy][Cx];
+	Comp = ChangedComponent->GetInputPin(make_pair(Cx, Cy))->get_connection();
+	GInfo.x1 = Comp->get_GraphicInfo().x1;
+	GInfo.y1 = Comp->get_GraphicInfo().y1;
+	GInfo.x2 = Comp->get_GraphicInfo().x2;
+	GInfo.y2 = Comp->get_GraphicInfo().y2;
 
+	GInfo.x2 = (pManager->GetArr()[Cy][Cx])->GetInputPinCoordinates(make_pair(Cx, Cy))->first;
+	GInfo.y2 = (pManager->GetArr()[Cy][Cx])->GetInputPinCoordinates(make_pair(Cx, Cy))->second;
+	Cx = Comp->getSourcePin()->getComponent()->GetOutputPinCoordinates().first, Cy = Comp->getSourcePin()->getComponent()->GetOutputPinCoordinates().second;
+
+	GInfo.x1 = (pManager->GetArr()[Cy][Cx])->GetOutputPinCoordinates().first;
+	GInfo.y1 = (pManager->GetArr()[Cy][Cx])->GetOutputPinCoordinates().second;
+
+	if (check) {
+		Comp->EraseConnections(pManager);
+		pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]->GetOutputPin()->ConnectTo(Comp);
+		pManager->GetArr()[GInfo.y2][GInfo.x2]->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(Comp);
+		if (bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), Comp->get_path()))
+		{
+			Comp->set_GraphicInfo(GInfo);
+			GInfo.x1 = Comp->get_GraphicInfo().x1;
+			GInfo.y1 = Comp->get_GraphicInfo().y1;
+			GInfo.x2 = Comp->get_GraphicInfo().x2;
+			GInfo.y2 = Comp->get_GraphicInfo().y2;
+			pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]->GetOutputPin()->ConnectTo(Comp);
+			pManager->GetArr()[GInfo.y2][GInfo.x2]->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(Comp);
+		}
+		else return false;
+	}
+	return check;
+}
 Select::~Select()
 {
 }

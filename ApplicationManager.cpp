@@ -58,10 +58,7 @@ void ApplicationManager::AddComponent(Component* pComp)
 		CompList.push_back(pComp);
 
 		//Set index of Component
-		pComp->setCompIndex(CompCount);
-
-		//Increase Components count
-		CompCount++;
+		pComp->setCompIndex(CompCount++);
 }
 
 ////////////////////////////////////////////////////////////////////

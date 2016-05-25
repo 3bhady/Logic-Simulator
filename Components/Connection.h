@@ -47,8 +47,7 @@ public:
 	virtual int getCompIndexConnectedToInPin(int n);
 	void SetOutPinStatus(STATUS s);
 	virtual  int GetInputPinIndex(InputPin*DstPin);
-	virtual void EraseComponent(ApplicationManager * pApp);//remove it from the grid
 	virtual InputPin*GetInputPin(int) ;//the function that returns pointer to an inputpin
 	virtual pair<int, int>*GetInputPinCoordinates(int);//the function that returns pointer to an inputpin
-
+	virtual void EraseConnections(ApplicationManager* pApp);
 };
