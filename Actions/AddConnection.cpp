@@ -42,12 +42,10 @@ bool AddConnection::ReadActionParameters()
 	} while (true);
 	else
 	{
-		GInfo.x1 = (pManager->GetArr( )[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1])->GetOutputPinCoordinates( ).first;
-		GInfo.y1 = (pManager->GetArr( )[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1])->GetOutputPinCoordinates( ).second;
+		GInfo.x1 = (pManager->GetComponent( UI.u_GfxInfo.x1,UI.u_GfxInfo.y1))->GetOutputPinCoordinates( ).first;
+		GInfo.y1 = (pManager->GetComponent(UI.u_GfxInfo.x1,UI.u_GfxInfo.y1))->GetOutputPinCoordinates( ).second;
 	}
-	//s = "Adding Connection : Click to add the second edge ";
 	pOut->ClearStatusBar();
-	//Print Action Message
 	pOut->PrintMsg("Adding Connection : Click to add the second edge ");
 	pOut->UpdateBuffer();
 	do {
@@ -57,8 +55,9 @@ bool AddConnection::ReadActionParameters()
 		{
 			pOut->Magnetize(Cx, Cy);
 			if (pManager->GetArr()[Cy][Cx]->GetInputPinCoordinates(make_pair(Cx, Cy)) != NULL) {
-				GInfo.x2 = (pManager->GetArr()[Cy][Cx])->GetInputPinCoordinates(make_pair(Cx, Cy))->first;
-				GInfo.y2 = (pManager->GetArr()[Cy][Cx])->GetInputPinCoordinates(make_pair(Cx, Cy))->second;
+			
+				GInfo.x2 = (pManager->GetComponent( Cx , Cy ))->GetInputPinCoordinates( make_pair( Cx , Cy ) )->first;
+				GInfo.y2 = (pManager->GetComponent( Cx , Cy ))->GetInputPinCoordinates( make_pair( Cx , Cy ) )->second;
 				break;
 			}
 			else
@@ -85,11 +84,12 @@ void AddConnection::Execute()
 	Connection *pS = NULL;
 	//Get Center point of the Connection
 	if (!ReadActionParameters())
-		return;
-	pS = new Connection(GInfo, &outx, (pManager->GetArr()[GInfo.y1][GInfo.x1 - 15])->GetOutputPin(), (pManager->GetArr()[GInfo.y2][GInfo.x2])->GetInputPin(make_pair(GInfo.x2, GInfo.y2)));
-	pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]->GetOutputPin()->ConnectTo(pS);
-	pManager->GetArr()[GInfo.y2][GInfo.x2]->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(pS);
-
+		return;																														  
+	pS = new Connection(GInfo, &outx, (pManager->GetComponent( GInfo.x1 - 15 , GInfo.y1 ))->GetOutputPin(), (pManager->GetComponent( GInfo.x2 , GInfo.y2 ))->GetInputPin(make_pair(GInfo.x2, GInfo.y2)));
+	//pManager->GetArr()[GInfo.y1][GInfo.x1 - 15]->GetOutputPin()->ConnectTo(pS);
+	pManager->GetComponent(GInfo.x1 - 15, GInfo.y1 )->GetOutputPin( )->ConnectTo( pS );
+	//pManager->GetArr()[GInfo.y2][GInfo.x2]->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(pS);
+	pManager->GetComponent( GInfo.x2,GInfo.y2)->GetInputPin( make_pair( GInfo.x2 , GInfo.y2 ) )->set_connection( pS );
 	pManager->AddComponent(pS);
 }
 void AddConnection::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &outx)
@@ -188,23 +188,23 @@ void AddConnection::LoadConnection(int SrcID,int DstID)
 	Component* pSrcComp = NULL;
 	Component* pDstComp = NULL;
 	for (int i = 0; i < pManager->GetComplistSize(); i++)
-		if (pManager->GetCompList()[i]->getID() == SrcID)
+		if (pManager->GetComponent(i)->getID() == SrcID)
 		{
 			pSrcComp = pManager->GetCompList()[i];
 			break;
 		}
 	for (int i = 0; i < pManager->GetComplistSize(); i++)
-		if (pManager->GetCompList()[i]->getID() == DstID)
-		{
-			pDstComp = pManager->GetCompList()[i];
+		if (pManager->GetComponent(i)->getID() == DstID)
+		{										
+			pDstComp = pManager->GetComponent(i);
 			break;
 		}
 
 		GInfo.x1 = pSrcComp->GetOutputPinCoordinates().first;
 		GInfo.y1 = pSrcComp->GetOutputPinCoordinates().second;
-	GInfo.x2 = pDstComp->GetInputPinCoordinates(make_pair(100, 100))->first;
-	GInfo.y2 = pDstComp->GetInputPinCoordinates(make_pair(100, 100))->second;
-	//bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), outx);
+	GInfo.x2 = pDstComp->GetInputPinCoordinates(make_pair(pDstComp->get_GraphicInfo().x1+5, pDstComp->get_GraphicInfo( ).y1 + 5 ))->first;
+	GInfo.y2 = pDstComp->GetInputPinCoordinates( make_pair( pDstComp->get_GraphicInfo( ).x1 + 5 , pDstComp->get_GraphicInfo( ).y1 + 5 ) )->second;
+	bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), outx);
 	
 		Connection *pS = NULL;
 		pS = new Connection(GInfo, &outx, pSrcComp->GetOutputPin(), pDstComp->GetInputPin(make_pair(GInfo.x2, GInfo.y2)));
