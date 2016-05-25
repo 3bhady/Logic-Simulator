@@ -31,8 +31,7 @@ public:
 	virtual pair<int, int>& GetOutputPinCoordinates();//the function that gets the outputpin coordinates
 	virtual InputPin* GetInputPin(pair<int, int> &x);//the function that returns pointer to an inputpin
 	virtual OutputPin* GetOutputPin();//the function that returns pointer to an outputpin
-	void bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &outx);//the function the determines the path of the conncetion
-	bool isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2, int x1);
+
 	BFSOut& get_path( );
 
 	virtual STATUS GetOutPinStatus();	//returns status of outputpin if LED, return -1

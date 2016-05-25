@@ -309,20 +309,14 @@ bool Select::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &Connect
 	for (int i = 0;i < 780;i++)
 		for (int j = 0;j < 1400;j++) {
 			if (a[i][j] != NULL)
-				if (dynamic_cast<Connection*>(a[i][j])) {
-					if (!dynamic_cast<Connection*>(a[y1][x1 - 15])) {
-						if (((Connection*)(a[i][j]))->getSourcePin() == (a[y1][x1 - 15])->GetOutputPin())
-							ifc[i][j] = 0;
-						else
-							ifc[i][j] = 1;
-						oth[i][j] = 0;
-					}
+				if (a[i][j]->getDestPin() != NULL) {
+					ifc[i][j] = 1;
+					oth[i][j] = 0;
+
 				}
 				else { ifc[i][j] = 0;oth[i][j] = 1; }
 			else { ifc[i][j] = 0;oth[i][j] = 0; }
-
 		}
-	int klk = 0;
 	queue< pair<int, int> > qu;
 	qu.push(make_pair(x1, y1));
 	while (!qu.empty())

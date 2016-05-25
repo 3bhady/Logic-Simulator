@@ -149,7 +149,7 @@ int LED::getID()
 
 int LED::GetInputPinIndex(InputPin * DstPin)
 {
-	return 0;
+	return 1;
 }
 int LED::GetInputPinIndex(pair<int, int>& coordinates)
 {

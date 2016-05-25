@@ -101,20 +101,15 @@ void AddConnection::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &
 	for (int i = 0;i < 780;i++)
 		for (int j = 0;j < 1400;j++) {
 			if (a[i][j] != NULL)
-				if (dynamic_cast<Connection*>(a[i][j])) {
-					if (!dynamic_cast<Connection*>(a[y1][x1 - 15])) {
-						if (((Connection*)(a[i][j]))->getSourcePin() == (a[y1][x1 - 15])->GetOutputPin())
-							ifc[i][j] = 0;
-						else
+				if (a[i][j]->getDestPin()!=NULL) {
 							ifc[i][j] = 1;
 						oth[i][j] = 0;
-					}
+					
 				}
 				else { ifc[i][j] = 0;oth[i][j] = 1; }
 			else { ifc[i][j] = 0;oth[i][j] = 0; }
 
 		}
-	int klk = 0;
 	queue< pair<int, int> > qu;
 	qu.push(make_pair(x1, y1));
 	while (!qu.empty())
@@ -183,7 +178,7 @@ bool AddConnection::isvalid(int x, int y, int** vis, int** ifc, int** oth, int x
 	return false;
 }
 
-void AddConnection::LoadConnection(int SrcID,int DstID)
+void AddConnection::LoadConnection(int SrcID, int DstID)
 {
 	Component* pSrcComp = NULL;
 	Component* pDstComp = NULL;
@@ -195,22 +190,25 @@ void AddConnection::LoadConnection(int SrcID,int DstID)
 		}
 	for (int i = 0; i < pManager->GetComplistSize(); i++)
 		if (pManager->GetComponent(i)->getID() == DstID)
-		{										
+		{
 			pDstComp = pManager->GetComponent(i);
 			break;
 		}
 
-		GInfo.x1 = pSrcComp->GetOutputPinCoordinates().first;
-		GInfo.y1 = pSrcComp->GetOutputPinCoordinates().second;
-	GInfo.x2 = pDstComp->GetInputPinCoordinates(make_pair(pDstComp->get_GraphicInfo().x1+5, pDstComp->get_GraphicInfo( ).y1 + 5 ))->first;
-	GInfo.y2 = pDstComp->GetInputPinCoordinates( make_pair( pDstComp->get_GraphicInfo( ).x1 + 5 , pDstComp->get_GraphicInfo( ).y1 + 5 ) )->second;
+	GInfo.x1 = pSrcComp->GetOutputPinCoordinates().first;
+	GInfo.y1 = pSrcComp->GetOutputPinCoordinates().second;
+	GInfo.x2 = pDstComp->GetInputPinCoordinates(make_pair(pDstComp->get_GraphicInfo().x1 + 5, pDstComp->get_GraphicInfo().y1 + 5))->first;
+	GInfo.y2 = pDstComp->GetInputPinCoordinates(make_pair(pDstComp->get_GraphicInfo().x1 + 5, pDstComp->get_GraphicInfo().y1 + 5))->second;
 	bfs(GInfo.x1, GInfo.y1, GInfo.x2, GInfo.y2, pManager->GetArr(), outx);
-	
+	if (outx.check) {
 		Connection *pS = NULL;
 		pS = new Connection(GInfo, &outx, pSrcComp->GetOutputPin(), pDstComp->GetInputPin(make_pair(GInfo.x2, GInfo.y2)));
 		pSrcComp->GetOutputPin()->ConnectTo(pS);
 		pDstComp->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(pS);
 		pManager->AddComponent(pS);
+	}
+	else return;
+
 }
 
 void AddConnection::undo( )
