@@ -277,4 +277,26 @@ void Gate::EraseComponent(ApplicationManager * pApp)
 	pApp->GetOutput()->DeleteGate(m_GfxInfo);
 }
 
+pair<int, int>* Gate::GetInputPinCoordinates(InputPin * InputP)
+{
+	switch (m_Inputs)
+	{
+	case 1:
+		inP[0] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+		break;
+	case 2:
+		inP[0] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 15);inP[1] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 45);
+		break;
+	case 3:
+		inP[0] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 15);inP[2] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 45);
+		inP[1] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+		break;
+	}
+	for (int i = 0;i < m_Inputs;i++)
+		if (&m_InputPins[i]==InputP)
+			return & inP[i];
+	return NULL;
+	
+}
+
 
