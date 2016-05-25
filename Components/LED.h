@@ -25,7 +25,6 @@ public:
 	virtual int getNumberofInPins();
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
-	void EraseComponent(ApplicationManager * pApp);
 	virtual int getCompIndexConnectedToInPin(int n);
 	virtual pair<int, int>* GetInputPinCoordinates(pair<int, int>&x);//the function that gets the inputtpin coordinates
 	virtual pair<int, int>& GetOutputPinCoordinates();//the function that gets the outputpin coordinates
@@ -39,7 +38,7 @@ public:
 	virtual int getID();
 	virtual  int GetInputPinIndex(InputPin*DstPin);
 	virtual int GetInputPinIndex(pair<int, int>& coordinates);
-
+	virtual void EraseConnections(ApplicationManager* pApp);
 
 	//kero	
 	//==================================================

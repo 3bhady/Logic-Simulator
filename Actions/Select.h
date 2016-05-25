@@ -33,9 +33,9 @@ public:
 	bool isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2, int x1, int y1);//the function the determines whether a piont is valid or not
 
 	virtual bool MoveOutPin(Connection* Comp);		//Change the coordinates of outpin
-	virtual bool MoveInput(Connection* Comp	);			//Change the coordinates of inputpin
+	virtual bool MoveInput(Connection* Comp	);		//Change the coordinates of inputpin
 
 	virtual bool ReturnConnection(GraphicsInfo&OldGraphic,Connection*Comp);//the function that changes the source of Connection	
-
+	bool MoveConnection(Connection*Comp);
 };
 
