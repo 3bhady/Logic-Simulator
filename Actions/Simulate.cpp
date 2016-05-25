@@ -18,20 +18,22 @@ bool Simulate::ReadActionParameters()
 
 void Simulate::Execute()
 {
-	if (Run())
+	if (Run(pManager))
 	{
 		UI.AppMode = SIMULATION;
-		for (unsigned int i = 0; i < pManager->GetCompList().size(); i++)
+		if (!UI.HiddenToolBar)
+			pManager->GetOutput()->HideDesignToolBar();
+		for ( int i = 0; i < pManager->GetComplistSize(); i++)
 		{
-			if (dynamic_cast<Gate*>(pManager->GetCompList()[i]))
-				((Gate*)pManager->GetCompList()[i])->ShowPinsStatuses(pManager->GetOutput());
+			if (dynamic_cast<Gate*>(pManager->GetComponent(i)))
+				((Gate*)pManager->GetComponent(i))->ShowPinsStatuses(pManager->GetOutput());
 		}
 	}
 	else {
-		for (unsigned int i = 0; i < pManager->GetCompList().size(); i++)
+		for ( int i = 0; i < pManager->GetComplistSize(); i++)
 		{
-			if (dynamic_cast<LED*>(pManager->GetCompList()[i]))
-				(((LED*)pManager->GetCompList()[i]))->setState(LOW);
+			if (dynamic_cast<LED*>(pManager->GetComponent(i)))
+				(((LED*)pManager->GetComponent(i)))->setState(LOW);
 		}
 	}
 }
@@ -45,24 +47,26 @@ void Simulate::redo()
 }
 
 
-bool Simulate::Run()
+bool Simulate::Run(ApplicationManager*pManager)
 {
+	pManager->UpdateComponentsIndexes();
 	vector<bool> visited;
-	unsigned int size = pManager->GetCompList().size();
+	int size = pManager->GetComplistSize();
 	visited.resize(size, false);
 	int SimulationResult = 0;
 	for (unsigned int i = 0; i < size; i++)
 	{
-		if (pManager->GetCompList()[i]->getType() == Switch_)
-			pManager->GetCompList()[i]->Operate();
-		else pManager->GetCompList()[i]->SetOutPinStatus(FLOATING);
+		Component* Comp = pManager->GetComponent(i);
+		if (Comp->getType() == Switch_)
+			Comp->Operate();
+		else Comp->SetOutPinStatus(FLOATING);
 	}
 	for (unsigned int i = 0; i < size; i++)
-		if (pManager->GetCompList()[i]->getType() == LED_)
-			dfs(visited, pManager->GetCompList(), i, SimulationResult);
+		if (pManager->GetComponent(i)->getType() == LED_)
+			dfs(visited, pManager->GetComponent(i), i, SimulationResult, pManager);
 	for (unsigned int i = 0; i < size; i++)
 	{
-		if (!visited[i] && pManager->GetCompList()[i]->getType() != Switch_)
+		if (!visited[i] && pManager->GetComponent(i)->getType() != Switch_)
 		{
 			SimulationResult = 1;
 			break;
@@ -83,21 +87,22 @@ bool Simulate::Run()
 	return true;
 }
 
-STATUS Simulate::dfs(vector<bool>& visited, const vector<Component*>& Complist, int index, int &result)
+STATUS Simulate::dfs(vector<bool>& visited,Component*&Comp, int index, int &result, ApplicationManager* pApp)
 {
 
 	//if (result)return FLOATING;
-	if (Complist[index]->GetOutPinStatus() != FLOATING)return Complist[index]->GetOutPinStatus();
+	if (Comp->GetOutPinStatus() != FLOATING)return Comp->GetOutPinStatus();
 	if (visited[index]) { result = 2; return FLOATING; }
 	visited[index] = true;
-	for (int i = 0; i < Complist[index]->getNumberofInPins(); i++)
+	for (int i = 0; i < Comp->getNumberofInPins(); i++)
 	{
-		if (!Complist[index]->isInpinFloating(i))
-			Complist[index]->setInputPinStatus(STATUS(dfs(visited, Complist, Complist[index]->getCompIndexConnectedToInPin(i), result)), i);
+		if (!Comp->isInpinFloating(i))
+			Comp->setInputPinStatus(STATUS(dfs(visited, pApp->GetComponent(Comp->getCompIndexConnectedToInPin(i)),
+				Comp->getCompIndexConnectedToInPin(i), result,pApp)), i);
 		else {
 			result = 1; return FLOATING;
 		}
 	}
-	Complist[index]->Operate();
-	return Complist[index]->GetOutPinStatus();
+	Comp->Operate();
+	return Comp->GetOutPinStatus();
 }

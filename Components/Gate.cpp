@@ -135,16 +135,18 @@ void Gate::Save(ofstream & fout)
 void Gate::Load( ifstream & fin )
 {
 	int x , y;
-	string label;
+	string GateLabel;
 	int ahbal;
 	fin >> ahbal;
-	fin >> label;
-	set_label( label );
+	fin >> GateLabel;
+	set_label( GateLabel );
 	fin >> x >> y;
 	m_GfxInfo.x1 = x - UI.Gate_Width / 2;
-	m_GfxInfo.x2 = x + UI.Gate_Width / 2;
+	//m_GfxInfo.x2 = x + UI.Gate_Width / 2;
+	m_GfxInfo.x2 = m_GfxInfo.x1 + UI.Gate_Width;
 	m_GfxInfo.y1 = y - UI.Gate_Height / 2;
-	m_GfxInfo.y2 = y + UI.Gate_Height / 2;
+	//m_GfxInfo.y2 = y + UI.Gate_Height / 2;
+	m_GfxInfo.y2 = m_GfxInfo.y1 + UI.Gate_Height;
 }
 
 STATUS Gate::GetOutPinStatus()
@@ -249,10 +251,7 @@ Gate::~Gate()
 }
 void Gate::EraseComponent(ApplicationManager * pApp)
 {
-	Component *** Arr = pApp->GetArr();
-	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2; j++)
-		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
-			Arr[i][j] = NULL;
+	pApp->EraseComponent(m_GfxInfo);
 	for (int i = 0;i < m_Inputs;i++)
 		m_InputPins[i].Erase(pApp);
 	m_OutputPin.EraseConnections(pApp);

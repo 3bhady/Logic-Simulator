@@ -18,10 +18,8 @@ bool New::ReadActionParameters()
 
 void New::Execute()
 {
-	int compcount = pManager->GetCompList().size();
-	for (int i =compcount; i >0; i--)
-		pManager->GetCompList()[pManager->GetCompList().size()-1]->DeleteComponent(pManager);
-	pManager->GetCompList().clear();
+	pManager->ClearComplist();
+	//function in appmanger btfady the two stacks
 	while (!pManager->getUndoStack().empty())
 		pManager->getUndoStack().pop();
 	while (!pManager->getRedoStack().empty())

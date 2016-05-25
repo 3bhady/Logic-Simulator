@@ -1,22 +1,12 @@
 #pragma once
 #include "Action.h"
-#include"AddSwitch.h"
-#include"AddLED.h"
-class TruthTable :
-	public Action
+class ToggleSwitchState :	public Action
 {
-	int RowWidth = 35,
-		ColumnWidth = 35,
-		Height,
-		Width,
-		StartX = 100,
-		StartY = 50;
-	int **Arr; //2D array of values 
-	int* SwitchArr; //the original values of Switches
-
 public:
-	TruthTable(ApplicationManager*pApp);
-	~TruthTable();
+	
+	ToggleSwitchState(ApplicationManager* pApp);
+	~ToggleSwitchState();
+
 	//Reads parameters required for action to execute
 	virtual bool ReadActionParameters();
 

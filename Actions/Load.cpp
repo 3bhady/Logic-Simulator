@@ -16,8 +16,13 @@ bool Load::ReadActionParameters()
 
 void Load::Execute()
 {
+
 	//to do :clear the interface
 	ifstream fin("save-load.txt");
+	if (!fin.is_open())
+		return;
+	if (fin.eof())
+		return;
 	Component*pG;
 	int CompNum;
 	fin >> CompNum;

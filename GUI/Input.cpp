@@ -2,7 +2,7 @@
 #include<iostream>
 
 using namespace std;
-
+ class LED{ };
 Input::Input(window* pW)
 {
 	pWind = pW; //point to the passed window
@@ -92,58 +92,38 @@ buttonstate Input::GetButtonState( const button btMouse , int & iX , int & iY )
 }
 
 //This function reads the position where the user clicks to determine the desired action
-ActionType Input::GetUserAction( ApplicationManager * pApp )const
+ActionType Input::GetUserAction(ApplicationManager * pApp)const
 {
-	int x = 0, y = 0;
-	Component*** Arr = pApp->GetArr();
+	int x = 0, y = 0;	//User click coordinates	
+	char HotKey;		//Key clicked by the user
+
 	//clicktype cType=pWind->WaitMouseClick(x,y); //for testing only
-	char HotKey;
 
-
-	clicktype cType= pWind->GetMouseClick( x , y );
-
-	keytype kType =pWind->GetKeyPress( HotKey );
+	//Get user click and key pressed
+	clicktype cType = pWind->GetMouseClick(x, y);
+	keytype kType = pWind->GetKeyPress(HotKey);
 
 	//Get the coordinates of the user click
-	if  (cType== NO_CLICK&&kType==NO_KEYPRESS)
+	if (cType == NO_CLICK && kType == NO_KEYPRESS)
 		return DSN_TOOL;
 
-	//Save the user click coordinates
+	//Save the user left click coordinates
 	UI.u_GfxInfo.x1 = x;
 	UI.u_GfxInfo.y1 = y;
 
-	//if RIGHTCLICK PRESSED Save the coordinates
+	//Save the user right click coordinates if RIGHTCLICK is pressed
 	if (cType == RIGHT_CLICK)
 	{
 		UI.EditMenuStartY = y;
 		UI.EditMenuStartX = x;
 	}
 
-	//if SIMULATION MODE
-	if (UI.AppMode == SIMULATION)
-	{
-		//Hide toolbar
-		if (!UI.HiddenToolBar)
-			pApp->GetOutput()->HideDesignToolBar(), UI.HiddenToolBar = true;
-
-		//if Switch clicked toggle it's state
-		if (pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1)->getType() == Switch_)
-		{
-			if (pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1)->GetOutPinStatus() == LOW)
-				pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1)->SetOutPinStatus(HIGH);
-			else pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1)->SetOutPinStatus(LOW);
-		}
-		return SIM_MODE;
-	}
-
-	//if EDITMODE
+	//if EDIT MODE
 	if (UI.AppMode == EDIT_MODE)
 	{
 		//if LEFTCLICK PRESSED
 		if (cType == LEFT_CLICK)
 		{
-			//pWind->GetMouseCoord(x, y);
-
 			//if Clicked in Editmenu return the item selected in the menu
 			if (UI.isInEditMenu(x, y))
 			{
@@ -152,170 +132,170 @@ ActionType Input::GetUserAction( ApplicationManager * pApp )const
 				{
 				case 0: return EDIT_Label;
 				case 1: return COPY;
-				case 2:return CUT;
-				case 3:return PASTE;
-				case 4:return DEL;
-				case 5:return SELECT;
+				case 2: return CUT;
+				case 3: return PASTE;
+				case 4: return DEL;
+				case 5: return SELECT;
 				}
 			}
 			return SELECT;
 		}
 	}
 
-	//if not in SIMULATIONMODE
-	if (UI.AppMode != SIMULATION)
+	//if DESIGN MODE
+	if (UI.AppMode == DESIGN)	//application is in design mode
 	{
-		//if RIGHTCLICK PRESSED
-		if (cType == RIGHT_CLICK)
+		//User pressed hotkey
+		if (kType == ASCII || kType == FUNCTION)
 		{
-			//check if click not forbidden return edit menu action
-			if (!UI.isForbidden(x, y)
-				|| !UI.isForbidden(x + UI.EditMenuItemWidth, y)
-				|| !UI.isForbidden(x, y + UI.EditMenuItemHeight)
-				|| !UI.isForbidden(x + UI.EditMenuItemWidth, y + UI.EditMenuItemHeight))
-				//if (pApp->GetArr()[y][x])
-				return EDIT_MENU;
-			return SELECT;
+			switch (HotKey)
+			{
+			case 'c':
+				return COPY;
+			case 'x':
+				return CUT;
+			case 'v':
+				return PASTE;
+			case (-48) :
+				return 	DEL;
+				// ctrl is -17
+			default:
+				break;
+			}
 		}
+
+		//If user clicks on Toolbar while it's not hidden
+		if (UI.isInToolBar(x, y) && !UI.HiddenToolBar)
+		{
+			//Check which Menu item was clicked
+			int ClickedItemOrder = (x / UI.ToolBarItemWidth);
+
+			if (ClickedItemOrder <= 13)
+				return (ActionType)((int)ClickedItemOrder);
+			switch (ClickedItemOrder)
+			{
+			case ITM_AND2: return ADD_AND_GATE_2;
+			case ITM_OR2: return ADD_OR_GATE_2;
+			case ITM_Buff: return ADD_Buff;
+			case ITM_INV: return ADD_INV;
+			case ITM_NAND2: return ADD_NAND_GATE_2;
+			case ITM_NOR2: return ADD_NOR_GATE_2;
+			case ITM_XOR2: return ADD_XOR_GATE_2;
+			case ITM_XNOR2: return ADD_XNOR_GATE_2;
+			case ITM_AND3: return ADD_AND_GATE_3;
+			case ITM_OR3: return ADD_OR_GATE_3;
+			case ITM_NAND3: return ADD_AND_GATE_3;
+			case ITM_NOR3: return ADD_NOR_GATE_3;
+			case ITM_XOR3: return ADD_XOR_GATE_3;
+			case ITM_Switch: return ADD_Switch;
+			case ITM_LED: return ADD_LED;
+			case ITM_CONNECTION: return ADD_CONNECTION;
+			default: return DSN_TOOL;	//A click on empty place in design toolbar
+			}
+		}
+
+		//User clicks on editbar while it's not hidden
+		if (UI.isInEditBar(x, y) && !UI.HiddenEditBar)
+		{
+			int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
+			switch (ClickedItemOrder)
+			{
+			case 0: return UNDO;
+			case 1: return REDO;
+			case 2: return Create_TruthTable;
+			case 3: return SIM_MODE;
+			default:	break;
+			}
+		}
+	}
+
+	//User clicks on filebar while it's not hidden
+	if (UI.isInFileBar(x, y) && !UI.HiddenFileBar)
+	{
+		int ClickedItemOrder = ((y - UI.FileBarStartY) / UI.FileBarItemHeight);
+		switch (ClickedItemOrder)
+		{
+		case 0: {return NEW; break; }
+		case 1: {return LOAD; break; }
+		case 2: {return SAVE; break; }
+		case 3: {return EXIT; break; }
+		default:
+			break;
+		}
+	}
+
+	//if SIMULATION MODE
+	if (UI.AppMode == SIMULATION)
+	{
+		//if Switch clicked, toggle its state
+		Component* Cmp = pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1);
+
+		if (Cmp)
+			if (Cmp->getType() == Switch_)
+				return Change_Switch;
+
+		//User clicks on editbar
+		if (UI.isInEditBar(x, y) && !UI.HiddenEditBar)
+		{
+			int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
+			switch (ClickedItemOrder)
+			{
+			case 2: return Create_TruthTable;
+			case 3: return DSN_MODE;
+			default:break;
+			}
+		}
+		return SIM_MODE;
+	}
+
+	//if RIGHTCLICK PRESSED
+	if (cType == RIGHT_CLICK)
+	{
+		//check if click not forbidden return edit menu action
+		if (!UI.isForbidden(x, y)
+			|| !UI.isForbidden(x + UI.EditMenuItemWidth, y)
+			|| !UI.isForbidden(x, y + UI.EditMenuItemHeight)
+			|| !UI.isForbidden(x + UI.EditMenuItemWidth, y + UI.EditMenuItemHeight))
+			return EDIT_MENU;
+		return SELECT;
 	}
 
 	//if LEFTCLICK PRESSED
 	if (cType == LEFT_CLICK)
 	{
-		//if the click is in a bar toggle the status of this bar
-		if (UI.isInToolBarTitle(x, y)|| UI.isInToolBarTitle(x, y)|| UI.isInFileBarTitle(x, y)|| UI.isInFileBarTitle(x, y)|| UI.isInEditBarTitle(x, y)|| UI.isInEditBarTitle(x, y))
+		//User clicks on a bar title, toggle the status of this bar
+		if (UI.isInToolBarTitle(x, y) 
+			|| UI.isInFileBarTitle(x, y)
+			|| UI.isInEditBarTitle(x, y))
 			return TOGGLE_BARS;
 	}
 
-	if (UI.AppMode == DESIGN)	//application is in design mode
+	//User clicks on design area
+	if (!UI.isForbidden(x, y))
 	{
-		//[1] If user clicks on the Toolbar
-		if (UI.AppMode == DESIGN)	//application is in design mode
+		if ( pApp->GetComponent( x , y ) )
 		{
-			if ( kType == ASCII||kType==FUNCTION )
-			{
-				switch ( HotKey )
-				{
-				case 'c':
-					return COPY;
-				case 'x':
-					return CUT;
-				case 'v':
-					return PASTE;
-				case (-48):
-					return 	DEL;
-					// ctrl is -17
-				default:
-					break;
-				}
-			}
-			//[1] If user clicks on the Toolbar
-			//if (y >= 0 && y < UI.ToolBarHeight)
-			if(UI.isInToolBar(x,y ))
-			{						
-				//Check whick Menu item was clicked
-				//==> This assumes that menu items are lined up horizontally <==
-				int ClickedItemOrder = (x / UI.ToolBarItemWidth);
-				//Divide x coord of the point clicked by the menu item width (int division)
-				//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
+			pair<int , int> ExactPin = pApp->GetComponent( x , y )->GetOutputPinCoordinates( );
+		//	if ( !dynamic_cast< LED* >(pApp->GetComponent( x , y )) &&
+			if(  ExactPin.first - x  <= 10&& ExactPin.first - x >0
+				&& abs( ExactPin.second - y ) <= 10 )
+					return ADD_CONNECTION;
 
-				if ( ClickedItemOrder <= 13 )
-				{
-
-				//	pApp->GetOutput()->FollowMouseAndDraw( r_GfxInfo , (DsgnMenuItem)ClickedItemOrder , Arr );
-					return (ActionType)((int)ClickedItemOrder);
-				}
-				switch (ClickedItemOrder)
-				{ case ITM_EXIT: return EXIT;
-				case ITM_AND2: return ADD_AND_GATE_2;
-				case ITM_OR2: return ADD_OR_GATE_2;
-				
-				case ITM_Buff: return ADD_Buff;
-				case ITM_INV: return ADD_INV;
-				case ITM_NAND2: return ADD_NAND_GATE_2;
-				case ITM_NOR2: return ADD_NOR_GATE_2;
-				case ITM_XOR2: return ADD_XOR_GATE_2;
-				case ITM_XNOR2: return ADD_XNOR_GATE_2;
-				case ITM_AND3: return ADD_AND_GATE_3;
-				case ITM_OR3: return ADD_OR_GATE_3;
-				case ITM_NAND3: return ADD_AND_GATE_3;
-				case ITM_NOR3: return ADD_NOR_GATE_3;
-				case ITM_XOR3: return ADD_XOR_GATE_3;  
-				case ITM_Switch: return ADD_Switch;
-				case ITM_LED: return ADD_LED;
-				case ITM_CONNECTION: return ADD_CONNECTION;
-				//case ITM_ADD_Label: return ADD_Label;
-				case ITM_EDIT_Label: return EDIT_Label;
-				//case ITM_SELECT: return SELECT;
-				case ITM_DEL: return DEL;
-				case ITM_MOVE: return MOVE;
-				case ITM_SAVE: return SAVE;
-				case ITM_LOAD: return LOAD;
-				case ITM_UNDO: return UNDO;
-				case ITM_REDO: return REDO;
-				//case ITM_SIM_MODE: return SIM_MODE;
-
-				default: return DSN_TOOL;	//A click on empty place in design toolbar
-				}
-			}
-if (UI.isInFileBar(x, y))
-			{
-				int ClickedItemOrder = ((y - UI.FileBarStartY) / UI.FileBarItemHeight);
-				switch (ClickedItemOrder)
-				{
-				case 0: {return NEW; break; }
-				case 1: {return LOAD; break; }
-				case 2: {return SAVE; break; }
-				case 3: {return EXIT; break; }
-				default:
-					break;
-				}
-			}
-			if (UI.isInEditBar(x, y))
-			{
-				int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
-				switch (ClickedItemOrder)
-				{
-				case 0: {return UNDO; break; }
-				case 1: {return REDO; break; }
-				case 2: {return Create_TruthTable; break; }
-				case 3: {return SIM_MODE; break; }
-				default:
-					break;
-				}
-			}
-			//[2] User clicks on the drawing area
-			//if (y >= UI.ToolBarHeight && y < UI.height - UI.StatusBarHeight)
-			//{
-				//return SELECT;	//user want to select/unselect a statement in the flowchart
-			//}
-
-			if ( !UI.isForbidden( x , y ) )
-			{
-				if ( pApp->GetArr()[y][x] )
-					return SELECT;
-				else
-					return AREASELECT;
-			}
-
-
-			//[3] User clicks on the status bar
-
-			if(UI.isInStatusBar(x,y))
-				return STATUS_BAR;
+			else
+			return SELECT;
 		}
-		else	//Application is in Simulation mode
-		{
-			//return SIM_MODE;	//This should be changed after creating the compelete simulation bar
-		}
+		else
+			return AREASELECT;
 	}
+
+	//User clicks on the status bar
+	if (UI.isInStatusBar(x, y))
+		return STATUS_BAR;
 }
 
 bool Input::close()
 {
-	
 	char HotKey;
-
 	keytype kType = pWind->GetKeyPress(HotKey); 
 	if (kType == ESCAPE)
 		return true;

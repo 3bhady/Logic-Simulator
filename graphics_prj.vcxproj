@@ -144,6 +144,7 @@
     <ClCompile Include="Actions\Select.cpp" />
     <ClCompile Include="Actions\Simulate.cpp" />
     <ClCompile Include="Actions\ToggleBars.cpp" />
+    <ClCompile Include="Actions\ToggleSwitchState.cpp" />
     <ClCompile Include="Actions\Undo.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="Actions\Select.h" />
     <ClInclude Include="Actions\Simulate.h" />
     <ClInclude Include="Actions\ToggleBars.h" />
+    <ClInclude Include="Actions\ToggleSwitchState.h" />
     <ClInclude Include="Actions\Undo.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />

@@ -5,6 +5,7 @@ LED::LED(const GraphicsInfo &r_GfxInfo)//, pair<int, int> x)
 {
 
 	Type = LED_;
+
 	// generate random number between 0 and 5
 	// choosing a LED color
 
@@ -13,8 +14,6 @@ LED::LED(const GraphicsInfo &r_GfxInfo)//, pair<int, int> x)
 	int randNum = rand() % 6;
 	sstream << randNum;
 	sstream >> colour;
-	//inP = make_pair(x.first, x.second);
-
 	State = LOW;
 	m_InputPin.setComponent(this);
 	m_GfxInfo.x1 = r_GfxInfo.x1;
@@ -25,10 +24,7 @@ LED::LED(const GraphicsInfo &r_GfxInfo)//, pair<int, int> x)
 	Width = UI.LED_Width;
 	Height = UI.LED_Height;
 	inP = make_pair(m_GfxInfo.x1,m_GfxInfo.y1+30);
-	//kero
-	//=========================
 	LEDID = ID++;
-	//======================
 }
 
 
@@ -66,10 +62,7 @@ void LED::setInputPinStatus(STATUS s, int n = 1)
 }
 void LED::EraseComponent(ApplicationManager * pApp)
 {
-	Component *** Arr = pApp->GetArr();
-	for (int j = m_GfxInfo.x1; j < m_GfxInfo.x2; j++)
-		for (int i = m_GfxInfo.y1; i < m_GfxInfo.y2; i++)
-			Arr[i][j] = NULL;
+	pApp->EraseComponent(m_GfxInfo);
 	m_InputPin.Erase(pApp);
 	pApp->GetOutput()->DeleteGate(m_GfxInfo);
 }
@@ -165,7 +158,8 @@ void LED::Load(ifstream & fin)
 {
 	int x, y;
 	string label;
-	fin.ignore();
+	string ahbal;
+	fin >> ahbal;
 	fin >> label;
 	set_label(label);
 	fin >> x >> y;

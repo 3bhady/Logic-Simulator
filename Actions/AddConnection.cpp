@@ -18,9 +18,10 @@ bool AddConnection::ReadActionParameters()
 	pOut->FlushKeyQueue();
 	pOut->ClearStatusBar();
 	//Print Action Message
+	
 	pOut->PrintMsg("Adding Connection : Click to add the first edge ");
 	pOut->UpdateBuffer();
-
+	if ( pManager->GetComponent( UI.u_GfxInfo.x1 , UI.u_GfxInfo.y1 )==NULL)
 	do {
 		if (pIn->GetKeyPressed() == ESCAPE)
 			return false;
@@ -39,6 +40,11 @@ bool AddConnection::ReadActionParameters()
 		}
 
 	} while (true);
+	else
+	{
+		GInfo.x1 = (pManager->GetArr( )[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1])->GetOutputPinCoordinates( ).first;
+		GInfo.y1 = (pManager->GetArr( )[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1])->GetOutputPinCoordinates( ).second;
+	}
 	//s = "Adding Connection : Click to add the second edge ";
 	pOut->ClearStatusBar();
 	//Print Action Message
@@ -57,7 +63,7 @@ bool AddConnection::ReadActionParameters()
 			else
 			{
 				pOut->ClearStatusBar();
-				pOut->PrintMsg("You choosed an invalid Component, please choose a Gate or Led  ");
+				pOut->PrintMsg("You choosed an invalid Component, please choose a Gate or Led !!");
 				pOut->UpdateBuffer();
 			}
 		}
@@ -67,7 +73,7 @@ bool AddConnection::ReadActionParameters()
 		return true;
 	else {
 		pManager->GetOutput()->ClearStatusBar();
-		pManager->GetOutput()->PrintMsg("there is no valid path");
+		pManager->GetOutput()->PrintMsg("There is no valid path");
 		pManager->GetOutput()->UpdateBuffer();
 		return false;
 	}
@@ -84,11 +90,9 @@ void AddConnection::Execute()
 	pManager->GetArr()[GInfo.y2][GInfo.x2]->GetInputPin(make_pair(GInfo.x2, GInfo.y2))->set_connection(pS);
 
 	pManager->AddComponent(pS);
-
 }
 void AddConnection::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &outx)
 {
-
 	int** vis = new int*[1400];for (int i = 0;i < 1400;i++)vis[i] = new int[780];
 	for (int i = 0;i < 1400;i++)for (int j = 0;j < 780;j++)vis[i][j] = 0;
 	int** ifc = new int*[780];for (int i = 0;i < 780;i++)ifc[i] = new int[1400];
