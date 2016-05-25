@@ -3,7 +3,7 @@
 #include"AddGate.h"
 class Cut :	public Action
 {
-	vector< pair<GraphicsInfo, ComponentType> > ActionClipboard;
+	vector< pair<pair<GraphicsInfo, ComponentType>,string> > ActionClipboard;
 public:
 	Cut(ApplicationManager* pApp);
 	~Cut( );

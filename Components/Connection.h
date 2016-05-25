@@ -26,7 +26,7 @@ public:
 	virtual OutputPin* getSourcePin( );
 	virtual InputPin* getDestPin( );
 	void Save( ofstream &fout );
-	void Load( ifstream &fout );
+	void Load( ifstream &fin );
 	virtual pair<int, int>* GetInputPinCoordinates(pair<int, int>&x);//the function that gets the inputtpin coordinates
 	virtual pair<int, int>& GetOutputPinCoordinates();//the function that gets the outputpin coordinates
 	virtual InputPin* GetInputPin(pair<int, int> &x);//the function that returns pointer to an inputpin
