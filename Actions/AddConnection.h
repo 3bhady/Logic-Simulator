@@ -26,7 +26,7 @@ public:
 	virtual void Execute();
 	void bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &outx);//the function the determines the path of the conncetion
 	bool isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2,int x1);//the function the determines whether a piont is valied or not
-	void LoadConnection(int ID1, int ID2);
+	void LoadConnection(int , int);
 
 	virtual void undo( );
 	virtual void redo( );
