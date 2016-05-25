@@ -1,11 +1,13 @@
 #pragma once
 #include "Action.h"
-class Move :
-	public Action
+#include "..\Components\Connection.h"
+class Move :	public Action
 {
 public:
 	Move(ApplicationManager* pApp);
 	~Move( );
+
+	//Reads parameters required for action to execute
 	virtual bool ReadActionParameters( );
 
 	//Execute action

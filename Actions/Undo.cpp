@@ -28,3 +28,11 @@ void Undo::Execute()
 		pManager->getUndoStack().pop();												//Pop this action out of the undo stack
 	}
 }
+
+void Undo::undo()
+{
+}
+
+void Undo::redo()
+{
+}
