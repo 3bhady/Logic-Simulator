@@ -42,7 +42,6 @@ void Cut::Execute( )
 			pManager->GetComponent(i)->DeleteComponent( pManager );
 			i--;
 		}
-
 	pManager->ClearHighlightedCompList();
 }	
 
