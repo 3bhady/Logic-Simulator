@@ -16,8 +16,6 @@ bool Load::ReadActionParameters()
 
 void Load::Execute()
 {
-
-	
 	//to do :clear the interface
 	string FileName = pManager->GetInput()->GetString(pManager->GetOutput());
 	string str = FileName + ".txt";

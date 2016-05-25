@@ -4,8 +4,8 @@
 #include"..\Actions\AddConnection.h"
 using namespace std;
 Connection::Connection( const GraphicsInfo &r_GfxInfo , BFSOut* outs , OutputPin *pSrcPin , InputPin *pDstPin ) :Component( r_GfxInfo )
-
 {
+	Type = CONNECTION_;
 	outx = *outs;
 	SrcPin = pSrcPin;
 	DstPin = pDstPin;
@@ -210,53 +210,6 @@ void Connection::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &out
 }
 
 
-void Connection::EraseComponent(ApplicationManager * pApp)
-{
-	int a = m_GfxInfo.x2, b = m_GfxInfo.y2;
-	while (true)
-	{
-		if (a == m_GfxInfo.x1 &&b == m_GfxInfo.y1)break;
-		int c = a;int d = b;
-		int x = a;
-		a = outx.arr[a][b].first, b = outx.arr[x][b].second;
-		if (a == c) {
-			if (d > b) {
-				for (int i = b - 5;i <= d - 5;i++)
-					if (pApp->GetComponent(a,i) == this) {
-						for (int j = a; j < a + 5; j++)if (pApp->GetComponent(j, i) == this)pApp->PointToNull(j, i);
-					}
-			}
-			else
-				for (int i = d - 5;i <= b - 5;i++)
-					if (pApp->GetComponent(a, i) == this) {
-
-						for (int j = a; j < a + 5; j++)if (pApp->GetComponent(j, i) == this)pApp->PointToNull(j, i);
-					}
-		}
-		if (b == d) {
-			if (a > c)
-				for (int i = c;i <= a;i++) {
-					if (pApp->GetComponent(i, b) == this) {
-						for (int j = b - 7; j < b + 1; j++)if (pApp->GetComponent(i, j) == this)pApp->PointToNull(i, j);
-					}
-				}
-			else
-				for (int i = a;i <= c;i++)
-					if (pApp->GetComponent(i, b) == this) {
-						for (int j = b - 7; j < b + 1; j++)if (pApp->GetComponent(i, j) == this)pApp->PointToNull(i, j);
-					}
-		}
-	}
-	
-	/*
-	for (int i = 0; i < 780; i++)
-		for (int j = 0; j < 1400; j++)
-			if (pApp->GetArr()[i][j] == this)
-				pApp->GetArr()[i][j] = NULL;*/
-	this->getSourcePin()->EraseConnection(this);
-	this->getDestPin()->set_connection(NULL);
-	
-}
 
 bool Connection::isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2, int x1)
 {
@@ -290,4 +243,45 @@ InputPin * Connection::GetInputPin(int index)
 pair<int, int>* Connection::GetInputPinCoordinates(int)
 {
 	return NULL;
+}
+
+void Connection::EraseConnections(ApplicationManager * pApp)
+{
+	int a = m_GfxInfo.x2, b = m_GfxInfo.y2;
+	while (true)
+	{
+		if (a == m_GfxInfo.x1 &&b == m_GfxInfo.y1)break;
+		int c = a; int d = b;
+		int x = a;
+		a = outx.arr[a][b].first, b = outx.arr[x][b].second;
+		if (a == c) {
+			if (d > b) {
+				for (int i = b - 5; i <= d - 5; i++)
+					if (pApp->GetComponent(a, i) == this) {
+						for (int j = a; j < a + 5; j++)if (pApp->GetComponent(j, i) == this)pApp->PointToNull(j, i);
+					}
+			}
+			else
+				for (int i = d - 5; i <= b - 5; i++)
+					if (pApp->GetComponent(a, i) == this) {
+
+						for (int j = a; j < a + 5; j++)if (pApp->GetComponent(j, i) == this)pApp->PointToNull(j, i);
+					}
+		}
+		if (b == d) {
+			if (a > c)
+				for (int i = c; i <= a; i++) {
+					if (pApp->GetComponent(i, b) == this) {
+						for (int j = b - 7; j < b + 1; j++)if (pApp->GetComponent(i, j) == this)pApp->PointToNull(i, j);
+					}
+				}
+			else
+				for (int i = a; i <= c; i++)
+					if (pApp->GetComponent(i, b) == this) {
+						for (int j = b - 7; j < b + 1; j++)if (pApp->GetComponent(i, j) == this)pApp->PointToNull(i, j);
+					}
+		}
+	}
+	this->getSourcePin()->EraseConnection(this);
+	this->getDestPin()->set_connection(NULL);
 }
