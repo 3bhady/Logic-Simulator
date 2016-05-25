@@ -224,11 +224,13 @@ int ApplicationManager::GetComplistSize()
 
 void ApplicationManager::ClearComplist()
 {
-	for ( int i = 0; i < CompList.size( ); i++ )
+	int size = CompList.size();
+	for ( int i = 0; i <size; i++ )
 	{
-		CompList[i]->DeleteComponent( this );
+		CompList[CompList.size()-1]->DeleteComponent( this );
 	}
 	CompList.clear();
+
 }
 
 Component* ApplicationManager::GetComponent( int x , int y )
