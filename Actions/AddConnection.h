@@ -12,8 +12,7 @@ class AddConnection :
 	int Cx , Cy;				//Center point of the gate
 								//int x1, y1, x2, y2;		//Two corners of the rectangluar area
 	ActionType ActType;		//Which gate to add
-	FS first;
-	RS second;
+
 	BFSOut outx;
 
 public:

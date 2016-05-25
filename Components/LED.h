@@ -21,13 +21,15 @@ public:
 	virtual STATUS GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	virtual STATUS GetInputPinStatus(int n);	//returns status of the Inputpin # n if SWITCH, return -1
 	virtual void setInputPinStatus(STATUS s, int n);	//set status of the Inputpin, to be used by connection class.
-	pair<int, int>& get_INPC();//the function which gets an inputpin coordinates
-	InputPin* get_inputpin();
 	virtual int getNumberofInPins();
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	void EraseComponent(ApplicationManager * pApp);
 	virtual int getCompIndexConnectedToInPin(int n);
+	virtual pair<int, int>* GetInputPinCoordinates(pair<int, int>&x);//the function that gets the inputtpin coordinates
+	virtual pair<int, int>& GetOutputPinCoordinates();//the function that gets the outputpin coordinates
+	virtual InputPin* GetInputPin(pair<int, int>&x);//the function that returns pointer to an inputpin
+	virtual OutputPin* GetOutputPin();//the function that returns pointer to an outputpin
 	virtual void SetOutPinStatus(STATUS s);
 	void setState(STATUS s);
 	//kero	

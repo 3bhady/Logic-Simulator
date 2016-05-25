@@ -20,13 +20,16 @@ public:
 	virtual STATUS GetInputPinStatus(int n);	//returns status of the Inputpin # n if SWITCH, return -1
 	void set_state(STATUS);//Set status of the switch on or off
 	STATUS get_state();//return the switch status
-	OutputPin* get_OPP();
 	void setInputPinStatus(STATUS s, int n);
-	virtual pair<int, int>& get_OP();//the function that gets the outputpin coordinates
+	virtual pair<int, int>* GetInputPinCoordinates(pair<int, int>&x);//the function that gets the inputtpin coordinates
+	virtual pair<int, int>& GetOutputPinCoordinates();//the function that gets the outputpin coordinates
+	virtual InputPin* GetInputPin(pair<int, int>&x);//the function that returns pointer to an inputpin
+	virtual OutputPin* GetOutputPin();//the function that returns pointer to an outputpin
 	virtual int getNumberofInPins();
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
+
 	virtual void SetOutPinStatus(STATUS);
 	void EraseComponent(ApplicationManager * pApp);
 	void Save(ofstream &fout);

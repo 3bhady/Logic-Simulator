@@ -85,9 +85,9 @@ void Output::DrawTruthTable(int SwitchCount,int LedCount,int RowsNumber, int Col
 
 void Output::DrawCellValue(int CellX, int CellY ,int value)
 {
-		pWind->SetPen(BLUE);
+	    pTruthTable->SetPen(BLUE);
 		pTruthTable->SetFont(20, BOLD | ITALICIZED, BY_NAME, "Arial");
-		pTruthTable->DrawInteger(CellX, CellY, value);
+		pTruthTable->DrawInteger(CellX+5, CellY+5, value);
 		
 }
 
@@ -341,7 +341,7 @@ void Output::CreateFileToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX, UI.FileBarTitleStartY);
 
 	}
-	else 	pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX - UI.FileBarWidth, UI.FileBarTitleStartY);
+	else 	pWind->DrawImage("Images\\ToolBars\\Filebar\\FB2.jpg", UI.FileBarTitleStartX, UI.FileBarTitleStartY);
 	//pWind->UpdateBuffer( );
 }
 
@@ -354,7 +354,7 @@ void Output::CreateEditToolBar() const
 		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB2.jpg", UI.EditBarStartX, UI.EditBarStartY);
 		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX, UI.EditBarTitleStartY);
 	}
-	else pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX + UI.EditBarWidth, UI.EditBarTitleStartY);
+	else pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX , UI.EditBarTitleStartY);
 	//pWind->UpdateBuffer( );
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -402,47 +402,43 @@ void Output::DrawDots(int xStart, int yStart,int xFinish,int yFinish)
 
 void Output::MouseHovering(ApplicationManager*pApp)const
 {
+	//Images
 	string z1 = "Images\\ToolBars\\Toolbar\\toolbar";
 	string z2 = ".jpg";
 	string z3 = "Images\\ToolBars\\Filebar\\filebar";
 	string z4 = "Images\\ToolBars\\Editbar\\editbarDSN";
 	string z5 = "Images\\ToolBars\\Editbar\\editbarSIM";
 	image i;
-	
 
+	//Mouse coordinates
 	int x , y;
 	pWind->GetMouseCoord( x , y );
 
-	//kero
-	//======================================
+	//if EDITMODE
 	if (UI.AppMode == EDIT_MODE)
 	{
-
 		int selecteditem = ((y - UI.EditMenuStartY) / UI.EditMenuItemHeight);
 
 		if (UI.isInEditMenu(x, y))
-		{
 			DrawEditMenu(UI.EditMenuStartX, UI.EditMenuStartY, selecteditem);
-		}
-		else   //kero hena TODO todo eh dh ya kero?? eh??
-		{
-			pWind->DrawImage( "Images\\EDIT MENU\\EDIT MENU.jpg" , UI.EditMenuStartX , UI.EditMenuStartY );
-		
-		}
+
+		else pWind->DrawImage( "Images\\EDIT MENU\\EDIT MENU.jpg" , UI.EditMenuStartX , UI.EditMenuStartY );
 	}
+
+	//User hovers in the design area
 	if (!UI.isForbidden(x, y))
 	{
+		//User hovers on a component
 		if (pApp->GetComponent(x, y))
 			PrintMsg(pApp->GetComponent(x, y)->get_label());
-		else
-			PrintMsg("");
+		else PrintMsg("");
 		
 	}			  
-	//========================================
+
+	//User hovers on toolbar
 	if(UI.isInToolBar(x,y ) )
 	{
-		if ( UI.HiddenToolBar ) 
-			return;
+		if ( UI.HiddenToolBar )	return;
 		string num = "" , s = "";
 		stringstream ss;
 		int ClickedItemOrder = (x / UI.ToolBarItemWidth);
@@ -455,7 +451,6 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 			switch ( ClickedItemOrder ) {
 			case ITM_AND2: {PrintMsg( "Add AND2 Gate" ); break; }
 			case ITM_OR2: {PrintMsg( "Add OR2 Gate" ); break; }
-			case ITM_EXIT: {PrintMsg( "EXIT" ); break; }
 			case ITM_Buff: {PrintMsg( "Add Buffer" ); break; }
 			case ITM_INV: {PrintMsg( "Add Inverter" ); break; }
 			case ITM_NAND2: {PrintMsg( "Add NAND2 Gate" ); break; }
@@ -471,16 +466,17 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 			case ITM_Switch: {PrintMsg( "Add Switch" ); break; }
 			case ITM_LED: {PrintMsg( "Add LED" ); break; }
 			case ITM_CONNECTION: {PrintMsg( "Add Connection" ); break; }
-			
 			}
 		}
 
 	}
+	//Draw the toolbar
 	else {
 		if ( !UI.HiddenToolBar )
 			CreateDesignToolBar( );
-		
 	}
+
+	//User hovers on filebar
 	if (UI.isInFileBar(x,y))
 	{
 		if ( UI.HiddenFileBar )return;
@@ -498,82 +494,42 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 			case 1: {PrintMsg("Load project"); break; }
 			case 2: {PrintMsg("Save project"); break; }
 			case 3: {PrintMsg("Exit"); break; }
-			
 			}
 		}
+	}
+	//Draw filebar
+	else if(!UI.HiddenFileBar) CreateFileToolBar();
 
-	}
-	else
+	//User hovers on editbar
+	if (UI.isInEditBar(x, y))
 	{
-		if(!UI.HiddenFileBar)CreateFileToolBar();
-		
-	}
-	if (UI.AppMode == DESIGN)
-	{
-		if (UI.isInEditBar(x, y))
+		string num = "", s = "";
+		stringstream ss;
+		int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
+		ss << ClickedItemOrder;
+		ss >> num;
+		if (UI.AppMode == DESIGN)
 		{
-			if ( UI.HiddenEditBar )return;
-			string num = "", s = "";
-			stringstream ss;
-			int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
-			ss << ClickedItemOrder;
-			ss >> num;
 			s = z4 + num + z2;
-			if (ClickedItemOrder < 4)
-			{
-				pWind->DrawImage(s, UI.EditBarStartX , UI.EditBarStartY);
-				switch (ClickedItemOrder) {
-				case 0: {PrintMsg("undo"); break; }
-				case 1: {PrintMsg("redo"); break; }
-				case 2: {PrintMsg("Truth table"); break; }
-				case 3: {PrintMsg("Run"); break; }
-				
-				}
-			}
-
+			if (ClickedItemOrder == 3)
+				PrintMsg("Run");
 		}
-		else
+		else if (UI.AppMode == SIMULATION)
 		{
-			if(!UI.HiddenEditBar)CreateEditToolBar();
-			
-		}
-	}
-	else {
-		if (UI.isInEditBar(x, y))
-		{
-			if ( UI.HiddenEditBar )
-			{
-				pWind->UpdateBuffer( );
-				return;
-			}
-			string num = "", s = "";
-			stringstream ss;
-			int ClickedItemOrder = ((y - UI.EditBarStartY) / UI.EditBarItemHeight);
-			ss << ClickedItemOrder;
-			ss >> num;
 			s = z5 + num + z2;
-			if (ClickedItemOrder < 4)
-			{
-				pWind->DrawImage(s, UI.EditBarStartX - 34, UI.EditBarStartY);
-				switch (ClickedItemOrder) {
-				case 0: {PrintMsg("undo"); break; }
-				case 1: {PrintMsg("redo"); break; }
-				case 2: {PrintMsg("Truth Table"); break; }
-				case 3: {PrintMsg("Design mode"); break; }
-				
-				}
-
+			if (ClickedItemOrder == 3)
+				PrintMsg("Design mode");
+		}
+			pWind->DrawImage(s, UI.EditBarStartX, UI.EditBarStartY);
+			switch (ClickedItemOrder) {
+			case 0: {PrintMsg("Undo"); break; }
+			case 1: {PrintMsg("Redo"); break; }
+			case 2: {PrintMsg("Truth table"); break; }
 			}
-
-		}
-		else
-		{
-			if ( !UI.HiddenEditBar )
-				CreateEditToolBar( );  //TODO make it draw simulation
-			
-		}
 	}
-	
+	//Draw editbar
+	else if(!UI.HiddenEditBar)CreateEditToolBar();
+
 	pWind->UpdateBuffer( );
 }
 

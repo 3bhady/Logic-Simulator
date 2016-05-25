@@ -33,7 +33,7 @@ void Cut::Execute( )
 		{
 			
 			pManager->GetClipboard( ).push_back( make_pair( pManager->GetCompList( )[i]->get_GraphicInfo( ) , pManager->GetCompList( )[i]->getType( ) ) );
-			ActionClipboard.push_back(make_pair(pManager->GetCompList()[i]->get_GraphicInfo(), pManager->GetCompList()[i]->getType()));
+			ActionClipboard.push_back(make_pair(pManager->GetComponent(i)->get_GraphicInfo(), pManager->GetComponent(i)->getType()));
 			pManager->GetCompList( )[i]->DeleteComponent( pManager );
 			i--;
 		}

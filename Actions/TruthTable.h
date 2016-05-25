@@ -11,7 +11,8 @@ class TruthTable :
 		Width,
 		StartX = 100,
 		StartY = 50;
-	int **Arr;
+	int **Arr; //2D array of values 
+	int* SwitchArr; //the original values of Switches
 
 public:
 	TruthTable(ApplicationManager*pApp);

@@ -69,16 +69,28 @@ void LED::EraseComponent(ApplicationManager * pApp)
 
 
 
-pair<int, int>& LED::get_INPC()
+pair<int, int>& LED::GetOutputPinCoordinates()//the function that gets the outputpin coordinates
 {
-	inP = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
 
-	return inP;
+	return FalsePoint;
+}
+pair<int, int>* LED::GetInputPinCoordinates(pair<int, int> &Pair)//the function that gets the inputtpin coordinates
+{
+
+	inP = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+	if (m_InputPin.get_connection() == NULL)
+		return &inP;
+	return NULL;
 }
 
-InputPin * LED::get_inputpin()
+OutputPin * LED::GetOutputPin()//the function that returns pointer to an outputpin
+{
+	return NULL;
+}
+InputPin * LED::GetInputPin(pair<int, int> &x)
 {
 	return &m_InputPin;
+
 }
 
 int LED::getNumberofInPins()
@@ -126,7 +138,8 @@ void LED::Load(ifstream & fin)
 {
 	int x, y;
 	string label;
-	fin.ignore();
+	string ahbal;
+	fin >> ahbal;
 	fin >> label;
 	set_label(label);
 	fin >> x >> y;

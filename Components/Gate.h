@@ -26,10 +26,10 @@ protected:
 	int gateID;
 public:
 	Gate( int r_Inputs , int r_FanOut , GraphicsInfo x );
-	virtual pair<int , int> &get_OP( );//the function that gets the outputpin coordinates
-	virtual pair<int , int>* get_INPC( );//the function which gets an inputpin coordinates
-	virtual OutputPin* get_Opin( );//the function that returns pointer to the outputpin
-	virtual InputPin* get_INpin( pair<int , int> &x );//the function that returns pointer to an inputpin
+	virtual pair<int, int>* GetInputPinCoordinates(pair<int, int>&x);//the function that gets the inputtpin coordinates
+	virtual pair<int, int>& GetOutputPinCoordinates();//the function that gets the outputpin coordinates
+	virtual InputPin* GetInputPin(pair<int, int>&x);//the function that returns pointer to an inputpin
+	virtual OutputPin* GetOutputPin();//the function that returns pointer to an outputpin
 	virtual void EraseComponent(ApplicationManager * pApp);//remove it from the grid
 	void Save( ofstream &fout );
 	void Load( ifstream &fin );
@@ -40,8 +40,10 @@ public:
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
+
 	virtual void ShowPinsStatuses(Output* pOut);
 	virtual bool CheckFloatingInPins();
 	virtual void SetOutPinStatus(STATUS s);
+
 	~Gate();
 };

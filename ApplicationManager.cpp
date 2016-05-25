@@ -74,9 +74,26 @@ void ApplicationManager::save(ofstream &fout)
 
 ////////////////////////////////////////////////////////////////////
 
+int ApplicationManager::GetComplistSize()
+{
+	return CompCount;
+}
+
+void ApplicationManager::ClearComplist()
+{
+	for (int i = 0; i < CompCount; i++)
+		CompList[i]->DeleteComponent(this);
+	CompList.clear();
+}
+
 Component* ApplicationManager::GetComponent( int x , int y )
 {
 	return Arr[y][x];
+}
+
+Component*& ApplicationManager::GetComponent(int index)
+{
+	return CompList[index];
 }
 
 void ApplicationManager::PointToNull(int x, int y)
