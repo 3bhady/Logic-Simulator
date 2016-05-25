@@ -176,10 +176,12 @@ void LED::Load(ifstream & fin)
 	fin >> label;
 	set_label(label);
 	fin >> x >> y;
-	m_GfxInfo.x1 = x - UI.Gate_Width / 2;
-	m_GfxInfo.x2 = x + UI.Gate_Width / 2;
-	m_GfxInfo.y1 = y - UI.Gate_Height / 2;
-	m_GfxInfo.y2 = y + UI.Gate_Height / 2;
+	m_GfxInfo.x1 = x - UI.LED_Width / 2;
+	//m_GfxInfo.x2 = x + UI.Gate_Width / 2;
+	m_GfxInfo.x2 = m_GfxInfo.x1 + UI.LED_Width;
+	m_GfxInfo.y1 = y - UI.LED_Height / 2;
+	//m_GfxInfo.y2 = y + UI.Gate_Height / 2;
+	m_GfxInfo.y2 = m_GfxInfo.y1 + UI.LED_Height;
 }
 
 LED::~LED()
