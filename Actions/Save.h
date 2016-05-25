@@ -1,21 +1,23 @@
 #pragma once
 #include "Action.h"
-class Save :
-	public Action
+class Save :	public Action
 {
 public:
+
 	Save(ApplicationManager*pApp);
 	~Save();
+
 	//Reads parameters required for action to execute
 	virtual bool ReadActionParameters();
 
-	//Execute action (code depends on action type)
+	//Execute action
 	virtual void Execute();
 
-	//To undo this action (code depends on action type)
+	//Undo this action
 	virtual void undo();
 
-	//To redo this action (code depends on action type)
+	//Redo this action
 	virtual void redo();
+
 };
 

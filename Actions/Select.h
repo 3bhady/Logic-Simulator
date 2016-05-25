@@ -4,9 +4,8 @@
 #include"AddConnection.h"
 class Select :	public Action
 {
-	GraphicsInfo GFXInfo;				//gfxinfo of the selected item
-	bool Move = false;							//1 = Move , 0 = Select
-
+	GraphicsInfo GFXInfo;			//gfxinfo of the selected item
+	bool Move = false;				//1 = Move , 0 = Select
 	vector< pair<GraphicsInfo, ComponentType> > InitialPositions;			//Initial positions before move
 	vector< pair<GraphicsInfo, ComponentType> > FinalPositions;				//Final positions after move
 
@@ -17,20 +16,26 @@ public:
 	//Reads parameters required for action to execute
 	virtual bool ReadActionParameters();
 
-	//Execute action (code depends on action type)
+	//Execute action
 	virtual void Execute();
 
-	//To undo this action (code depends on action type)
+	//Undo this action
 	virtual void undo();
 
-	//To redo this action (code depends on action type)
+	//Redo this action
 	virtual void redo();
 
-	//the function the determines the path of the conncetion
-	void bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &outx);
+	//virtual int CheckPin(pair<int,int> Coordinates);
+	virtual bool MoveSource(Connection* Comp);		//Changes the source of Connection
+	virtual bool MoveDest(Connection* Comp);		//Changes the destination of the connection
 
-	//the function the determines whether a piont is valied or not
-	bool isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2, int x1);
+	bool bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &outx);//the function the determines the path of the connection
+	bool isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2, int x1);//the function the determines whether a piont is valid or not
+
+	virtual bool MoveOutPin(pair <int,int> &NewPair );		//Change the coordinates of outpin
+	virtual bool MoveInput(pair<int,int> &NewPair);			//Change the coordinates of inputpin
+
+	virtual bool ReturnConnection(GraphicsInfo&OldGraphic,Connection*Comp);//the function that changes the source of Connection	
 
 };
 

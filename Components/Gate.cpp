@@ -184,6 +184,13 @@ int Gate::getCompIndexConnectedToInPin(int n)
 	return m_InputPins[n].get_connection()->getCompIndex();
 }
 
+InputPin * Gate::GetInputPin(int index)
+{
+	if (index >= r_Inputs)
+		return NULL;
+	else return &m_InputPins[index];
+}
+
 
 void Gate::ShowPinsStatuses(Output* pOut)
 {
@@ -202,6 +209,36 @@ bool Gate::CheckFloatingInPins()
 void Gate::SetOutPinStatus(STATUS s)
 {
 	m_OutputPin.setStatus(s);
+}
+
+pair<int, int>* Gate::GetInputPinCoordinates(int index)
+{
+	if (index >= r_Inputs)
+		return NULL;
+	else return &inP[index];
+}
+
+int Gate::GetInputPinIndex(pair<int, int> &coordinates)
+{
+	switch (m_Inputs)
+	{
+	case 1:
+		inP[0] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+		break;
+	case 2:
+		inP[0] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 15);inP[1] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 45);
+		break;
+	case 3:
+		inP[0] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 15);inP[2] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 45);
+		inP[1] = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+		break;
+	}
+
+	
+	for (int i = 0;i < m_Inputs;i++)
+		if (inP[i].first == coordinates.first&&inP[i].second == coordinates.second)
+			return i;
+	return -1;
 }
 
 

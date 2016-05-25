@@ -16,8 +16,7 @@ Delete::~Delete( )
 bool Delete::ReadActionParameters( )
 {
 	//check if highlighted list is empty 
-
-	return (pManager->getHighlightedCompListSize()==0);
+	return (pManager->getHighlightedCompListSize() == 0);
 }
 
 void Delete::Execute( )
@@ -36,7 +35,6 @@ void Delete::Execute( )
 	}
 
 	pManager->ClearHighlightedCompList( );
-	//pManager->UpdateInterface();
 	pManager->GetOutput()->ClearDrawingArea();
 	pManager->GetOutput()->CreateToolBars();
 	pManager->UpdateInterface();

@@ -23,23 +23,21 @@ public:
 
 	void setSourcePin( OutputPin *pSrcPin );
 	void setDestPin( InputPin *pDstPin );
-	OutputPin* getSourcePin( );
-	InputPin* getDestPin( );
+	virtual OutputPin* getSourcePin( );
+	virtual InputPin* getDestPin( );
 	void Save( ofstream &fout );
 	void Load( ifstream &fout );
 	virtual pair<int, int>* GetInputPinCoordinates(pair<int, int>&x);//the function that gets the inputtpin coordinates
 	virtual pair<int, int>& GetOutputPinCoordinates();//the function that gets the outputpin coordinates
 	virtual InputPin* GetInputPin(pair<int, int> &x);//the function that returns pointer to an inputpin
 	virtual OutputPin* GetOutputPin();//the function that returns pointer to an outputpin
-	/*
 	void bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &outx);//the function the determines the path of the conncetion
-	bool isvalid(int x, int y, bool** vis, bool** ifc, bool** oth, int x0, int y0, int x2, int y2);//the function the determines whether a piont is valied or not
-	*/
+	bool isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2, int x1);
 	BFSOut& get_path( );
 
 	virtual STATUS GetOutPinStatus();	//returns status of outputpin if LED, return -1
 	virtual STATUS GetInputPinStatus(int n);	//returns status of Inputpin # n if SWITCH, return -1
-
+	virtual bool ChangePath(ApplicationManager*);
 	virtual void setInputPinStatus(STATUS s, int n);	//set status of Inputpin # n, to be used by connection class.
 	virtual int getNumberofInPins();
 	virtual bool isInpinFloating(int n);
@@ -47,4 +45,7 @@ public:
 	virtual int getCompIndexConnectedToInPin(int n);
 	void SetOutPinStatus(STATUS s);
 	virtual void EraseComponent(ApplicationManager * pApp);//remove it from the grid
+	virtual InputPin*GetInputPin(int) ;//the function that returns pointer to an inputpin
+	virtual pair<int, int>*GetInputPinCoordinates(int);//the function that returns pointer to an inputpin
+
 };

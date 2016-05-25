@@ -1,13 +1,11 @@
 #pragma once
-
-//class ApplicationManager; //forward class declaration
 #include"..\ApplicationManager.h"
 
 //Base class for all possible actions (abstract class)
 class Action
 {
 protected:
-	ApplicationManager *pManager;	//Actions needs AppMngr to do their job
+	ApplicationManager *pManager;	//Pointer to Appmanager
 	image initImage;				//Image before the action
 public:
 	Action(ApplicationManager *pApp)

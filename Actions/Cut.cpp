@@ -12,38 +12,44 @@ Cut::~Cut( )
 
 bool Cut::ReadActionParameters()
 {
-	int size = pManager->GetComplistSize();
-	bool selected = false; //it's true if at least there is one selected item to be copied
-	for ( int i = 0; i < size; i++ )
+	//it's true if at least there is one selected item to be copied
+	bool selected = false;
+
+	for ( int i = 0; i < pManager->GetComplistSize(); i++ )
 		if ( pManager->GetComponent(i)->isSelected( ) )
 		{
 			selected = true; pManager->GetClipboard( ).clear( );  break;
 		}
+
 	return selected;
 }
 
 void Cut::Execute( )
 {
+	//if in EDITMODE, close Edit menu after cut
 	if ( UI.AppMode == EDIT_MODE )
 		pManager->GetOutput( )->CloseEditMenu( pManager );
+
 	if ( !ReadActionParameters( ) )
 		return;
-	for ( unsigned int i = 0; i <pManager->GetComplistSize(); i++ )
+
+	//Push the highlighted components in ClipBoard and delete them
+	for (int i = 0; i < pManager->GetComplistSize(); i++)
 		if ( pManager->GetComponent(i)->isSelected( ) )
 		{
-			
 			pManager->GetClipboard( ).push_back( make_pair( pManager->GetComponent(i)->get_GraphicInfo( ) , pManager->GetComponent(i)->getType( ) ) );
 			ActionClipboard.push_back(make_pair(pManager->GetComponent(i)->get_GraphicInfo(), pManager->GetComponent(i)->getType()));
 			pManager->GetComponent(i)->DeleteComponent( pManager );
 			i--;
 		}
+
 	pManager->ClearHighlightedCompList();
 }	
 
 void Cut::undo( )
 {
-	int size = ActionClipboard.size();
-	for (int i = 0; i < size; i++)
+	//Add the components in the clipboard of this action (cut by this action)
+	for (int i = 0; i < ActionClipboard.size(); i++)
 	{
 		Component* pG;
 		GraphicsInfo GInfo = ActionClipboard[i].first;
@@ -80,37 +86,31 @@ void Cut::undo( )
 		}
 		case XOR2_:
 		{
-
 			pG = new XOR2(GInfo, AND2_FANOUT);
 			break;
 		}
 		case XNOR2_:
 		{
-
 			pG = new XNOR2(GInfo, AND2_FANOUT);
 			break;
 		}
 		case AND3_:
 		{
-
 			pG = new AND3(GInfo, AND2_FANOUT);
 			break;
 		}
 		case OR3_:
 		{
-
 			pG = new OR3(GInfo, AND2_FANOUT);
 			break;
 		}
 		case NAND3_:
 		{
-
 			pG = new NAND3(GInfo, AND2_FANOUT);
 			break;
 		}
 		case NOR3_:
 		{
-
 			pG = new NOR3(GInfo, AND2_FANOUT);
 			break;
 		}
@@ -124,8 +124,7 @@ void Cut::undo( )
 			pG = new XNOR3(GInfo, AND2_FANOUT);
 			break;
 		}
-		default:
-			break;
+		default:break;
 		}
 		pManager->AddComponent(pG);
 	}

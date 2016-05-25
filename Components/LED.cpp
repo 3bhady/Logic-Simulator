@@ -118,9 +118,29 @@ void LED::SetOutPinStatus(STATUS s)
 	setState(s);
 }
 
+InputPin * LED::GetInputPin(int index)
+{
+	if (index != 0)return NULL;
+	return &m_InputPin;
+}
+
+pair<int, int>* LED::GetInputPinCoordinates(int index)
+{
+	if (index != 0)return NULL;
+	return &inP;
+}
+
 void LED::setState(STATUS s)
 {
 	State = s;
+}
+
+int LED::GetInputPinIndex(pair<int, int>& coordinates)
+{
+	inP = make_pair(m_GfxInfo.x1, m_GfxInfo.y1 + 30);
+	if (inP.first == coordinates.first&&inP.second == coordinates.second)
+		return 0;
+	return -1;
 }
 
 

@@ -27,3 +27,11 @@ void Redo::Execute()
 		pManager->getRedoStack().pop();										//Pop action from redo stack
 	}
 }
+
+void Redo::undo()
+{
+}
+
+void Redo::redo()
+{
+}

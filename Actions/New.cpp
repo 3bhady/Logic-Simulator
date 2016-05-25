@@ -19,6 +19,7 @@ bool New::ReadActionParameters()
 void New::Execute()
 {
 	pManager->ClearComplist();
+
 	//function in appmanger btfady the two stacks
 	while (!pManager->getUndoStack().empty())
 		pManager->getUndoStack().pop();
