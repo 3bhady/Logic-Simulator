@@ -30,7 +30,7 @@ public:
 	virtual bool MoveDest(Connection* Comp);		//Changes the destination of the connection
 
 	bool bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &outx);//the function the determines the path of the connection
-	bool isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2, int x1);//the function the determines whether a piont is valid or not
+	bool isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2, int x1, int y1);//the function the determines whether a piont is valid or not
 
 	virtual bool MoveOutPin(Connection* Comp);		//Change the coordinates of outpin
 	virtual bool MoveInput(Connection* Comp	);			//Change the coordinates of inputpin

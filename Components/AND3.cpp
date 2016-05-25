@@ -27,7 +27,7 @@ void AND3::Operate()
 
 // Function Draw
 // Draws 3-input AND gate
-void AND3::Draw(Output* pOut)
+void AND3::Draw(Output* pOut, ApplicationManager* AppManger )
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, AND3_, highlighted, forbidden);

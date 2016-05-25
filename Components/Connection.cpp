@@ -49,10 +49,10 @@ void Connection::Operate( )
 	DstPin->setStatus( ( STATUS )SrcPin->getStatus( ) );
 }
 
-void Connection::Draw( Output* pOut )
+void Connection::Draw( Output* pOut, ApplicationManager* AppManger )
 {
 
-	pOut->DrawConnection( m_GfxInfo , outx , this , highlighted );
+	pOut->DrawConnection( m_GfxInfo , AppManger,outx , this , highlighted );
 
 }
 pair<int, int>&Connection::GetOutputPinCoordinates()//the function that gets the outputpin coordinates

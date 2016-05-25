@@ -26,7 +26,7 @@ void NOR3::Operate()
 
 // Function Draw
 // Draws 3-input NOR gate
-void NOR3::Draw(Output* pOut)
+void NOR3::Draw(Output* pOut, ApplicationManager* AppManger)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, NOR3_, highlighted, forbidden);

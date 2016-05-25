@@ -250,7 +250,9 @@ bool Select::MoveInput(Connection*Comp)
 	bool check = true;
 	GraphicsInfo GInfo;
 	Component* ChangedComponent = pManager->GetArr()[Cy][Cx];
-	Comp = NULL;
+
+	    Comp = NULL;
+
 		Comp = ChangedComponent->GetInputPin(make_pair(Cx,Cy))->get_connection();
 		GInfo.x1 = Comp->get_GraphicInfo().x1;
 		GInfo.y1 = Comp->get_GraphicInfo().y1;
@@ -309,13 +311,18 @@ bool Select::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &Connect
 	for (int i = 0;i < 780;i++)
 		for (int j = 0;j < 1400;j++) {
 			if (a[i][j] != NULL)
-				if (a[i][j]->getDestPin() != NULL) {
-					ifc[i][j] = 1;
-					oth[i][j] = 0;
-
+				if (a[i][j]->getSourcePin() != NULL) {
+					if (a[y1][x1 - 15]->getSourcePin() == NULL) {
+						if (((a[i][j]))->getSourcePin() == (a[y1][x1 - 15])->GetOutputPin())
+							ifc[i][j] = 0;
+						else
+							ifc[i][j] = 1;
+						oth[i][j] = 0;
+					}
 				}
 				else { ifc[i][j] = 0;oth[i][j] = 1; }
 			else { ifc[i][j] = 0;oth[i][j] = 0; }
+
 		}
 	queue< pair<int, int> > qu;
 	qu.push(make_pair(x1, y1));
@@ -325,7 +332,7 @@ bool Select::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &Connect
 		vis[pr.first][pr.second] = 1;
 		qu.pop();
 
-		if (isvalid(pr.first + 15, pr.second, vis, ifc, oth, pr.first, pr.second, x2, y2, x1))
+		if (isvalid(pr.first + 15, pr.second, vis, ifc, oth, pr.first, pr.second, x2, y2, x1,y1))
 		{
 			qu.push(make_pair(pr.first + 15, pr.second));
 			outx.arr[pr.first + 15][pr.second] = make_pair(pr.first, pr.second);
@@ -333,21 +340,21 @@ bool Select::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &Connect
 			if (qu.back().first == x2 && qu.back().second == y2)
 				break;
 		}
-		if (isvalid(pr.first, pr.second + 15, vis, ifc, oth, pr.first, pr.second, x2, y2, x1))
+		if (isvalid(pr.first, pr.second + 15, vis, ifc, oth, pr.first, pr.second, x2, y2, x1,y1))
 		{
 			qu.push(make_pair(pr.first, pr.second + 15));
 			outx.arr[pr.first][pr.second + 15] = make_pair(pr.first, pr.second);
 			vis[pr.first][pr.second + 15] = 1;	   if (qu.back().first == x2 && qu.back().second == y2)
 				break;
 		}
-		if (isvalid(pr.first - 15, pr.second, vis, ifc, oth, pr.first, pr.second, x2, y2, x1))
+		if (isvalid(pr.first - 15, pr.second, vis, ifc, oth, pr.first, pr.second, x2, y2, x1,y1))
 		{
 			qu.push(make_pair(pr.first - 15, pr.second));
 			outx.arr[pr.first - 15][pr.second] = make_pair(pr.first, pr.second);
 			vis[pr.first - 15][pr.second] = 1;	if (qu.back().first == x2 && qu.back().second == y2)
 				break;
 		}
-		if (isvalid(pr.first, pr.second - 15, vis, ifc, oth, pr.first, pr.second, x2, y2, x1))
+		if (isvalid(pr.first, pr.second - 15, vis, ifc, oth, pr.first, pr.second, x2, y2, x1,y1))
 		{
 			qu.push(make_pair(pr.first, pr.second - 15));
 			outx.arr[pr.first][pr.second - 15] = make_pair(pr.first, pr.second);
@@ -367,15 +374,19 @@ bool Select::bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &Connect
 	delete[]vis; delete[]ifc; delete[]oth;
 	return outx.check;
 }
-bool Select::isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2, int x1)
+bool Select::isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2, int x1, int y1)
 {
 	if (y < 630 && x < 1335)
 		if (x >= 0 && y >= 0) {
-			//if (((x == x2||x+15==x2)&&y == y)|| (x == x2 &&(y==y2-15||y==y2+15)) )
-			if (x == x2&&y == y2)
-				return true;
-			if (oth[y][x] == 1/*||(oth[y][x+15]==1)||(oth[y][x - 15] == 1&&!(x==x1|| x -15== x1))*/)
+			if (((x == x2 || x + 15 == x2) && y == y2) || (x == x2 && ((y == y2 - 15) || y == y2 + 15)))
+				if (x == x2&&y == y2)
+					return true;
+			if (oth[y][x] == 1)
 				return false;
+			if (oth[y][x + 15] == 1 && x + 15 != x2&&y != y2)return false;
+			if (oth[y][x - 15] == 1)
+				if (!(y == y1 || y + 15 == y1 || y - 15 == y1))
+					return false;
 			if (vis[x][y] == 0)
 				if (ifc[y][x] == 0)
 					return true;

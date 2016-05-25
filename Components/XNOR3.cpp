@@ -28,7 +28,7 @@ void XNOR3::Operate()
 
 // Function Draw
 // Draws 3-input AND gate
-void XNOR3::Draw(Output* pOut)
+void XNOR3::Draw(Output* pOut, ApplicationManager* AppManger )
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, XNOR3_, highlighted, forbidden);

@@ -42,7 +42,7 @@ void LED::Operate()
 
 // Function Draw
 // Draws Led
-void LED::Draw(Output* pOut)
+void LED::Draw(Output* pOut, ApplicationManager* AppManger )
 {
 	//Call output class and pass led drawing info to it.
 	pOut->DrawLED(m_GfxInfo, State, highlighted, forbidden, colour);
@@ -178,10 +178,12 @@ void LED::Load(ifstream & fin)
 	fin >> label;
 	set_label(label);
 	fin >> x >> y;
-	m_GfxInfo.x1 = x - UI.Gate_Width / 2;
-	m_GfxInfo.x2 = x + UI.Gate_Width / 2;
-	m_GfxInfo.y1 = y - UI.Gate_Height / 2;
-	m_GfxInfo.y2 = y + UI.Gate_Height / 2;
+	m_GfxInfo.x1 = x - UI.LED_Width / 2;
+	//m_GfxInfo.x2 = x + UI.Gate_Width / 2;
+	m_GfxInfo.x2 = m_GfxInfo.x1 + UI.LED_Width;
+	m_GfxInfo.y1 = y - UI.LED_Height / 2;
+	//m_GfxInfo.y2 = y + UI.Gate_Height / 2;
+	m_GfxInfo.y2 = m_GfxInfo.y1 + UI.LED_Height;
 }
 
 LED::~LED()

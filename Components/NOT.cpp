@@ -25,7 +25,7 @@ void NOT::Operate()
 
 // Function Draw
 // Draws NOT gate
-void NOT::Draw(Output* pOut)
+void NOT::Draw(Output* pOut, ApplicationManager* AppManger )
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, INV_, highlighted, forbidden);

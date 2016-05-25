@@ -25,7 +25,7 @@ void Switch::Operate()
 
 
 // Draw switch
-void Switch::Draw(Output* pOut)
+void Switch::Draw(Output* pOut, ApplicationManager* AppManger )
 {
 	//Call output class and pass switch drawing info to it.
 	pOut->DrawSwitch(m_GfxInfo, State, highlighted,forbidden, UI.AppMode);
@@ -148,10 +148,12 @@ void Switch::Load(ifstream & fin)
 	fin >> label;
 	set_label(label);
 	fin >> x >> y;
-	m_GfxInfo.x1 = x - UI.Gate_Width / 2;
-	m_GfxInfo.x2 = x + UI.Gate_Width / 2;
-	m_GfxInfo.y1 = y - UI.Gate_Height / 2;
-	m_GfxInfo.y2 = y + UI.Gate_Height / 2;
+	m_GfxInfo.x1 = x - UI.Switch_Width / 2;
+	//m_GfxInfo.x2 = x + UI.Gate_Width / 2;
+	m_GfxInfo.x2 = m_GfxInfo.x1 + UI.Switch_Width;
+	m_GfxInfo.y1 = y - UI.Switch_Height / 2;
+	//m_GfxInfo.y2 = y + UI.Gate_Height / 2;
+	m_GfxInfo.y2 = m_GfxInfo.y1 + UI.Switch_Height;
 }
 Switch::~Switch()
 {

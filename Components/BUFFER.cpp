@@ -25,7 +25,7 @@ void BUFFER::Operate()
 
 // Function Draw
 // Draws BUFFER
-void BUFFER::Draw(Output* pOut)
+void BUFFER::Draw(Output* pOut,  ApplicationManager* AppManger)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, Buff_, highlighted, forbidden);

@@ -26,7 +26,7 @@ void XOR2::Operate()
 
 // Function Draw
 // Draws 2-input XOR gate
-void XOR2::Draw(Output* pOut)
+void XOR2::Draw(Output* pOut, ApplicationManager* AppManger)
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, XOR2_, highlighted, forbidden);

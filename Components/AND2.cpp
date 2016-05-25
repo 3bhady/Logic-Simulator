@@ -25,7 +25,7 @@ void AND2::Operate()
 
 // Function Draw
 // Draws 2-input AND gate
-void AND2::Draw(Output* pOut)
+void AND2::Draw(Output* pOut, ApplicationManager* AppManger )
 {
 	//Call output class and pass gate drawing info to it.
 	pOut->DrawGate(m_GfxInfo, AND2_, highlighted, forbidden);

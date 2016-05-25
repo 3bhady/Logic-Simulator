@@ -39,7 +39,7 @@ ApplicationManager::ApplicationManager()
 	}
 
 	//Creates the Input / Output Objects & Initialize the GUI
-	OutputInterface = new Output(this);
+	OutputInterface = new Output();
 	InputInterface = OutputInterface->CreateInput();
 }
 
@@ -519,7 +519,7 @@ void ApplicationManager::UpdateInterface()
 	//if not Edit Mode Draw Components
 	if (UI.AppMode != EDIT_MODE)
 	for (unsigned int i = 0; i < CompList.size(); i++)
-		CompList[i]->Draw(OutputInterface);
+		CompList[i]->Draw(OutputInterface,this);
 }
 
 ////////////////////////////////////////////////////////////////////
