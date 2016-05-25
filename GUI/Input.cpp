@@ -2,7 +2,7 @@
 #include<iostream>
 
 using namespace std;
-
+ class LED{ };
 Input::Input(window* pW)
 {
 	pWind = pW; //point to the passed window
@@ -278,8 +278,16 @@ ActionType Input::GetUserAction(ApplicationManager * pApp)const
 	//User clicks on design area
 	if (!UI.isForbidden(x, y))
 	{
-		if (pApp->GetComponent(x, y))
+		if ( pApp->GetComponent( x , y ) )
+		{
+			pair<int , int> clickedPoint = pApp->GetComponent( x , y )->GetOutputPinCoordinates( );
+			if ( !dynamic_cast< LED* >(pApp->GetComponent( x , y )) &&
+			 abs( clickedPoint.first - x ) <= 5 && abs( clickedPoint.second - y ) <= 5 )
+					return ADD_CONNECTION;
+
+			else
 			return SELECT;
+		}
 		else
 			return AREASELECT;
 	}

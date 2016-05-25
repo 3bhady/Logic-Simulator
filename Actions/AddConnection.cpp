@@ -18,9 +18,10 @@ bool AddConnection::ReadActionParameters()
 	pOut->FlushKeyQueue();
 	pOut->ClearStatusBar();
 	//Print Action Message
+	
 	pOut->PrintMsg("Adding Connection : Click to add the first edge ");
 	pOut->UpdateBuffer();
-
+	if ( pManager->GetComponent( UI.u_GfxInfo.x1 , UI.u_GfxInfo.y1 )==NULL)
 	do {
 		if (pIn->GetKeyPressed() == ESCAPE)
 			return false;
@@ -39,6 +40,11 @@ bool AddConnection::ReadActionParameters()
 		}
 
 	} while (true);
+	else
+	{
+		GInfo.x1 = (pManager->GetArr( )[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1])->GetOutputPinCoordinates( ).first;
+		GInfo.y1 = (pManager->GetArr( )[UI.u_GfxInfo.y1][UI.u_GfxInfo.x1])->GetOutputPinCoordinates( ).second;
+	}
 	//s = "Adding Connection : Click to add the second edge ";
 	pOut->ClearStatusBar();
 	//Print Action Message
