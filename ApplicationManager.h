@@ -15,9 +15,8 @@ class ApplicationManager
 {			
 
 	Component *** Arr;		//Grid of pointers to components
-
 	enum { MaxCompCount = 200,MaxundoActions =10 };	//Max no of Components
-	vector< pair<GraphicsInfo, ComponentType> > Clipboard;
+	vector< pair<pair<GraphicsInfo, ComponentType>, string > > Clipboard;
 	stack<Action*> UndoStack;
 	stack<Action*> RedoStack;
 
@@ -46,7 +45,7 @@ public:
 	Input* GetInput();		//Gets a pointer to Input  Object
 
 	Component *** GetArr( );	//returns the grid
-	vector< pair<GraphicsInfo , ComponentType> >& GetClipboard( );
+	vector< pair<pair<GraphicsInfo, ComponentType>, string > > & GetClipboard( );
 	void AddToClipboard(Component* pComp);
 
 	void AddComponent(Component* pComp);	//Add component in 2D array and push it in complist	

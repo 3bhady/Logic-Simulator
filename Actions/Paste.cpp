@@ -37,10 +37,10 @@ void Paste::Execute( )
 	unsigned int size = pManager->GetClipboard( ).size( );
 	for (unsigned int i = 0; i < size; i++ )
 	{
-		
+		string label;
 		Component* pG;
-		GraphicsInfo GInfo = pManager->GetClipboard( )[i].first;
-		switch ( pManager->GetClipboard( )[i].second )
+		GraphicsInfo GInfo = pManager->GetClipboard( )[i].first.first;
+		switch ( pManager->GetClipboard( )[i].first.second )
 		{
 		case AND2_:
 		{
@@ -120,9 +120,9 @@ void Paste::Execute( )
 		default:
 			break;
 		}
-
 		//pManager->GetHighlightedList( ).push_back( pG );
 		//pG->Highlight();
+		pG->set_label(pManager->GetClipboard()[i].second);
 		pManager->HighlightComponent(pG);
 	}
 	

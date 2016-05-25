@@ -34,7 +34,7 @@ void Copy::Execute( )
 	int size = pManager->getHighlightedCompListSize();
 
 	for (int i = 0; i < size; i++)
-		pManager->GetClipboard().push_back(make_pair(pManager->GetHighlightedComponent(i)->get_GraphicInfo(), pManager->GetHighlightedComponent(i)->getType()));
+		pManager->GetClipboard().push_back(make_pair(make_pair(pManager->GetHighlightedComponent(i)->get_GraphicInfo(), pManager->GetHighlightedComponent(i)->getType()), pManager->GetHighlightedComponent(i)->get_label()));
 }
 
 void Copy::undo( )

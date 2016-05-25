@@ -31,8 +31,8 @@ void Delete::Execute( )
 	for ( unsigned int i = 0; i < pManager->getHighlightedCompListSize( ); i++ )
 	{
 		pManager->GetHighlightedList( )[i]->DeleteComponent( pManager );
-		i--;
-	}
+		i--;								 
+	}  
 
 	pManager->ClearHighlightedCompList( );
 	pManager->GetOutput()->ClearDrawingArea();

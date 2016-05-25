@@ -37,12 +37,11 @@ void Cut::Execute( )
 	for (int i = 0; i < pManager->GetComplistSize(); i++)
 		if ( pManager->GetComponent(i)->isSelected( ) )
 		{
-			pManager->GetClipboard( ).push_back( make_pair( pManager->GetComponent(i)->get_GraphicInfo( ) , pManager->GetComponent(i)->getType( ) ) );
-			ActionClipboard.push_back(make_pair(pManager->GetComponent(i)->get_GraphicInfo(), pManager->GetComponent(i)->getType()));
+			pManager->GetClipboard().push_back(make_pair(make_pair(pManager->GetHighlightedComponent(i)->get_GraphicInfo(), pManager->GetHighlightedComponent(i)->getType()), pManager->GetHighlightedComponent(i)->get_label()));
+			ActionClipboard.push_back(make_pair(make_pair(pManager->GetComponent(i)->get_GraphicInfo(), pManager->GetComponent(i)->getType()),pManager->GetComponent(i)->get_label()));
 			pManager->GetComponent(i)->DeleteComponent( pManager );
 			i--;
 		}
-
 	pManager->ClearHighlightedCompList();
 }	
 
@@ -52,8 +51,8 @@ void Cut::undo( )
 	for (int i = 0; i < ActionClipboard.size(); i++)
 	{
 		Component* pG;
-		GraphicsInfo GInfo = ActionClipboard[i].first;
-		switch (pManager->GetClipboard()[i].second)
+		GraphicsInfo GInfo = ActionClipboard[i].first.first;
+		switch (pManager->GetClipboard()[i].first.second)
 		{
 		case AND2_:
 		{

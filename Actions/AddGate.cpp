@@ -105,7 +105,7 @@ void AddGate::Execute()
 	{
 		string GateImage = "Images\\PNG Gates\\", GateNumber;
 		stringstream ss;
-		ss << (int)ActType;
+		ss << (int)ActType ;
 		ss >> GateNumber;
 		GateImage += GateNumber + ".png";
 		pManager->GetOutput()->DrawPNGImage(GateImage, GInfo);

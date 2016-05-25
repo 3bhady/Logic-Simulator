@@ -35,7 +35,7 @@ string Input::GetString( Output *pOut )
 	{
 		ktInput = pWind->WaitKeyPress( kvInput );
 		//ktInput = pWind->GetKeyPress( kvInput );
-		cout << kvInput << endl;
+		//cout << kvInput << endl;
 		switch ( ktInput )
 		{
 		case ESCAPE:
@@ -202,8 +202,9 @@ ActionType Input::GetUserAction(ApplicationManager * pApp)const
 			{
 			case 0: return UNDO;
 			case 1: return REDO;
+			case 2: return Create_TruthTable;
 			case 3: return SIM_MODE;
-			default:break;
+			default:	break;
 			}
 		}
 	}
