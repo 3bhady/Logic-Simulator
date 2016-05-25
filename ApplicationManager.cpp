@@ -319,7 +319,7 @@ stack<Action*>& ApplicationManager::getRedoStack()
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::ClearHighlightedCompList()
-{
+ {
 	for (unsigned int i = 0; i < HighlightedCompList.size(); i++)		//Unhighlight all components
 		HighlightedCompList[i]->Unhighlight();
 
@@ -414,6 +414,7 @@ void ApplicationManager::TurnOffLEDs()
 
 void ApplicationManager::NewProject()
 {
+	ClearHighlightedCompList( );
 	ClearComplist();
 	//function in appmanger btfady the two stacks
 	while (!UndoStack.empty())
