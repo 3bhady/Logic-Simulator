@@ -7,12 +7,10 @@ class AddSwitch :
 {
 private:
 
-	//Parameters for rectangular area to be occupied by the gate
-	GraphicsInfo GInfo; //Gfx info to be used to construct the  gate
-	int Cx, Cy;				//Center point of the gate
-	//int x1, y1, x2, y2;		//Two corners of the rectangluar area
-	bool REDO=false;				//redo or adding new gate
-	pair<int, int> outP;//outpin coordinates
+	GraphicsInfo GInfo;		//Gfx info to be used to construct the  gate
+	pair<int, int> outP;	//outpin coordinates
+	bool REDO = false;		//redo or adding new switch
+
 public:
 
 	AddSwitch(ApplicationManager *pApp);
@@ -21,10 +19,13 @@ public:
 	//Reads parameters required for action to execute
 	virtual bool ReadActionParameters();
 
-	//Execute action (code depends on action type)
+	//Execute action
 	virtual void Execute();
 
+	//Undo this action
 	virtual void undo();
+
+	//Redo this action
 	virtual void redo();
 
 };

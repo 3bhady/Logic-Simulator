@@ -18,7 +18,9 @@ bool New::ReadActionParameters()
 
 void New::Execute()
 {
+
 	pManager->NewProject();
+
 }
 
 void New::undo()

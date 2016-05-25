@@ -104,8 +104,8 @@ ActionType Input::GetUserAction(ApplicationManager * pApp)const
 	keytype kType = pWind->GetKeyPress(HotKey);
 
 	//Get the coordinates of the user click
-	if (cType == NO_CLICK && kType == NO_KEYPRESS)
-		return DSN_TOOL;
+	//if (cType == NO_CLICK && kType == NO_KEYPRESS)
+	//	return DSN_TOOL;
 
 	//Save the user left click coordinates
 	UI.u_GfxInfo.x1 = x;
@@ -228,10 +228,8 @@ ActionType Input::GetUserAction(ApplicationManager * pApp)const
 	if (UI.AppMode == SIMULATION)
 	{
 		//if Switch clicked, toggle its state
-		Component* Cmp = pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1);
-
-		if (Cmp)
-			if (Cmp->getType() == Switch_)
+		if (pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1))
+			if (pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1)->getType() == Switch_)
 				return Change_Switch;
 
 		//User clicks on editbar

@@ -112,6 +112,11 @@ int Switch::GetInputPinIndex(InputPin * DstPin)
 {
 	return 0;
 }
+InputPin * Switch::GetInputPin(int)
+{
+	return NULL;
+
+}
 void Switch::EraseComponent(ApplicationManager * pApp)
 {
 	pApp->EraseComponent(m_GfxInfo);
@@ -150,4 +155,9 @@ void Switch::Load(ifstream & fin)
 }
 Switch::~Switch()
 {
+}
+
+pair<int, int>* Switch::GetInputPinCoordinates(int)
+{
+	return NULL;
 }

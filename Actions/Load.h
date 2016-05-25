@@ -18,8 +18,7 @@
 #include"..\Components\XNOR3.h"
 #include"..\Components\LED.h"
 #include"..\Components\Switch.h"
-class Load :
-	public Action
+class Load :   public Action
 {
 public:
 	Load(ApplicationManager*pApp);
@@ -27,13 +26,14 @@ public:
 	//Reads parameters required for action to execute
 	virtual bool ReadActionParameters();
 
-	//Execute action (code depends on action type)
+	//Execute action
 	virtual void Execute();
 
-	//To undo this action (code depends on action type)
+	//Undo this action
 	virtual void undo();
 
-	//To redo this action (code depends on action type)
+	//Redo this action
 	virtual void redo();
+
 };
 

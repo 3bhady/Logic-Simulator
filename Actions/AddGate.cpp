@@ -22,73 +22,76 @@ void AddGate::Execute()
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
-	Gate *pG = NULL; //a generic gate pointer to hold any type of gate to be added
+	//A generic gate pointer to hold any type of gate to be added
+	Gate *pG = NULL;
 
+	//Create new object of a gate according to the type of the action
 	switch (ActType)
 	{
 	case ADD_AND_GATE_2:
 	{
-		pG = new AND2( GInfo , AND2_FANOUT );
+		pG = new AND2(GInfo, AND2_FANOUT);
 		break;
 	}
 	case ADD_OR_GATE_2:
 	{
-	pG = new OR2(GInfo, AND2_FANOUT);
-	break;
+		pG = new OR2(GInfo, AND2_FANOUT);
+		break;
 	}
 	case ADD_Buff:
 	{
-	pG = new BUFFER(GInfo, AND2_FANOUT);
-	break; }
+		pG = new BUFFER(GInfo, AND2_FANOUT);
+		break;
+	}
 	case ADD_INV:
 	{
-	pG = new NOT(GInfo, AND2_FANOUT);
-	break;
+		pG = new NOT(GInfo, AND2_FANOUT);
+		break;
 	}
 	case ADD_NAND_GATE_2:
 	{
-	pG = new NAND2(GInfo, AND2_FANOUT);
-	break;
+		pG = new NAND2(GInfo, AND2_FANOUT);
+		break;
 	}
 	case ADD_NOR_GATE_2:
 	{
-	pG = new NOR2(GInfo, AND2_FANOUT);
-	break;
+		pG = new NOR2(GInfo, AND2_FANOUT);
+		break;
 	}
 	case ADD_XOR_GATE_2:
 	{
-	pG = new XOR2(GInfo, AND2_FANOUT);
-	break;
+		pG = new XOR2(GInfo, AND2_FANOUT);
+		break;
 	}
 	case ADD_XNOR_GATE_2:
 	{
-	pG = new XNOR2(GInfo, AND2_FANOUT);
-	break;
+		pG = new XNOR2(GInfo, AND2_FANOUT);
+		break;
 	}
 	case ADD_AND_GATE_3:
 	{
-	pG = new AND3(GInfo, AND2_FANOUT);
-	break;
+		pG = new AND3(GInfo, AND2_FANOUT);
+		break;
 	}
 	case ADD_OR_GATE_3:
 	{
-	pG = new OR3(GInfo, AND2_FANOUT);
-	break;
+		pG = new OR3(GInfo, AND2_FANOUT);
+		break;
 	}
 	case ADD_NAND_GATE_3:
 	{
-	pG = new NAND3(GInfo, AND2_FANOUT);
-	break;
+		pG = new NAND3(GInfo, AND2_FANOUT);
+		break;
 	}
 	case ADD_NOR_GATE_3:
 	{
-	pG = new NOR3(GInfo, AND2_FANOUT);
-	break;
+		pG = new NOR3(GInfo, AND2_FANOUT);
+		break;
 	}
 	case ADD_XOR_GATE_3:
 	{
-	pG = new XOR3(GInfo, AND2_FANOUT);
-	break;
+		pG = new XOR3(GInfo, AND2_FANOUT);
+		break;
 	}
 	case ADD_XNOR_GATE_3:
 	{
@@ -97,7 +100,8 @@ void AddGate::Execute()
 	}
 	}
 
-	if (REDO)			//if redo draw the gate in it's initial position
+	//if redo draw the gate in it's initial position
+	if (REDO)
 	{
 		string GateImage = "Images\\PNG Gates\\", GateNumber;
 		stringstream ss;
@@ -109,11 +113,9 @@ void AddGate::Execute()
 		return;
 	}
 
-	//if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
+	//if the gate wase successfully added this will return true and false if escape key was pressed to cancel the addition
 	if (pOut->FollowMouseAndDraw(pG->get_GraphicInfo(), (ComponentType)(int)ActType, pManager->GetArr()))
-	{
-		pManager->AddComponent(pG); GInfo = pG->get_GraphicInfo();
-	}
+		pManager->AddComponent(pG), GInfo = pG->get_GraphicInfo();
 
 	else delete pG;
 }

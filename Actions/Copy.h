@@ -9,13 +9,14 @@ public:
 	//Reads parameters required for action to execute
 	virtual bool ReadActionParameters( );
 
-	//Execute action (code depends on action type)
-	virtual void Execute( );
+	//Execute action
+	virtual void Execute();
 
-	//To undo this action (code depends on action type)
-	virtual void undo( );
+	//Undo this action
+	virtual void undo();
 
-	//To redo this action (code depends on action type)
-	virtual void redo( );
+	//Redo this action
+	virtual void redo();
+
 };
 

@@ -18,17 +18,18 @@ bool Label::ReadActionParameters()
 
 void Label::Execute()
 {
-	////the following three lines are repeated in every editmenu action!
+	//if in EDITMODE, close Edit menu after selecting edit label
 	if (UI.AppMode == EDIT_MODE)
 		pManager->GetOutput()->CloseEditMenu(pManager);
 
+	//Get string from the user and change the label of highlighted components
 	if (pManager->getHighlightedCompListSize() != 0)
 	{
 		string str;
 		str = pManager->GetInput()->GetString(pManager->GetOutput());
 		str = str == "" ? "NO-LABEL" : str;
 		for (unsigned int i = 0; i < pManager->getHighlightedCompListSize(); i++)
-		pManager->GetHighlightedComponent(i)->set_label(str);	
+			pManager->GetHighlightedComponent(i)->set_label(str);	
 	}
 
 }

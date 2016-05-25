@@ -29,12 +29,19 @@ public:
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
+
 	virtual int getID();
 	virtual  int GetInputPinIndex(InputPin*DstPin);
+
+	virtual InputPin*GetInputPin(int);//the function that returns pointer to an inputpin
+
+
 	virtual void SetOutPinStatus(STATUS);
 	void EraseComponent(ApplicationManager * pApp);
 	void Save(ofstream &fout);
 	void Load(ifstream &fout);
 	~Switch();
+	virtual pair<int, int>*GetInputPinCoordinates(int);//the function that returns pointer to an inputpin
+
 };
 
