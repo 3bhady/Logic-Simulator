@@ -20,6 +20,7 @@
 #include"Actions\Simulate.h"
 #include"Actions\New.h"
 #include"Actions\TruthTable.h"
+#include "Actions\ToggleSwitchState.h"
 #include<fstream>
 
 ApplicationManager::ApplicationManager()
@@ -295,6 +296,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new New(this);
 	if (ActType ==Create_TruthTable)
 		pAct = new TruthTable(this);
+	if (ActType == Change_Switch)
+		pAct = new ToggleSwitchState(this);
 	if(pAct)
 	{
 		//if Action undo or redo don't push in stacks

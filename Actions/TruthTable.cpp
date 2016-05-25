@@ -108,8 +108,6 @@ void TruthTable::Execute()
 				pManager->GetOutput()->DrawCellValue((j)*ColumnWidth + 2, (i + 1)*RowWidth + 2, value);
 			}
 		}
-
-		
 		for (int i = 0; i < RowsCount; i++)
 		{
 			for (int j = 0; j < LedCount; j++)

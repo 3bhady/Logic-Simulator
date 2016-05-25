@@ -17,6 +17,7 @@
     <ClCompile Include="Actions\Redo.cpp" />
     <ClCompile Include="Actions\Save.cpp" />
     <ClCompile Include="Actions\Select.cpp" />
+    <ClCompile Include="Actions\Simulate.cpp" />
     <ClCompile Include="Actions\ToggleBars.cpp" />
     <ClCompile Include="Actions\Undo.cpp" />
     <ClCompile Include="CMUgraphicsLib\auxil.cpp" />
@@ -82,29 +83,10 @@
     <ClCompile Include="GUI\Output.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Utility\Utility.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="lodepng.cpp" />
-    <ClCompile Include="Actions\Select.cpp" />
-    <ClCompile Include="Actions\AreaSelect.cpp" />
-    <ClCompile Include="Actions\Copy.cpp" />
-    <ClCompile Include="Actions\Cut.cpp" />
-    <ClCompile Include="Actions\Paste.cpp" />
-    <ClCompile Include="Actions\Undo.cpp" />
-    <ClCompile Include="Actions\Redo.cpp" />
-    <ClCompile Include="Actions\AddConnection.cpp" />
-    <ClCompile Include="Actions\EditMenu.cpp" />
-    <ClCompile Include="Actions\Label.cpp" />
-    <ClCompile Include="Actions\Load.cpp" />
-    <ClCompile Include="Actions\Save.cpp" />
-    <ClCompile Include="Actions\Delete.cpp" />
-    <ClCompile Include="CMUgraphicsLib\colors.cpp" />
-    <ClCompile Include="Actions\ToggleBars.cpp" />
-    <ClCompile Include="Actions\Simulate.cpp" />
-=======
     <ClCompile Include="Actions\New.cpp" />
     <ClCompile Include="Actions\TruthTable.cpp" />
->>>>>>> d1d5730e440291920be2147d0f837778650a77fc
+    <ClCompile Include="Utility\Utility.cpp" />
+    <ClCompile Include="Actions\ToggleSwitchState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -124,6 +106,7 @@
     <ClInclude Include="Actions\Redo.h" />
     <ClInclude Include="Actions\Save.h" />
     <ClInclude Include="Actions\Select.h" />
+    <ClInclude Include="Actions\Simulate.h" />
     <ClInclude Include="Actions\ToggleBars.h" />
     <ClInclude Include="Actions\Undo.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
@@ -174,28 +157,10 @@
     <ClInclude Include="GUI\Output.h" />
     <ClInclude Include="GUI\UI_Info.h" />
     <ClInclude Include="lodepng.h" />
-<<<<<<< HEAD
-    <ClInclude Include="Actions\Select.h" />
-    <ClInclude Include="Actions\AreaSelect.h" />
-    <ClInclude Include="Actions\Copy.h" />
-    <ClInclude Include="Actions\Cut.h" />
-    <ClInclude Include="Actions\Paste.h" />
-    <ClInclude Include="Actions\Undo.h" />
-    <ClInclude Include="Actions\Redo.h" />
-    <ClInclude Include="Actions\AddConnection.h" />
-    <ClInclude Include="Components\XOR3.h" />
-    <ClInclude Include="Actions\EditMenu.h" />
-    <ClInclude Include="Actions\Label.h" />
-    <ClInclude Include="Actions\Load.h" />
-    <ClInclude Include="Actions\Save.h" />
-    <ClInclude Include="Actions\Delete.h" />
-    <ClInclude Include="Actions\ToggleBars.h" />
-    <ClInclude Include="Actions\Simulate.h" />
-=======
-    <ClInclude Include="Utility\Utility.h" />
     <ClInclude Include="Actions\New.h" />
     <ClInclude Include="Actions\TruthTable.h" />
->>>>>>> d1d5730e440291920be2147d0f837778650a77fc
+    <ClInclude Include="Utility\Utility.h" />
+    <ClInclude Include="Actions\ToggleSwitchState.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -227,17 +227,12 @@ ActionType Input::GetUserAction(ApplicationManager * pApp)const
 	//if SIMULATION MODE
 	if (UI.AppMode == SIMULATION)
 	{
-		//Component clicked by the user
+		//if Switch clicked, toggle its state
 		Component* Cmp = pApp->GetComponent(UI.u_GfxInfo.x1, UI.u_GfxInfo.y1);
 
-		//if Switch clicked toggle it's state
 		if (Cmp)
 			if (Cmp->getType() == Switch_)
-			{
-				if (Cmp->GetOutPinStatus() == LOW)
-					Cmp->SetOutPinStatus(HIGH);
-				else Cmp->SetOutPinStatus(LOW);
-			}
+				return Change_Switch;
 
 		//User clicks on editbar
 		if (UI.isInEditBar(x, y) && !UI.HiddenEditBar)
