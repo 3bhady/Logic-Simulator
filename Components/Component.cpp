@@ -21,6 +21,16 @@ string Component::get_label()
 	return m_Label;
 }
 
+OutputPin * Component::getSourcePin()
+{
+	return NULL;
+}
+
+InputPin * Component::getDestPin()
+{
+	return NULL;
+}
+
 void Component::setID(int id)
 {
 	ID = id;
@@ -85,9 +95,19 @@ void Component::ChangeState()
 	highlighted = !highlighted;
 }
 
+int Component::GetInputPinIndex(pair<int, int> &coordinates)
+{
+	return -1;
+}
+
 bool Component::isSelected( )
 {
 	return highlighted;
+}
+
+bool Component::ChangePath(ApplicationManager*)
+{
+	return false;
 }
 
 

@@ -3,7 +3,6 @@
 
 
 
-
 Move::Move( ApplicationManager * pApp ):Action(pApp )
 {
 
@@ -30,3 +29,4 @@ void Move::undo( )
 void Move::redo( )
 {
 }
+

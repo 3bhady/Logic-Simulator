@@ -31,7 +31,11 @@ public:
 	virtual InputPin* GetInputPin(pair<int, int>&x);//the function that returns pointer to an inputpin
 	virtual OutputPin* GetOutputPin();//the function that returns pointer to an outputpin
 	virtual void SetOutPinStatus(STATUS s);
+	virtual InputPin*GetInputPin(int);//the function that returns pointer to an inputpin
+	virtual pair<int, int>*GetInputPinCoordinates(int);//the function that returns pointer to an inputpin
 	void setState(STATUS s);
+	virtual int GetInputPinIndex(pair<int, int>& coordinates);
+
 	//kero	
 	//==================================================
 	void Save(ofstream &fout);

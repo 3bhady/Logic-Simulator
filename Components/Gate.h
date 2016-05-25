@@ -43,10 +43,12 @@ public:
 	virtual bool isInpinFloating(int n);
 	virtual bool isOutpinFloating();
 	virtual int getCompIndexConnectedToInPin(int n);
-
+	virtual InputPin*GetInputPin(int);//the function that returns pointer to an inputpin
 	virtual void ShowPinsStatuses(Output* pOut);
 	virtual bool CheckFloatingInPins();
 	virtual void SetOutPinStatus(STATUS s);
+	virtual pair<int, int>*GetInputPinCoordinates(int);//the function that returns pointer to an inputpin
+	virtual int GetInputPinIndex(pair<int, int>& coordinates);
 
 	~Gate();
 };

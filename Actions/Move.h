@@ -1,5 +1,6 @@
 #pragma once
 #include "Action.h"
+#include "..\Components\Connection.h"
 class Move :
 	public Action
 {
@@ -13,8 +14,8 @@ public:
 
 	//To undo this action (code depends on action type)
 	virtual void undo( );
-
 	//To redo this action (code depends on action type)
 	virtual void redo( );
+
 };
 

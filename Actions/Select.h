@@ -23,14 +23,19 @@ public:
 	//To undo this action (code depends on action type)
 	virtual void undo();
 
+	//virtual int CheckPin(pair<int,int> Coordinates);
+	virtual bool MoveSource(Connection* Comp);//the function that changes the source of Connection
+	bool bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &outx);//the function the determines the path of the conncetion
+	bool isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2, int x1);//the function the determines whether a piont is valied or not
+	virtual bool MoveDest(Connection* Comp);//the function that changes the Destination of the connection
+	virtual bool MoveOutPin(pair <int,int> &NewPair );
+	virtual bool MoveInput(pair<int,int> &NewPair);
+	virtual bool ReturnConnection(GraphicsInfo&OldGraphic,Connection*Comp);//the function that changes the source of Connection	
+	//
 	//To redo this action (code depends on action type)
 	virtual void redo();
 
-	//the function the determines the path of the conncetion
-	void bfs(int x1, int y1, int x2, int y2, Component*** a, BFSOut &outx);
 
-	//the function the determines whether a piont is valied or not
-	bool isvalid(int x, int y, int** vis, int** ifc, int** oth, int x0, int y0, int x2, int y2, int x1);
 
 };
 
