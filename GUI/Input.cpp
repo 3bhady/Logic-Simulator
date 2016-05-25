@@ -101,8 +101,8 @@ ActionType Input::GetUserAction(ApplicationManager * pApp)const
 
 	//Get user click and key pressed
 	clicktype cType = pWind->GetMouseClick(x, y);
-	//keytype kType = pWind->GetKeyPress(HotKey);
-	keytype KT = pWind->WaitKeyPress(HotKey);
+	keytype kType = pWind->GetKeyPress(HotKey);
+
 	//Get the coordinates of the user click
 	//if (cType == NO_CLICK && kType == NO_KEYPRESS)
 	//	return DSN_TOOL;
@@ -146,7 +146,7 @@ ActionType Input::GetUserAction(ApplicationManager * pApp)const
 	if (UI.AppMode == DESIGN)	//application is in design mode
 	{
 		//User pressed hotkey
-		if (KT == ASCII || KT == FUNCTION)
+		if (kType == ASCII || kType == FUNCTION)
 		{
 			switch (HotKey)
 			{
