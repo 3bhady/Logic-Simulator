@@ -109,8 +109,7 @@ void TruthTable::Execute()
 			}
 		}
 
-		//aktb esm el stream elly ana fata7to if(file.isopen)
-		//while(notendoffile)
+		
 		for (int i = 0; i < RowsCount; i++)
 		{
 			for (int j = 0; j < LedCount; j++)

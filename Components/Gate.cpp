@@ -135,16 +135,18 @@ void Gate::Save(ofstream & fout)
 void Gate::Load( ifstream & fin )
 {
 	int x , y;
-	string label;
+	string GateLabel;
 	int ahbal;
 	fin >> ahbal;
-	fin >> label;
-	set_label( label );
+	fin >> GateLabel;
+	set_label( GateLabel );
 	fin >> x >> y;
 	m_GfxInfo.x1 = x - UI.Gate_Width / 2;
-	m_GfxInfo.x2 = x + UI.Gate_Width / 2;
+	//m_GfxInfo.x2 = x + UI.Gate_Width / 2;
+	m_GfxInfo.x2 = m_GfxInfo.x1 + UI.Gate_Width;
 	m_GfxInfo.y1 = y - UI.Gate_Height / 2;
-	m_GfxInfo.y2 = y + UI.Gate_Height / 2;
+	//m_GfxInfo.y2 = y + UI.Gate_Height / 2;
+	m_GfxInfo.y2 = m_GfxInfo.y1 + UI.Gate_Height;
 }
 
 STATUS Gate::GetOutPinStatus()

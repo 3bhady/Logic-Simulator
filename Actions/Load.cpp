@@ -16,6 +16,7 @@ bool Load::ReadActionParameters()
 
 void Load::Execute()
 {
+
 	//to do :clear the interface
 	ifstream fin("save-load.txt");
 	if (!fin.is_open())
