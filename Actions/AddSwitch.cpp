@@ -11,51 +11,28 @@ AddSwitch::~AddSwitch(void)
 
 bool AddSwitch::ReadActionParameters()
 {
-	/*
-	//Get a Pointer to the Input / Output Interfaces
-	Output* pOut = pManager->GetOutput();
-	Input* pIn = pManager->GetInput();
-
-	//Print Action Message
-	pOut->PrintMsg(s);
-
-	//Wait for User Input
-	pIn->GetPointClicked(Cx, Cy);
-
-	//Clear Status Bar
-	pOut->ClearStatusBar();
-
-
-	//Calculate the rectangle Corners
-	int Len = UI.Switch_Width;
-	int Wdth = UI.Switch_Height;
-
-	//GraphicsInfo GInfo; //Gfx info to be used to construct the AND2 gate
-
-	GInfo.x1 = Cx - Len / 2;
-	GInfo.x2 = Cx + Len / 2;
-	GInfo.y1 = Cy - Wdth / 2;
-	GInfo.y2 = Cy + Wdth / 2;
-	outP = make_pair(GInfo.x2, GInfo.y1 + 15);
-	return true;
-	*/
 	return true;
 }
 
 void AddSwitch::Execute()
 {
 
-	if (REDO)
-		pManager->GetOutput()->DrawSwitch(GInfo, LOW, false);
-
-
 	//Get a Pointer to the Input / Output Interfaces
 	Output* pOut = pManager->GetOutput();
 	Input* pIn = pManager->GetInput();
 
+	//Create new Switch
 	Switch *pS = new Switch(GInfo, AND2_FANOUT);
 
-	//if the gate wase successfully added this will return true and false otherwise with pressing escape key to cancel the addition
+	//if redo draw switch
+	if (REDO)
+	{
+		pManager->GetOutput()->DrawSwitch(GInfo, LOW, false);
+		pManager->AddComponent(pS);
+		return;
+	}
+
+	//if the switch was successfully added this will return true and false if escape key was pressed to cancel the addition
 	if (pOut->FollowMouseAndDraw(pS->get_GraphicInfo(), Switch_, pManager->GetArr()))
 	{
 		pManager->AddComponent(pS); GInfo = pS->get_GraphicInfo();

@@ -355,11 +355,12 @@ void Output::CreateEditToolBar() const
 {
 	if (!UI.HiddenEditBar)
 	{
-		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB2.jpg", UI.EditBarStartX, UI.EditBarStartY);
+		if (UI.AppMode == SIMULATION)
+			pWind->DrawImage("Images\\ToolBars\\Editbar\\EB1.jpg", UI.EditBarStartX, UI.EditBarStartY);
+		else pWind->DrawImage("Images\\ToolBars\\Editbar\\EB2.jpg", UI.EditBarStartX, UI.EditBarStartY);
 		pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX, UI.EditBarTitleStartY);
 	}
 	else pWind->DrawImage("Images\\ToolBars\\Editbar\\EB3.jpg", UI.EditBarTitleStartX , UI.EditBarTitleStartY);
-	//pWind->UpdateBuffer( );
 }
 //////////////////////////////////////////////////////////////////////////////////
 

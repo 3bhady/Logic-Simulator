@@ -91,7 +91,9 @@ void ApplicationManager::ClearComplist()
 
 Component* ApplicationManager::GetComponent( int x , int y )
 {
-	return Arr[y][x];
+	if (x > 0 && y > 0 && x < UI.width - UI.wx && y < UI.height - UI.wy)
+		return Arr[y][x];
+	else return NULL;
 }
 
 Component*& ApplicationManager::GetComponent(int index)
