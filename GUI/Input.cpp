@@ -202,9 +202,8 @@ ActionType Input::GetUserAction(ApplicationManager * pApp)const
 			{
 			case 0: return UNDO;
 			case 1: return REDO;
-			case 2: return Create_TruthTable;
 			case 3: return SIM_MODE;
-			default:	break;
+			default:break;
 			}
 		}
 	}
