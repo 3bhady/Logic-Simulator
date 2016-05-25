@@ -270,6 +270,7 @@ void ApplicationManager::DeleteComponent( Component * pComp )
 
 			delete CompList[i];
 			CompList.erase( CompList.begin( ) + i );
+			CompCount--;
 			break;
 		}
 }

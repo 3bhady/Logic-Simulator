@@ -32,7 +32,7 @@ void AddLED::Execute()
 	}
 
 	 //if the LED was successfully added this will return true and false if escape key was pressed to cancel the addition
-	if (pOut->FollowMouseAndDraw(pL->get_GraphicInfo(), LED_ , pManager->GetArr()))
+	if (pOut->FollowMouseAndDraw(pManager,pL))
 	{
 		pManager->AddComponent(pL);
 		GInfo = pL->get_GraphicInfo();

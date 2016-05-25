@@ -33,7 +33,7 @@ void AddSwitch::Execute()
 	}
 
 	//if the switch was successfully added this will return true and false if escape key was pressed to cancel the addition
-	if (pOut->FollowMouseAndDraw(pS->get_GraphicInfo(), Switch_, pManager->GetArr()))
+	if (pOut->FollowMouseAndDraw(pManager,pS))
 	{
 		pManager->AddComponent(pS); GInfo = pS->get_GraphicInfo();
 	}

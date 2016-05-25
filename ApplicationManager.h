@@ -53,7 +53,6 @@ public:
 	void save(ofstream &fout);
 	void load(ifstream &fin);
 
-	//Component* GetComponent( int x , int y );
 	void DeleteComponent(int x,int y);
 	void DeleteComponent( Component* pComp );
 	void EraseComponent(GraphicsInfo GFX);
@@ -67,7 +66,7 @@ public:
 	int GetComplistSize();							//returns the size of complist 
 	void ClearComplist();							//Deletes all components and clears the complist
 	Component* GetComponent(int x,int y);			//Get component from GRID
-	Component* &GetComponent(int index);				//Get component by index from complist
+	Component* &GetComponent(int index);			//Get component by index from complist
 	void PointToNull(int x, int y);					//Make point points to NULL in the GRID
 	void ClearHighlightedCompList();				//Clear the HighlightedComplist
 	void HighlightComponent(Component*);			//Highlight component

@@ -20,7 +20,10 @@ protected:
 	int compIndex;	//Index of Component in CompList
 	static int ID;
 public:
+	Component();
 	Component(const GraphicsInfo &r_GfxInfo);
+	virtual ~Component();	//Destructor must be virtual
+
 	virtual void Save(ofstream &fout) = 0;
 	virtual void Load(ifstream &fout) = 0;
 	virtual void Operate() = 0;					//Calculates the output according to the inputs
@@ -55,7 +58,6 @@ public:
 	bool isSelected( );			//an indication to whether the component is selected or not
 	virtual bool ChangePath(ApplicationManager*);
 	ComponentType getType();    // returns the type of the component
-	Component();
 	virtual void setCompIndex(int index);
 	virtual int getCompIndex();
 	virtual bool isInpinFloating(int n) = 0;
@@ -64,7 +66,7 @@ public:
 	virtual void SetOutPinStatus(STATUS s) = 0;
 	virtual int getID() = 0;
 	virtual  int GetInputPinIndex(InputPin*DstPin) = 0;
-	//Destructor must be virtual
-	virtual ~Component();
+	virtual int GetWidth();
+	virtual int GetHeight();
 };
 

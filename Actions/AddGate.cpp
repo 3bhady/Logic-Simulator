@@ -114,7 +114,7 @@ void AddGate::Execute()
 	}
 
 	//if the gate wase successfully added this will return true and false if escape key was pressed to cancel the addition
-	if (pOut->FollowMouseAndDraw(pG->get_GraphicInfo(), (ComponentType)(int)ActType, pManager->GetArr()))
+	if (pOut->FollowMouseAndDraw(pManager, pG))
 		pManager->AddComponent(pG), GInfo = pG->get_GraphicInfo();
 
 	else delete pG;
