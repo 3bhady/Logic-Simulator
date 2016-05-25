@@ -50,7 +50,7 @@ public:
 
 	void MouseHovering(ApplicationManager*pApp)const;		//Detect the hovering of the mouse and makes changes according to the hover
 
-	bool FollowMouseAndDraw(GraphicsInfo & r_GfxInfo, ComponentType, Component ** Arr[780]);		//Drag & Drop
+	bool FollowMouseAndDraw(ApplicationManager* pApp, Component *Cmp);			//Drag & Drop
 
 	void Magnetize(int &x,int &y);		//Gets the nearest dot in the grid
 

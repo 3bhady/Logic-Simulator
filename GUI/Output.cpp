@@ -533,135 +533,101 @@ void Output::MouseHovering(ApplicationManager*pApp)const
 
 //////////////////////////////////////////////////////////////////////////////////
 
-bool Output::FollowMouseAndDraw( GraphicsInfo & r_GfxInfo , ComponentType CompType , Component ** Arr[780])
+bool Output::FollowMouseAndDraw(ApplicationManager * pApp, Component * Cmp)
 {
- 	GraphicsInfo temp = r_GfxInfo;
-	image initImage; pWind->StoreImage( initImage , 0 , 0 , UI.width , UI.height );
+	GraphicsInfo temp = Cmp->get_GraphicInfo();				//initial GfxInfo of the Component
+	GraphicsInfo &r_GfxInfo = Cmp->get_GraphicInfo();
 
-	  pWind->FlushKeyQueue( );
-	  char cEscape;	//the character pressed to cancle the addition of the gate
-	  bool forbidden = false; // it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
-		do {
+	//Store initial image before moving the component
+	image initImage; pWind->StoreImage(initImage, 0, 0, UI.width, UI.height);
 
-			pWind->DrawImage( initImage , 0 , 0 );
-			
-			pWind->GetMouseCoord( r_GfxInfo.x1 , r_GfxInfo.y1 );
-			if (CompType == LED_)
-			{
-				r_GfxInfo.x1 = r_GfxInfo.x1 - UI.LED_Width / 2;
-				r_GfxInfo.y1 = r_GfxInfo.y1 - UI.LED_Height / 2;
-				Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
-				r_GfxInfo.x2 = r_GfxInfo.x1 + UI.LED_Width;
-				r_GfxInfo.y2 = r_GfxInfo.y1 + UI.LED_Height;
-			}
-			else if (CompType == Switch_)
-			{
-				r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Switch_Width / 2;
-				r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Switch_Height / 2;
-				Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
-				r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Switch_Width;
-				r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Switch_Height;
-			}
-			else {
-				r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
-				r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
-				Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
-				r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
-				r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
-			}
-			
-			if ( pWind->GetKeyPress( cEscape ) == ESCAPE )
-			{
-				pWind->DrawImage( initImage , 0 , 0 );
-				r_GfxInfo =	temp ;
-				pWind->UpdateBuffer( );
-				return false;
-			}
-		
-			forbidden = false;
-		
-			for ( int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i++ )
-			{
-				for ( int j = r_GfxInfo.y1; j < r_GfxInfo.y2; j++ )
-				{
-					if( i>0 && j>0 && j<700 && i<1390 )
-						if ( Arr[j][i] )
-						{
-							forbidden = true; break;
-						}
-				}
-				if ( forbidden )break;
-			}
-			if ( forbidden )
-			{
-				PrintMsg( "You can't draw here!" );
-				if (CompType == LED_)
-					DrawLED(r_GfxInfo, LOW, false, true);
-				else if (CompType == Switch_)
-					DrawSwitch(r_GfxInfo, LOW, false, true);
-				else DrawGate(r_GfxInfo, CompType, false, true);
-			}
-			else
-			{
-				if (CompType == LED_)
-					DrawLED(r_GfxInfo, LOW, false);
-				else if (CompType == Switch_)
-					DrawSwitch(r_GfxInfo, LOW);
-				else DrawGate( r_GfxInfo , CompType );
-			}
+	pWind->FlushKeyQueue();
 
-			if ( !UI.HiddenToolBar )CreateDesignToolBar( );
-			if ( !UI.HiddenFileBar )CreateFileToolBar( );
-			if ( !UI.HiddenEditBar )CreateEditToolBar( );
-			
+	char cEscape;				//the character pressed to cancle the addition of the gate
+	bool forbidden = false;		// it's true when the user hovers on forbidden area like an existing gate or one of the toolbars
+	do {
 
-				 
-			if (UI.isForbidden(r_GfxInfo.x2,r_GfxInfo.y2 )
-				|| UI.isForbidden( r_GfxInfo.x1 , r_GfxInfo.y1 ) 
-				||UI.isForbidden(r_GfxInfo.x1, r_GfxInfo.y2 )
-				||UI.isForbidden(r_GfxInfo.x2,r_GfxInfo.y1 )
-				||forbidden )
-			{
-				PrintMsg( "You can't draw here!" );	forbidden = true;
-			}
-			else
-			{
-				PrintMsg( "" );  forbidden = false;
-			}
-			
-			pWind->UpdateBuffer( );
+		pWind->DrawImage(initImage, 0, 0);
 
+		pWind->GetMouseCoord(r_GfxInfo.x1, r_GfxInfo.y1);
 
-		} while ( pWind->GetMouseClick( r_GfxInfo.x1 , r_GfxInfo.y1 ) == NO_CLICK||forbidden );
-		
-		if (CompType == LED_)
+		//Change the GfxInfo of the component according to the mouse coordinates
+		r_GfxInfo.x1 = r_GfxInfo.x1 - Cmp->GetWidth() / 2;
+		r_GfxInfo.y1 = r_GfxInfo.y1 - Cmp->GetHeight() / 2;
+		Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+		r_GfxInfo.x2 = r_GfxInfo.x1 + Cmp->GetWidth();
+		r_GfxInfo.y2 = r_GfxInfo.y1 + Cmp->GetHeight();
+
+		//if escape is pressed return the component to initial position and draw initial image
+		if (pWind->GetKeyPress(cEscape) == ESCAPE)
 		{
-			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.LED_Width / 2;
-			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.LED_Height / 2;
-			Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
-			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.LED_Width;
-			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.LED_Height;
+			pWind->DrawImage(initImage, 0, 0);
+			r_GfxInfo = temp;
+			pWind->UpdateBuffer();
+			return false;
 		}
-		else if (CompType == Switch_)
+
+		forbidden = false;
+
+		//Checking if there is a component in this area
+		for (int i = r_GfxInfo.x1; i < r_GfxInfo.x2; i++)
 		{
-			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Switch_Width / 2;
-			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Switch_Height / 2;
-			Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
-			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Switch_Width;
-			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Switch_Height;
+			for (int j = r_GfxInfo.y1; j < r_GfxInfo.y2; j++)
+			{
+				if (i>0 && j>0 && j<700 && i<1390)
+					if (pApp->GetComponent(i,j))
+					{
+						forbidden = true;
+						Cmp->Forbid();
+						break;
+					}
+			}
+			if (forbidden)break;
 		}
-		else {
-			r_GfxInfo.x1 = r_GfxInfo.x1 - UI.Gate_Width / 2;
-			r_GfxInfo.y1 = r_GfxInfo.y1 - UI.Gate_Height / 2;
-			Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
-			r_GfxInfo.x2 = r_GfxInfo.x1 + UI.Gate_Width;
-			r_GfxInfo.y2 = r_GfxInfo.y1 + UI.Gate_Height;
+
+		if (forbidden)
+			PrintMsg("You can't draw here!");
+
+		//Draw Component
+		Cmp->Draw(this);
+
+		//Draw Toolbars
+		if (!UI.HiddenToolBar)CreateDesignToolBar();
+		if (!UI.HiddenFileBar)CreateFileToolBar();
+		if (!UI.HiddenEditBar)CreateEditToolBar();
+
+
+		//Checking if this position is in toolbars 
+		if (UI.isForbidden(r_GfxInfo.x2, r_GfxInfo.y2)
+			|| UI.isForbidden(r_GfxInfo.x1, r_GfxInfo.y1)
+			|| UI.isForbidden(r_GfxInfo.x1, r_GfxInfo.y2)
+			|| UI.isForbidden(r_GfxInfo.x2, r_GfxInfo.y1)
+			|| forbidden)
+		{
+			PrintMsg("You can't draw here!");
+			forbidden = true;
+			Cmp->Forbid();
 		}
-		
-		PrintMsg( "" );
-		pWind->UpdateBuffer( );
-return true;
-		
+		else
+		{
+			PrintMsg("");  forbidden = false;
+			Cmp->Allow();
+		}
+
+		pWind->UpdateBuffer();
+
+	} while (pWind->GetMouseClick(r_GfxInfo.x1, r_GfxInfo.y1) == NO_CLICK || forbidden);
+
+	//Setting the final position of the component
+	r_GfxInfo.x1 = r_GfxInfo.x1 - Cmp->GetWidth() / 2;
+	r_GfxInfo.y1 = r_GfxInfo.y1 - Cmp->GetHeight() / 2;
+	Magnetize(r_GfxInfo.x1, r_GfxInfo.y1);
+	r_GfxInfo.x2 = r_GfxInfo.x1 + Cmp->GetWidth();
+	r_GfxInfo.y2 = r_GfxInfo.y1 + Cmp->GetHeight();
+
+	PrintMsg("");
+	pWind->UpdateBuffer();
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

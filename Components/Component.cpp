@@ -131,6 +131,16 @@ int Component::getCompIndex()
 }
 
 
+int Component::GetWidth()
+{
+	return Width;
+}
+
+int Component::GetHeight()
+{
+	return Height;
+}
+
 Component::~Component()
 {}
 
