@@ -775,8 +775,11 @@ bool Output::MoveComponents(ApplicationManager* pApp,Component* selected)
 		if (pWind->GetKeyPress(cEscape) == ESCAPE)		// if user pressed ESCAPE , all the components return to their initial positions
 		{
 			pWind->DrawImage(initImage, 0, 0);
-			for (unsigned int i = 0; i < HighlightedVec.size(); i++)
-				HighlightedVec[i]->set_GraphicInfo(initialGFxInfo[i]);
+			for ( unsigned int i = 0; i < HighlightedVec.size( ); i++ )
+			{
+				HighlightedVec[i]->set_GraphicInfo( initialGFxInfo[i] );
+				HighlightedVec[i]->Allow( );
+			}
 			pWind->UpdateBuffer();
 		
 			return false;
