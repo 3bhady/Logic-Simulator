@@ -275,9 +275,10 @@ ActionType Input::GetUserAction(ApplicationManager * pApp)const
 	{
 		if ( pApp->GetComponent( x , y ) )
 		{
-			pair<int , int> clickedPoint = pApp->GetComponent( x , y )->GetOutputPinCoordinates( );
-			if ( !dynamic_cast< LED* >(pApp->GetComponent( x , y )) &&
-			 abs( clickedPoint.first - x ) <= 5 && abs( clickedPoint.second - y ) <= 5 )
+			pair<int , int> ExactPin = pApp->GetComponent( x , y )->GetOutputPinCoordinates( );
+		//	if ( !dynamic_cast< LED* >(pApp->GetComponent( x , y )) &&
+			if(  ExactPin.first - x  <= 10&& ExactPin.first - x >0
+				&& abs( ExactPin.second - y ) <= 10 )
 					return ADD_CONNECTION;
 
 			else

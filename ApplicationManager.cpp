@@ -82,8 +82,10 @@ int ApplicationManager::GetComplistSize()
 
 void ApplicationManager::ClearComplist()
 {
-	for (int i = 0; i < CompCount; i++)
-		CompList[i]->DeleteComponent(this);
+	for ( int i = 0; i < CompList.size( ); i++ )
+	{
+		CompList[i]->DeleteComponent( this );
+	}
 	CompList.clear();
 }
 
@@ -190,34 +192,43 @@ void ApplicationManager::HighlightComponent(Component *pC)
 
 void ApplicationManager::HighlightComponent(int x, int y)
 {
-	Arr[y][x]->Highlight();
-	HighlightedCompList.push_back(Arr[y][x]);
+	if ( Arr[y][x] )
+	{
+		Arr[y][x]->Highlight( );
+		HighlightedCompList.push_back( Arr[y][x] );
+	}
 }
 
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::UnhighlightComponent(Component *pC)
 {
-	pC->Unhighlight();
-	for (unsigned int i = 0; i < HighlightedCompList.size(); i++)
-		if (HighlightedCompList[i] == pC)
-		{
-			HighlightedCompList.erase(HighlightedCompList.begin() + i);
-			return;
-		}
+	if ( pC )
+	{
+		pC->Unhighlight( );
+		for ( unsigned int i = 0; i < HighlightedCompList.size( ); i++ )
+			if ( HighlightedCompList[i] == pC )
+			{
+				HighlightedCompList.erase( HighlightedCompList.begin( ) + i );
+				return;
+			}
+	}
 }
 
 ////////////////////////////////////////////////////////////////////
 
 void ApplicationManager::UnhighlightComponent(int x, int y)
 {
-	Arr[y][x]->Unhighlight();
-	for (unsigned int i = 0; i < HighlightedCompList.size(); i++)
-		if (HighlightedCompList[i] == Arr[y][x])
-		{
-			HighlightedCompList.erase(HighlightedCompList.begin() + i);
-			return;
-		}
+	if ( Arr[y][x] )
+	{
+		Arr[y][x]->Unhighlight( );
+		for ( unsigned int i = 0; i < HighlightedCompList.size( ); i++ )
+			if ( HighlightedCompList[i] == Arr[y][x] )
+			{
+				HighlightedCompList.erase( HighlightedCompList.begin( ) + i );
+				return;
+			}
+	}
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -301,7 +312,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if(pAct)
 	{
 		//if Action undo or redo don't push in stacks
-		if (ActType != UNDO && ActType != REDO)
+		if (ActType != UNDO && ActType != REDO&&ActType!=LOAD
+			&&ActType!=SAVE&&ActType!=NEW)
 		{
 			UndoStack.push(pAct);					//Push Action into Undo Stack
 			while (!getRedoStack().empty())			//Empty the stack
