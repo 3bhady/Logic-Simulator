@@ -42,12 +42,16 @@ Input* Output::CreateInput() const
 
 void Output::CreateTruthTableWindow(int RowsNumber, int ColumnNumber, int ColumnWidth, int RowWidth, int StartX, int StartY)
 {
-	pTruthTable= CreateWind((ColumnNumber + 1)*ColumnWidth, (RowsNumber + 2)*RowWidth + 20, StartX, StartY);
+	pTruthTable = CreateWind((ColumnNumber + 1)*ColumnWidth, (RowsNumber + 2)*RowWidth + 20, StartX, StartY);
 	pTruthTable->ChangeTitle("Truth Table");
 }
 
 void Output::DrawTruthTable(int SwitchCount,int LedCount,int RowsNumber, int ColumnNumber, int ColumnWidth, int RowWidth)
 {
+	int x, y;
+	pTruthTable->GetWindowSize(x, y);
+	pTruthTable->SetBrush(GREY);
+	pTruthTable->DrawRectangle(0, 0, x, y);
 	pTruthTable->SetPen(BLACK, 3);
 	for (int i = 1; i < ColumnNumber + 1; i++)
 	{

@@ -141,7 +141,7 @@ void TruthTable::Execute()
 			int x = (i - 1);
 			ss << x;
 			ss >> order;
-			s = "Q" + order;
+			s = "L" + order;
 			fout << s << setw(5);
 		}
 		fout << endl;
