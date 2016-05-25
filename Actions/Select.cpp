@@ -250,7 +250,7 @@ bool Select::MoveInput(Connection*Comp)
 	bool check = true;
 	GraphicsInfo GInfo;
 	Component* ChangedComponent = pManager->GetArr()[Cy][Cx];
-	Connection*Comp = NULL;
+	    Comp = NULL;
 		Comp = ChangedComponent->GetInputPin(make_pair(Cx,Cy))->get_connection();
 		GInfo.x1 = Comp->get_GraphicInfo().x1;
 		GInfo.y1 = Comp->get_GraphicInfo().y1;

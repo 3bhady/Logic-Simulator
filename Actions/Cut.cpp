@@ -40,7 +40,7 @@ void Cut::Execute( )
 			pManager->GetClipboard().push_back(make_pair(make_pair(pManager->GetHighlightedComponent(i)->get_GraphicInfo(), pManager->GetHighlightedComponent(i)->getType()), pManager->GetHighlightedComponent(i)->get_label()));
 			ActionClipboard.push_back(make_pair(make_pair(pManager->GetComponent(i)->get_GraphicInfo(), pManager->GetComponent(i)->getType()),pManager->GetComponent(i)->get_label()));
 			pManager->GetComponent(i)->DeleteComponent( pManager );
-			i--;
+			//i--;
 		}
 	pManager->ClearHighlightedCompList();
 }	
